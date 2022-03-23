@@ -1,0 +1,2046 @@
+// Request by title : https://openlibrary.org/search.json?title=des%20lumières%20et%20des%20ombres
+
+{
+    "numFound": 28,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+        {
+            "key": "/works/OL17962854W",
+            "type": "work",
+            "seed": [
+                "/books/OL26555007M",
+                "/books/OL33021473M",
+                "/works/OL17962854W",
+                "/authors/OL4995547A"
+            ],
+            "title": "Ombre et lumi\u00e8re des jours",
+            "title_suggest": "Ombre et lumi\u00e8re des jours",
+            "has_fulltext": true,
+            "edition_count": 2,
+            "edition_key": [
+                "OL26555007M",
+                "OL33021473M"
+            ],
+            "publish_date": [
+                "1948"
+            ],
+            "publish_year": [
+                1948
+            ],
+            "first_publish_year": 1948,
+            "number_of_pages_median": 167,
+            "publish_place": [
+                "[Quebec"
+            ],
+            "lcc": [
+                "PS-9513.00000000 O87 O5"
+            ],
+            "last_modified_i": 1629276991,
+            "ebook_count_i": 1,
+            "ia": [
+                "ombreetlumierede0000goul"
+            ],
+            "public_scan_b": false,
+            "ia_collection_s": "inlibrary;printdisabled;trent_university;internetarchivebooks",
+            "lending_edition_s": "OL33021473M",
+            "lending_identifier_s": "ombreetlumierede0000goul",
+            "printdisabled_s": "OL33021473M",
+            "cover_edition_key": "OL33021473M",
+            "cover_i": 11689536,
+            "publisher": [
+                "\u00c9ditions du Forum]"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL4995547A"
+            ],
+            "author_name": [
+                "\u00c9lie Goulet"
+            ],
+            "subject": [
+                "Accessible book",
+                "Protected DAISY"
+            ],
+            "ia_box_id": [
+                "IA1635608"
+            ],
+            "publisher_facet": [
+                "\u00c9ditions du Forum]"
+            ],
+            "subject_facet": [
+                "Accessible book",
+                "Protected DAISY"
+            ],
+            "_version_": 1715081066853695491,
+            "lcc_sort": "PS-9513.00000000 O87 O5",
+            "author_facet": [
+                "OL4995547A \u00c9lie Goulet"
+            ],
+            "subject_key": [
+                "accessible_book",
+                "protected_daisy"
+            ]
+        },
+        {
+            "key": "/works/OL24261492W",
+            "type": "work",
+            "seed": [
+                "/books/OL32094391M",
+                "/books/OL33220791M",
+                "/works/OL24261492W",
+                "/subjects/ex-policiers",
+                "/subjects/romans_nouvelles",
+                "/subjects/place:nottingham_(angleterre)",
+                "/authors/OL20964A"
+            ],
+            "title": "D'ombre et de lumi\u00e8re",
+            "title_suggest": "D'ombre et de lumi\u00e8re",
+            "has_fulltext": true,
+            "edition_count": 2,
+            "edition_key": [
+                "OL32094391M",
+                "OL33220791M"
+            ],
+            "publish_date": [
+                "2008",
+                "2010"
+            ],
+            "publish_year": [
+                2008,
+                2010
+            ],
+            "first_publish_year": 2008,
+            "number_of_pages_median": 388,
+            "publish_place": [
+                "Paris"
+            ],
+            "oclc": [
+                "319909468",
+                "762828543"
+            ],
+            "contributor": [
+                "Gratias, Jean-Paul"
+            ],
+            "lcc": [
+                "PR-6058.00000000 H341 D219 2008 F"
+            ],
+            "ddc": [
+                "823"
+            ],
+            "isbn": [
+                "9782743618001",
+                "9782743621070",
+                "2743621079",
+                "2743618000"
+            ],
+            "last_modified_i": 1631095511,
+            "ebook_count_i": 2,
+            "ia": [
+                "dombreetdelumier0000harv_q4f6",
+                "dombreetdelumier0000harv"
+            ],
+            "public_scan_b": false,
+            "ia_collection_s": "printdisabled;internetarchivebooks;inlibrary",
+            "lending_edition_s": "OL32094391M",
+            "lending_identifier_s": "dombreetdelumier0000harv",
+            "printdisabled_s": "OL33220791M;OL32094391M",
+            "cover_edition_key": "OL32094391M",
+            "cover_i": 10749565,
+            "publisher": [
+                "Rivages",
+                "\u00c9d. Payot & Rivages"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL20964A"
+            ],
+            "author_name": [
+                "John Harvey"
+            ],
+            "place": [
+                "Nottingham (Angleterre)"
+            ],
+            "subject": [
+                "Ex-policiers",
+                "Romans, nouvelles",
+                "Accessible book",
+                "Protected DAISY"
+            ],
+            "ia_box_id": [
+                "IA1932803",
+                "IA40231003"
+            ],
+            "publisher_facet": [
+                "Rivages",
+                "\u00c9d. Payot & Rivages"
+            ],
+            "place_key": [
+                "nottingham_(angleterre)"
+            ],
+            "subject_facet": [
+                "Accessible book",
+                "Ex-policiers",
+                "Protected DAISY",
+                "Romans, nouvelles"
+            ],
+            "_version_": 1715087959245455363,
+            "place_facet": [
+                "Nottingham (Angleterre)"
+            ],
+            "lcc_sort": "PR-6058.00000000 H341 D219 2008 F",
+            "author_facet": [
+                "OL20964A John Harvey"
+            ],
+            "subject_key": [
+                "accessible_book",
+                "ex-policiers",
+                "protected_daisy",
+                "romans_nouvelles"
+            ],
+            "ddc_sort": "823"
+        },
+        {
+            "key": "/works/OL15346087W",
+            "type": "work",
+            "seed": [
+                "/books/OL25425957M",
+                "/books/OL8864615M",
+                "/works/OL15346087W",
+                "/authors/OL4587302A"
+            ],
+            "title": "Royaumes d'ombre et de lumi\u00e8re",
+            "title_suggest": "Royaumes d'ombre et de lumi\u00e8re",
+            "has_fulltext": true,
+            "edition_count": 2,
+            "edition_key": [
+                "OL25425957M",
+                "OL8864615M"
+            ],
+            "publish_date": [
+                "1972",
+                "April 11, 1990"
+            ],
+            "publish_year": [
+                1972,
+                1990
+            ],
+            "first_publish_year": 1972,
+            "number_of_pages_median": 222,
+            "isbn": [
+                "9782207501429",
+                "2207501426"
+            ],
+            "last_modified_i": 1620598615,
+            "ebook_count_i": 1,
+            "ia": [
+                "royaumesdombreet0000zela"
+            ],
+            "public_scan_b": false,
+            "ia_collection_s": "inlibrary;internetarchivebooks;printdisabled",
+            "lending_edition_s": "OL8864615M",
+            "lending_identifier_s": "royaumesdombreet0000zela",
+            "printdisabled_s": "OL8864615M",
+            "cover_edition_key": "OL8864615M",
+            "cover_i": 973828,
+            "publisher": [
+                "Deno\u00ebl"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL4587302A"
+            ],
+            "author_name": [
+                "Roger Zelazny"
+            ],
+            "author_alternative_name": [
+                "zelazny-roger",
+                "Roger ZELAZNY",
+                "Roger Joseph Zelazny",
+                "Zelazny Roger",
+                "ROGER ZELAZNY",
+                "Zelazny, Roger"
+            ],
+            "subject": [
+                "Accessible book",
+                "Protected DAISY"
+            ],
+            "id_goodreads": [
+                "2540864"
+            ],
+            "id_librarything": [
+                "5679579"
+            ],
+            "ia_box_id": [
+                "IA40096106"
+            ],
+            "publisher_facet": [
+                "Deno\u00ebl"
+            ],
+            "subject_facet": [
+                "Accessible book",
+                "Protected DAISY"
+            ],
+            "_version_": 1715078182663618564,
+            "author_facet": [
+                "OL4587302A Roger Zelazny"
+            ],
+            "subject_key": [
+                "accessible_book",
+                "protected_daisy"
+            ]
+        },
+        {
+            "key": "/works/OL22577681W",
+            "type": "work",
+            "seed": [
+                "/books/OL30621539M",
+                "/works/OL22577681W",
+                "/authors/OL8623783A"
+            ],
+            "title": "Ombres et lumi\u00e8res de Costebelle",
+            "title_suggest": "Ombres et lumi\u00e8res de Costebelle",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL30621539M"
+            ],
+            "publish_date": [
+                "2011"
+            ],
+            "publish_year": [
+                2011
+            ],
+            "first_publish_year": 2011,
+            "number_of_pages_median": 338,
+            "lccn": [
+                "2012420388"
+            ],
+            "publish_place": [
+                "Riom]"
+            ],
+            "lcc": [
+                "PQ-2702.00000000.A765 O43 2011"
+            ],
+            "ddc": [
+                "843.92"
+            ],
+            "isbn": [
+                "2812904860",
+                "9782812904868"
+            ],
+            "last_modified_i": 1602667409,
+            "ebook_count_i": 0,
+            "publisher": [
+                "De Bor\u00e9e"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL8623783A"
+            ],
+            "author_name": [
+                "Ren\u00e9 Barral"
+            ],
+            "publisher_facet": [
+                "De Bor\u00e9e"
+            ],
+            "_version_": 1715086161008918534,
+            "lcc_sort": "PQ-2702.00000000.A765 O43 2011",
+            "author_facet": [
+                "OL8623783A Ren\u00e9 Barral"
+            ],
+            "ddc_sort": "843.92"
+        },
+        {
+            "key": "/works/OL25519791W",
+            "type": "work",
+            "seed": [
+                "/books/OL34231039M",
+                "/works/OL25519791W",
+                "/authors/OL9643613A"
+            ],
+            "title": "Lumi\u00e8res et Ombres de Vie",
+            "title_suggest": "Lumi\u00e8res et Ombres de Vie",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL34231039M"
+            ],
+            "publish_date": [
+                "2021"
+            ],
+            "publish_year": [
+                2021
+            ],
+            "first_publish_year": 2021,
+            "isbn": [
+                "9781006766299",
+                "1006766294"
+            ],
+            "last_modified_i": 1633088564,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Blurb, Incorporated"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL9643613A"
+            ],
+            "author_name": [
+                "Roberto Cucinato"
+            ],
+            "publisher_facet": [
+                "Blurb, Incorporated"
+            ],
+            "_version_": 1715089262248984577,
+            "author_facet": [
+                "OL9643613A Roberto Cucinato"
+            ]
+        },
+        {
+            "key": "/works/OL11749792W",
+            "type": "work",
+            "seed": [
+                "/books/OL16352312M",
+                "/works/OL11749792W",
+                "/authors/OL4995547A"
+            ],
+            "title": "Ombre et lumi\u00e8re des jours [roman.]",
+            "title_suggest": "Ombre et lumi\u00e8re des jours [roman.]",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL16352312M"
+            ],
+            "publish_date": [
+                "1948"
+            ],
+            "publish_year": [
+                1948
+            ],
+            "first_publish_year": 1948,
+            "number_of_pages_median": 167,
+            "publish_place": [
+                "[Quebec"
+            ],
+            "lcc": [
+                "PS-9513.00000000 O87 O5"
+            ],
+            "last_modified_i": 1260847471,
+            "ebook_count_i": 0,
+            "publisher": [
+                "\u00c9ditions du Forum]"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL4995547A"
+            ],
+            "author_name": [
+                "\u00c9lie Goulet"
+            ],
+            "publisher_facet": [
+                "\u00c9ditions du Forum]"
+            ],
+            "_version_": 1715075271860682753,
+            "lcc_sort": "PS-9513.00000000 O87 O5",
+            "author_facet": [
+                "OL4995547A \u00c9lie Goulet"
+            ]
+        },
+        {
+            "key": "/works/OL12315511W",
+            "type": "work",
+            "seed": [
+                "/books/OL18072605M",
+                "/works/OL12315511W",
+                "/subjects/history",
+                "/subjects/h\u00f4pital_sainte-justine",
+                "/subjects/voluntarism",
+                "/subjects/volunteer_workers_in_hospitals",
+                "/subjects/women_volunteers_in_social_service",
+                "/subjects/place:montr\u00e9al",
+                "/subjects/place:quebec_(province)",
+                "/authors/OL5396905A"
+            ],
+            "title": "Travail d'ombre et de lumi\u00e8re",
+            "title_suggest": "Travail d'ombre et de lumi\u00e8re",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL18072605M"
+            ],
+            "publish_date": [
+                "1990"
+            ],
+            "publish_year": [
+                1990
+            ],
+            "first_publish_year": 1990,
+            "number_of_pages_median": 191,
+            "publish_place": [
+                "Qu\u00e9bec"
+            ],
+            "contributor": [
+                "Institut qu\u00e9b\u00e9cois de recherche sur la culture."
+            ],
+            "lcc": [
+                "RA-0972.70000000.C53 1990"
+            ],
+            "ddc": [
+                "610.730698"
+            ],
+            "isbn": [
+                "9782892241389",
+                "2892241383"
+            ],
+            "last_modified_i": 1291405066,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Institut qu\u00e9b\u00e9cois de recherche sur la culture"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL5396905A"
+            ],
+            "author_name": [
+                "Aline Charles"
+            ],
+            "place": [
+                "Montr\u00e9al",
+                "Quebec (Province)"
+            ],
+            "subject": [
+                "History",
+                "H\u00f4pital Sainte-Justine",
+                "Voluntarism",
+                "Volunteer workers in hospitals",
+                "Women volunteers in social service"
+            ],
+            "publisher_facet": [
+                "Institut qu\u00e9b\u00e9cois de recherche sur la culture"
+            ],
+            "place_key": [
+                "montr\u00e9al",
+                "quebec_(province)"
+            ],
+            "subject_facet": [
+                "History",
+                "H\u00f4pital Sainte-Justine",
+                "Voluntarism",
+                "Volunteer workers in hospitals",
+                "Women volunteers in social service"
+            ],
+            "_version_": 1715075810031828994,
+            "place_facet": [
+                "Montr\u00e9al",
+                "Quebec (Province)"
+            ],
+            "lcc_sort": "RA-0972.70000000.C53 1990",
+            "author_facet": [
+                "OL5396905A Aline Charles"
+            ],
+            "subject_key": [
+                "history",
+                "h\u00f4pital_sainte-justine",
+                "voluntarism",
+                "volunteer_workers_in_hospitals",
+                "women_volunteers_in_social_service"
+            ],
+            "ddc_sort": "610.730698"
+        },
+        {
+            "key": "/works/OL9963332W",
+            "type": "work",
+            "seed": [
+                "/books/OL18473767M",
+                "/works/OL9963332W",
+                "/subjects/astrology",
+                "/authors/OL3930585A"
+            ],
+            "title": "Plan\u00e8tes d'ombre et de lumi\u00e8re",
+            "title_suggest": "Plan\u00e8tes d'ombre et de lumi\u00e8re",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL18473767M"
+            ],
+            "publish_date": [
+                "1993"
+            ],
+            "publish_year": [
+                1993
+            ],
+            "first_publish_year": 1993,
+            "number_of_pages_median": 289,
+            "publish_place": [
+                "Paris"
+            ],
+            "lcc": [
+                "BF-1708.20000000.A56 1993"
+            ],
+            "last_modified_i": 1291407297,
+            "ebook_count_i": 0,
+            "publisher": [
+                "G. Tr\u00e9daniel"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL3930585A"
+            ],
+            "author_name": [
+                "Ir\u00e8ne Andrieu"
+            ],
+            "subject": [
+                "Astrology"
+            ],
+            "publisher_facet": [
+                "G. Tr\u00e9daniel"
+            ],
+            "subject_facet": [
+                "Astrology"
+            ],
+            "_version_": 1715098493040721922,
+            "lcc_sort": "BF-1708.20000000.A56 1993",
+            "author_facet": [
+                "OL3930585A Ir\u00e8ne Andrieu"
+            ],
+            "subject_key": [
+                "astrology"
+            ]
+        },
+        {
+            "key": "/works/OL24087131W",
+            "type": "work",
+            "seed": [
+                "/books/OL31783861M",
+                "/works/OL24087131W",
+                "/subjects/street_lighting",
+                "/subjects/history",
+                "/subjects/architectural_and_decorative_lighting",
+                "/subjects/place:france",
+                "/subjects/place:paris",
+                "/authors/OL9062019A"
+            ],
+            "title": "Paris d'ombre et de lumi\u00e8re",
+            "title_suggest": "Paris d'ombre et de lumi\u00e8re",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL31783861M"
+            ],
+            "publish_date": [
+                "2006"
+            ],
+            "publish_year": [
+                2006
+            ],
+            "first_publish_year": 2006,
+            "number_of_pages_median": 144,
+            "lccn": [
+                "2007435853"
+            ],
+            "publish_place": [
+                "Paris"
+            ],
+            "contributor": [
+                "Koltirine, Remi",
+                "Camenen, Delphine"
+            ],
+            "lcc": [
+                "TK-4188.00000000.B635 2006"
+            ],
+            "isbn": [
+                "9782952821902",
+                "2952821909"
+            ],
+            "last_modified_i": 1608379805,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Paris Villages"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL9062019A"
+            ],
+            "author_name": [
+                "Marine Bouniol"
+            ],
+            "place": [
+                "France",
+                "Paris"
+            ],
+            "subject": [
+                "Street lighting",
+                "History",
+                "Architectural and decorative Lighting"
+            ],
+            "publisher_facet": [
+                "Paris Villages"
+            ],
+            "place_key": [
+                "france",
+                "paris"
+            ],
+            "subject_facet": [
+                "Architectural and decorative Lighting",
+                "History",
+                "Street lighting"
+            ],
+            "_version_": 1715087823750561793,
+            "place_facet": [
+                "France",
+                "Paris"
+            ],
+            "lcc_sort": "TK-4188.00000000.B635 2006",
+            "author_facet": [
+                "OL9062019A Marine Bouniol"
+            ],
+            "subject_key": [
+                "architectural_and_decorative_lighting",
+                "history",
+                "street_lighting"
+            ]
+        },
+        {
+            "key": "/works/OL1431053W",
+            "type": "work",
+            "seed": [
+                "/books/OL17848203M",
+                "/books/OL23308656M",
+                "/works/OL1431053W",
+                "/subjects/metaphor",
+                "/subjects/language",
+                "/subjects/person:victor_hugo_(1802-1885)",
+                "/authors/OL149146A"
+            ],
+            "title": "La couleur, la lumi\u00e8re, et l'ombre dans les m\u00e9taphores de Victor Hugo",
+            "title_suggest": "La couleur, la lumi\u00e8re, et l'ombre dans les m\u00e9taphores de Victor Hugo",
+            "has_fulltext": true,
+            "edition_count": 2,
+            "edition_key": [
+                "OL17848203M",
+                "OL23308656M"
+            ],
+            "publish_date": [
+                "1905"
+            ],
+            "publish_year": [
+                1905
+            ],
+            "first_publish_year": 1905,
+            "number_of_pages_median": 379,
+            "publish_place": [
+                "Paris"
+            ],
+            "lcc": [
+                "PQ-2305.00000000 H78"
+            ],
+            "last_modified_i": 1283469991,
+            "ebook_count_i": 1,
+            "ia": [
+                "lacouleurlalumi00huguuoft"
+            ],
+            "public_scan_b": true,
+            "ia_collection_s": "fav-19omhs72;toronto;robarts",
+            "cover_edition_key": "OL23308656M",
+            "cover_i": 6527586,
+            "publisher": [
+                "Hachette"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL149146A"
+            ],
+            "author_name": [
+                "Edmond Eug\u00e8ne Auguste Huguet"
+            ],
+            "person": [
+                "Victor Hugo (1802-1885)"
+            ],
+            "subject": [
+                "Metaphor",
+                "Language",
+                "Accessible book"
+            ],
+            "publisher_facet": [
+                "Hachette"
+            ],
+            "person_key": [
+                "victor_hugo_(1802-1885)"
+            ],
+            "person_facet": [
+                "Victor Hugo (1802-1885)"
+            ],
+            "subject_facet": [
+                "Accessible book",
+                "Language",
+                "Metaphor"
+            ],
+            "_version_": 1715077536807911425,
+            "lcc_sort": "PQ-2305.00000000 H78",
+            "author_facet": [
+                "OL149146A Edmond Eug\u00e8ne Auguste Huguet"
+            ],
+            "subject_key": [
+                "accessible_book",
+                "language",
+                "metaphor"
+            ]
+        },
+        {
+            "key": "/works/OL15390442W",
+            "type": "work",
+            "seed": [
+                "/books/OL24368702M",
+                "/works/OL15390442W",
+                "/authors/OL6829286A"
+            ],
+            "title": "Un Ch\u00eane d'Ombre et de Lumi\u00e8re",
+            "title_suggest": "Un Ch\u00eane d'Ombre et de Lumi\u00e8re",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL24368702M"
+            ],
+            "publish_date": [
+                "2007"
+            ],
+            "publish_year": [
+                2007
+            ],
+            "first_publish_year": 2007,
+            "number_of_pages_median": 64,
+            "publish_place": [
+                "Dole, Jura, France"
+            ],
+            "isbn": [
+                "2916295089",
+                "9782916295084"
+            ],
+            "last_modified_i": 1598081936,
+            "ebook_count_i": 0,
+            "cover_edition_key": "OL24368702M",
+            "cover_i": 6600027,
+            "publisher": [
+                "DMODMO \u00e9ditions"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL6829286A"
+            ],
+            "author_name": [
+                "Alain Goy"
+            ],
+            "publisher_facet": [
+                "DMODMO \u00e9ditions"
+            ],
+            "_version_": 1715078199518429184,
+            "author_facet": [
+                "OL6829286A Alain Goy"
+            ]
+        },
+        {
+            "key": "/works/OL4913001W",
+            "type": "work",
+            "seed": [
+                "/books/OL12464890M",
+                "/works/OL4913001W",
+                "/authors/OL1053504A"
+            ],
+            "title": "Ombres et lumi\u00e8res de la famille Nour",
+            "title_suggest": "Ombres et lumi\u00e8res de la famille Nour",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL12464890M"
+            ],
+            "publish_date": [
+                "August 31, 2001"
+            ],
+            "publish_year": [
+                2001
+            ],
+            "first_publish_year": 2001,
+            "number_of_pages_median": 258,
+            "isbn": [
+                "2228894729",
+                "9782228894722"
+            ],
+            "last_modified_i": 1272445149,
+            "ebook_count_i": 0,
+            "cover_edition_key": "OL12464890M",
+            "cover_i": 5197978,
+            "publisher": [
+                "Payot"
+            ],
+            "author_key": [
+                "OL1053504A"
+            ],
+            "author_name": [
+                "Catherine Delcroix"
+            ],
+            "id_goodreads": [
+                "700515"
+            ],
+            "publisher_facet": [
+                "Payot"
+            ],
+            "_version_": 1715092805563449345,
+            "author_facet": [
+                "OL1053504A Catherine Delcroix"
+            ]
+        },
+        {
+            "key": "/works/OL22724277W",
+            "type": "work",
+            "seed": [
+                "/books/OL30709717M",
+                "/works/OL22724277W",
+                "/subjects/history",
+                "/subjects/person:jean-pierre_c\u00f4mes_(1933-)",
+                "/subjects/place:algeria",
+                "/subjects/time:revolution_1954-1962",
+                "/authors/OL8659694A"
+            ],
+            "title": "Alg\u00e9rie, souvenirs d'ombre et de lumi\u00e8re",
+            "title_suggest": "Alg\u00e9rie, souvenirs d'ombre et de lumi\u00e8re",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL30709717M"
+            ],
+            "publish_date": [
+                "2012"
+            ],
+            "publish_year": [
+                2012
+            ],
+            "first_publish_year": 2012,
+            "number_of_pages_median": 266,
+            "lccn": [
+                "2012439971"
+            ],
+            "publish_place": [
+                "Paris"
+            ],
+            "lcc": [
+                "DT-0295.00000000.C563 2012"
+            ],
+            "isbn": [
+                "2296569706",
+                "9782296569706"
+            ],
+            "last_modified_i": 1603850806,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Harmattan"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL8659694A"
+            ],
+            "author_name": [
+                "Jean-Pierre C\u00f4mes"
+            ],
+            "person": [
+                "Jean-Pierre C\u00f4mes (1933-)"
+            ],
+            "place": [
+                "Algeria"
+            ],
+            "subject": [
+                "History"
+            ],
+            "time": [
+                "Revolution, 1954-1962"
+            ],
+            "publisher_facet": [
+                "Harmattan"
+            ],
+            "person_key": [
+                "jean-pierre_c\u00f4mes_(1933-)"
+            ],
+            "place_key": [
+                "algeria"
+            ],
+            "time_facet": [
+                "Revolution, 1954-1962"
+            ],
+            "person_facet": [
+                "Jean-Pierre C\u00f4mes (1933-)"
+            ],
+            "subject_facet": [
+                "History"
+            ],
+            "_version_": 1715086326894690307,
+            "place_facet": [
+                "Algeria"
+            ],
+            "lcc_sort": "DT-0295.00000000.C563 2012",
+            "author_facet": [
+                "OL8659694A Jean-Pierre C\u00f4mes"
+            ],
+            "subject_key": [
+                "history"
+            ],
+            "time_key": [
+                "revolution_1954-1962"
+            ]
+        },
+        {
+            "key": "/works/OL23982637W",
+            "type": "work",
+            "seed": [
+                "/books/OL31684152M",
+                "/works/OL23982637W",
+                "/subjects/drama",
+                "/subjects/person:loyse_de_savoie_(1462-1503)",
+                "/authors/OL90558A"
+            ],
+            "title": "Entre lumi\u00e8re et ombres, Loyse de Savoie",
+            "title_suggest": "Entre lumi\u00e8re et ombres, Loyse de Savoie",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL31684152M"
+            ],
+            "publish_date": [
+                "2003"
+            ],
+            "publish_year": [
+                2003
+            ],
+            "first_publish_year": 2003,
+            "number_of_pages_median": 109,
+            "lccn": [
+                "2005530670"
+            ],
+            "publish_place": [
+                "Vevey"
+            ],
+            "contributor": [
+                "Cuneo, Roger"
+            ],
+            "lcc": [
+                "PQ-2663.00000000.U64 E68 2003"
+            ],
+            "ddc": [
+                "842.914"
+            ],
+            "isbn": [
+                "9782940248100",
+                "2940248109"
+            ],
+            "last_modified_i": 1607891478,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Cadratin"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL90558A"
+            ],
+            "author_name": [
+                "Anne Cuneo"
+            ],
+            "person": [
+                "Loyse de Savoie (1462-1503)"
+            ],
+            "subject": [
+                "Drama"
+            ],
+            "publisher_facet": [
+                "Cadratin"
+            ],
+            "person_key": [
+                "loyse_de_savoie_(1462-1503)"
+            ],
+            "person_facet": [
+                "Loyse de Savoie (1462-1503)"
+            ],
+            "subject_facet": [
+                "Drama"
+            ],
+            "_version_": 1715087622364200960,
+            "lcc_sort": "PQ-2663.00000000.U64 E68 2003",
+            "author_facet": [
+                "OL90558A Anne Cuneo"
+            ],
+            "subject_key": [
+                "drama"
+            ],
+            "ddc_sort": "842.914"
+        },
+        {
+            "key": "/works/OL11285921W",
+            "type": "work",
+            "seed": [
+                "/books/OL17324840M",
+                "/works/OL11285921W",
+                "/subjects/marriage",
+                "/authors/OL4734506A"
+            ],
+            "title": "Les ombres et les lumi\u00e8res de l'amour",
+            "title_suggest": "Les ombres et les lumi\u00e8res de l'amour",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL17324840M"
+            ],
+            "publish_date": [
+                "1967"
+            ],
+            "publish_year": [
+                1967
+            ],
+            "first_publish_year": 1967,
+            "number_of_pages_median": 156,
+            "publish_place": [
+                "[Montr\u00e9al]"
+            ],
+            "contributor": [
+                "Germain-Cadotte, Suzanne,",
+                "Desnoyers, Jeanne,"
+            ],
+            "lcc": [
+                "HQ-0734.00000000 L23"
+            ],
+            "last_modified_i": 1263961691,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Cercle du livre de France"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL4734506A"
+            ],
+            "author_name": [
+                "G\u00e9rard Labrosse"
+            ],
+            "subject": [
+                "Marriage"
+            ],
+            "publisher_facet": [
+                "Cercle du livre de France"
+            ],
+            "subject_facet": [
+                "Marriage"
+            ],
+            "_version_": 1715074738726895618,
+            "lcc_sort": "HQ-0734.00000000 L23",
+            "author_facet": [
+                "OL4734506A G\u00e9rard Labrosse"
+            ],
+            "subject_key": [
+                "marriage"
+            ]
+        },
+        {
+            "key": "/works/OL2425479W",
+            "type": "work",
+            "seed": [
+                "/books/OL21511545M",
+                "/works/OL2425479W",
+                "/subjects/history",
+                "/subjects/cinematography",
+                "/subjects/motion_pictures",
+                "/subjects/equipment_and_supplies",
+                "/authors/OL334340A"
+            ],
+            "title": "Le grand art de la lumi\u00e8re et de l'ombre",
+            "title_suggest": "Le grand art de la lumi\u00e8re et de l'ombre",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL21511545M"
+            ],
+            "publish_date": [
+                "1995"
+            ],
+            "publish_year": [
+                1995
+            ],
+            "first_publish_year": 1995,
+            "number_of_pages_median": 512,
+            "publish_place": [
+                "Paris"
+            ],
+            "lcc": [
+                "TR-0848.00000000.M26 1995"
+            ],
+            "isbn": [
+                "209190077X",
+                "9782091900773"
+            ],
+            "last_modified_i": 1282169827,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Nathan"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL334340A"
+            ],
+            "author_name": [
+                "Laurent Mannoni"
+            ],
+            "subject": [
+                "History",
+                "Cinematography",
+                "Motion pictures",
+                "Equipment and supplies"
+            ],
+            "id_goodreads": [
+                "707748"
+            ],
+            "id_librarything": [
+                "1357635"
+            ],
+            "publisher_facet": [
+                "Nathan"
+            ],
+            "subject_facet": [
+                "Cinematography",
+                "Equipment and supplies",
+                "History",
+                "Motion pictures"
+            ],
+            "_version_": 1715087989922594816,
+            "lcc_sort": "TR-0848.00000000.M26 1995",
+            "author_facet": [
+                "OL334340A Laurent Mannoni"
+            ],
+            "subject_key": [
+                "cinematography",
+                "equipment_and_supplies",
+                "history",
+                "motion_pictures"
+            ]
+        },
+        {
+            "key": "/works/OL15890456W",
+            "type": "work",
+            "seed": [
+                "/books/OL24798295M",
+                "/works/OL15890456W",
+                "/subjects/city_planning",
+                "/subjects/urban_policy",
+                "/subjects/cities_and_towns",
+                "/subjects/place:france",
+                "/authors/OL6929986A"
+            ],
+            "title": "La politique de la ville entre ombres et lumi\u00e8res",
+            "title_suggest": "La politique de la ville entre ombres et lumi\u00e8res",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL24798295M"
+            ],
+            "publish_date": [
+                "2009"
+            ],
+            "publish_year": [
+                2009
+            ],
+            "first_publish_year": 2009,
+            "number_of_pages_median": 141,
+            "lccn": [
+                "2010540823"
+            ],
+            "publish_place": [
+                "Voiron"
+            ],
+            "lcc": [
+                "HT-0169.00000000.F7 M46 2009"
+            ],
+            "isbn": [
+                "2352958504",
+                "9782352958505"
+            ],
+            "last_modified_i": 1600985789,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Territorial"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL6929986A"
+            ],
+            "author_name": [
+                "St\u00e9phane Menu"
+            ],
+            "place": [
+                "France"
+            ],
+            "subject": [
+                "City planning",
+                "Urban policy",
+                "Cities and towns"
+            ],
+            "publisher_facet": [
+                "Territorial"
+            ],
+            "place_key": [
+                "france"
+            ],
+            "subject_facet": [
+                "Cities and towns",
+                "City planning",
+                "Urban policy"
+            ],
+            "_version_": 1715078714106052609,
+            "place_facet": [
+                "France"
+            ],
+            "lcc_sort": "HT-0169.00000000.F7 M46 2009",
+            "author_facet": [
+                "OL6929986A St\u00e9phane Menu"
+            ],
+            "subject_key": [
+                "cities_and_towns",
+                "city_planning",
+                "urban_policy"
+            ]
+        },
+        {
+            "key": "/works/OL22375471W",
+            "type": "work",
+            "seed": [
+                "/books/OL30461095M",
+                "/works/OL22375471W",
+                "/subjects/criticism_and_interpretation",
+                "/subjects/escape_in_literature",
+                "/subjects/person:henri-joseph_du_laurens_(1719-1797)",
+                "/authors/OL8566622A"
+            ],
+            "title": "Ecrire et s'enfuir, dans l'ombre des Lumi\u00e8res",
+            "title_suggest": "Ecrire et s'enfuir, dans l'ombre des Lumi\u00e8res",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL30461095M"
+            ],
+            "publish_date": [
+                "2009"
+            ],
+            "publish_year": [
+                2009
+            ],
+            "first_publish_year": 2009,
+            "number_of_pages_median": 318,
+            "lccn": [
+                "2010421216"
+            ],
+            "publish_place": [
+                "Paris"
+            ],
+            "oclc": [
+                "475863340"
+            ],
+            "lcc": [
+                "PQ-1981.00000000.D75 Z83 2009"
+            ],
+            "isbn": [
+                "2359300024",
+                "9782359300024"
+            ],
+            "last_modified_i": 1600897434,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Les points sur les i"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL8566622A"
+            ],
+            "author_name": [
+                "St\u00e9phan Pascau"
+            ],
+            "person": [
+                "Henri-Joseph Du Laurens (1719-1797)"
+            ],
+            "subject": [
+                "Criticism and interpretation",
+                "Escape in literature"
+            ],
+            "publisher_facet": [
+                "Les points sur les i"
+            ],
+            "person_key": [
+                "henri-joseph_du_laurens_(1719-1797)"
+            ],
+            "person_facet": [
+                "Henri-Joseph Du Laurens (1719-1797)"
+            ],
+            "subject_facet": [
+                "Criticism and interpretation",
+                "Escape in literature"
+            ],
+            "_version_": 1715086003302039558,
+            "lcc_sort": "PQ-1981.00000000.D75 Z83 2009",
+            "author_facet": [
+                "OL8566622A St\u00e9phan Pascau"
+            ],
+            "subject_key": [
+                "criticism_and_interpretation",
+                "escape_in_literature"
+            ]
+        },
+        {
+            "key": "/works/OL19063661W",
+            "type": "work",
+            "seed": [
+                "/books/OL26719428M",
+                "/works/OL19063661W",
+                "/subjects/history",
+                "/subjects/french",
+                "/subjects/colonization",
+                "/authors/OL6429898A"
+            ],
+            "title": "Ombres et lumi\u00e8res de l'Alg\u00e9rie fran\u00e7aise (French Edition)",
+            "title_suggest": "Ombres et lumi\u00e8res de l'Alg\u00e9rie fran\u00e7aise (French Edition)",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL26719428M"
+            ],
+            "publish_date": [
+                "May 01, 2012"
+            ],
+            "publish_year": [
+                2012
+            ],
+            "first_publish_year": 2012,
+            "number_of_pages_median": 204,
+            "lccn": [
+                "2012469961"
+            ],
+            "lcc": [
+                "DT-0294.00000000.T866 2012"
+            ],
+            "isbn": [
+                "2296969720",
+                "9782296969728"
+            ],
+            "last_modified_i": 1603879028,
+            "ebook_count_i": 0,
+            "cover_edition_key": "OL26719428M",
+            "cover_i": 8377204,
+            "publisher": [
+                "Editions L'Harmattan"
+            ],
+            "author_key": [
+                "OL6429898A"
+            ],
+            "author_name": [
+                "Jean-Jacques Tur"
+            ],
+            "subject": [
+                "History",
+                "French",
+                "Colonization"
+            ],
+            "publisher_facet": [
+                "Editions L'Harmattan"
+            ],
+            "subject_facet": [
+                "Colonization",
+                "French",
+                "History"
+            ],
+            "_version_": 1715082253533446144,
+            "lcc_sort": "DT-0294.00000000.T866 2012",
+            "author_facet": [
+                "OL6429898A Jean-Jacques Tur"
+            ],
+            "subject_key": [
+                "colonization",
+                "french",
+                "history"
+            ]
+        },
+        {
+            "key": "/works/OL24632958W",
+            "type": "work",
+            "seed": [
+                "/books/OL32686444M",
+                "/works/OL24632958W",
+                "/authors/OL8598352A"
+            ],
+            "title": "Un \u00e9t\u00e9 d'ombre et de lumi\u00e8re - tome 1",
+            "title_suggest": "Un \u00e9t\u00e9 d'ombre et de lumi\u00e8re - tome 1",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL32686444M"
+            ],
+            "publish_date": [
+                "Jul 01, 2021"
+            ],
+            "publish_year": [
+                2021
+            ],
+            "first_publish_year": 2021,
+            "number_of_pages_median": 448,
+            "isbn": [
+                "2258193427",
+                "9782258193420"
+            ],
+            "last_modified_i": 1624867152,
+            "ebook_count_i": 0,
+            "cover_edition_key": "OL32686444M",
+            "cover_i": 11311317,
+            "publisher": [
+                "PRESSES CITE"
+            ],
+            "author_key": [
+                "OL8598352A"
+            ],
+            "author_name": [
+                "Martine Delomme"
+            ],
+            "publisher_facet": [
+                "PRESSES CITE"
+            ],
+            "_version_": 1715088349863084041,
+            "author_facet": [
+                "OL8598352A Martine Delomme"
+            ]
+        },
+        {
+            "key": "/works/OL23302267W",
+            "type": "work",
+            "seed": [
+                "/books/OL31149128M",
+                "/works/OL23302267W",
+                "/subjects/music",
+                "/subjects/philosophy_and_aesthetics",
+                "/subjects/mathematics",
+                "/authors/OL7849457A",
+                "/authors/OL8838442A",
+                "/authors/OL3957437A"
+            ],
+            "title": "\u00c0 la lumi\u00e8re des math\u00e9matiques et \u00e0 l'ombre de la philosophie",
+            "title_suggest": "\u00c0 la lumi\u00e8re des math\u00e9matiques et \u00e0 l'ombre de la philosophie",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL31149128M"
+            ],
+            "publish_date": [
+                "2012"
+            ],
+            "publish_year": [
+                2012
+            ],
+            "first_publish_year": 2012,
+            "number_of_pages_median": 273,
+            "lccn": [
+                "2014380969"
+            ],
+            "publish_place": [
+                "Paris]",
+                "Sampzon"
+            ],
+            "oclc": [
+                "858320709"
+            ],
+            "lcc": [
+                "ML-3800.00000000.A12 2012"
+            ],
+            "ddc": [
+                "780"
+            ],
+            "isbn": [
+                "9782752101396",
+                "2752101392"
+            ],
+            "last_modified_i": 1605322611,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Delatour France",
+                "\u00c9cole normale sup\u00e9rieure",
+                "Ircam-Centre Pompidou"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL7849457A",
+                "OL8838442A",
+                "OL3957437A"
+            ],
+            "author_name": [
+                "Moreno Andreatta",
+                "Fran\u00e7ois Nicolas",
+                "Charles Alunni"
+            ],
+            "subject": [
+                "Music",
+                "Philosophy and aesthetics",
+                "Mathematics"
+            ],
+            "publisher_facet": [
+                "Delatour France",
+                "Ircam-Centre Pompidou",
+                "\u00c9cole normale sup\u00e9rieure"
+            ],
+            "subject_facet": [
+                "Mathematics",
+                "Music",
+                "Philosophy and aesthetics"
+            ],
+            "_version_": 1715086930153046016,
+            "lcc_sort": "ML-3800.00000000.A12 2012",
+            "author_facet": [
+                "OL3957437A Charles Alunni",
+                "OL7849457A Moreno Andreatta",
+                "OL8838442A Fran\u00e7ois Nicolas"
+            ],
+            "subject_key": [
+                "mathematics",
+                "music",
+                "philosophy_and_aesthetics"
+            ],
+            "ddc_sort": "780"
+        },
+        {
+            "key": "/works/OL12443392W",
+            "type": "work",
+            "seed": [
+                "/books/OL18525099M",
+                "/works/OL12443392W",
+                "/subjects/history_and_criticism",
+                "/subjects/swiss_poetry_(french)",
+                "/subjects/light_and_darkness_in_literature",
+                "/subjects/belgian_poetry_(french)",
+                "/subjects/time:20th_century",
+                "/authors/OL5492518A"
+            ],
+            "title": "Ombre et lumi\u00e8re dans la po\u00e9sie belge et suisse de langue fran\u00e7aise",
+            "title_suggest": "Ombre et lumi\u00e8re dans la po\u00e9sie belge et suisse de langue fran\u00e7aise",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL18525099M"
+            ],
+            "publish_date": [
+                "2007"
+            ],
+            "publish_year": [
+                2007
+            ],
+            "first_publish_year": 2007,
+            "number_of_pages_median": 487,
+            "publish_place": [
+                "Strasbourg"
+            ],
+            "contributor": [
+                "Schnyder, Peter, 1946-.",
+                "Lys\u00f8e, Eric."
+            ],
+            "ddc": [
+                "809"
+            ],
+            "isbn": [
+                "2868203051",
+                "9782868203052"
+            ],
+            "last_modified_i": 1272439815,
+            "ebook_count_i": 0,
+            "cover_edition_key": "OL18525099M",
+            "cover_i": 5424606,
+            "publisher": [
+                "Presses universitaires de Strasbourg"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL5492518A"
+            ],
+            "author_name": [
+                "Universit\u00e9 de Haute-Alsace. Centre de recherche sur l'Europe litt\u00e9raire."
+            ],
+            "subject": [
+                "History and criticism",
+                "Swiss poetry (French)",
+                "Light and darkness in literature",
+                "Belgian poetry (French)"
+            ],
+            "time": [
+                "20th century"
+            ],
+            "publisher_facet": [
+                "Presses universitaires de Strasbourg"
+            ],
+            "time_facet": [
+                "20th century"
+            ],
+            "subject_facet": [
+                "Belgian poetry (French)",
+                "History and criticism",
+                "Light and darkness in literature",
+                "Swiss poetry (French)"
+            ],
+            "_version_": 1715075972813815808,
+            "author_facet": [
+                "OL5492518A Universit\u00e9 de Haute-Alsace. Centre de recherche sur l'Europe litt\u00e9raire."
+            ],
+            "subject_key": [
+                "belgian_poetry_(french)",
+                "history_and_criticism",
+                "light_and_darkness_in_literature",
+                "swiss_poetry_(french)"
+            ],
+            "ddc_sort": "809",
+            "time_key": [
+                "20th_century"
+            ]
+        },
+        {
+            "key": "/works/OL9991516W",
+            "type": "work",
+            "seed": [
+                "/books/OL12597832M",
+                "/works/OL9991516W",
+                "/authors/OL3956014A"
+            ],
+            "title": "Photom\u00e9trie, ou, De la mesure et de la gradation de la lumi\u00e8re, des couleurs et de l'ombre (1760)",
+            "title_suggest": "Photom\u00e9trie, ou, De la mesure et de la gradation de la lumi\u00e8re, des couleurs et de l'ombre (1760)",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL12597832M"
+            ],
+            "publish_date": [
+                "May 3, 2000"
+            ],
+            "publish_year": [
+                2000
+            ],
+            "first_publish_year": 2000,
+            "number_of_pages_median": 454,
+            "isbn": [
+                "9782738461933",
+                "273846193X"
+            ],
+            "last_modified_i": 1260840385,
+            "ebook_count_i": 0,
+            "publisher": [
+                "L'Harmattan"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL3956014A"
+            ],
+            "author_name": [
+                "Lambert J.H."
+            ],
+            "publisher_facet": [
+                "L'Harmattan"
+            ],
+            "_version_": 1715098505230417923,
+            "author_facet": [
+                "OL3956014A Lambert J.H."
+            ]
+        },
+        {
+            "key": "/works/OL11151900W",
+            "type": "work",
+            "seed": [
+                "/books/OL14714338M",
+                "/works/OL11151900W",
+                "/subjects/person:andr\u00e9_ch\u00e9nier_(1762-1794)",
+                "/authors/OL4655530A"
+            ],
+            "title": "Jeux d'ombre et de lumi\u00e8re sur la jeunesse d'Andr\u00e9 Ch\u00e9nier",
+            "title_suggest": "Jeux d'ombre et de lumi\u00e8re sur la jeunesse d'Andr\u00e9 Ch\u00e9nier",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL14714338M"
+            ],
+            "publish_date": [
+                "1957"
+            ],
+            "publish_year": [
+                1957
+            ],
+            "first_publish_year": 1957,
+            "number_of_pages_median": 332,
+            "publish_place": [
+                "[Paris]"
+            ],
+            "last_modified_i": 1263926963,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Gallimard"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL4655530A"
+            ],
+            "author_name": [
+                "G\u00e9raud Venzac"
+            ],
+            "person": [
+                "Andr\u00e9 Ch\u00e9nier (1762-1794)"
+            ],
+            "publisher_facet": [
+                "Gallimard"
+            ],
+            "person_key": [
+                "andr\u00e9_ch\u00e9nier_(1762-1794)"
+            ],
+            "person_facet": [
+                "Andr\u00e9 Ch\u00e9nier (1762-1794)"
+            ],
+            "_version_": 1715074635511365632,
+            "author_facet": [
+                "OL4655530A G\u00e9raud Venzac"
+            ]
+        },
+        {
+            "key": "/works/OL24143520W",
+            "type": "work",
+            "seed": [
+                "/books/OL31851396M",
+                "/works/OL24143520W",
+                "/authors/OL9082113A"
+            ],
+            "title": "Le Retour aux Aliz\u00e9s un \u00e9t\u00e9 d'ombre et de lumi\u00e8res le carnet noir",
+            "title_suggest": "Le Retour aux Aliz\u00e9s un \u00e9t\u00e9 d'ombre et de lumi\u00e8res le carnet noir",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL31851396M"
+            ],
+            "publish_date": [
+                "Jan 09, 2011"
+            ],
+            "publish_year": [
+                2011
+            ],
+            "first_publish_year": 2011,
+            "isbn": [
+                "2298165335",
+                "9782298165333"
+            ],
+            "last_modified_i": 1610202363,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Noyelles"
+            ],
+            "author_key": [
+                "OL9082113A"
+            ],
+            "author_name": [
+                "Martine DELOMME"
+            ],
+            "publisher_facet": [
+                "Noyelles"
+            ],
+            "_version_": 1715087775749898240,
+            "author_facet": [
+                "OL9082113A Martine DELOMME"
+            ]
+        },
+        {
+            "key": "/works/OL24143519W",
+            "type": "work",
+            "seed": [
+                "/books/OL31851395M",
+                "/works/OL24143519W",
+                "/authors/OL9082112A"
+            ],
+            "title": "Le Retour aux Aliz\u00e9s un \u00e9t\u00e9 d'ombre et de lumi\u00e8res le carnet noir",
+            "title_suggest": "Le Retour aux Aliz\u00e9s un \u00e9t\u00e9 d'ombre et de lumi\u00e8res le carnet noir",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL31851395M"
+            ],
+            "publish_date": [
+                "Jan 09, 2011"
+            ],
+            "publish_year": [
+                2011
+            ],
+            "first_publish_year": 2011,
+            "isbn": [
+                "2298165335",
+                "9782298165333"
+            ],
+            "last_modified_i": 1610202363,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Noyelles"
+            ],
+            "author_key": [
+                "OL9082112A"
+            ],
+            "author_name": [
+                "Martine DELOMME"
+            ],
+            "publisher_facet": [
+                "Noyelles"
+            ],
+            "_version_": 1715087776557301765,
+            "author_facet": [
+                "OL9082112A Martine DELOMME"
+            ]
+        },
+        {
+            "key": "/works/OL6849078W",
+            "type": "work",
+            "seed": [
+                "/books/OL17320607M",
+                "/works/OL6849078W",
+                "/authors/OL1877734A"
+            ],
+            "title": "L' art informel, satire suivie du Moustique, Po\u00e8me h\u00e9ro\u00efcomique, et de Ombre et lumi\u00e8re, sonnets et po\u00e8mes divers",
+            "title_suggest": "L' art informel, satire suivie du Moustique, Po\u00e8me h\u00e9ro\u00efcomique, et de Ombre et lumi\u00e8re, sonnets et po\u00e8mes divers",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL17320607M"
+            ],
+            "publish_date": [
+                "1966"
+            ],
+            "publish_year": [
+                1966
+            ],
+            "first_publish_year": 1966,
+            "number_of_pages_median": 188,
+            "publish_place": [
+                "Paris"
+            ],
+            "lcc": [
+                "PQ-2672.00000000 A1628 A89"
+            ],
+            "last_modified_i": 1260850082,
+            "ebook_count_i": 0,
+            "publisher": [
+                "\u00c9ditions de la Revue moderne"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL1877734A"
+            ],
+            "author_name": [
+                "Georges Labro"
+            ],
+            "publisher_facet": [
+                "\u00c9ditions de la Revue moderne"
+            ],
+            "_version_": 1715095083736367105,
+            "lcc_sort": "PQ-2672.00000000 A1628 A89",
+            "author_facet": [
+                "OL1877734A Georges Labro"
+            ]
+        },
+        {
+            "key": "/works/OL4173472W",
+            "type": "work",
+            "seed": [
+                "/books/OL17934145M",
+                "/works/OL4173472W",
+                "/subjects/person:victor_hugo_(1802-1885)",
+                "/authors/OL789848A"
+            ],
+            "title": "Les m\u00e9taphores et les comparaisons dans l'oeuvre de Victor Hugo ; La couleur, la lumi\u00e8re et l'ombre dans les m\u00e9taphores de Victor Hugo",
+            "title_suggest": "Les m\u00e9taphores et les comparaisons dans l'oeuvre de Victor Hugo ; La couleur, la lumi\u00e8re et l'ombre dans les m\u00e9taphores de Victor Hugo",
+            "has_fulltext": false,
+            "edition_count": 1,
+            "edition_key": [
+                "OL17934145M"
+            ],
+            "publish_date": [
+                "1905"
+            ],
+            "publish_year": [
+                1905
+            ],
+            "first_publish_year": 1905,
+            "number_of_pages_median": 379,
+            "publish_place": [
+                "Paris"
+            ],
+            "last_modified_i": 1291403388,
+            "ebook_count_i": 0,
+            "publisher": [
+                "Hachette"
+            ],
+            "language": [
+                "fre"
+            ],
+            "author_key": [
+                "OL789848A"
+            ],
+            "author_name": [
+                "Edmond Huguet"
+            ],
+            "person": [
+                "Victor Hugo (1802-1885)"
+            ],
+            "publisher_facet": [
+                "Hachette"
+            ],
+            "person_key": [
+                "victor_hugo_(1802-1885)"
+            ],
+            "person_facet": [
+                "Victor Hugo (1802-1885)"
+            ],
+            "_version_": 1715091726772731904,
+            "author_facet": [
+                "OL789848A Edmond Huguet"
+            ]
+        }
+    ],
+    "num_found": 28,
+    "q": "",
+    "offset": null
+}

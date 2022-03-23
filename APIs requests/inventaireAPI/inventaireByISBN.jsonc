@@ -1,0 +1,27 @@
+// Request by ISBN : https://inventaire.io/api/data?action=isbn&isbn=9782909450018
+
+{
+    "group": "2",
+    "publisher": "909450",
+    "article": "01",
+    "check": "8",
+    "prefix": "978",
+    "isIsbn13": true,
+    "isIsbn10": false,
+    "groupname": "French language",
+    "check10": "5",
+    "check13": "8",
+    "isbn13": "9782909450018",
+    "isbn13h": "978-2-909450-01-8",
+    "isbn10": "2909450015",
+    "isbn10h": "2-909450-01-5",
+    "isValid": true,
+    "groupPrefix": "978-2",
+    "publisherPrefix": "978-2-909450",
+    "groupLang": "fr",
+    "groupLangUri": "wd:Q150",
+    "query": "9782909450018",
+    "title": "Des lumières et des ombres",
+    "authors": ["Henri Alekan"],
+    "publicationDate": "1991"
+}

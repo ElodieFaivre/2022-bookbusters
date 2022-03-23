@@ -1,0 +1,39 @@
+<!--
+  Request by author and/or title : 
+  http://classify.oclc.org/classify2/Classify?author=henri%20alekan&title=des%20lumières%20et%20des%20ombres&summary=true
+-->
+
+<classify xmlns="http://classify.oclc.org">
+    <response code="0"/>
+    <!--
+        Classify is a product of OCLC Online Computer Library Center: http://classify.oclc.org
+    -->
+    <work 
+        author="Alekan, Henri, 1909-2001 | Cinémathèque française [Contributor]" 
+        editions="39" 
+        eholdings="1" 
+        format="Book" 
+        holdings="165" 
+        itemtype="itemtype-book" 
+        owi="149132194" 
+        title="Des lumières et des ombres"
+    >12315015</work>
+    <authors>
+        <author lc="n50052274" viaf="123123699">Cinémathèque française [Contributor]</author>
+        <author lc="n84187812" viaf="42028311">Alekan, Henri, 1909-2001</author>
+    </authors>
+    <orderBy>thold desc</orderBy>
+    <input type="wi">12315015</input>
+    <recommendations>
+        <ddc>
+            <mostPopular holdings="67" nsfa="778.5" sfa="778.5"/>
+            <mostRecent holdings="33" sfa="778.5343"/>
+            <latestEdition holdings="1" sf2="22" sfa="791.4301"/>
+            <latestEdition holdings="1" sf2="22" sfa="778.5343"/>
+        </ddc>
+        <lcc>
+            <mostPopular holdings="29" nsfa="TR891" sfa="TR891"/>
+            <mostRecent holdings="2" sfa="TR590"/>
+        </lcc>
+    </recommendations>
+</classify>

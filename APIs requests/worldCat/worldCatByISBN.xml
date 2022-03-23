@@ -1,0 +1,43 @@
+<!--
+  Request by ISBN : http://classify.oclc.org/classify2/Classify?isbn=9782909450018&summary=true
+-->
+
+<classify xmlns="http://classify.oclc.org">
+    <response code="4"/>
+    <!--
+        Classify is a product of OCLC Online Computer Library Center: http://classify.oclc.org
+    -->
+    <workCount>2</workCount>
+    <start>0</start>
+    <maxRecs>25</maxRecs>
+    <orderBy>thold desc</orderBy>
+    <input type="isbn">9782909450018</input>
+    <works>
+        <work 
+            author="Alekan, Henri, 1909-2001 | Cinémathèque française [Contributor]" 
+            editions="39" 
+            format="Book" 
+            holdings="166" 
+            hyr="2001" 
+            itemtype="itemtype-book" 
+            lyr="1979" 
+            owi="149132194" 
+            schemes="DDC LCC" 
+            title="Des lumières et des ombres" 
+            wi="12315015"
+        />
+        <work 
+            author="Alekan, Jean" 
+            editions="1" 
+            format="Book" 
+            holdings="3" 
+            hyr="1991" 
+            itemtype="itemtype-book" 
+            lyr="1991" 
+            owi="3769449411" 
+            schemes="LCC" 
+            title="Les lumières et des ombres" 
+            wi="29512849"
+        />
+    </works>
+</classify>

@@ -95,17 +95,14 @@ body {
 .book__book--one {
     animation: book-fall-one 1s ease-in;
     animation-iteration-count: infinite;
-    animation-delay: 2s;
 }
 
 .book__book--two {
     animation: book-fall-two 1s ease-in;
     animation-iteration-count: infinite;
-    animation-delay: 1s;
 }
 
 .book__book--three {
     animation: book-fall-three 1s ease-in;
     animation-iteration-count: infinite;
-    animation-delay: 0s;
 }

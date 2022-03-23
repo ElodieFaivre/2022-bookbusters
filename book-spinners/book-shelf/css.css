@@ -57,5 +57,5 @@ body {
 .book-shelf__shelf {
     animation: shelf-lift 0.9s ease;
     animation-iteration-count: infinite;
-    transform-origin: 50% 50%;
+    transform-origin: 40px 45px;
 }

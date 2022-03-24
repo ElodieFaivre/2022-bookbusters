@@ -1,0 +1,127 @@
+// https://query.wikidata.org/sparql?format=json&query=SELECT%20DISTINCT%20%20%20?item%20%20%20?isbn13%20%20%20%20?isbn10%20%20%20%20?image%20%20%20%20?title%20%20%20%20?typeLabel%20%20%20%20?authorLabel%20%20%20%20?work%20%20%20%20?workLabel%20%20%20%20?genreLabel%20%20%20%20?quotation%20%20%20%20?characters%20%20%20%20?subject%20%20%20%20?pagesNb%20%20%20%20?languageLabel%20%20%20%20?publisherLabel%20%20%20%20?publicationDate%20%20%20%20?format%20%20%20?editor%20%20%20%20?worldCatID%20%20%20%20?openLibrairyID%20%20%20%20?googleBooksID%20%20%20%20?internetArchiveID%20%20%20%20?bnfID%20%20WHERE%20{%20%20%20%20{%20{%20?item%20wdt:P212%20%27978-2-7096-2286-8%27%20.%20}%20UNION%20{%20?item%20wdt:P957%20%272-7096-2286-6%27%20.%20}%20}%20%20%20%20%20%20OPTIONAL%20{%20?item%20wdt:P212%20?isbn13%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P957%20?isbn10%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P18%20?image%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P1476%20?title%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P31%20?type%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P50%20?author%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P629%20?work%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P136%20?genre%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P1683%20?quotation%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P674%20?characters%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P921%20?subject%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P1104%20?pagesNb%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P407%20?language%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P123%20?publisher%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P577%20?publicationDate%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P437%20?format%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P98%20?editor%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P243%20?worldCatID%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P648%20?openLibrairyID%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P675%20?googleBooksID%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P724%20?internetArchiveID%20.%20}%20%20%20OPTIONAL%20{%20?item%20wdt:P268%20?bnfID%20.%20}%20%20%20SERVICE%20wikibase:label%20{%20bd:serviceParam%20wikibase:language%20%22[AUTO_LANGUAGE]%22.%20}%20}%20LIMIT%2020
+
+{
+  "head" : {
+    "vars" : [ "item", "isbn13", "isbn10", "image", "title", "typeLabel", "authorLabel", "work", "workLabel", "genreLabel", "quotation", "characters", "subject", "pagesNb", "languageLabel", "publisherLabel", "publicationDate", "format", "editor", "worldCatID", "openLibrairyID", "googleBooksID", "internetArchiveID", "bnfID" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3202878"
+      },
+      "isbn13" : {
+        "type" : "literal",
+        "value" : "978-2-7096-2286-8"
+      },
+      "isbn10" : {
+        "type" : "literal",
+        "value" : "2-7096-2286-6"
+      },
+      "title" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "L'Empire des solitudes"
+      },
+      "typeLabel" : {
+        "type" : "literal",
+        "value" : "Q47461344"
+      },
+      "authorLabel" : {
+        "type" : "literal",
+        "value" : "Q3287979"
+      },
+      "languageLabel" : {
+        "type" : "literal",
+        "value" : "Q150"
+      },
+      "publicationDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2001-01-01T00:00:00Z"
+      },
+      "worldCatID" : {
+        "type" : "literal",
+        "value" : "319871047"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3222286"
+      },
+      "isbn13" : {
+        "type" : "literal",
+        "value" : "978-2-7096-2286-8"
+      },
+      "isbn10" : {
+        "type" : "literal",
+        "value" : "2-7096-2286-6"
+      },
+      "title" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Le Diable est dans les détails"
+      },
+      "typeLabel" : {
+        "type" : "literal",
+        "value" : "Q47461344"
+      },
+      "authorLabel" : {
+        "type" : "literal",
+        "value" : "Q3287979"
+      },
+      "languageLabel" : {
+        "type" : "literal",
+        "value" : "Q150"
+      },
+      "publicationDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2003-01-01T00:00:00Z"
+      },
+      "worldCatID" : {
+        "type" : "literal",
+        "value" : "319871047"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3342733"
+      },
+      "isbn13" : {
+        "type" : "literal",
+        "value" : "978-2-7096-2286-8"
+      },
+      "isbn10" : {
+        "type" : "literal",
+        "value" : "2-7096-2286-6"
+      },
+      "title" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Noir prophète"
+      },
+      "typeLabel" : {
+        "type" : "literal",
+        "value" : "Q47461344"
+      },
+      "authorLabel" : {
+        "type" : "literal",
+        "value" : "Q3287979"
+      },
+      "languageLabel" : {
+        "type" : "literal",
+        "value" : "Q150"
+      },
+      "publicationDate" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#dateTime",
+        "type" : "literal",
+        "value" : "2004-01-01T00:00:00Z"
+      },
+      "worldCatID" : {
+        "type" : "literal",
+        "value" : "319871047"
+      }
+    } ]
+  }
+}

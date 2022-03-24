@@ -1,0 +1,747 @@
+// https://www.googleapis.com/books/v1/volumes?q=des%20lumieres%20et%20des%20ombres%20henri%20alekan
+
+{
+  "kind": "books#volumes",
+  "totalItems": 3053,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "UAyNPQAACAAJ",
+      "etag": "WbWVh7M0SRw",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/UAyNPQAACAAJ",
+      "volumeInfo": {
+        "title": "Des lumières et des ombres",
+        "authors": [
+          "Henri Alekan"
+        ],
+        "publishedDate": "1996",
+        "description": "De la Belle et la Bête, de jean Cocteau, aux Ailes du Désir, de Wim Wenders, entre Henri Alekan et le Cinéma, ce sont soixante années d'une histoire d'amour, d'ombres et de lumières. C'est à un véritable Traité de la lumière qu'il nous invite, nous faisant partager une vie de réflexion et de méditation sur la perception au fil des temps de la lumière et de son double, l'ombre, au gré des tableaux qu'il a étudiés et des films qu'il a éclairés et luminés. Un des plus grands directeurs de la photo du Cinéma mondial, éternel jeune homme dont l'art est toujours actuel, nous offre, en un ouvrage devenu un livre culte, sa vision des ombres, des lumières et de leur influence sur le déroulement d'un film, et bien au-delà, de notre vie...",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "2909450015"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9782909450018"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 289,
+        "printType": "BOOK",
+        "categories": [
+          "Chiaroscuro"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=UAyNPQAACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=1&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=UAyNPQAACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Des_lumi%C3%A8res_et_des_ombres.html?hl=&id=UAyNPQAACAAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=UAyNPQAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "De la Belle et la Bête, de jean Cocteau, aux Ailes du Désir, de Wim Wenders, entre Henri Alekan et le Cinéma, ce sont soixante années d&#39;une histoire d&#39;amour, d&#39;ombres et de lumières."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "NjU2zgEACAAJ",
+      "etag": "lnKvixLpNu4",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/NjU2zgEACAAJ",
+      "volumeInfo": {
+        "title": "Henri Alekan",
+        "subtitle": "des lumieres et des ombres",
+        "authors": [
+          "Henri Alekan"
+        ],
+        "publishedDate": "1985",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "OCLC:1235442572"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 298,
+        "printType": "BOOK",
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=NjU2zgEACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=2&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=NjU2zgEACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Henri_Alekan.html?hl=&id=NjU2zgEACAAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=NjU2zgEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "QEryngEACAAJ",
+      "etag": "Bl4cAQY0zqM",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/QEryngEACAAJ",
+      "volumeInfo": {
+        "title": "Des lumières et des ombres",
+        "subtitle": "dans la nature et dans les arts",
+        "authors": [
+          "Henri Alekan",
+          "Alain Robbe-Grillet",
+          "Joseph Losey",
+          "Marcel Moreau"
+        ],
+        "publishedDate": "1983",
+        "industryIdentifiers": [
+          {
+            "type": "OTHER",
+            "identifier": "OCLC:468347596"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 16,
+        "printType": "BOOK",
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=QEryngEACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=3&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=QEryngEACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Des_lumi%C3%A8res_et_des_ombres.html?hl=&id=QEryngEACAAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=QEryngEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "wV-eMAEACAAJ",
+      "etag": "okU4In46NWw",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/wV-eMAEACAAJ",
+      "volumeInfo": {
+        "title": "Henri Alekan",
+        "subtitle": "l'enfant des lumières",
+        "authors": [
+          "Pierre-Alexandre Schwab"
+        ],
+        "publisher": "Editions Hermann",
+        "publishedDate": "2012",
+        "description": "Que seraient des films cultes comme La Belle et la Bête de Jean Cocteau ou Les Ailes du désir de Wim Wenders sans les somptueuses images d'Henri Alekan? Pierre-Alexandre Schwab retrace la carrière exceptionnelle de celui qu'il considère comme \"le plus baudelairien des chefs opérateurs\". Des tout premiers pas d'Alekan, aux côtés de son maître Eugen Schiifftan, jusqu'à l'âge de la maturité où l'artiste met en pratique ses conceptions picturales et musicales de la lumière, en collaborant avec les plus grands cinéastes, l'auteur nous fait traverser soixante-dix ans de vie créative, de Marcel Carné à Amos Gitaï, en passant par René Clément, William Wyler, Abel Gance, Joseph Losey ou Ratil Ruiz.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "2705683585"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9782705683580"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 117,
+        "printType": "BOOK",
+        "categories": [
+          "Cinematographers"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=wV-eMAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=wV-eMAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=wV-eMAEACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=4&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=wV-eMAEACAAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Henri_Alekan.html?hl=&id=wV-eMAEACAAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=wV-eMAEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Que seraient des films cultes comme La Belle et la Bête de Jean Cocteau ou Les Ailes du désir de Wim Wenders sans les somptueuses images d&#39;Henri Alekan?"
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "tE2pJZ_u294C",
+      "etag": "7eQJXOETgb8",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/tE2pJZ_u294C",
+      "volumeInfo": {
+        "title": "Traité de la lumière",
+        "authors": [
+          "Libero Zuppiroli",
+          "Marie-Noëlle Bussac"
+        ],
+        "publisher": "PPUR presses polytechniques",
+        "publishedDate": "2009",
+        "description": "Le Traité de la lumière se présente à la fois comme un livre de science et un livre d'art. En cultivant cette double allégeance, les auteurs ont cherché à exorciser les aspects les plus durs de la technoscience d'aujourd'hui. Or la lumière se prête bien à cet exercice car elle est source de toute vie et de toute énergie; à la manière des divinités hindouistes, elle se présente à l'homme sous de nombreux avatars dont chacun s'enrichit de multiples sens scientifiques et métaphoriques. La première partie de l'ouvrage est ainsi destinée à un public non spécialisé curieux de comprendre la diversité du phénomène lumineux et privilégiant les côtés les plus créatifs de cette investigation, à la fois dans les sciences et dans les arts. La seconde partie, destinée à des lecteurs plus scientifiques, complète l'exploration de la lumière par quelques développements mathématiques importants qui assoient cette étude d'une manière plus rigoureuse. Richement illustré, tout comme le Traité des couleurs des mêmes auteurs, ce livre bénéficie de la contribution photographique originale de Christiane Grimm.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9782880748012"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "2880748011"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 481,
+        "printType": "BOOK",
+        "categories": [
+          "Light"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.1.0.0.preview.1",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=tE2pJZ_u294C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=tE2pJZ_u294C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=tE2pJZ_u294C&pg=PA50&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=5&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=tE2pJZ_u294C&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Trait%C3%A9_de_la_lumi%C3%A8re.html?hl=&id=tE2pJZ_u294C"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=tE2pJZ_u294C&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Fred: le tailleur d&#39;\u003cb\u003eombres\u003c/b\u003e. ... [5] LUCRECE, De la nature livre quatrième (33-71), traduction de Henri Chouard, G. F. Flammarion (1964) p. 120. ... [10] \u003cb\u003eHenri ALEKAN\u003c/b\u003e, \u003cb\u003eDes lumières et des ombres\u003c/b\u003e, Le Sycomore (1984)."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "r_7EprzzqBgC",
+      "etag": "BkbbYX7LB3s",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/r_7EprzzqBgC",
+      "volumeInfo": {
+        "title": "Claude Simon",
+        "subtitle": "une écriture en cinéma",
+        "authors": [
+          "Bérénice Bonhomme"
+        ],
+        "publisher": "Peter Lang",
+        "publishedDate": "2010",
+        "description": "La critique simonienne s'est déjà penchée sur les rapports de l'oeuvre de Claude Simon à l'image, peinture ou photographie, mais le lien au cinéma n'a donné lieu qu'à peu d'études approfondies. Cette recherche met donc au jour les liens complexes de Claude Simon à l'image cinématographique et fait porter l'effort d'analyse sur ce dialogue toujours renouvelé entre écriture et réalisation filmique, afin de montrer dans quelle mesure le passage d'un langage à un autre influence notablement le processus créatif chez Claude Simon. L'écrivain a commencé à écrire un découpage pour l'adaptation de La Route des Flandres dès 1961, mais le projet n'a pas abouti. Ce que, dès lors, cet ouvrage tente de mettre en évidence c'est l'histoire d'un rendez-vous manqué dont la dynamique va pourtant enrichir toute une oeuvre littéraire.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "3039119834"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9783039119837"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 349,
+        "printType": "BOOK",
+        "categories": [
+          "Performing Arts"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.3.3.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=r_7EprzzqBgC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=r_7EprzzqBgC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=r_7EprzzqBgC&pg=PA192&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=6&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=r_7EprzzqBgC&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Claude_Simon.html?hl=&id=r_7EprzzqBgC"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=r_7EprzzqBgC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Sur la table la ligne de séparation entre l&#39;ombre et le soleil progresse de façon imperceptible . ... Dans \u003cb\u003eDes lumières et des ombres\u003c/b\u003e , \u003cb\u003eHenri Alekan\u003c/b\u003e classe selon leurs caractéristiques deux grands types de lumières , que l&#39;on retrouve&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "yvIPhueBQKUC",
+      "etag": "quScggcqdR8",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/yvIPhueBQKUC",
+      "volumeInfo": {
+        "title": "América, n° 23",
+        "publisher": "Presses Sorbonne Nouvelle",
+        "publishedDate": "1999",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "2878541863"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9782878541861"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 212,
+        "printType": "BOOK",
+        "categories": [
+          "Book industries and trade"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.4.2.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=yvIPhueBQKUC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=yvIPhueBQKUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=yvIPhueBQKUC&pg=PA176&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=7&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=yvIPhueBQKUC&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Am%C3%A9rica_n_23.html?hl=&id=yvIPhueBQKUC"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=yvIPhueBQKUC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Dans l&#39;analyse sémiologique du message photographique , on distingue trois composantes essentielles : la \u003cb\u003elumière\u003c/b\u003e , le mouvement et la composition . ... \u003cb\u003eHenri Alekan\u003c/b\u003e , \u003cb\u003eDes lumières et des ombres\u003c/b\u003e , Paris , Le sycomore , 1984 , p ."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "8z2kDQAAQBAJ",
+      "etag": "OU7wd3NhPEQ",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/8z2kDQAAQBAJ",
+      "volumeInfo": {
+        "title": "Transnational Cinematography Studies",
+        "authors": [
+          "Lindsay Coleman",
+          "Daisuke Miyao",
+          "Roberto Schaefer"
+        ],
+        "publisher": "Lexington Books",
+        "publishedDate": "2016-12-27",
+        "description": "This collection explores how the role of cinematography will evolve in an ever-increasing digitized industry in a transnational context. Contributors aim to bridge conversations about critical film studies and technical film practices while proposing that cinema has always been at the foreground of transnational culture.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781498524285"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1498524281"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 234,
+        "printType": "BOOK",
+        "categories": [
+          "Language Arts & Disciplines"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "2.4.3.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=8z2kDQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=8z2kDQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fr/books?id=8z2kDQAAQBAJ&pg=PA112&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=8&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=8z2kDQAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=8z2kDQAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 88.62,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 67.73,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=8z2kDQAAQBAJ&rdid=book-8z2kDQAAQBAJ&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 88620000,
+              "currencyCode": "EUR"
+            },
+            "retailPrice": {
+              "amountInMicros": 67730000,
+              "currencyCode": "EUR"
+            },
+            "giftable": true
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fr/books/download/Transnational_Cinematography_Studies-sample-epub.acsm?id=8z2kDQAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fr/books/download/Transnational_Cinematography_Studies-sample-pdf.acsm?id=8z2kDQAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=8z2kDQAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "For a useful summary of Alekan&#39;s career, see Benjamin Bergery, “\u003cb\u003eHenri Alekan\u003c/b\u003e: The Doyen of French Cinematography,” American Cinematographer 77, no. ... \u003cb\u003eHenri Alekan\u003c/b\u003e, \u003cb\u003eDes lumières et des ombres\u003c/b\u003e (Paris: Le Sycamore, 1984), 97."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "7ubeDAAAQBAJ",
+      "etag": "4CiMLt9KlTw",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/7ubeDAAAQBAJ",
+      "volumeInfo": {
+        "title": "Noir. Lumière et théâtralité",
+        "authors": [
+          "Véronique Perruchon"
+        ],
+        "publisher": "Presses Universitaires du Septentrion",
+        "publishedDate": "2016-08-16",
+        "description": "Cette étude est une traversée historique et esthétique du noir au théâtre. Par des exemples concrets, l'ouvrage rend compte de son évolution et permet d'établir le noir en tant que lumière parmi les composantes de la scène. Du xve au xviie siècle, la lumière était un luxe. Au xixe siècle, époque de « l’obscurcissement des théâtres », le noir est un allié de l’illusion théâtrale. En se rapprochant du xxe siècle, il trouve progressivement sa place et ses richesses esthétiques. Car enfin, on va « faire le noir et travailler l’ombre », grâce au symbolisme, au naturalisme ou à l’expressionnisme. Dès lors, à l’instar des futuristes, de la danse de Loïe Fuller et du théâtre d’ombres, on peut éprouver le noir et jouer avec lui dans le cadre de la boîte noire du théâtre. Plastiquement, au xxie siècle, le noir se révèle dans son absence ou sa présence. Le noir prend en charge la dimension poétique et politique du théâtre. Il devient « avaleur », « mangeur d’images » et révélateur des grandes tragédies contemporaines.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9782757414644"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "275741464X"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 304,
+        "printType": "BOOK",
+        "categories": [
+          "Performing Arts"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.3.3.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=7ubeDAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=7ubeDAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "fr",
+        "previewLink": "http://books.google.fr/books?id=7ubeDAAAQBAJ&pg=PA12&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=9&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=7ubeDAAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=7ubeDAAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 13.99,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 13.99,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=7ubeDAAAQBAJ&rdid=book-7ubeDAAAQBAJ&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 13990000,
+              "currencyCode": "EUR"
+            },
+            "retailPrice": {
+              "amountInMicros": 13990000,
+              "currencyCode": "EUR"
+            },
+            "giftable": true
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fr/books/download/Noir_Lumi%C3%A8re_et_th%C3%A9%C3%A2tralit%C3%A9-sample-epub.acsm?id=7ubeDAAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fr/books/download/Noir_Lumi%C3%A8re_et_th%C3%A9%C3%A2tralit%C3%A9-sample-pdf.acsm?id=7ubeDAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=7ubeDAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Je crois que le beau n&#39;est pas une substance en soi, mais rien qu&#39;un dessin d&#39;\u003cb\u003eombres\u003c/b\u003e, un jeu de clair-obscur produit par la juxtaposition ... \u003cb\u003eHenri Alekan\u003c/b\u003e, \u003cb\u003eDes lumières et des ombres\u003c/b\u003e, Le Sycomore, 1984, Édition Le Collectionneur, 1996."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "EZ0jEAAAQBAJ",
+      "etag": "mRQSi4XoKMU",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/EZ0jEAAAQBAJ",
+      "volumeInfo": {
+        "title": "Special Effects and German Silent Film",
+        "subtitle": "Techno-Romantic Cinema",
+        "authors": [
+          "Katharina Loew"
+        ],
+        "publisher": "Amsterdam University Press",
+        "publishedDate": "2021-03-16",
+        "description": "In recent decades, special effects have become a major new area of research in cinema studies. For the most part, they have been examined as spectacles or practical tools. In contrast, Special Effects and German Silent Film, foregrounds their function as an expressive device and their pivotal role in cinema's emergence as a full-fledged art. Special effects not only shaped the look of iconic films like Nosferatu (1922) or Metropolis (1927), but they are central to a comprehensive understanding of German silent film culture writ large. This book examines special effects as the embodiment of a \"techno-romantic\" paradigm that seeks to harness technology-the epitome of modern materialism-as a means for accessing a spiritual realm. Employed to visualize ideas and emotions in a medium-specific way, special effects thus paved the way for film art.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9789048551712"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "9048551714"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 320,
+        "printType": "BOOK",
+        "categories": [
+          "Art"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=EZ0jEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=EZ0jEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fr/books?id=EZ0jEAAAQBAJ&pg=PA91&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&cd=10&source=gbs_api",
+        "infoLink": "http://books.google.fr/books?id=EZ0jEAAAQBAJ&dq=des+lumieres+et+des+ombres+henri+alekan&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Special_Effects_and_German_Silent_Film.html?hl=&id=EZ0jEAAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "FR",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FR",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fr/books/download/Special_Effects_and_German_Silent_Film-sample-pdf.acsm?id=EZ0jEAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=EZ0jEAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Heidi Wiese, 22-57 (Marburg: Schüren-Verlag, 1996), 52; \u003cb\u003eHenri Alekan\u003c/b\u003e, Le vécu et l&#39;imaginaire: Chroniques d&#39;un homme d&#39;images (Geneva: Publishing La Sirène, 1999), 15. 52 \u003cb\u003eHenri Alekan\u003c/b\u003e, \u003cb\u003eDes lumières et des ombres\u003c/b\u003e (Paris: Librairie du&nbsp;..."
+      }
+    }
+  ]
+}

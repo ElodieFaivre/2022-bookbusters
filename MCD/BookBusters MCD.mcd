@@ -1,12 +1,13 @@
-CHAT, 0N USER, 0N USER: message num, message label, date
+AVATAR: avatar num, label, picture
+ILLUSTRATE, 0N AVATAR, 11 USER
 USER: user num, pseudo, email address, password, bio, location
 HAS, 0N USER, 0N BOOK: in library, in donations, in favorites, in alerts
 BOOK: ISBN, ISBN second (ISBN10), title, cover, format, language, resume, pages number, editor, publication date,   
-WRITE, 1N BOOK, 1N AUTHOR
+WRITE, 0N BOOK, 0N AUTHOR
 AUTHOR: author num, firstname, lastname, nationality
 
-ILLUSTRATE, 0N AVATAR, 11 USER
-AVATAR: avatar num, label, picture
-
+:::
 DEFINE, 0N BOOK, 0N GENRE
 GENRE: genre num, label
+
+CHAT, 0N USER, 0N USER: message num, message label, date

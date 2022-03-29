@@ -29,10 +29,10 @@ WHERE {
   ?item wdt:P212 '978-2-7096-2286-8' .
   OPTIONAL { ?item wdt:P212 ?isbn13 . }
   OPTIONAL { ?item wdt:P957 ?isbn10 . }
-  OPTIONAL { ?item wdt:P18 ?image . }
   OPTIONAL { ?item wdt:P1476 ?title . }
   OPTIONAL { ?item wdt:P31 ?type . }
   OPTIONAL { ?item wdt:P50 ?author . }
+  OPTIONAL { ?item wdt:P18 ?image . }
   OPTIONAL { ?item wdt:P629 ?work . }
   OPTIONAL { ?item wdt:P136 ?genre . }
   OPTIONAL { ?item wdt:P1683 ?quotation . }

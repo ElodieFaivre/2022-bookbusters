@@ -12,8 +12,8 @@ const client = require('../config/database');
 
 const bookDataMapper = {
 
-    async findAll() {
-        const result = await client.query('SELECT * FROM book');
+    async findAllInDonation() {
+        const result = await client.query('SELECT book.* FROM book JOIN user_has_book ON user_has_book.book_id = book.id WHERE user_has_book.is_in_donation = TRUE');
         return result.rows;
     },
 
@@ -22,6 +22,19 @@ const bookDataMapper = {
             bookId
         ]);
         return result.rows[0];
+    },
+
+    async insert(book) {
+        const savedBook = await client.query(
+            `
+            INSERT INTO book
+            (ISBN13, ISBN13_formatted, ISBN10, ISBN10_formatted ) VALUES
+            ($1, $2, $3, $4) RETURNING *
+        `,
+            [book.ISBN13, book.ISBN13_formatted, book.ISBN10, book.ISBN10_formatted],
+        );
+
+        return savedBook.rows[0];
     },
 }
 

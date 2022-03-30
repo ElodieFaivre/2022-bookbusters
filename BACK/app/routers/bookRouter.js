@@ -21,6 +21,7 @@ router
     /**
      * GET /v1/book/{id}
      * @summary Get one book by id
+     * @param {number} id.path.required - book identifier
      * @tags BOOK
      * @return {Book} 200 - success response - application/json
      */

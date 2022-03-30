@@ -8,7 +8,7 @@ const client = require('../config/database');
  * @property {string} ISBN13_formatted
  * @property {string} ISBN10
  * @property {string} ISBN10_formatted
-*/
+ */
 
 const bookDataMapper = {
 
@@ -16,6 +16,13 @@ const bookDataMapper = {
         const result = await client.query('SELECT * FROM book');
         return result.rows;
     },
+
+    async findOneBookById(bookId) {
+        const result = await client.query('SELECT * FROM book WHERE id = $1', [
+            bookId
+        ]);
+        return result.rows[0];
+    },
 }
 
-module.exports=bookDataMapper;
+module.exports = bookDataMapper;

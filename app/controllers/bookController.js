@@ -12,5 +12,16 @@ module.exports = {
     async getAll(req, res) {
         const books = await bookDataMapper.findAll();
         return res.json(books);
-    }
+
+
+    },
+
+    async getOneBookById(req, res) {
+        const bookId = req.params.id;
+        const book = await bookDataMapper.findOneBookById(bookId);
+        if (!book) {
+            throw ApiError('Book not found', 404)
+        }
+        return res.json(book);
+    },
 };

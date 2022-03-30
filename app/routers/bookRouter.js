@@ -6,7 +6,7 @@ const controllerHandler = require("../middlewares/controllerWrapperAsync");
 const bookController = require('../controllers/bookController')
 
 router
-    .route('/')
+    .route('/book')
     /**
      * GET /v1/
      * @summary Get all books
@@ -15,5 +15,15 @@ router
      */
     .get(controllerHandler(bookController.getAll));
 
+
+router
+    .route('/book/:id')
+    /**
+     * GET /v1/
+     * @summary Get one book by id
+     * @tags BOOK
+     * @return {Book} 200 - success response - application/json
+     */
+    .get(controllerHandler(bookController.getOneBookById));
 
 module.exports = router;

@@ -10,6 +10,15 @@ const client = require('../config/database');
  * @property {string} ISBN10_formatted
  */
 
+
+/**
+ * @typedef {object} InputBook
+ * @property {string} ISBN13
+ * @property {string} ISBN13_formatted
+ * @property {string} ISBN10
+ * @property {string} ISBN10_formatted
+ */
+
 const bookDataMapper = {
 
     async findAllInDonation() {
@@ -24,6 +33,11 @@ const bookDataMapper = {
         return result.rows[0];
     },
 
+    /**
+     * Ajoute dans la base de données
+     * @param {InputBook} book - Les données à insérer
+     * @returns {Book} - Le livre ajouté
+     */
     async insert(book) {
         const savedBook = await client.query(
             `

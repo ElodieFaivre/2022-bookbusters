@@ -33,7 +33,6 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
      async addBook(req, res) {
-        
         const savedBook = await bookDataMapper.insert(req.body);
         return res.json(savedBook);
     },

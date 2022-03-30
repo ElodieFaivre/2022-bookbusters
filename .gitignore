@@ -1,0 +1,5 @@
+BACK/node_modules
+BACK/.env
+BACK/sqitch.conf
+
+FRONT/node_modules

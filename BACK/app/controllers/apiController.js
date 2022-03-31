@@ -23,6 +23,7 @@ module.exports = {
         if (!cover) {
             throw new ApiError('Sorry, book cover with this ISBN not found', 404);
         }
+        
         return res.json(cover);
     },
 };

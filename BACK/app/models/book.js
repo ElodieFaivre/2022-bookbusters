@@ -1,6 +1,5 @@
 const client = require('../config/database');
 
-
 /**
  * @typedef {object} Book
  * @property {number} id - Indentifiant unique, Pk de la table
@@ -11,18 +10,15 @@ const client = require('../config/database');
  */
 
 const bookDataMapper = {
-
     async findAll() {
         const result = await client.query('SELECT * FROM book');
         return result.rows;
     },
 
     async findOneBookById(bookId) {
-        const result = await client.query('SELECT * FROM book WHERE id = $1', [
-            bookId
-        ]);
+        const result = await client.query('SELECT * FROM book WHERE id = $1', [bookId]);
         return result.rows[0];
     },
-}
+};
 
 module.exports = bookDataMapper;

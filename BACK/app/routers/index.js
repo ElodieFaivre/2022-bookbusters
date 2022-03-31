@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const ApiError = require('../errors/apiError');
 const handleError = require('../middlewares/handleError');
-const bookRouter= require('./bookRouter');
+const bookRouter = require('./bookRouter');
 
 const router = Router();
 

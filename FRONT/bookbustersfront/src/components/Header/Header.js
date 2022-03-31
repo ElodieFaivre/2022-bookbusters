@@ -4,8 +4,9 @@ import {
   Box, 
   Toolbar, 
   Typography, 
-  IconButton 
+  IconButton,
 } from '@mui/material';
+import SearchBar from '../SearchBar/SearchBar';
 import MenuIcon from '@mui/icons-material/Menu';
 
 export default function Header() {
@@ -13,15 +14,16 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="header">
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            BookBusters
+          <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
+           
           </Typography>
+          <SearchBar />
           <IconButton
             size="small"
             edge="start"
             color="inherit"
             aria-label="menu"
-            // sx={{ mr: 0 }}
+            sx={{ mr: 0 }}
           >
             <MenuIcon />
            </IconButton>

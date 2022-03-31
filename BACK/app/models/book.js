@@ -1,5 +1,12 @@
 const client = require('../config/database');
 
+/**
+ * @typedef {object} User
+ * @property {number} id - Indentifiant unique, Pk de la table
+ * @property {string} email
+ * @property {point} location
+ * @property {number} avatar_id
+ */
 
 /**
  * @typedef {object} Book
@@ -8,6 +15,7 @@ const client = require('../config/database');
  * @property {string} ISBN13_formatted
  * @property {string} ISBN10
  * @property {string} ISBN10_formatted
+ * @property {[User]} user - user who offer this book
  */
 
 
@@ -22,12 +30,12 @@ const client = require('../config/database');
 const bookDataMapper = {
 
     async findAllInDonation() {
-        const result = await client.query('SELECT book.* FROM book JOIN user_has_book ON user_has_book.book_id = book.id WHERE user_has_book.is_in_donation = TRUE');
+        const result = await client.query('SELECT * FROM book_in_donation');
         return result.rows;
     },
 
     async findOneBookById(bookId) {
-        const result = await client.query('SELECT * FROM book WHERE id = $1', [
+        const result = await client.query('SELECT * FROM book_in_donation WHERE id = $1', [
             bookId
         ]);
         return result.rows[0];
@@ -42,7 +50,7 @@ const bookDataMapper = {
         const savedBook = await client.query(
             `
             INSERT INTO book
-            (ISBN13, ISBN13_formatted, ISBN10, ISBN10_formatted ) VALUES
+            ("ISBN13", "ISBN13_formatted", "ISBN10", "ISBN10_formatted" ) VALUES
             ($1, $2, $3, $4) RETURNING *
         `,
             [book.ISBN13, book.ISBN13_formatted, book.ISBN10, book.ISBN10_formatted],

@@ -11,7 +11,7 @@ router
     .route('/book')
     /**
      * GET /v1/book
-     * @summary Get all books in donation
+     * @summary Get all books in donation with users, order by last one
      * @tags BOOK
      * @return {[Book]} 200 - success response - application/json
      */
@@ -24,14 +24,14 @@ router
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(validate('body', createSchema), controllerHandler(bookController.addBook));
+    .post(validate(createSchema, 'body'), controllerHandler(bookController.addBook));
 
 
 router
     .route('/book/:id(\\d+)')
     /**
      * GET /v1/book/{id}
-     * @summary Get one book by id
+     * @summary Get one book in donation by id
      * @param {number} id.path.required - book identifier
      * @tags BOOK
      * @return {Book} 200 - success response - application/json

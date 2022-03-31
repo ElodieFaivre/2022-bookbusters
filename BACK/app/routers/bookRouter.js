@@ -1,9 +1,10 @@
 const express = require('express');
+
 const router = express.Router();
 
-const controllerHandler = require("../middlewares/controllerWrapperAsync");
+const controllerHandler = require('../middlewares/controllerWrapperAsync');
 
-const bookController = require('../controllers/bookController')
+const bookController = require('../controllers/bookController');
 
 router
     .route('/book')
@@ -14,7 +15,6 @@ router
      * @return {[Book]} 200 - success response - application/json
      */
     .get(controllerHandler(bookController.getAll));
-
 
 router
     .route('/book/:id')

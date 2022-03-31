@@ -18,7 +18,6 @@ const client = require('../config/database');
  * @property {[User]} user - user who offer this book
  */
 
-
 /**
  * @typedef {object} InputBook
  * @property {string} ISBN13
@@ -36,7 +35,7 @@ const bookDataMapper = {
 
     async findOneBookById(bookId) {
         const result = await client.query('SELECT * FROM book_in_donation WHERE id = $1', [
-            bookId
+            bookId,
         ]);
         return result.rows[0];
     },
@@ -58,6 +57,6 @@ const bookDataMapper = {
 
         return savedBook.rows[0];
     },
-}
+};
 
 module.exports = bookDataMapper;

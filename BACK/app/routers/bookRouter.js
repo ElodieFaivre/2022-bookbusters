@@ -1,11 +1,12 @@
 const express = require('express');
+
 const router = express.Router();
 
-const controllerHandler = require("../middlewares/controllerWrapperAsync");
+const controllerHandler = require('../middlewares/controllerWrapperAsync');
 const bookController = require('../controllers/bookController');
 
 const validate = require('../validator/validator');
-const createSchema = require('../validator/schemas/bookCreate.js');
+const createSchema = require('../validator/schemas/bookCreate');
 
 router
     .route('/book')
@@ -25,7 +26,6 @@ router
      * @return {ApiError} 400 - Bad request response - application/json
      */
     .post(validate(createSchema, 'body'), controllerHandler(bookController.addBook));
-
 
 router
     .route('/book/:id(\\d+)')

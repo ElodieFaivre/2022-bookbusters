@@ -12,15 +12,13 @@ module.exports = {
     async getAllInDonation(req, res) {
         const books = await bookDataMapper.findAllInDonation();
         return res.json(books);
-
-
     },
 
     async getOneBookById(req, res) {
         const bookId = req.params.id;
         const book = await bookDataMapper.findOneBookById(bookId);
         if (!book) {
-            throw ApiError('Book not found', 404)
+            throw ApiError('Book not found', 404);
         }
         return res.json(book);
     },
@@ -32,7 +30,7 @@ module.exports = {
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
-     async addBook(req, res) {
+    async addBook(req, res) {
         const savedBook = await bookDataMapper.insert(req.body);
         return res.json(savedBook);
     },

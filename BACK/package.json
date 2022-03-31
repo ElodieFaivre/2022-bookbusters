@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "DEBUG=*,-express:*,-nodemon*,-node-dev*,-body* node-dev index.js --no-notify",
+    "data": "DEBUG=*, node ./data/import-data.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

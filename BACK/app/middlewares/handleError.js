@@ -2,7 +2,7 @@ const debug = require('debug')('ErrorHandler');
 const ApiError = require('../errors/apiError');
 const logger = require('../helpers/logger');
 
-const handleError = (error, _, response, next) => {
+const handleError = (error, _, response) => {
     // on veut filtrer les erreurs à faire persister afin de ne pas pourir notre fichier de log
     // on prend en compte toutes les erreurs qui ne sont pas des ApiError
     // et aussi toutes les ApiError qui ont un status différent de 404

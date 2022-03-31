@@ -1,4 +1,5 @@
 const google = require('../services/google');
+const openLibrary = require('../services/openLibrary');
 const ApiError = require('../errors/apiError');
 
 module.exports = {
@@ -7,6 +8,13 @@ module.exports = {
         if (!book) {
             throw new ApiError('Sorry, book with this ISBN not found', 404);
         }
+
+        // Search for a cover to add to the book found
+        const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
+        if (cover) {
+            book.covers = cover;
+        }
+
         return res.json(book);
     },
 
@@ -15,6 +23,6 @@ module.exports = {
         if (!cover) {
             throw new ApiError('Sorry, book cover with this ISBN not found', 404);
         }
-        return res.json(book);
+        return res.json(cover);
     },
 };

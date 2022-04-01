@@ -5,6 +5,8 @@ const ApiError = require('../errors/apiError');
 module.exports = {
     /**
      * @typedef {object} BookInfo
+     * @property {string} isbn13 - Book isbn13
+     * @property {string} isbn10 - Book isbn10
      * @property {string} title - Book title
      * @property {[string]} author - Book authors
      * @property {string} resume - Book sum up
@@ -36,4 +38,22 @@ module.exports = {
         }
         return res.json(cover);
     },
+
+    async getBookByKeyword(req, res) {
+        const books = await google.findBookByKeyword(req.query.q);
+        if (!books) {
+            throw new ApiError('Sorry, book with this keyword not found', 404);
+        }
+        const openLibraryQueries=[];
+
+        books.forEach((book)=>{
+            openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13))
+        });
+
+        const openLib_result = await Promise.all(openLibraryQueries);
+        for (let i=0; i<books.length;i++){
+            books[i]={...books[i],...openLib_result[i]}
+        }
+        return res.json(books);
+    }
 };

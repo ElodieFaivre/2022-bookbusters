@@ -29,4 +29,15 @@ router
      */
     .get(controllerHandler(apiController.getBookCoverByISBN));
 
+router
+    .route('/book/search')
+    /**
+     * GET /v1/book/search
+     * @summary Find books by Keyword
+     * @param {string} q.query
+     * @tags BOOK
+     * @return {[BookInfo]} 200 - success response - application/json
+     */
+    .get(controllerHandler(apiController.getBookByKeyword));
+
 module.exports = router;

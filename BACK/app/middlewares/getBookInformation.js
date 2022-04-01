@@ -6,11 +6,19 @@ module.exports = {
      * Book middleware to get all books information.
      * @param {[Book]} books Array of book in BDD
      */
+<<<<<<< HEAD
     async getBookInformation(books) {
         const googleQueries = [];
         const openLibraryQueries = [];
 
         books.forEach((book) => {
+=======
+    async getBookInformation(books){
+
+        const googleQueries=[];
+        const openLibraryQueries=[];
+        books.forEach((book)=>{
+>>>>>>> dev
             googleQueries.push(google.findBookByISBN(book.isbn13));
             openLibraryQueries.push(openLib.findBookCoverByISBN(book.isbn13));
         });
@@ -23,6 +31,12 @@ module.exports = {
             newBooks.push({ ...books[i], ...googleResult[i], ...openLibResult[i] });
         }
 
+<<<<<<< HEAD
         return newBooks;
     },
 };
+=======
+        return books;
+    }
+}
+>>>>>>> dev

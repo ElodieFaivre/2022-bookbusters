@@ -1,27 +1,43 @@
 const fetch = require('node-fetch');
 
-const google ={
+const google = {
     async findBookByISBN(isbn) {
         try {
             const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
             const response = await fetch(url);
             const json = await response.json();
 
-            let result={};
+            let result = {};
 
             //If no answer
-            if(json.totalItems==0){
+            if (json.totalItems == 0) {
                 result = undefined;
             }
 
-            //If at least one answer
-            if(json.totalItems>=1){
+            //If at least one answer, only the first one is return
+            if (json.totalItems >= 1) {
+                let isbn13 = null;
+                let isbn10 = null;
+                if (json.items[0].volumeInfo.industryIdentifiers) {
+                    if (json.items[0].volumeInfo.industryIdentifiers.length > 0) {
+                        json.items[0].volumeInfo.industryIdentifiers.forEach(identifier => {
+                            if (identifier.type === "ISBN_13") {
+                                isbn13 = identifier.identifier;
+                            }
+                            if (identifier.type === "ISBN_10") {
+                                isbn10 = identifier.identifier;
+                            }
+                        })
+                    }
+                }
                 result = {
-                    title:json.items[0].volumeInfo.title,
-                    author:json.items[0].volumeInfo.authors,
-                    resume:json.items[0].volumeInfo.description,
-                    publishedDate:json.items[0].volumeInfo.publishedDate,
-                    language:json.items[0].volumeInfo.language
+                    isbn13: isbn13,
+                    isbn10: isbn10,
+                    title: json.items[0].volumeInfo.title,
+                    author: json.items[0].volumeInfo.authors,
+                    resume: json.items[0].volumeInfo.description,
+                    publishedDate: json.items[0].volumeInfo.publishedDate,
+                    language: json.items[0].volumeInfo.language
                 };
             }
 
@@ -33,6 +49,57 @@ const google ={
             throw error;
         }
     },
+
+    async findBookByKeyword(word) {
+        try {
+            //TODO : modify maxResults and startIndex
+            const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=3&startIndex=0`;
+            console.log(url);
+            const response = await fetch(url);
+            const json = await response.json();
+
+            let result = [];
+            console.log(json);
+            //If no answer
+            if (json.totalItems == 0) {
+                return result = undefined;
+            }
+            // else more than one answer
+            json.items.forEach(item => {
+                let isbn13 = null;
+                let isbn10 = null;
+                if (item.volumeInfo.industryIdentifiers) {
+                    if (item.volumeInfo.industryIdentifiers.length > 0) {
+                        item.volumeInfo.industryIdentifiers.forEach(identifier => {
+                            if (identifier.type === "ISBN_13") {
+                                isbn13 = identifier.identifier;
+                            }
+                            if (identifier.type === "ISBN_10") {
+                                isbn10 = identifier.identifier;
+                            }
+                        })
+                    }
+                }
+                book = {
+                    isbn13: isbn13,
+                    isbn10: isbn10,
+                    title: item.volumeInfo.title,
+                    author: item.volumeInfo.authors,
+                    resume: item.volumeInfo.description,
+                    publishedDate: item.volumeInfo.publishedDate,
+                    language: item.volumeInfo.language
+                }
+                result.push(book);
+            })
+
+
+            return result;
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
 };
 
 module.exports = google;

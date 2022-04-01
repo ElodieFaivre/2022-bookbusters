@@ -7,6 +7,7 @@ module.exports={
      * @param {[Book]} books Array of book in BDD
      */
     async getBookInformation(books){
+
         const googleQueries=[];
         const openLibraryQueries=[];
         books.forEach((book)=>{
@@ -20,5 +21,7 @@ module.exports={
         for (let i=0; i<books.length;i++){
             books[i]={...books[i],...google_result[i],...openLib_result[i]}
         }
+
+        return books;
     }
 }

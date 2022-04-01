@@ -18,10 +18,11 @@ module.exports = {
 
     async getOneBookById(req, res) {
         const bookId = req.params.id;
-        const book = await bookDataMapper.findOneBookById(bookId);
+        let book = await bookDataMapper.findOneBookById(bookId);
         if (!book) {
             throw new ApiError('Book not found', 404);
         }
+        book = await bookMW.getBookInformation([book]);
         return res.json(book);
     },
 
@@ -36,4 +37,6 @@ module.exports = {
         const savedBook = await bookDataMapper.insert(req.body);
         return res.json(savedBook);
     },
+
+
 };

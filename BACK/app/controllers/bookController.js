@@ -37,6 +37,4 @@ module.exports = {
         const savedBook = await bookDataMapper.insert(req.body);
         return res.json(savedBook);
     },
-
-
 };

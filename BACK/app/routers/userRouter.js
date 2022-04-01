@@ -7,6 +7,7 @@ const userController = require('../controllers/userController');
 
 const validate = require('../validator/validator');
 const createSchema = require('../validator/schemas/userCreate');
+const updateSchema = require('../validator/schemas/userUpdate');
 
 router
     .route('/user')
@@ -36,6 +37,26 @@ router
      * @tags USER
      * @return {User} 200 - success response - application/json
      */
-    .get(controllerHandler(userController.getOneUserById));
-
+    .get(controllerHandler(userController.getOneUserById))
+/**
+     * DELETE /v1/user/{id}
+     * @summary Delete one user
+     * @tags USER
+     * @param {number} id.path.required - user identifier
+     * @return {User} 200 - success response - application/json
+     * @return {ApiError} 400 - Bad request response - application/json
+     * @return {ApiError} 404 - User not found - application/json
+     */
+    .delete(controllerHandler(userController.deleteOneUserById))
+      /**
+     * PATCH /v1/user/{id}
+     * @summary Update one user
+     * @tags USER
+     * @param {number} id.path.required - user identifier
+     * @param {InputUser} request.body.required - user info
+     * @return {User} 200 - success response - application/json
+     * @return {ApiError} 400 - Bad request response - application/json
+     * @return {ApiError} 404 - User not found - application/json
+     */
+    .patch(validate(updateSchema, 'body'), controllerHandler(userController.update));
 module.exports = router;

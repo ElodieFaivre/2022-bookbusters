@@ -34,4 +34,53 @@ module.exports = {
         const savedUser = await userDataMapper.insert(req.body);
         return res.json(savedUser);
     },
+
+    /**
+     * User controller to delete a record.
+     * ExpressMiddleware signature
+     * @param {object} req Express request object (not used)
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
+     async deleteOneUserById(req, res) {
+        const user = await userDataMapper.findOneUserById(req.params.id);
+        if (!user) {
+            throw new ApiError('This user does not exists', { statusCode: 404 });
+        }
+
+        await userDataMapper.delete(req.params.id);
+        return res.status(204).json();
+    },
+
+        /**
+     * User controller to update a record.
+     * ExpressMiddleware signature
+     * @param {object} req Express request object (not used)
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
+         async update(req, res) {
+            const user = await userDataMapper.findOneUserById(req.params.id);
+            if (!user) {
+                throw new ApiError('This user does not exists', { statusCode: 404 });
+            }
+    
+            if (req.body.username || req.body.email) {
+                const existingUser = await userDataMapper.isUnique(req.body, req.params.id);
+                if (existingUser) {
+                    let field;
+                    if (existingUser.username === req.body.username) {
+                        field = 'username';
+                    } else {
+                        field = 'email';
+                    }
+                    throw new ApiError(`Other user already exists with this ${field}`, {
+                        statusCode: 400,
+                    });
+                }
+            }
+    
+            const savedUser = await userDataMapper.update(req.params.id, req.body);
+            return res.json(savedUser);
+        },
 };

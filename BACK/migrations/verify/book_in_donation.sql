@@ -2,7 +2,6 @@
 
 BEGIN;
 
--- XXX Add verifications here.
 SELECT * FROM book_in_donation WHERE false;
 
 ROLLBACK;

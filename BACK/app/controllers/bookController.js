@@ -1,5 +1,6 @@
 const bookDataMapper = require('../models/book');
 const ApiError = require('../errors/apiError');
+const bookMW = require('../middlewares/getBookInformation');
 
 module.exports = {
     /**
@@ -10,16 +11,18 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
-        const books = await bookDataMapper.findAllInDonation();
+        let books = await bookDataMapper.findAllInDonation();
+        await bookMW.getBookInformation(books);
         return res.json(books);
     },
 
     async getOneBookById(req, res) {
         const bookId = req.params.id;
-        const book = await bookDataMapper.findOneBookById(bookId);
+        let book = await bookDataMapper.findOneBookById(bookId);
         if (!book) {
-            throw ApiError('Book not found', 404);
+            throw new ApiError('Book not found', 404);
         }
+        book = await bookMW.getBookInformation([book]);
         return res.json(book);
     },
 
@@ -34,4 +37,6 @@ module.exports = {
         const savedBook = await bookDataMapper.insert(req.body);
         return res.json(savedBook);
     },
+
+
 };

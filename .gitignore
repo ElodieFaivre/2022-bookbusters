@@ -1,3 +1,41 @@
+# Mac OS
+**/.DS_Store*
+**/Icon?
+**/._*
+
+# Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+
+# Linux
+**/.directory
+**/*~
+
+# npm
 **/node_modules
+**/package-lock.json
+**/.pnp
+*.gz
+**/.pnp.js
+
+# log
+**/*.log
+**/*.log.*
+
+# vscode
+**/.vs_code/
+
+# config
 **/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
 **/sqitch.conf
+
+# testing
+**/coverage
+
+# production
+**/build

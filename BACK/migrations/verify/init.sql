@@ -2,7 +2,6 @@
 
 BEGIN;
 
--- XXX Add verifications here.
 SELECT * FROM "avatar" WHERE false;
 
 SELECT * FROM "user" WHERE false;

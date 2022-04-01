@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+
 module.exports = Joi.object({
     username: Joi.string()
         .alphanum()
@@ -12,11 +13,8 @@ module.exports = Joi.object({
     password: Joi.string()
         .required(),
     bio: Joi.string(),
-    location: Joi.string(),
-    // .ordered([
-    //   Joi.number().min(0).max(90).required(),
-    // Joi.number().min(-180).max(180).required()])
-    //    .required(),
+    location: Joi.string()
+         .pattern(new RegExp(/^\([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)\)$/)),
     mail_donation: Joi.boolean().default(true)
         .required(),
     mail_alert: Joi.boolean().default(true)

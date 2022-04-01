@@ -1,3 +1,32 @@
+# Mac OS
+**/.DS_Store*
+**/Icon?
+**/._*
+
+# Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+
+# Linux
+**/.directory
+**/*~
+
+# npm
 **/node_modules
+**/package-lock.json
+*.gz
+
+# log
+**/*.log
+**/*.log.*
+
+# vscode
+**/.vs_code/
+
+# config
 **/.env
 **/sqitch.conf
+
+# jest
+**/coverage

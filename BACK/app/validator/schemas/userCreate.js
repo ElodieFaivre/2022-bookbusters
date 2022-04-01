@@ -1,5 +1,5 @@
+/* eslint-disable prefer-regex-literals */
 const Joi = require('joi');
-
 
 module.exports = Joi.object({
     username: Joi.string()

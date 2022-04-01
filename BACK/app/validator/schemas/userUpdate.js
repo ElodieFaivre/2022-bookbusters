@@ -1,5 +1,5 @@
+/* eslint-disable prefer-regex-literals */
 const Joi = require('joi');
-
 
 module.exports = Joi.object({
     username: Joi.string()
@@ -11,7 +11,7 @@ module.exports = Joi.object({
     password: Joi.string(),
     bio: Joi.string(),
     location: Joi.string()
-         .pattern(new RegExp(/^\([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)\)$/)),
+        .pattern(new RegExp(/^\([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)\)$/)),
     mail_donation: Joi.boolean().default(true),
     mail_alert: Joi.boolean().default(true),
     avatar_id: Joi.string(),

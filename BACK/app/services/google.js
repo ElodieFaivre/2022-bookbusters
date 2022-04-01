@@ -1,14 +1,5 @@
 const fetch = require('node-fetch');
 
-/**
- * @typedef {object} BookInfo
- * @property {string} title - Book title
- * @property {[string]} author - Book authors
- * @property {string} resume - Book sum up
- * @property {string} publishedDate
- * @property {string} language
- */
-
 const google ={
     async findBookByISBN(isbn) {
         try {

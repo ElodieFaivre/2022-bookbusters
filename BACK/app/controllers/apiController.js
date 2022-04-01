@@ -3,6 +3,16 @@ const openLibrary = require('../services/openLibrary');
 const ApiError = require('../errors/apiError');
 
 module.exports = {
+    /**
+     * @typedef {object} BookInfo
+     * @property {string} title - Book title
+     * @property {[string]} author - Book authors
+     * @property {string} resume - Book sum up
+     * @property {string} publishedDate
+     * @property {string} language
+     * @property {string} coverM - Book medium sized cover URL
+     * @property {string} coverL - Book large sized cover URL
+     */
     async getBookByISBN(req, res) {
         const book = await google.findBookByISBN(req.params.isbn);
         if (!book) {

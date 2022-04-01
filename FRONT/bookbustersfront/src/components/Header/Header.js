@@ -1,9 +1,9 @@
 import './header.scss';
-import { 
-  AppBar, 
-  Box, 
-  Toolbar, 
-  Typography, 
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
   IconButton,
 } from '@mui/material';
 import SearchBar from '../SearchBar/SearchBar';
@@ -15,7 +15,7 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar className="header">
           <Typography variant="h8" component="div" sx={{ flexGrow: 1 }}>
-           
+
           </Typography>
           <SearchBar />
           <IconButton
@@ -24,11 +24,10 @@ export default function Header() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 0 }}
-            open= "true"
           >
             <MenuIcon />
            </IconButton>
-        </Toolbar>  
+        </Toolbar>
       </AppBar>
     </Box>
   );

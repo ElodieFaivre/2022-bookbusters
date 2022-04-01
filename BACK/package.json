@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "DEBUG=*,-express:*,-nodemon*,-node-dev*,-body* node-dev index.js --no-notify",
+    "data": "DEBUG=*, node ./data/import-data.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +26,10 @@
     "express": "^4.17.3",
     "express-jsdoc-swagger": "^1.6.7",
     "joi": "^17.6.0",
+<<<<<<< HEAD
+    "node-fetch": "^2.6.7",
+=======
+>>>>>>> dev
     "pg": "^8.7.3"
   },
   "devDependencies": {

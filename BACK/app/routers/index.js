@@ -4,12 +4,11 @@ const handleError = require('../middlewares/handleError');
 const bookRouter = require('./bookRouter');
 const userRouter = require('./userRouter');
 const apiRouter = require('./apiRouter');
+const userListsRouter = require('./userListsRouter');
+
 const router = Router();
 
-router.use('/v1', bookRouter, userRouter);
-
-
-router.use('/v1', apiRouter);
+router.use('/v1', bookRouter, userRouter, userListsRouter, apiRouter);
 
 
 router.use(() => {

@@ -1,5 +1,6 @@
 const bookDataMapper = require('../models/book');
 const ApiError = require('../errors/apiError');
+const bookMW = require('../middlewares/getBookInformation');
 
 module.exports = {
     /**
@@ -10,7 +11,8 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
-        const books = await bookDataMapper.findAllInDonation();
+        let books = await bookDataMapper.findAllInDonation();
+        await bookMW.getBookInformation(books);
         return res.json(books);
     },
 

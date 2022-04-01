@@ -5,3 +5,4 @@ init 2022-03-30T09:33:06Z elodie.faivre <elodie.faivre3@gmail.com> # creation de
 username-field 2022-03-30T18:00:51Z System Administrator <root@Copain-MiniMac.local> # add a username field into user table
 lowercase-isbn 2022-03-31T08:47:36Z System Administrator <root@Copain-MaxiBook.local> # modify isbn columns name in lowercase
 book_in_donation 2022-03-31T11:19:52Z elodie.faivre <elodie.faivre3@gmail.com> # create view book in donation
+userlists-views 2022-04-01T13:08:47Z System Administrator <root@Copain-MaxiBook.local> # Views for lists of users (library, favorite, alert)

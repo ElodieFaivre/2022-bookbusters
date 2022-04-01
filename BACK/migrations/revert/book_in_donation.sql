@@ -2,7 +2,6 @@
 
 BEGIN;
 
--- XXX Add DDLs here.
 DROP VIEW book_in_donation;
 
 COMMIT;

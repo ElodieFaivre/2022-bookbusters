@@ -17,5 +17,16 @@ router
      */
     .get(controllerHandler(apiController.getBookByISBN));
 
+router
+    .route('/book/cover/isbn/:isbn')
+    /**
+     * GET /v1/book/cover/isbn/{isbn}
+     * @summary Find one book cover with ISBN in Open Library API
+     * @param {number} isbn.path.required - book ISBN
+     * @tags COVER
+     * @return {BookCover} 200 - success response - application/json
+     * @return  {ApiError} 404 - Book not found
+     */
+    .get(controllerHandler(apiController.getBookCoverByISBN));
 
 module.exports = router;

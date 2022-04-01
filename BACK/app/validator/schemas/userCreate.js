@@ -14,7 +14,7 @@ module.exports = Joi.object({
         .required(),
     bio: Joi.string(),
     location: Joi.string()
-         .pattern(new RegExp(/^\([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)\)$/)),
+        .pattern(new RegExp(/^\([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)\)$/)),
     mail_donation: Joi.boolean().default(true)
         .required(),
     mail_alert: Joi.boolean().default(true)

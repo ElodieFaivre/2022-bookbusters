@@ -48,7 +48,7 @@ router
      * @return {ApiError} 404 - User not found - application/json
      */
     .delete(controllerHandler(userController.deleteOneUserById))
-      /**
+    /**
      * PATCH /v1/user/{id}
      * @summary Update one user
      * @tags USER

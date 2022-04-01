@@ -46,12 +46,12 @@ const userDataMapper = {
         return savedUser.rows[0];
     },
 
-     /**
+    /**
      * Supprime de la base de données
      * @param {number} id - L'id à supprimer
      * @returns {boolean} - Le résultat de la suppression
      */
-      async delete(id) {
+    async delete(id) {
         const result = await client.query('DELETE FROM "user" WHERE id = $1', [id]);
         return !!result.rowCount;
     },
@@ -63,7 +63,7 @@ const userDataMapper = {
      * @returns {(User|undefined)} - Le User existant
      * ou undefined si aucun User avec ces données
      */
-     async isUnique(inputData, userId) {
+    async isUnique(inputData, userId) {
         const fields = [];
         const values = [];
         // On récupère la liste des infos envoyés
@@ -80,14 +80,14 @@ const userDataMapper = {
             text: `SELECT * FROM "user" WHERE (${fields.join(' OR ')})`,
             values,
         };
-        
+
         // Si l'id est fourni on exclu l'enregistrement qui lui correspond
         if (userId) {
             preparedQuery.text += ` AND id <> $${values.length + 1}`;
             preparedQuery.values.push(userId);
         }
         const result = await client.query(preparedQuery);
-        
+
         if (result.rowCount === 0) {
             return null;
         }
@@ -101,9 +101,8 @@ const userDataMapper = {
      * @param {InputUser} user - Les données à modifier
      * @returns {User} - Le User modifié
      */
-     async update(id, user) {
-        const fields = Object.keys(user).map((prop, index) =>
-            `"${prop}" = $${index + 1}`);
+    async update(id, user) {
+        const fields = Object.keys(user).map((prop, index) => `"${prop}" = $${index + 1}`);
         const values = Object.values(user);
 
         const savedUser = await client.query(

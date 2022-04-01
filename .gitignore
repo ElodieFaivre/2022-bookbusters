@@ -15,7 +15,9 @@
 # npm
 **/node_modules
 **/package-lock.json
+**/.pnp
 *.gz
+**/.pnp.js
 
 # log
 **/*.log
@@ -26,7 +28,14 @@
 
 # config
 **/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
 **/sqitch.conf
 
-# jest
+# testing
 **/coverage
+
+# production
+**/build

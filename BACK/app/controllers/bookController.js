@@ -11,7 +11,7 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
-        let books = await bookDataMapper.findAllInDonation();
+        const books = await bookDataMapper.findAllInDonation();
         await bookMW.getBookInformation(books);
         return res.json(books);
     },

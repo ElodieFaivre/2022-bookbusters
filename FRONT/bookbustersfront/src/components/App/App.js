@@ -16,6 +16,8 @@ import Contact from "../../pages/Contact"
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import "@fontsource/rubik-wet-paint";
+import "@fontsource/roboto";
 
 const themeOptions = createTheme(
      {

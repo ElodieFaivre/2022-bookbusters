@@ -7,7 +7,7 @@ const client = require('../config/database');
  * @property {string} email
  * @property {string} password
  * @property {string} bio
- * @property {point} location
+ * @property {string} location
  * @property {boolean} mail_donation
  * @property {boolean} mail_alert
  * @property {number} avatar_id
@@ -37,7 +37,7 @@ const userDataMapper = {
             `
             INSERT INTO "user"
             ("username", "email", "password", "bio", "location", "mail_donation", "mail_alert", "avatar_id") VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
+            ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING username, email, bio, location, mail_donation, mail_alert, avatar_id
         `,
             [user.username, user.email, user.password, user.bio, user.location,
                 user.mail_donation, user.mail_alert, user.avatar_id,

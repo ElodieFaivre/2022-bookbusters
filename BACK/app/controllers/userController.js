@@ -31,8 +31,21 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async addUser(req, res) {
-        const savedUser = await userDataMapper.insert(req.body);
-        return res.json(savedUser);
+        const existingUser = await userDataMapper.isUnique(req.body);
+            if (existingUser) {
+                let field;
+                if (existingUser.username === req.body.username) {
+                    field = 'username';
+                } else {
+                    field = 'email';
+                }
+                throw new ApiError(`Other user already exists with this ${field}`, {
+                    statusCode: 400,
+                });
+            }
+        else {const savedUser = await userDataMapper.insert(req.body);
+            return res.json(savedUser);}
+        
     },
 
     /**

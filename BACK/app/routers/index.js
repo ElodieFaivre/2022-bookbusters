@@ -10,7 +10,6 @@ const router = Router();
 
 router.use('/v1', bookRouter, userRouter, userListsRouter, apiRouter);
 
-
 router.use(() => {
     throw new ApiError('Endpoint not found', 404);
 });

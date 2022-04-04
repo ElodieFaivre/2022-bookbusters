@@ -4,7 +4,7 @@ const Account = () => {
     return (
         <div>
         <Header />
-           <p>Account</p> 
+           <p>Account TEST</p>
         </div>
     );
 };

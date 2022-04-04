@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 const BurgerMenu = () => {
@@ -13,31 +13,31 @@ const BurgerMenu = () => {
         <nav className={`navbar ${showLinks ? "show-nav" : "hide-nav"}`}>
             <div className="navbar_logo">BookBusters</div>
             <ul className='navbar_links'>
-                <NavLink to="/Library">
+                <Link to="/Library" style={{textDecoration: 'none'}}>
                     <li>Ma bibliothèque</li>
-                </NavLink>
-                <NavLink to="/Favorites">
+                </Link>
+                <Link to="/Favorites" style={{textDecoration: 'none'}}>
                     <li>Mes favoris</li>
-                </NavLink>
-                <NavLink to="/">
+                </Link>
+                <Link to="/" style={{textDecoration: 'none'}}>
                     <li>Mes alertes</li>
-                </NavLink>
-                <NavLink to="/Account">
+                </Link>
+                <Link to="/Account"  style={{textDecoration: 'none'}}>
                     <li>Mon compte</li>
-                </NavLink>
-                <NavLink to="/Contact">
+                </Link>
+                <Link to="/Contact" style={{textDecoration: 'none'}}>
                     <li>Contact</li>
-                </NavLink>
-                <NavLink to="/Credits">
+                </Link>
+                <Link to="/Credits" style={{textDecoration: 'none'}}>
                     <li>Crédits</li>
-                </NavLink>
-                <NavLink to="/LegalNotice">
+                </Link>
+                <Link to="/LegalNotice" style={{textDecoration: 'none'}}>
                     <li>Mentions légales</li>
-                </NavLink>               
-            </ul>                   
+                </Link>
+            </ul>
             <button className='navbar_burger' onClick={handleShowLinks}>
                 <span className='burger-bar'></span>
-            </button>       
+            </button>
         </nav>
     );
 };

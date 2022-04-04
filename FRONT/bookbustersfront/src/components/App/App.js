@@ -1,6 +1,3 @@
-import "./style.scss";
-
-
 //* Import des composants nécessaires à React Router
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 
@@ -19,6 +16,7 @@ import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "@fontsource/rubik-wet-paint";
 import "@fontsource/roboto";
+import SignInSide from "../../pages/SignInterface";
 
 const themeOptions = createTheme(
      {
@@ -51,6 +49,7 @@ function App() {
                 <Route path="/" element={<Home />}/>
                 <Route path="*" element={<Error />}/>
                 <Route path="/Account" element={<Account />}/>
+                <Route path="/SignInterface" element={<SignInSide />}/>
                 <Route path="/Credits" element={<Credits />}/>
                 <Route path="/Favorites" element={<Favorites />}/>
                 <Route path="/LegalNotice" element={<LegalNotice />}/>
@@ -58,7 +57,7 @@ function App() {
                 <Route path="/Contact" element={<Contact />}/>
                 <Route path="/myAlerts" element={<MyAlerts />}/>
             </Routes>
-    </BrowserRouter>
+        </BrowserRouter>
    </ThemeProvider>
   );
 }

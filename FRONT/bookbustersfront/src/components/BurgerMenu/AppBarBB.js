@@ -11,9 +11,62 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from "react-router-dom";
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const pages = [
+
+    <Link to="/" style={{color:"#fff", textDecoration: 'none'}}>
+        <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
+            Accueil
+        </Typography>
+    </Link>,
+
+    <Link to="/MyAlerts" style={{color:"#fff", textDecoration: 'none'}} >
+      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
+        Mes alertes
+      </Typography>
+    </Link>,
+
+    <Link to="/Contact"  style={{color:"#fff", textDecoration: 'none'}}>
+      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
+        Contact
+      </Typography>
+    </Link>,
+
+    <Link to="/Credits" style={{color:"#fff", textDecoration: 'none'}} >
+      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
+        Crédits
+      </Typography>
+    </Link>,
+
+    <Link to="/LegalNotice" style={{color:"#fff", textDecoration: 'none'}}>
+      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
+        Mentions légales
+      </Typography>
+    </Link>
+];
+
+const settings = [
+    <Link to="/Account" style={{color:"#fff", textDecoration: 'none'}}>
+      <Typography sx={{ color:'black'}}>
+        Mon compte
+      </Typography>
+    </Link>,
+
+    <Link to="/Library"  style={{color:"#fff", textDecoration: 'none'}}>
+      <Typography sx={{ color:'black'}}>
+        Ma bibliothèque
+      </Typography>
+    </Link>,
+
+    <Link to="/Favorites" style={{color:"#fff", textDecoration: 'none'}}>
+      <Typography sx={{ color:'black' }}>
+        Mes favoris
+      </Typography>
+    </Link>,
+
+    'Déconnexion'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -76,9 +129,10 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
+                {console.log(index)}
+                <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -125,8 +179,8 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

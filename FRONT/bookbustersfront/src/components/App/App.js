@@ -1,5 +1,5 @@
 import "./style.scss";
-import "../BurgerMenu/BurgerMenu.scss";
+
 
 //* Import des composants nécessaires à React Router
 import {BrowserRouter, Routes, Route} from "react-router-dom"
@@ -12,6 +12,7 @@ import Favorites  from "../../pages/Favorites"
 import LegalNotice from "../../pages/LegalNotice"
 import Library from "../../pages/Library"
 import Contact from "../../pages/Contact"
+import MyAlerts from "../../pages/MyAlerts"
 
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/LegalNotice" element={<LegalNotice />}/>
                 <Route path="/Library" element={<Library />}/>
                 <Route path="/Contact" element={<Contact />}/>
+                <Route path="/myAlerts" element={<MyAlerts />}/>
             </Routes>
     </BrowserRouter>
    </ThemeProvider>

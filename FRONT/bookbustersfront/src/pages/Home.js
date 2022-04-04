@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import Header from "../components/Header/Header";
 import SignButtons from "../components/SignButtons/SignButtons";
 import '../styles/Home.scss'

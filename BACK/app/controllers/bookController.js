@@ -11,8 +11,8 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
-        const books = await bookDataMapper.findAllInDonation();
-        await bookMW.getBookInformation(books);
+        let books = await bookDataMapper.findAllInDonation();
+        books = await bookMW.getBookInformation(books);
         return res.json(books);
     },
 
@@ -34,7 +34,7 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async addBook(req, res) {
-        const savedBook = await bookDataMapper.insert(req.body);
+        const savedBook = await bookDataMapper.updateOrInsert(req.body);
         return res.json(savedBook);
     },
 };

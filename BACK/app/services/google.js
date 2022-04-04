@@ -53,13 +53,13 @@ const google = {
     async findBookByKeyword(word) {
         try {
             //TODO : modify maxResults and startIndex
-            const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=3&startIndex=0`;
-            console.log(url);
+            const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=10&startIndex=0`;
+
             const response = await fetch(url);
             const json = await response.json();
 
             let result = [];
-            console.log(json);
+
             //If no answer
             if (json.totalItems == 0) {
                 return result = undefined;
@@ -80,16 +80,19 @@ const google = {
                         })
                     }
                 }
-                book = {
-                    isbn13: isbn13,
-                    isbn10: isbn10,
-                    title: item.volumeInfo.title,
-                    author: item.volumeInfo.authors,
-                    resume: item.volumeInfo.description,
-                    publishedDate: item.volumeInfo.publishedDate,
-                    language: item.volumeInfo.language
+                if(isbn13 || isbn10) {
+                    book = {
+                        isbn13: isbn13,
+                        isbn10: isbn10,
+                        title: item.volumeInfo.title,
+                        author: item.volumeInfo.authors,
+                        resume: item.volumeInfo.description,
+                        publishedDate: item.volumeInfo.publishedDate,
+                        language: item.volumeInfo.language
+                    }
+                    result.push(book);
                 }
-                result.push(book);
+
             })
 
 

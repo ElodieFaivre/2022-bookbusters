@@ -19,13 +19,13 @@ router
     .get(controllerHandler(bookController.getAllInDonation))
     /**
      * POST /v1/book
-     * @summary Add book to database
+     * @summary Add book and relation user_has_book to database or update if already exist
      * @tags BOOK
      * @param {InputBook} request.body.required - book info
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(validate(createSchema, 'body'), controllerHandler(bookController.addBook));
+    .post(/*validate(createSchema, 'body'),*/ controllerHandler(bookController.addBook));
 
 router
     .route('/book/:id(\\d+)')

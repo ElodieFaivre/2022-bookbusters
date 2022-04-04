@@ -11,8 +11,16 @@ module.exports = {
         const openLibraryQueries = [];
 
         books.forEach((book) => {
-            googleQueries.push(google.findBookByISBN(book.isbn13));
-            openLibraryQueries.push(openLib.findBookCoverByISBN(book.isbn13));
+            if(book.isbn13){
+                googleQueries.push(google.findBookByISBN(book.isbn13));
+                openLibraryQueries.push(openLib.findBookCoverByISBN(book.isbn13));
+            }
+            else if(book.isbn10)
+            {
+                googleQueries.push(google.findBookByISBN(book.isbn10));
+                openLibraryQueries.push(openLib.findBookCoverByISBN(book.isbn10));
+            }
+
         });
 
         const googleResult = await Promise.all(googleQueries);

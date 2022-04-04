@@ -3,11 +3,13 @@ const express = require('express');
 const router = express.Router();
 
 const controllerHandler = require('../middlewares/controllerWrapperAsync');
+const tokenVerifier = require('../middlewares/tokenVerifier');
 const userController = require('../controllers/userController');
 
 const validate = require('../validator/validator');
 const createSchema = require('../validator/schemas/userCreate');
 const updateSchema = require('../validator/schemas/userUpdate');
+const loginSchema = require('../validator/schemas/login');
 
 router
     .route('/user')
@@ -37,8 +39,11 @@ router
      * @tags USER
      * @return {User} 200 - success response - application/json
      */
-    .get(controllerHandler(userController.getOneUserById))
-/**
+    .get(
+        /* controllerHandler(tokenVerifier), */
+        controllerHandler(userController.getOneUserById),
+    )
+    /**
      * DELETE /v1/user/{id}
      * @summary Delete one user
      * @tags USER
@@ -47,16 +52,34 @@ router
      * @return {ApiError} 400 - Bad request response - application/json
      * @return {ApiError} 404 - User not found - application/json
      */
-    .delete(controllerHandler(userController.deleteOneUserById))
+    .delete(
+        /* controllerHandler(tokenVerifier), */
+        controllerHandler(userController.deleteOneUserById),
+    )
     /**
      * PATCH /v1/user/{id}
      * @summary Update one user
      * @tags USER
-     * @param {number} id.path.required - user identifier
-     * @param {InputUser} request.body.required - user info
+     * @param {login} request.body.required - user email and password
      * @return {User} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      * @return {ApiError} 404 - User not found - application/json
      */
-    .patch(validate(updateSchema, 'body'), controllerHandler(userController.update));
+    .patch(
+        /* controllerHandler(tokenVerifier), */
+        validate(updateSchema, 'body'),
+        controllerHandler(userController.update),
+    );
+
+/**
+ * POST /v1/login
+ * @summary log a user in
+ * @tags USER
+ * @param {string} request.body.required - user login email
+ * @param {string} request.body.required - user login password
+ * @return {User} 200 - success response - application/json
+ * @return {ApiError} 400 - Bad request response - application/json
+ */
+router.post('/login', validate(loginSchema, 'body'), controllerHandler(userController.login));
+
 module.exports = router;

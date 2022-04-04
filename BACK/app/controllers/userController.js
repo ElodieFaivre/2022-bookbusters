@@ -1,3 +1,8 @@
+const debug = require('debug')('controller:user');
+
+// const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const userDataMapper = require('../models/user');
 const ApiError = require('../errors/apiError');
 
@@ -32,20 +37,20 @@ module.exports = {
      */
     async addUser(req, res) {
         const existingUser = await userDataMapper.isUnique(req.body);
-            if (existingUser) {
-                let field;
-                if (existingUser.username === req.body.username) {
-                    field = 'username';
-                } else {
-                    field = 'email';
-                }
-                throw new ApiError(`Other user already exists with this ${field}`, {
-                    statusCode: 400,
-                });
+        if (existingUser) {
+            let field;
+            if (existingUser.username === req.body.username) {
+                field = 'username';
+            } else {
+                field = 'email';
             }
-        else {const savedUser = await userDataMapper.insert(req.body);
-            return res.json(savedUser);}
-        
+            throw new ApiError(`Other user already exists with this ${field}`, {
+                statusCode: 400,
+            });
+        } else {
+            const savedUser = await userDataMapper.insert(req.body);
+            return res.json(savedUser);
+        }
     },
 
     /**
@@ -94,5 +99,24 @@ module.exports = {
         }
         const savedUser = await userDataMapper.update(req.params.id, req.body);
         return res.json(savedUser);
+    },
+
+    async login(req, res) {
+        const foundUser = await userDataMapper.findOneUserByEmail(req.body.email);
+
+        // if (!foundUser || !(await bcrypt.compare(loginForm.password, foundUser.password))) {
+        if (!foundUser || req.body.password !== foundUser.password) {
+            throw new ApiError('Login or password not correct', 400);
+        }
+
+        jwt.sign(
+            { user: foundUser },
+            process.env.SECRET_TOKEN_KEY,
+            { expiresIn: '5000s' },
+            (err, token) => {
+                debug('token req : ', token);
+                res.json({ token });
+            },
+        );
     },
 };

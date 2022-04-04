@@ -14,7 +14,10 @@ router
      * @tags USER'S LISTS
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(userBooksController.getAllBooksInLibrary));
+    .get(
+        /* controllerHandler(tokenVerifier), */
+        controllerHandler(userBooksController.getAllBooksInLibrary),
+    );
 
 router
     .route('/user/:id(\\d+)/favorite')
@@ -25,7 +28,10 @@ router
      * @tags USER'S LISTS
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(userBooksController.getAllBooksInFavorite));
+    .get(
+        /* controllerHandler(tokenVerifier), */
+        controllerHandler(userBooksController.getAllBooksInFavorite),
+    );
 
 router
     .route('/user/:id(\\d+)/alert')
@@ -36,6 +42,9 @@ router
      * @tags USER'S LISTS
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(userBooksController.getAllBooksInAlert));
+    .get(
+        /* controllerHandler(tokenVerifier), */
+        controllerHandler(userBooksController.getAllBooksInAlert),
+    );
 
 module.exports = router;

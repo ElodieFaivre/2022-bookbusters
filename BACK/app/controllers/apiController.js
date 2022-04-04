@@ -44,6 +44,7 @@ module.exports = {
         if (!books) {
             throw new ApiError('Sorry, book with this keyword not found', 404);
         }
+<<<<<<< HEAD
         const openLibraryQueries = [];
 
         books.forEach((book) => {
@@ -56,4 +57,18 @@ module.exports = {
         }
         return res.json(books);
     },
+=======
+        const openLibraryQueries=[];
+
+        books.forEach((book)=>{
+            openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13))
+        });
+
+        const openLib_result = await Promise.all(openLibraryQueries);
+        for (let i=0; i<books.length;i++){
+            books[i]={...books[i],...openLib_result[i]}
+        }
+        return res.json(books);
+    }
+>>>>>>> dev
 };

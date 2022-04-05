@@ -6,7 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
+import Container from '@mui/material/Container'
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -108,6 +109,7 @@ const ResponsiveAppBar = () => {
                 component="div"
                 sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             >
+            <MenuBookIcon sx={{marginRight: '10px'}}/>
               <Link to="/" style={{color:"#fff", textDecoration: 'none'}}>
                 BookBusters
               </Link>
@@ -159,6 +161,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
+          <MenuBookIcon sx={{marginRight: '10px'}}/>
             <Link to="/" underline="none" style={{color:"#fff", textDecoration: 'none'}}>
               BookBusters
             </Link>

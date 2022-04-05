@@ -14,13 +14,6 @@ const loginSchema = require('../validator/schemas/login');
 router
     .route('/user')
     /**
-     * GET /v1/user
-     * @summary Get all users
-     * @tags USER
-     * @return {[User]} 200 - success response - application/json
-     */
-    .get(controllerHandler(userController.getAll))
-    /**
      * POST /v1/user
      * @summary Add a user to database
      * @tags USER
@@ -31,8 +24,7 @@ router
     .post(validate(createSchema, 'body'), controllerHandler(userController.addUser));
 
 router
-    .route('/user/account')
-    // .route('/user/:id(\\d+)')
+    .route('/user/:id(\\d+)')
     /**
      * GET /v1/user/{id}
      * @summary Get one user by its id

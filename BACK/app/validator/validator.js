@@ -1,4 +1,4 @@
-const ApiError = require('../errors/apiError');
+const { ApiError } = require('../middlewares/handleError');
 
 /**
  * Validation middleware with Joi
@@ -14,7 +14,7 @@ const validator = (schema, dataOrigin) => {
         // checker la présence de la propriété error
         // si elle est présente, on renvoie au front un message d'erreur
         if (error) {
-            throw new ApiError(error.message, 400);
+            throw new ApiError(error.message, { statusCode: 400 });
         }
         // sinon, on passe le bébé au middleware suivant
         return next();

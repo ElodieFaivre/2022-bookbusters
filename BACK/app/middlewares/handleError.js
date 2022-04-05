@@ -1,27 +1,31 @@
 const debug = require('debug')('ErrorHandler');
-const ApiError = require('../errors/apiError');
 const logger = require('../helpers/logger');
+const ApiError = require('../errors/apiError');
 
-const handleError = (error, _, response) => {
-    // on veut filtrer les erreurs à faire persister afin de ne pas pourir notre fichier de log
-    // on prend en compte toutes les erreurs qui ne sont pas des ApiError
-    // et aussi toutes les ApiError qui ont un status différent de 404
+/**
+ * Middleware that respond to a next method with an error as argument
+ * @param {object} err Error class
+ * @param {object} res Express response object
+ */
+const handleError = (err, res) => {
+    let { message } = err;
+    let statusCode = err.infos?.statusCode;
 
-    if (!error.status || error.status !== 404) {
-        logger.error(error);
+    if (!statusCode || Number.isNaN(Number(statusCode))) {
+        statusCode = 500;
+    }
+
+    if (!statusCode || statusCode !== 404) {
+        logger.error(err);
     } else {
-        debug(error);
+        debug(err);
     }
 
-    // custom error
-    if (error instanceof ApiError) {
-        return response.status(error.status).json(error.message);
-    }
-
-    // autres erreurs possibles : sûrement assez technique (pb code, sql, ...)
-    // on envoie un message générique au front pour signaler un pépin
-    // que seuls les backeux pourront régler
-    return response.status(500).json('Internal server error');
+    return res.status(statusCode).json({
+        status: 'error',
+        statusCode,
+        message,
+    });
 };
 
-module.exports = handleError;
+module.exports = { ApiError, handleError };

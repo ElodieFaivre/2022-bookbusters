@@ -14,13 +14,13 @@ function SignButtons() {
             }}
             variant='contained'
         >
-            <Link to='/signUp' color="inherit" underline="none">
+            <Link to='/signUp' style={{color:"#fff", textDecoration: 'none'}}>
                 <Button value='inscription' variant='contained' sx={{width: '50%', borderRadius: '5px 0px 0px 5px', display:{md:'none'}}}>
                     Inscription
                 </Button>
             </Link>
 
-            <Link to='/signIn' color="inherit" underline="none">
+            <Link to='/signIn' style={{color:"#fff", textDecoration: 'none'}}>
                 <Button value='connexion' variant='contained' color='secondary' sx={{width: '50%', borderRadius: '0px 5px 5px 0px' , display:{md:'none'}}}>
                     Connexion
                 </Button>

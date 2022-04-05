@@ -18,7 +18,7 @@ module.exports = {
 
     async getOneBookById(req, res) {
         const bookId = req.params.id;
-        let book = await bookDataMapper.findOneBookById(bookId);
+        let book = await bookDataMapper.findOneBookInDonationById(bookId);
         if (!book) {
             throw new ApiError('Book not found', 404);
         }
@@ -34,7 +34,9 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async addBook(req, res) {
-        const savedBook = await bookDataMapper.updateOrInsert(req.body);
-        return res.json(savedBook);
+        const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
+        let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
+        book = await bookMW.getBookInformation([book]);
+        return res.json(book);
     },
 };

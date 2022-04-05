@@ -4,7 +4,7 @@ const router = express.Router();
 
 const controllerHandler = require('../middlewares/controllerWrapperAsync');
 const bookController = require('../controllers/bookController');
-const { verifyTokenWithoutError } = require('../middlewares/tokenVerifier');
+const { verifyToken, verifyTokenWithoutError } = require('../middlewares/tokenVerifier');
 
 const validate = require('../validator/validator');
 const createSchema = require('../validator/schemas/bookCreate');
@@ -26,7 +26,7 @@ router
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(validate(createSchema, 'body'), controllerHandler(bookController.addBook));
+    .post(controllerHandler(verifyToken), validate(createSchema, 'body'), controllerHandler(bookController.addBook));
 
 router
     .route('/book/:id(\\d+)')

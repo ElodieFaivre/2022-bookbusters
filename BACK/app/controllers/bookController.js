@@ -41,8 +41,20 @@ module.exports = {
      */
     async addBook(req, res) {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
+
         let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
         book = await bookMW.getBookInformation([book]);
+
+        //const user_has_book = await bookDataMapper.findRelationBookUser(book.id,req.body.userId);
+        debug('SAVED',savedUserHasBook);
+        book = {
+            ...book,
+            is_in_library :savedUserHasBook.is_in_library,
+            is_in_donation :savedUserHasBook.is_in_donation,
+            is_in_alert :savedUserHasBook.is_in_alert,
+            is_in_favorite :savedUserHasBook.is_in_favorite
+         }
+
         return res.json(book);
     },
 };

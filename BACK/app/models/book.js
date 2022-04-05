@@ -25,7 +25,7 @@ const debug = require('debug')('BookController');
  * @typedef {object} InputBook
  * @property {string} isbn13
  * @property {string} isbn10
- * @property {number} user_id
+ * @property {number} userId (via Token)
  * @property {boolean} is_in_library
  * @property {boolean} is_in_donation
  * @property {boolean} is_in_favorite
@@ -96,7 +96,6 @@ const bookDataMapper = {
             [book.isbn13, book.isbn10],
         );
 
-        //TODO : user id par le token ? Pour le moment dans le body post.
         let bookId = null;
         let userBookRelation = null;
         let userBook = null;
@@ -106,7 +105,7 @@ const bookDataMapper = {
             debug('le livre existe avec id', bookId)
             userBookRelation = await client.query(
                 `SELECT * FROM user_has_book WHERE book_id=$1 AND user_id=$2`,
-                [bookId, book.user_id],
+                [bookId, book.userId],
             );
         }
 
@@ -160,7 +159,7 @@ const bookDataMapper = {
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert, donation_date) VALUES
                     ($1, $2, $3, $4, $5, $6, NOW()) RETURNING *
                 `,
-                    [bookId, book.user_id, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
+                    [bookId, book.userId, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
                 );
             }
             else {
@@ -169,7 +168,7 @@ const bookDataMapper = {
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert) VALUES
                     ($1, $2, $3, $4, $5, $6) RETURNING *
                 `,
-                    [bookId, book.user_id, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
+                    [bookId, book.userId, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
                 );
             }
 

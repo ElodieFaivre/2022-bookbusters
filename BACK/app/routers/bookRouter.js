@@ -4,6 +4,7 @@ const router = express.Router();
 
 const controllerHandler = require('../middlewares/controllerWrapperAsync');
 const bookController = require('../controllers/bookController');
+const { verifyTokenWithoutError } = require('../middlewares/tokenVerifier');
 
 const validate = require('../validator/validator');
 const createSchema = require('../validator/schemas/bookCreate');
@@ -36,6 +37,6 @@ router
      * @tags BOOK
      * @return {Book} 200 - success response - application/json
      */
-    .get(controllerHandler(bookController.getOneBookById));
+    .get(controllerHandler(verifyTokenWithoutError),controllerHandler(bookController.getOneBookById));
 
 module.exports = router;

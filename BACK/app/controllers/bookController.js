@@ -1,6 +1,7 @@
 const bookDataMapper = require('../models/book');
 const ApiError = require('../errors/apiError');
 const bookMW = require('../middlewares/getBookInformation');
+const { getBookCoverByISBN } = require('./apiController');
 
 module.exports = {
     /**
@@ -23,6 +24,10 @@ module.exports = {
             throw new ApiError('Book not found', 404);
         }
         book = await bookMW.getBookInformation([book]);
+        if(req.body.userId){
+            const user_has_book = await bookDataMapper.findRelationBookUser(bookId,req.body.userId);
+            book = {...book, ...user_has_book }
+        }
         return res.json(book);
     },
 

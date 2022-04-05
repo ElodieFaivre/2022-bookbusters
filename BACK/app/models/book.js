@@ -55,6 +55,13 @@ const bookDataMapper = {
         return result.rows[0];
     },
 
+    async findRelationBookUser(bookId, userId){
+        const result = await client.query(`SELECT * FROM user_has_book WHERE book_id=$1 AND user_id=$2` , [
+            bookId, userId
+        ]);
+        return result.rows[0];
+    },
+
 
     async insert(book) {
         const result = await client.query(

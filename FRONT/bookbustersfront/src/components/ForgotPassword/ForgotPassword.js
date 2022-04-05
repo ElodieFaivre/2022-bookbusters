@@ -51,7 +51,7 @@ export default function ForgotPassword() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <KeyIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{textAlign: 'center', mb:'15px'}}>
             Vous avez oublié votre mot de passe ?
           </Typography>
           <Typography variant="subtitle" sx={{textAlign: 'center'}}>

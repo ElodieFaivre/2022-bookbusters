@@ -73,8 +73,6 @@ const bookDataMapper = {
         if (book.is_in_donation) { book.is_in_library = true; }
         if (!book.is_in_library) { book.is_in_donation = false; }
 
-
-
         //1. Verify if this book exist in our BDD
         let bookExist = await client.query(
             `SELECT id FROM book WHERE isbn13=$1 OR isbn10=$2`,

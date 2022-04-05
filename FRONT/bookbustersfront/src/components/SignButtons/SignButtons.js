@@ -1,4 +1,5 @@
-import { Stack, Button, Link, Box } from '@mui/material'
+import { Stack, Button, Box } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 import React from 'react'
 
@@ -13,13 +14,13 @@ function SignButtons() {
             }}
             variant='contained'
         >
-            <Link href='/signUp' color="inherit" underline="none">
+            <Link to='/signUp' color="inherit" underline="none">
                 <Button value='inscription' variant='contained' sx={{width: '50%', borderRadius: '5px 0px 0px 5px', display:{md:'none'}}}>
                     Inscription
                 </Button>
             </Link>
 
-            <Link href='/signIn' color="inherit" underline="none">
+            <Link to='/signIn' color="inherit" underline="none">
                 <Button value='connexion' variant='contained' color='secondary' sx={{width: '50%', borderRadius: '0px 5px 5px 0px' , display:{md:'none'}}}>
                     Connexion
                 </Button>

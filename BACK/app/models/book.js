@@ -56,7 +56,7 @@ const bookDataMapper = {
     },
 
     async findRelationBookUser(bookId, userId){
-        const result = await client.query(`SELECT * FROM user_has_book WHERE book_id=$1 AND user_id=$2` , [
+        const result = await client.query(`SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=$1 AND user_id=$2` , [
             bookId, userId
         ]);
         return result.rows[0];

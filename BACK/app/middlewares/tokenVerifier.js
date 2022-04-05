@@ -25,18 +25,16 @@ module.exports = {
     // Middleware to get and verify token received from frontend
     verifyTokenWithoutError(req, res, next) {
         const { token } = req.headers;
-        if (!token) {
-            debug('pas de token')
-            next();
+
+        if(token) {
+            jwt.verify(token, process.env.SECRET_TOKEN_KEY, (err, decoded) => {
+                if (!err) {
+                    req.body.userId = decoded.user.id;
+                }
+            });
         }
-        jwt.verify(token, process.env.SECRET_TOKEN_KEY, (err, decoded) => {
-            if (err) {
-                debug('token invalid')
-                next();
-            } else {
-                req.body.userId = decoded.user.id;
-            }
-        })
+        next();
+
     },
 
 };

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const controllerHandler = require('../middlewares/controllerWrapperAsync');
-const tokenVerifier = require('../middlewares/tokenVerifier');
+const { verifyToken } = require('../middlewares/tokenVerifier');
 const userController = require('../controllers/userController');
 
 const validate = require('../validator/validator');
@@ -39,10 +39,7 @@ router
      * @tags USER
      * @return {User} 200 - success response - application/json
      */
-    .get(
-        /* controllerHandler(tokenVerifier), */
-        controllerHandler(userController.getOneUserById),
-    )
+    .get(controllerHandler(verifyToken), controllerHandler(userController.getOneUserById))
     /**
      * DELETE /v1/user/{id}
      * @summary Delete one user
@@ -53,7 +50,7 @@ router
      * @return {ApiError} 404 - User not found - application/json
      */
     .delete(
-        /* controllerHandler(tokenVerifier), */
+        controllerHandler(verifyToken),
         controllerHandler(userController.deleteOneUserById),
     )
     /**
@@ -66,7 +63,7 @@ router
      * @return {ApiError} 404 - User not found - application/json
      */
     .patch(
-        /* controllerHandler(tokenVerifier), */
+        controllerHandler(verifyToken),
         validate(updateSchema, 'body'),
         controllerHandler(userController.update),
     );

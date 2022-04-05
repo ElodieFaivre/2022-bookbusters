@@ -5,11 +5,9 @@ const config = {
 };
 
 // SSL config to connect to database on Heroku
-/*
 config.ssl = {
     rejectUnauthorized: false,
 };
-*/
 
 const pool = new Pool(config);
 

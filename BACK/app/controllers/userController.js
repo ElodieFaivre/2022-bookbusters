@@ -1,6 +1,6 @@
-const debug = require('debug')('controller:user');
+// const debug = require('debug')('controller:user');
 
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const userDataMapper = require('../models/user');
@@ -48,6 +48,12 @@ module.exports = {
                 statusCode: 400,
             });
         } else {
+            /* Temporary use of bycrypt to encrypt the password
+            const salt = await bcrypt.genSalt(10);
+            const encryptedPassword = await bcrypt.hash(req.body.password, salt);
+            req.body.password = encryptedPassword;
+            */
+
             const savedUser = await userDataMapper.insert(req.body);
             return res.json(savedUser);
         }
@@ -102,19 +108,17 @@ module.exports = {
     },
 
     async login(req, res) {
-        const foundUser = await userDataMapper.findOneUserByEmail(req.body.email);
+        const foundUser = await userDataMapper.findOneUserByEmail(req.body.login);
 
-        // if (!foundUser || !(await bcrypt.compare(loginForm.password, foundUser.password))) {
-        if (!foundUser || req.body.password !== foundUser.password) {
+        if (!foundUser || !(await bcrypt.compare(req.body.password, foundUser.password))) {
             throw new ApiError('Login or password not correct', 400);
         }
 
         jwt.sign(
             { user: foundUser },
             process.env.SECRET_TOKEN_KEY,
-            { expiresIn: '5000s' },
+            { expiresIn: '30s' },
             (err, token) => {
-                debug('token req : ', token);
                 res.json({ token });
             },
         );

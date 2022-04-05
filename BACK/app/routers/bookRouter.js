@@ -19,7 +19,7 @@ router
     .get(controllerHandler(bookController.getAllInDonation))
     /**
      * POST /v1/book
-     * @summary Add book to database
+     * @summary Add book and relation user_has_book to database or update if already exist
      * @tags BOOK
      * @param {InputBook} request.body.required - book info
      * @return {Book} 200 - success response - application/json

@@ -20,7 +20,9 @@ module.exports = {
     },
 
     async getOneUserById(req, res) {
-        const userId = req.params.id;
+        // const userId = req.params.id;
+        const userId = Number(req.body.userId);
+
         const user = await userDataMapper.findOneUserById(userId);
         if (!user) {
             throw ApiError('User not found', 404);
@@ -67,12 +69,15 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async deleteOneUserById(req, res) {
-        const user = await userDataMapper.findOneUserById(req.params.id);
+        // const userId = req.params.id;
+        const userId = Number(req.body.userId);
+
+        const user = await userDataMapper.findOneUserById(userId);
         if (!user) {
             throw new ApiError('This user does not exists', { statusCode: 404 });
         }
 
-        await userDataMapper.delete(req.params.id);
+        await userDataMapper.delete(userId);
         return res.status(204).json();
     },
 
@@ -84,13 +89,16 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async update(req, res) {
-        const user = await userDataMapper.findOneUserById(req.params.id);
+        // const userId = req.params.id;
+        const userId = Number(req.body.userId);
+
+        const user = await userDataMapper.findOneUserById(userId);
         if (!user) {
             throw new ApiError('This user does not exists', { statusCode: 404 });
         }
 
         if (req.body.username || req.body.email) {
-            const existingUser = await userDataMapper.isUnique(req.body, req.params.id);
+            const existingUser = await userDataMapper.isUnique(req.body, userId);
             if (existingUser) {
                 let field;
                 if (existingUser.username === req.body.username) {
@@ -103,7 +111,7 @@ module.exports = {
                 });
             }
         }
-        const savedUser = await userDataMapper.update(req.params.id, req.body);
+        const savedUser = await userDataMapper.update(userId, req.body);
         return res.json(savedUser);
     },
 

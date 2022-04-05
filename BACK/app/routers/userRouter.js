@@ -31,7 +31,8 @@ router
     .post(validate(createSchema, 'body'), controllerHandler(userController.addUser));
 
 router
-    .route('/user/:id(\\d+)')
+    .route('/user/account')
+    // .route('/user/:id(\\d+)')
     /**
      * GET /v1/user/{id}
      * @summary Get one user by its id
@@ -49,10 +50,7 @@ router
      * @return {ApiError} 400 - Bad request response - application/json
      * @return {ApiError} 404 - User not found - application/json
      */
-    .delete(
-        controllerHandler(verifyToken),
-        controllerHandler(userController.deleteOneUserById),
-    )
+    .delete(controllerHandler(verifyToken), controllerHandler(userController.deleteOneUserById))
     /**
      * PATCH /v1/user/{id}
      * @summary Update one user

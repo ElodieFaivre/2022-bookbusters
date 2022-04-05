@@ -12,7 +12,8 @@ import LegalNotice from "../../pages/LegalNotice"
 import Library from "../../pages/Library"
 import Contact from "../../pages/Contact"
 import MyAlerts from "../../pages/MyAlerts"
-import SignInSide from "../../pages/SignInterface";
+import SignInSide from "../../pages/SignIn";
+import SignUp from '../../pages/SignUp';
 
 function Routing() {
   return (
@@ -21,7 +22,8 @@ function Routing() {
                 <Route path="/" element={<Home />}/>
                 <Route path="*" element={<Error />}/>
                 <Route path="/Account" element={<Account />}/>
-                <Route path="/SignInterface" element={<SignInSide />}/>
+                <Route path="/SignIn" element={<SignInSide />}/>
+                <Route path="/SignUp" element={<SignUp />}/>
                 <Route path="/Credits" element={<Credits />}/>
                 <Route path="/Favorites" element={<Favorites />}/>
                 <Route path="/LegalNotice" element={<LegalNotice />}/>

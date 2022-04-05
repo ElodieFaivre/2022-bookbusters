@@ -28,7 +28,6 @@ const themeOptions = createTheme(
       },
     });
 
-
 function App() {
   return (
     <ThemeProvider theme={themeOptions}>

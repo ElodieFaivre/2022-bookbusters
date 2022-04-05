@@ -4,7 +4,9 @@ const { getBookInformation } = require('../middlewares/getBookInformation');
 
 module.exports = {
     async getAllBooksInLibrary(req, res) {
-        const userId = Number(req.params.id);
+        // const userId = Number(req.params.id);
+        const userId = Number(req.body.userId);
+
         const library = await userListsDataMapper.findAllBooksInLibrary(userId);
 
         if (!library) {
@@ -18,7 +20,9 @@ module.exports = {
     },
 
     async getAllBooksInFavorite(req, res) {
-        const userId = Number(req.params.id);
+        // const userId = Number(req.params.id);
+        const userId = Number(req.body.userId);
+
         const favorites = await userListsDataMapper.findAllBooksInFavorite(userId);
 
         if (!favorites) {
@@ -32,7 +36,9 @@ module.exports = {
     },
 
     async getAllBooksInAlert(req, res) {
-        const userId = Number(req.params.id);
+        // const userId = Number(req.params.id);
+        const userId = Number(req.body.userId);
+
         const alerts = await userListsDataMapper.findAllBooksInAlert(userId);
 
         if (!alerts) {

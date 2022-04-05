@@ -1,6 +1,6 @@
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import "@fontsource/rubik-wet-paint";
 import "@fontsource/roboto";
 
@@ -20,7 +20,7 @@ import SignInSide from "../../pages/SignIn";
 import SignUp from '../../pages/SignUp';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
-const themeOptions = createTheme(
+let themeOptions = createTheme(
      {
       palette: {
         type: 'dark',
@@ -40,6 +40,8 @@ const themeOptions = createTheme(
         },
       },
     });
+
+themeOptions = responsiveFontSizes(themeOptions)
 
 function App() {
   return (

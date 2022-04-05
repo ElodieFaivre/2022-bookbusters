@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -14,11 +13,15 @@ import Typography from '@mui/material/Typography';
 import Header from "../components/Header/Header";
 import LibrarySign from '../assets/img/library.jpg';
 
+
+import { Link } from 'react-router-dom';
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="/">
+      <Link to="/" style={{color:"#000", textDecoration: 'underline'}}>
         BookBusters
       </Link>{' '}
       {new Date().getFullYear()}
@@ -107,12 +110,12 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/ForgotPassword" underline="always" variant="body2">
+                  <Link to="/ForgotPassword" style={{color:"#000", textDecoration: 'underline'}}>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/SignUp" variant="body2">
+                  <Link to="/SignUp" style={{color:"#000", textDecoration: 'underline'}}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

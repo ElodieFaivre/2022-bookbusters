@@ -8,66 +8,75 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom";
-import { Link as LinkMui} from '@mui/material';
-
 
 const pages = [
-
-    <Link to="/" style={{color:"#fff", textDecoration: 'none'}}>
-        <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
-            Accueil
-        </Typography>
-    </Link>,
-
-    <Link to="/MyAlerts" style={{color:"#fff", textDecoration: 'none'}} >
-      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
-        Mes alertes
-      </Typography>
-    </Link>,
-
-    <Link to="/Contact"  style={{color:"#fff", textDecoration: 'none'}}>
-      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
-        Contact
-      </Typography>
-    </Link>,
-
-    <Link to="/Credits" style={{color:"#fff", textDecoration: 'none'}} >
-      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
-        Crédits
-      </Typography>
-    </Link>,
-
-    <Link to="/LegalNotice" style={{color:"#fff", textDecoration: 'none'}}>
-      <Typography sx={{ color: { xs: 'black', md: 'white' } }}>
-        Mentions légales
-      </Typography>
-    </Link>
+    {
+        href: '/',
+        style: {textDecoration: 'none' },
+        sx: { color: { xs: 'black', md: 'white' } },
+        label: 'Accueil',
+    },
+    {
+        href: '/Contact',
+        style: {textDecoration: 'none' },
+        sx: { color: { xs: 'black', md: 'white' } },
+        label: 'Contact',
+    },
+    {
+        href: '/Credits',
+        style: { textDecoration: 'none' },
+        sx: { color: { xs: 'black', md: 'white' } },
+        label: 'Crédits',
+    },
+    {
+        href: '/LegalNotice',
+        style: { textDecoration: 'none' },
+        sx: { color: { xs: 'black', md: 'white' } },
+        label: 'Mentions légales',
+    },
+    {
+        href: '/signUp',
+        style: { textDecoration: 'none' },
+        sx: { color: { xs: 'black', md: 'white' }, display:{ xs:"none" ,md:"block"} },
+        label: 'Inscription',
+    },
+    {
+        href: '/SignIn',
+        style: { textDecoration: 'none' ,color:"fff"},
+        sx: { color: { xs: 'black', md: 'white' }, display:{ xs:"none" ,md:"block"} },
+        label: 'Connexion',
+    },
 ];
 
 const settings = [
-    <Link to="/Account" style={{color:"#fff", textDecoration: 'none'}}>
-      <Typography sx={{ color:'black'}}>
-        Mon compte
-      </Typography>
-    </Link>,
-
-    <Link to="/Library"  style={{color:"#fff", textDecoration: 'none'}}>
-      <Typography sx={{ color:'black'}}>
-        Ma bibliothèque
-      </Typography>
-    </Link>,
-
-    <Link to="/Favorites" style={{color:"#fff", textDecoration: 'none'}}>
-      <Typography sx={{ color:'black' }}>
-        Mes favoris
-      </Typography>
-    </Link>,
-
-    'Déconnexion'];
+    {
+        href: '/Account',
+        style: {color:"#fff", textDecoration: 'none'},
+        sx: { color:'black'},
+        label: 'Account',
+    },
+    {
+        href: '/MyAlerts',
+        style: {color:"#fff", textDecoration: 'none'},
+        sx:  { color:'black'},
+        label: 'Mes alertes',
+    },
+    {
+        href: '/Library',
+        style: {color:"#fff", textDecoration: 'none'},
+        sx:  { color:'black'},
+        label: 'Ma bibliothèque',
+    },
+    {
+        href: '/Favorites',
+        style: {color:"#fff", textDecoration: 'none'},
+        sx:  { color:'black'},
+        label: 'Mes favoris',
+    },
+];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -89,21 +98,20 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" sx={{top:0, left:0, right:0}}>
+
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <LinkMui href='/'>
             <Typography
                 variant="h6"
                 noWrap
                 component="div"
                 sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             >
-              <Link to={"/"} style={{color:"#fff", textDecoration: 'none'}}>
+              <Link to="/" style={{color:"#fff", textDecoration: 'none'}}>
                 BookBusters
               </Link>
             </Typography>
-          </LinkMui>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -134,11 +142,14 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              {/* key={`MenuItem-Desktop-NavBar--${index}`} */}
               {pages.map((page, index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                {console.log(index)}
-                <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                        <MenuItem key={`MenuItem-Desktop-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
+                        <Link style={page.style} to={page.href} >
+                            <Typography sx={page.sx} textAlign="center">{page.label}</Typography>
+                        </Link>
+                        </MenuItem>
+
               ))}
             </Menu>
           </Box>
@@ -148,19 +159,17 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            <Link to={"/"} style={{color:"#fff", textDecoration: 'none'}}>
+            <Link to="/" underline="none" style={{color:"#fff", textDecoration: 'none'}}>
               BookBusters
             </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, index) => (
-              <Button
-                key={index}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <MenuItem key={`MenuItem-babybel-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
+                <Link style={page.style} to={page.href}>
+                  <Typography sx={page.sx} textAlign="center">{page.label}</Typography>
+                </Link>
+              </MenuItem>
             ))}
           </Box>
 
@@ -171,7 +180,7 @@ const ResponsiveAppBar = () => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '45px'}}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -187,8 +196,10 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={`MenuItem-banana-NavBar--${index}`} onClick={handleCloseNavMenu} sx={setting.sx}>
+                  <Link style={setting.style} to={setting.href} >
+                    <Typography sx={setting.sx} textAlign="center">{setting.label}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>

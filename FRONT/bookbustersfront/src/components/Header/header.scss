@@ -1,9 +1,8 @@
-// .header {
-//     background-color: #373942;
-// }
-// .Header{
-//     //display: flex;
-//     background-color: #373942;
-//     color: white;
-// }
+.Header{
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 50;
+}
 

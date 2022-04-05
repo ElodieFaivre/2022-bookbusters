@@ -1,9 +1,6 @@
-import ResponsiveAppBar from '../BurgerMenu/AppBarBB';
+import ResponsiveAppBar from '../AppBar/AppBarBB';
 
 import './header.scss';
-
-
-
 
 export default function Header() {
   return (

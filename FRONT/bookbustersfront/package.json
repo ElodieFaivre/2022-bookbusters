@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.8.1",
     "@fontsource/roboto": "^4.5.5",
     "@fontsource/rubik-wet-paint": "^4.5.0",
+    "@material-ui/pickers": "^3.3.10",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.3",
     "@testing-library/jest-dom": "^5.16.3",

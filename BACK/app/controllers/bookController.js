@@ -1,6 +1,7 @@
 const bookDataMapper = require('../models/book');
 const ApiError = require('../errors/apiError');
 const bookMW = require('../middlewares/getBookInformation');
+const debug = require('debug')('bookController');
 
 module.exports = {
     /**
@@ -23,6 +24,11 @@ module.exports = {
             throw new ApiError('Book not found', 404);
         }
         book = await bookMW.getBookInformation([book]);
+        if(req.body.userId){
+            const user_has_book = await bookDataMapper.findRelationBookUser(bookId,req.body.userId);
+            debug(user_has_book);
+            book = {...book, ...user_has_book }
+        }
         return res.json(book);
     },
 
@@ -34,7 +40,21 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async addBook(req, res) {
-        const savedBook = await bookDataMapper.updateOrInsert(req.body);
-        return res.json(savedBook);
+        const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
+
+        let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
+        book = await bookMW.getBookInformation([book]);
+
+        //const user_has_book = await bookDataMapper.findRelationBookUser(book.id,req.body.userId);
+        debug('SAVED',savedUserHasBook);
+        book = {
+            ...book,
+            is_in_library :savedUserHasBook.is_in_library,
+            is_in_donation :savedUserHasBook.is_in_donation,
+            is_in_alert :savedUserHasBook.is_in_alert,
+            is_in_favorite :savedUserHasBook.is_in_favorite
+         }
+
+        return res.json(book);
     },
 };

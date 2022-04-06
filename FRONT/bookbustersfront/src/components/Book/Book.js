@@ -4,12 +4,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+//import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-import seigneur from "../../assets/img/seigneur.jpg";
+import PLS from "../../assets/img/simpson.jpg";
 
 const style = {
   position: "absolute",
@@ -23,7 +23,16 @@ const style = {
   p: 4,
 };
 
-export default function Book() {
+export default function Book({ livre }) {
+  function livrePLS() {
+    if (livre.coverM === undefined) {
+      return PLS;
+    } else {
+      return livre.coverM;
+    }
+  }
+
+  console.log(livre);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -36,19 +45,14 @@ export default function Book() {
             m: 2,
           }}
         >
-          <CardMedia
-            component="img"
-            //height="140"
-            //width="550px"
-            image={seigneur}
-            alt="seigneur"
-          />
+          <CardMedia component="img" image={livrePLS()} alt="seigneur" />
+          {console.log(livre.coverM)}
           <CardContent>
-            <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.5em" }} component="div">
-              Le Seigneur des anneaux
+            <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.2em" }} component="div">
+              {livre.title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              c'est l'histoire d'un nain qui part en randonnée
+              Auteur: {livre.author}
             </Typography>
           </CardContent>
         </Card>

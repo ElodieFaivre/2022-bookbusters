@@ -27,6 +27,8 @@ function Books() {
           <Book key={index} livre={livre} />
         ))}
 
+        {/*data.map((livre) => data.user.map((user) => console.log(user)))*/}
+
         {/*   <Book />        <Book />        <Book />*/}
       </Box>
     </>

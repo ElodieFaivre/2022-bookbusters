@@ -16,7 +16,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "70%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -25,10 +25,36 @@ const style = {
 
 export default function Book({ livre }) {
   function livrePLS() {
+    // permet de charger une cover de livre si la base de donnée n'en renvoi pas
     if (livre.coverM === undefined) {
       return PLS;
     } else {
       return livre.coverM;
+    }
+  }
+
+  function textPLS() {
+    // permet de charger un resumer de livre si celui-ci n'en dispose pas
+    if (livre.resume === undefined) {
+      return (
+        <p>
+          Ah non, s'il vous plaît, laissez tomber les combines à deux ronds. Vous avez dit que ça devait être vexant!
+          Ben voilà! Vous êtes vexé! Déjà à la corne, ils regardent même pas vers ici! Vous pouvez bien agiter tout les
+          drapeaux que vous voudrez! Oui mais nous on est trois, enfin, deux et demi. Là c’est une table ronde. Pour que
+          les chevaliers de Bretagne se réunissent autour. Toute façon autant vous y faire parce qu’à partir de
+          maintenant on va s’appeler «Les Chevaliers de la Table Ronde».
+        </p>
+      );
+    } else {
+      return livre.resume;
+    }
+  }
+
+  function user() {
+    for (let i = 0; i < livre.user.length; i++) {
+      return livre.user[i].username;
+
+      //<p>je suis un babybel</p>;
     }
   }
 
@@ -46,12 +72,11 @@ export default function Book({ livre }) {
           }}
         >
           <CardMedia component="img" image={livrePLS()} alt="seigneur" />
-          {console.log(livre.coverM)}
           <CardContent>
             <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.2em" }} component="div">
               {livre.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body1" color="text.secondary">
               Auteur: {livre.author}
             </Typography>
           </CardContent>
@@ -65,12 +90,22 @@ export default function Book({ livre }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
+            {livre.title}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <Box sx={{ display: "flex" }}>
+            <CardMedia component="img" image={livrePLS()} alt="seigneur" sx={{ mr: 2 }} />
+
+            <Box id="modal-modal-description" sx={{ mt: 2 }}>
+              <p>
+                <b>Auteur:</b> {livre.author}{" "}
+              </p>
+              <p>
+                <b>synopsis :</b> {textPLS()}
+              </p>
+            </Box>
+          </Box>
+          <Box>*Livre disponible chez : {livre.user[0].username}</Box>
         </Box>
       </Modal>
     </>

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Container, Stack } from '@mui/material';
+import { Button, ButtonGroup, Container } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
 import Book from '../Book/Book';

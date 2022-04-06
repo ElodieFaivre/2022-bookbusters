@@ -177,11 +177,15 @@ const ResponsiveAppBar = () => {
             <Link
               to="/"
               underline="none"
-              style={{ color: "#fff", textDecoration: "none" }}
+              style={{
+                color: "#fff",
+                textDecoration: "none",
+                marginRight: "15px",
+              }}
             >
               BookBusters
             </Link>
-            <SearchBar />
+            <SearchBar sx={{ marginLeft: "15px", marginRight: "15px" }} />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
@@ -201,7 +205,10 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ p: 0, marginLeft: "15px" }}
+              >
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>

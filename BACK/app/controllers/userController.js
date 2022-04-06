@@ -10,7 +10,7 @@ module.exports = {
     /**
      * User controller to get all users.
      * ExpressMiddleware signature
-     * @param {object} req Express req.object (not used)
+     * @param {object} req Express req.object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
@@ -22,7 +22,7 @@ module.exports = {
     /**
      * User controller to get a user by is id.
      * ExpressMiddleware signature
-     * @param {object} req Express req.object (not used)
+     * @param {object} req Express req.object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
@@ -82,7 +82,7 @@ module.exports = {
     /**
      * User controller to delete a user.
      * ExpressMiddleware signature
-     * @param {object} req Express request object (not used)
+     * @param {object} req Express request object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
@@ -106,7 +106,7 @@ module.exports = {
     /**
      * User controller to update a user.
      * ExpressMiddleware signature
-     * @param {object} req Express request object (not used)
+     * @param {object} req Express request object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
@@ -150,6 +150,13 @@ module.exports = {
         });
     },
 
+    /**
+     * User controller to log in a user.
+     * ExpressMiddleware signature
+     * @param {object} req Express request object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
     async login(req, res) {
         const foundUser = await userDataMapper.findOneUserByEmail(req.body.login);
 

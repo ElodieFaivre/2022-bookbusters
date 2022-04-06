@@ -1,12 +1,11 @@
+import ResponsiveAppBar from '../AppBar/AppBarBB';
+
 import './header.scss';
-
-import BurgerMenu from "../BurgerMenu/BurgerMenu"
-
 
 export default function Header() {
   return (
     <div className='Header'>
-      <BurgerMenu />
+      <ResponsiveAppBar />
     </div>
   );
 }

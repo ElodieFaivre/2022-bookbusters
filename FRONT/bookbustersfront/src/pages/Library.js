@@ -4,7 +4,7 @@ const Library = () => {
     return (
         <div>
         <Header />
-           <p>bibliothèque</p> 
+           bibliothèque
         </div>
     );
 };

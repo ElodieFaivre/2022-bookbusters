@@ -36,23 +36,21 @@ export default function Book() {
             m: 2,
           }}
         >
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              //height="140"
-              //width="550px"
-              image={seigneur}
-              alt="seigneur"
-            />
-            <CardContent>
-              <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.5em" }} component="div">
-                Le Seigneur des anneaux
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                c'est l'histoire d'un nain qui part en randonnée
-              </Typography>
-            </CardContent>
-          </CardActionArea>
+          <CardMedia
+            component="img"
+            //height="140"
+            //width="550px"
+            image={seigneur}
+            alt="seigneur"
+          />
+          <CardContent>
+            <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.5em" }} component="div">
+              Le Seigneur des anneaux
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              c'est l'histoire d'un nain qui part en randonnée
+            </Typography>
+          </CardContent>
         </Card>
       </Button>
 

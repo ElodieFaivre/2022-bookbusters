@@ -1,11 +1,16 @@
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Book from "../Book/Book";
+import axios from "axios";
 
 // C'est ici que nous allons faire notre map pour afficher plusieurs livres.
 
 function Books() {
-  useEffect(() => {}, []);
+  //const [data, setData] = useState([])
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/v1/book").then((res) => console.log(res.data));
+  }, []);
 
   return (
     <>

@@ -85,11 +85,13 @@ module.exports = {
         //TODO : question : what happened si une promesse échoue ??
         debug('Je lance les promesses pour trouver les livres')
         let books = await Promise.all(promiseToSolve);
-        books = await bookMW.getBookInformation(books);
         debug('Les livres trouvés sont', books);
+        debug('Je complete les infos avec API');
+        books = await bookMW.getBookInformation(books);
+        debug('Livres complets', books);
 
         const getRelationPromise = [];
-        req.body.userId=3;
+
         if (req.body.userId) {
             debug('user connecté')
             books.forEach(element => {

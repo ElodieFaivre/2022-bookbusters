@@ -10,9 +10,13 @@ const options = {
         },
     },
     security: {
-        BasicAuth: {
+        // BasicAuth: {
+        //     type: 'http',
+        //     scheme: 'basic',
+        // },
+        BearerAuth: {
             type: 'http',
-            scheme: 'basic',
+            scheme: 'bearer',
         },
     },
     baseDir: __dirname,

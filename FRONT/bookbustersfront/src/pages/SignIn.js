@@ -73,7 +73,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Connexion
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -81,7 +81,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Adresse email"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -91,7 +91,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Mot de passe"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -106,17 +106,17 @@ export default function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Se connecter
               </Button>
               <Grid container>
                 <Grid item xs>
                   <Link to="/ForgotPassword" style={{color:"#000", textDecoration: 'underline'}}>
-                    Forgot password?
+                    Mot de passe oublié?
                   </Link>
                 </Grid>
                 <Grid item>
                   <Link to="/SignUp" style={{color:"#000", textDecoration: 'underline'}}>
-                    {"Don't have an account? Sign Up"}
+                    {"Pas encore inscrit ? Inscrivez-vous"}
                   </Link>
                 </Grid>
               </Grid>

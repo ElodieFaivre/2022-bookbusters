@@ -28,7 +28,7 @@ module.exports = {
      */
     async getOneUserById(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -88,7 +88,7 @@ module.exports = {
      */
     async deleteOneUserById(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -112,7 +112,7 @@ module.exports = {
      */
     async update(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -158,7 +158,7 @@ module.exports = {
         }
 
         jwt.sign(
-            { user: foundUser },
+            { userId: foundUser.id },
             process.env.SECRET_TOKEN_KEY,
             { expiresIn: '30m' },
             (err, token) => {

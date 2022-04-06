@@ -7,7 +7,6 @@ import Books from '../components/Books/Books';
 
 import '../styles/Home.scss'
 import WelcomeBox from '../components/WelcomeBox/WelcomeBox';
-import { Box } from '@mui/system';
 
 const Home = () => {
     return (

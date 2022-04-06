@@ -68,5 +68,22 @@ module.exports = {
     async getBooksIdsAroundMe(req, res) {
         const books = await bookDataMapper.findBooksIdAround(req.body.location, req.body.radius);
         return res.json(books);
+    },
+
+    async getDetailsBookAroundMe(req,res) {
+        debug('Req.body.books = ', req.body.books);
+        let bookIds=req.query.books
+        bookIds=bookIds.substr(1).substr(0,bookIds.length-2).split(',');
+        debug('après traitement', bookIds);
+
+        const promiseToSolve = [];
+        bookIds.forEach(element => {
+            promiseToSolve.push(bookDataMapper.findOneBookById(Number(element)));
+        });
+
+        let books = await Promise.all(promiseToSolve);
+        books = await bookMW.getBookInformation(books);
+        return res.json(books);
+
     }
 };

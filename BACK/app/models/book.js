@@ -201,7 +201,8 @@ const bookDataMapper = {
         const result = await client.query(`SELECT * FROM around_me($1::point, $2)`, [point, radius]);
         debug(result.rows);
         return result.rows;
-    }
+    },
+
 };
 
 module.exports = bookDataMapper;

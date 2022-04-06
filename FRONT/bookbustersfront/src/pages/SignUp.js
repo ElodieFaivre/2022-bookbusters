@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -12,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Header from '../components/Header/Header';
 import { Link } from 'react-router-dom';
+
+
 
 function Copyright(props) {
   return (
@@ -67,6 +67,16 @@ export default function SignUp() {
                   id="pseudo"
                   label="Pseudo"
                   autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Localisation"
+                  name="localisation"
+                  autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>

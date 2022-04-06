@@ -18,6 +18,19 @@ router
     .get(controllerHandler(apiController.getBookByISBN));
 
 router
+    .route('/book/WCisbn/:isbn')
+    /**
+     * GET /v1/book/isbn/{isbn}
+     * @summary Find one book with ISBN in google API
+     * @param {number} isbn.path.required - book ISBN
+     * @tags BOOK
+     * @return {BookInfo} 200 - success response - application/json
+     * @return  {ApiError} 404 - Book not found
+     */
+    .get(controllerHandler(apiController.getBookWithWorldCat));
+
+
+router
     .route('/book/cover/isbn/:isbn')
     /**
      * GET /v1/book/cover/isbn/{isbn}

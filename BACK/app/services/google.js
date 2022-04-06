@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable eqeqeq */
+/* eslint-disable spaced-comment */
 const fetch = require('node-fetch');
 
 const google = {
@@ -14,12 +17,14 @@ const google = {
                 result = undefined;
             }
 
+            // eslint-disable-next-line spaced-comment
             //If at least one answer, only the first one is return
             if (json.totalItems >= 1) {
                 let isbn13 = null;
                 let isbn10 = null;
                 if (json.items[0].volumeInfo.industryIdentifiers) {
                     if (json.items[0].volumeInfo.industryIdentifiers.length > 0) {
+                        // eslint-disable-next-line arrow-parens
                         json.items[0].volumeInfo.industryIdentifiers.forEach(identifier => {
                             if (identifier.type === "ISBN_13") {
                                 isbn13 = identifier.identifier;

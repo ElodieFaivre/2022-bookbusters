@@ -1,13 +1,17 @@
 const userListsDataMapper = require('../models/userLists');
 const { getBookInformation } = require('../middlewares/getBookInformation');
-// const ApiError = require('../errors/apiError');
+const { ApiError } = require('../middlewares/handleError');
 
 module.exports = {
     async getAllBooksInLibrary(req, res) {
-        // const userId = Number(req.params.id);
-        const userId = Number(req.body.userId);
+        const RouteUserId = Number(req.params.id);
+        const ConnectedUserId = Number(req.body.userId);
 
-        const library = await userListsDataMapper.findAllBooksInLibrary(userId);
+        if (ConnectedUserId !== RouteUserId) {
+            throw new ApiError('Unauthorized access', { statusCode: 401 });
+        }
+
+        const library = await userListsDataMapper.findAllBooksInLibrary(RouteUserId);
 
         if (!library) {
             return res.json('{ no book in library }');
@@ -20,10 +24,14 @@ module.exports = {
     },
 
     async getAllBooksInFavorite(req, res) {
-        // const userId = Number(req.params.id);
-        const userId = Number(req.body.userId);
+        const RouteUserId = Number(req.params.id);
+        const ConnectedUserId = Number(req.body.userId);
 
-        const favorites = await userListsDataMapper.findAllBooksInFavorite(userId);
+        if (ConnectedUserId !== RouteUserId) {
+            throw new ApiError('Unauthorized access', { statusCode: 401 });
+        }
+
+        const favorites = await userListsDataMapper.findAllBooksInFavorite(RouteUserId);
 
         if (!favorites) {
             return res.json('{ no book in favorite }');
@@ -36,10 +44,14 @@ module.exports = {
     },
 
     async getAllBooksInAlert(req, res) {
-        // const userId = Number(req.params.id);
-        const userId = Number(req.body.userId);
+        const RouteUserId = Number(req.params.id);
+        const ConnectedUserId = Number(req.body.userId);
 
-        const alerts = await userListsDataMapper.findAllBooksInAlert(userId);
+        if (ConnectedUserId !== RouteUserId) {
+            throw new ApiError('Unauthorized access', { statusCode: 401 });
+        }
+
+        const alerts = await userListsDataMapper.findAllBooksInAlert(RouteUserId);
 
         if (!alerts) {
             return res.json('{ no book in alert }');

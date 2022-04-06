@@ -1,15 +1,12 @@
 /**
  * @typedef {object} ApiError
+ * @property {string} status - Status
+ * @property {number} statusCode - HTTP Status code
  * @property {string} message - Error message
- * @property {number} status - HTTP Status code
- *
  */
-
-class ApiError extends Error {
-    constructor(message, status = 500) {
+module.exports = class ApiError extends Error {
+    constructor(message, infos) {
         super(message);
-        this.status = status;
+        this.infos = infos;
     }
-}
-
-module.exports = ApiError;
+};

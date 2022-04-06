@@ -1,7 +1,5 @@
-//const debug = require('debug')('middleware:verifyToken');
-
 const jwt = require('jsonwebtoken');
-const ApiError = require('../errors/apiError');
+const { ApiError } = require('../middlewares/handleError');
 
 module.exports = {
     // Middleware to get and verify token received from frontend
@@ -9,12 +7,12 @@ module.exports = {
         const { token } = req.headers;
 
         if (!token) {
-            throw new ApiError('Access denied. No token provided', 401);
+            throw new ApiError('Access denied. No token provided', { statusCode: 401 });
         }
 
         jwt.verify(token, process.env.SECRET_TOKEN_KEY, (err, decoded) => {
             if (err) {
-                throw new ApiError('Access denied. Invalid token', 401);
+                throw new ApiError('Access denied. Invalid token', { statusCode: 401 });
             } else {
                 req.body.userId = decoded.user.id;
 
@@ -26,7 +24,7 @@ module.exports = {
     verifyTokenWithoutError(req, res, next) {
         const { token } = req.headers;
 
-        if(token) {
+        if (token) {
             jwt.verify(token, process.env.SECRET_TOKEN_KEY, (err, decoded) => {
                 if (!err) {
                     req.body.userId = decoded.user.id;
@@ -34,7 +32,5 @@ module.exports = {
             });
         }
         next();
-
     },
-
 };

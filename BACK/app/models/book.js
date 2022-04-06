@@ -1,5 +1,5 @@
 const client = require('../config/database');
-const ApiError = require('../errors/apiError');
+const { ApiError } = require('../middlewares/handleError');
 const debug = require('debug')('BookController');
 /**
  * @typedef {object} User
@@ -125,7 +125,9 @@ const bookDataMapper = {
             //  - If is_in_alert = TRUE, check if is_in_library = TRUE and error if it is (see later)
             if(book.is_in_alert){
                 if(userBookRelation.rows[0].is_in_library){
-                    throw new ApiError('Book already in library cannot be in alert', 400)
+                    throw new ApiError('Book already in library cannot be in alert', {
+                        statusCode: 400,
+                    });
                 }
             }
             //if book_in_donation, update donation_date

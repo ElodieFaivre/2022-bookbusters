@@ -1,5 +1,5 @@
 const bookDataMapper = require('../models/book');
-const ApiError = require('../errors/apiError');
+const { ApiError } = require('../middlewares/handleError');
 const bookMW = require('../middlewares/getBookInformation');
 const debug = require('debug')('bookController');
 
@@ -21,7 +21,7 @@ module.exports = {
         const bookId = req.params.id;
         let book = await bookDataMapper.findOneBookById(bookId);
         if (!book) {
-            throw new ApiError('Book not found', 404);
+            throw new ApiError('Book not found', { statusCode: 404 });
         }
         book = await bookMW.getBookInformation([book]);
         if(req.body.userId){

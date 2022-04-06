@@ -1,6 +1,7 @@
-export default function BookDetail() {
-  return (
-    <div className="">BookDetail
-</div>
-  );
-}
+import React from "react";
+
+const BookDetail = () => {
+  return <div></div>;
+};
+
+export default BookDetail;

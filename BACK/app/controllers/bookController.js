@@ -57,4 +57,16 @@ module.exports = {
 
         return res.json(book);
     },
+
+    /**
+     * Book controller to add a book
+     * ExpressMiddleware signature
+     * @param {object} req Express req.object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
+    async getBooksIdsAroundMe(req, res) {
+        const books = await bookDataMapper.findBooksIdAround(req.body.location, req.body.radius);
+        return res.json(books);
+    }
 };

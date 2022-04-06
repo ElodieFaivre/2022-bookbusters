@@ -39,4 +39,16 @@ router
      */
     .get(controllerHandler(verifyTokenWithoutError),controllerHandler(bookController.getOneBookById));
 
+
+router
+    .route('/book/around-me')
+    /**
+     * POST /v1/book/around-me
+     * @summary Add book and relation user_has_book to database or update if already exist
+     * @tags BOOK
+     * @param {InputAroundMe} request.body.required - book info
+     * @return {BookIdsAroundMe} 200 - success response - application/json
+     * @return {ApiError} 400 - Bad request response - application/json
+     */
+    .post(controllerHandler(bookController.getBooksIdsAroundMe));
 module.exports = router;

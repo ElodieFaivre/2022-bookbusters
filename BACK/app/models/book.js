@@ -32,6 +32,21 @@ const debug = require('debug')('BookController');
  * @property {boolean} is_in_alert
  */
 
+/**
+ * @typedef {object} InputAroundMe
+ * @property {string} location (Format (x,y))
+ * @property {integer} radius Radius to look around in km
+ */
+
+/**
+ * @typedef {object} BookIdsAroundMe
+ * @property {[integer]} number_of_books_found
+ * @property {[integer]} book_ids
+ * @property {string} location
+ */
+
+
+
 const bookDataMapper = {
 
     async findAllInDonation() {
@@ -181,6 +196,12 @@ const bookDataMapper = {
         //6. Then return book with status
         return userBook.rows[0];
     },
+
+    async findBooksIdAround(point, radius){
+        const result = await client.query(`SELECT * FROM around_me($1::point, $2)`, [point, radius]);
+        debug(result.rows);
+        return result.rows;
+    }
 };
 
 module.exports = bookDataMapper;

@@ -2,6 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 const fetch = require('node-fetch');
+const worldCat = require('../services/worldCat');
 
 const google = {
     async findBookByISBN(isbn) {
@@ -45,11 +46,10 @@ const google = {
                     language: json.items[0].volumeInfo.language
                 };
             }
-
-
+            else {
+                result = await worldCat.findBookByISBN(isbn);
+            }
             return result;
-
-
         } catch (error) {
             throw error;
         }
@@ -85,7 +85,7 @@ const google = {
                         })
                     }
                 }
-                if(isbn13 || isbn10) {
+                if (isbn13 || isbn10) {
                     book = {
                         isbn13: isbn13,
                         isbn10: isbn10,

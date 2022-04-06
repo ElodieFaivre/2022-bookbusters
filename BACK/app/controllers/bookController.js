@@ -24,10 +24,10 @@ module.exports = {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
         book = await bookMW.getBookInformation([book]);
-        if(req.body.userId){
-            const user_has_book = await bookDataMapper.findRelationBookUser(bookId,req.body.userId);
+        if (req.body.userId) {
+            const user_has_book = await bookDataMapper.findRelationBookUser(bookId, req.body.userId);
             debug(user_has_book);
-            book = {...book, ...user_has_book }
+            book = { ...book, ...user_has_book }
         }
         return res.json(book);
     },
@@ -46,14 +46,14 @@ module.exports = {
         book = await bookMW.getBookInformation([book]);
 
         //const user_has_book = await bookDataMapper.findRelationBookUser(book.id,req.body.userId);
-        debug('SAVED',savedUserHasBook);
+        debug('SAVED', savedUserHasBook);
         book = {
             ...book,
-            is_in_library :savedUserHasBook.is_in_library,
-            is_in_donation :savedUserHasBook.is_in_donation,
-            is_in_alert :savedUserHasBook.is_in_alert,
-            is_in_favorite :savedUserHasBook.is_in_favorite
-         }
+            is_in_library: savedUserHasBook.is_in_library,
+            is_in_donation: savedUserHasBook.is_in_donation,
+            is_in_alert: savedUserHasBook.is_in_alert,
+            is_in_favorite: savedUserHasBook.is_in_favorite
+        }
 
         return res.json(book);
     },
@@ -70,10 +70,10 @@ module.exports = {
         return res.json(books);
     },
 
-    async getDetailsBookAroundMe(req,res) {
-        debug('Req.body.books = ', req.body.books);
-        let bookIds=req.query.books
-        bookIds=bookIds.substr(1).substr(0,bookIds.length-2).split(',');
+    async getDetailsBookAroundMe(req, res) {
+        debug('Req.query.books = ', req.query.books);
+        let bookIds = req.query.books
+        bookIds = bookIds.substr(1).substr(0, bookIds.length - 2).split(',');
         debug('après traitement', bookIds);
 
         const promiseToSolve = [];
@@ -81,9 +81,29 @@ module.exports = {
             promiseToSolve.push(bookDataMapper.findOneBookById(Number(element)));
         });
 
+
+        //TODO : question : what happened si une promesse échoue ??
+        debug('Je lance les promesses pour trouver les livres')
         let books = await Promise.all(promiseToSolve);
         books = await bookMW.getBookInformation(books);
-        return res.json(books);
+        debug('Les livres trouvés sont', books);
+
+        const getRelationPromise = [];
+        req.body.userId=3;
+        if (req.body.userId) {
+            debug('user connecté')
+            books.forEach(element => {
+                getRelationPromise.push(bookDataMapper.findRelationBookUser(element.id, req.body.userId));
+            })
+            debug('Je vais chercher les relations avec le user connecté')
+            const moreInfoBook = await Promise.all(getRelationPromise);
+
+            for (let i = 0; i < books.length; i += 1) {
+                books[i] = { ...books[i], ...moreInfoBook[i]};
+            }
+
+        }
+       return res.json(books);
 
     }
 };

@@ -66,20 +66,57 @@ module.exports = {
     },
 
     async getBookByKeyword(req, res) {
-        const books = await google.findBookByKeyword(req.query.q);
+        let books = await google.findBookByKeyword(req.query.q);
         if (!books) {
             throw new ApiError('Sorry, book with this keyword not found', { statusCode: 204 });
         }
+
         const openLibraryQueries = [];
+        const bookInBDDQueries = [];
+        const userBookRelationQueries= [];
 
         books.forEach((book) => {
-            openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
+            if (book.isbn13) {
+
+                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
+                bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn13(book.isbn13));
+            }
+            else if (book.isbn10) {
+                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
+                bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn10(book.isbn10));
+            }
+
         });
 
         const openLibResult = await Promise.all(openLibraryQueries);
+        const bookInBDDResult = await Promise.all(bookInBDDQueries);
+
+        //debug('BOOK IN BDD RESULT', bookInBDDResult)
         for (let i = 0; i < books.length; i += 1) {
-            books[i] = { ...books[i], ...openLibResult[i] };
+            if (bookInBDDResult[i]) {
+                //debug('livre trouvé avec id', bookInBDDResult[i].id)
+                if (bookInBDDResult[i].isbn13) {
+                    if (req.body.user) {
+                        debug('ajout relation');
+                        userBookRelationQueries.push(bookDataMapper.findRelationBookUserWithISBN13(bookInBDDResult[i].isbn13, req.body.user.userId))
+                    }
+                }
+                else if (bookInBDDResult[i].isbn10) {
+                    if (req.body.user) {
+                        debug('ajout relation');
+                        userBookRelationQueries.push(bookDataMapper.findRelationBookUserWithISBN10(bookInBDDResult[i].isbn10, req.body.user.userId))
+                    }
+                }
+            }
         }
+
+        const userBookRelationResult = await Promise.all(userBookRelationQueries);
+
+        for (let i = 0; i < books.length; i += 1) {
+            debug('BOOK IN BDD RESULT i', bookInBDDResult[i])
+            books[i] = { ...books[i], ...openLibResult[i], ...bookInBDDResult[i], ...userBookRelationResult[i] };
+        }
+
         return res.json(books);
     },
 };

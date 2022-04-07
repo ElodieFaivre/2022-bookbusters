@@ -60,7 +60,6 @@ module.exports = {
 
     async getBookWithWorldCat(req, res) {
         const book = await worldCat.findBookByISBN(req.params.isbn);
-        console.log(book);
         if (!book) {
             throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
         }

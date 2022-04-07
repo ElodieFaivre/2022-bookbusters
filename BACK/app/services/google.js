@@ -43,12 +43,10 @@ const google = {
                 language: json.items[0].volumeInfo.language,
             };
         }
-            else {
-                result = await worldCat.findBookByISBN(isbn);
-            }
-            return result;
-            
-        }  
+        else {
+            result = await worldCat.findBookByISBN(isbn);
+        }
+        return result;
     },
 
     async findBookByKeyword(word) {

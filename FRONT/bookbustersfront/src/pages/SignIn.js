@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import AuthContext from "../context/AuthProvider";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -17,9 +16,11 @@ import LibrarySign from "../assets/img/library.jpg";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 //* Import composant Link React-Router
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //* Import d'axios
 import axios from "../api/axios";
+
+localStorage.setItem;
 
 function Copyright(props) {
   return (
@@ -40,12 +41,11 @@ function Copyright(props) {
 }
 
 export default function SignInSide() {
-  const { setAuth } = useContext(AuthContext);
-
   const [login, setLogin] = useState("");
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  let navigate = useNavigate();
 
   useEffect(() => {
     setErrMsg("");
@@ -63,7 +63,7 @@ export default function SignInSide() {
         console.log(response);
         setLogin("");
         setPwd("");
-        setSuccess(true);
+        setSuccess(navigate("/"));
       })
       .catch((error) => {
         if (error.response) {
@@ -193,6 +193,7 @@ export default function SignInSide() {
               </>
             ) : (
               <>
+                {/* En cas de succès à lidentification */}
                 <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                   <ThumbUpIcon />
                 </Avatar>

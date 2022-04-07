@@ -70,8 +70,8 @@ const bookDataMapper = {
         return result.rows[0];
     },
 
-    async findRelationBookUser(bookId, userId){
-        const result = await client.query(`SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=$1 AND user_id=$2` , [
+    async findRelationBookUser(bookId, userId) {
+        const result = await client.query(`SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=$1 AND user_id=$2`, [
             bookId, userId
         ]);
         return result.rows[0];
@@ -138,15 +138,15 @@ const bookDataMapper = {
             debug("user id", userBookRelation.rows[0].id)
             //Check
             //  - If is_in_alert = TRUE, check if is_in_library = TRUE and error if it is (see later)
-            if(book.is_in_alert){
-                if(userBookRelation.rows[0].is_in_library){
+            if (book.is_in_alert) {
+                if (userBookRelation.rows[0].is_in_library) {
                     throw new ApiError('Book already in library cannot be in alert', {
                         statusCode: 400,
                     });
                 }
             }
             //if book_in_donation, update donation_date
-            if(book.is_in_donation){
+            if (book.is_in_donation) {
                 userBook = await client.query(
                     ` UPDATE user_has_book SET
                     "is_in_library"=$1, "is_in_donation"=$2, "is_in_favorite"=$3, "is_in_alert"=$4, "donation_date"=NOW() WHERE id=$5 RETURNING *
@@ -154,7 +154,7 @@ const bookDataMapper = {
                     [book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert, userBookRelation.rows[0].id],
                 );
             }
-            else{
+            else {
                 userBook = await client.query(
                     ` UPDATE user_has_book SET
                     "is_in_library"=$1, "is_in_donation"=$2, "is_in_favorite"=$3, "is_in_alert"=$4 WHERE id=$5 RETURNING *
@@ -170,7 +170,7 @@ const bookDataMapper = {
         else {
             debug('la relation de ce livre avec user n existe pas, je créé')
             debug('bookId', bookId)
-            if(book.is_in_donation){
+            if (book.is_in_donation) {
                 userBook = await client.query(
                     ` INSERT INTO user_has_book
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert, donation_date) VALUES
@@ -197,7 +197,7 @@ const bookDataMapper = {
         return userBook.rows[0];
     },
 
-    async findBooksIdAround(point, radius){
+    async findBooksIdAround(point, radius) {
         const result = await client.query(`SELECT * FROM around_me($1::point, $2)`, [point, radius]);
         debug(result.rows);
         return result.rows;

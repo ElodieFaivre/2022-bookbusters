@@ -1,7 +1,9 @@
 const bookDataMapper = require('../models/book');
+const userDataMapper = require('../models/user');
 const { ApiError } = require('../middlewares/handleError');
 const bookMW = require('../middlewares/getBookInformation');
 const debug = require('debug')('bookController');
+// const mailer = require('../services/mailer');
 
 module.exports = {
     /**
@@ -54,7 +56,10 @@ module.exports = {
             is_in_alert: savedUserHasBook.is_in_alert,
             is_in_favorite: savedUserHasBook.is_in_favorite
         }
-
+        if (book.is_in_donation=true) {
+            const users = await userDataMapper.findUsersInAlert(book.isbn13);
+            //await mailer.sendAlertingMails(users);
+        }
         return res.json(book);
     },
 

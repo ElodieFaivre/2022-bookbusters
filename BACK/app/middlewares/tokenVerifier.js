@@ -8,9 +8,9 @@ const { ApiError } = require('../middlewares/handleError');
 module.exports = {
     // Middleware to get and verify token received from frontend
     verifyToken(req, res, next) {
-        debug('Full req.headers : \n' , req.headers);
+        debug('Full req.headers : \n', req.headers);
         const headerAuth = req.headers['x-access-token'] || req.headers.authorization;
-        debug('Authorization key : ' , headerAuth);
+        debug('Authorization key : ', headerAuth);
 
         if (!headerAuth) {
             throw new ApiError('Access denied. No token provided', { statusCode: 401 });
@@ -23,7 +23,6 @@ module.exports = {
             if (err) {
                 throw new ApiError('Access denied. Invalid token', { statusCode: 401 });
             } else {
-
                 req.body.user = decoded;
 
                 next();
@@ -47,7 +46,7 @@ module.exports = {
                 }
             });
         }
-        
+
         next();
     },
 };

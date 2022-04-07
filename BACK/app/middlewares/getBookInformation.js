@@ -8,32 +8,33 @@ module.exports = {
      * Book middleware to get all books information.
      * @param {[Book]} books Array of book in BDD
      */
-    async getBookInformation(books, userId) {
+    async getBookInformation(books, user) {
         const googleQueries = [];
         const openLibraryQueries = [];
         const userBookRelationQueries = [];
+        let userId = null;
 
+        if (user) {
+            userId = user.userId;
+        }
 
         books.forEach((book) => {
-            if(book.isbn13){
+            if (book.isbn13) {
                 googleQueries.push(google.findBookByISBN(book.isbn13));
                 openLibraryQueries.push(openLib.findBookCoverByISBN(book.isbn13));
-                if(userId){
+                if (userId) {
                     debug('ajout relation');
                     userBookRelationQueries.push(bookDataMapper.findRelationBookUserWithISBN13(book.isbn13, userId))
                 }
             }
-            else if(book.isbn10)
-            {
+            else if (book.isbn10) {
                 googleQueries.push(google.findBookByISBN(book.isbn10));
                 openLibraryQueries.push(openLib.findBookCoverByISBN(book.isbn10));
-                if(userId){
+                if (userId) {
                     debug('ajout relation');
                     userBookRelationQueries.push(bookDataMapper.findRelationBookUserWithISBN10(book.isbn10, userId))
                 }
             }
-
-
 
         });
 

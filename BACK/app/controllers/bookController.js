@@ -14,14 +14,8 @@ module.exports = {
     async getAllInDonation(req, res) {
         debug('GetAllInDonation')
         let books = await bookDataMapper.findAllInDonation();
-        if(req.body.user){
-            debug('user connecté')
-            books = await bookMW.getBookInformation(books, req.body.user.userId);
-        }
-        else {
-            debug('user non connecté')
-            books = await bookMW.getBookInformation(books);
-        }
+        books = await bookMW.getBookInformation(books, req.body.user);
+
         return res.json(books);
     },
 
@@ -31,12 +25,8 @@ module.exports = {
         if (!book) {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
-        if(req.body.user){
-            book = await bookMW.getBookInformation([book], req.body.user.userId);
-        }
-        else {
-            book = await bookMW.getBookInformation([book]);
-        }
+        book = await bookMW.getBookInformation([book], req.body.user);
+
         return res.json(book);
     },
 
@@ -51,12 +41,8 @@ module.exports = {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
         let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
-        if(req.body.user){
-            book = await bookMW.getBookInformation([book], req.body.user.userId);
-        }
-        else {
-            book = await bookMW.getBookInformation([book]);
-        }
+        book = await bookMW.getBookInformation([book], req.body.user);
+
         return res.json(book);
     },
 
@@ -101,14 +87,10 @@ module.exports = {
         debug('Les livres trouvés sans les undefined', books);
 
         debug('Je complete les infos avec API');
-        if(req.body.user){
-            debug('user connecté')
-            books = await bookMW.getBookInformation(books, req.body.user.userId);
-        }
-        else {
-            debug('user non connecté')
-            books = await bookMW.getBookInformation(books);
-        }
+
+        debug('user connecté')
+        books = await bookMW.getBookInformation(books, req.body.user);
+
         debug('Livres complets', books);
 
        return res.json(books);

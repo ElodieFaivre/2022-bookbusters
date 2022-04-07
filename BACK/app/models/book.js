@@ -64,7 +64,7 @@ const bookDataMapper = {
     async findOneBookById(bookId) {
         const result = await client.query(`SELECT book.*, MAX(donator.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
         LEFT JOIN (SELECT * FROM "user_has_book" WHERE user_has_book.is_in_donation=TRUE) AS donator ON book.id=donator.book_id
-        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.id=$1GROUP BY book.id ORDER BY donation_date;` , [
+        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.id=$1 GROUP BY book.id;` , [
             bookId,
         ]);
         return result.rows[0];
@@ -73,7 +73,7 @@ const bookDataMapper = {
     async findOneBookByIsbn13(bookIsbn) {
         const result = await client.query(`SELECT book.*, MAX(donator.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
         LEFT JOIN (SELECT * FROM "user_has_book" WHERE user_has_book.is_in_donation=TRUE) AS donator ON book.id=donator.book_id
-        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.isbn13=$1GROUP BY book.id ORDER BY donation_date;` , [
+        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.isbn13=$1 GROUP BY book.id;` , [
             bookIsbn,
         ]);
         return result.rows[0];
@@ -82,7 +82,7 @@ const bookDataMapper = {
     async findOneBookByIsbn10(bookIsbn) {
         const result = await client.query(`SELECT book.*, MAX(donator.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
         LEFT JOIN (SELECT * FROM "user_has_book" WHERE user_has_book.is_in_donation=TRUE) AS donator ON book.id=donator.book_id
-        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.isbn10=$1GROUP BY book.id ORDER BY donation_date;` , [
+        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.isbn10=$1GROUP BY book.id;` , [
             bookIsbn,
         ]);
         return result.rows[0];

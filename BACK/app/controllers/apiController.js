@@ -28,15 +28,8 @@ module.exports = {
         if (book) {
             debug('livre déjà dans notre bdd')
             //this book exit in our BDD
-            if (req.body.user) {
-                debug('user connecté', req.body.user.userId)
-                book = await getBookInformation([book], req.body.user.userId)
-            }
-            else {
+            book = await getBookInformation([book], req.body.user);
 
-                debug('user non connecté')
-                book = await getBookInformation([book])
-            }
         }
         else {
             //If not in our BDD, search
@@ -45,7 +38,6 @@ module.exports = {
             if (!book) {
                 throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 204 });
             }
-
             // Search for a cover to add to the book found
             const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
             if (cover) {
@@ -77,7 +69,6 @@ module.exports = {
 
         books.forEach((book) => {
             if (book.isbn13) {
-
                 openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
                 bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn13(book.isbn13));
             }
@@ -94,8 +85,10 @@ module.exports = {
         //debug('BOOK IN BDD RESULT', bookInBDDResult)
         for (let i = 0; i < books.length; i += 1) {
             if (bookInBDDResult[i]) {
-                //debug('livre trouvé avec id', bookInBDDResult[i].id)
+
                 if (bookInBDDResult[i].isbn13) {
+                    debug('livre trouvé', bookInBDDResult[i])
+                    debug('livre trouvé avec isbn', bookInBDDResult[i].isbn13)
                     if (req.body.user) {
                         debug('ajout relation');
                         userBookRelationQueries.push(bookDataMapper.findRelationBookUserWithISBN13(bookInBDDResult[i].isbn13, req.body.user.userId))

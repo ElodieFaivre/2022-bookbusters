@@ -4,7 +4,6 @@ import { createContext, useState } from "react";
 const AuthContext = createContext({});
 
 /* Children représente les enfants qui se trouve dans le authProvider  */
-
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
 

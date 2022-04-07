@@ -21,21 +21,6 @@ import { Link } from "react-router-dom";
 //* Import d'axios
 import axios from "../api/axios";
 
-// async function getUser() {
-//   try {
-//     const response = await axios.post("/v1/login", {
-//       login: "elodie.book@busters.fr",
-//       password: "test",
-//     });
-//     console.log(response);
-//   } catch (error) {
-//     console.log("error");
-//   }
-// }
-
-// cet appel de fonction, doit être déclenchée quand user appuit sur se connecter
-// getUser();
-
 function Copyright(props) {
   return (
     <Typography
@@ -56,52 +41,35 @@ function Copyright(props) {
 
 export default function SignInSide() {
   const { setAuth } = useContext(AuthContext);
-  // const useRef = useRef();
-  // const errRef = useRef();
 
   const [login, setLogin] = useState("");
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  {
-    /* Mettre le focus sur le input form */
-  }
-  // useEffect(() => {
-  //   useRef.current.focus();
-  // }, []);
-
-  {
-    /* Deuxième useEffect pour vider les inputs que 
-    nous pourrions avoir après une erreur */
-  }
   useEffect(() => {
     setErrMsg("");
   }, [login, password]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "/v1/login",
-        {
-          login,
-          password,
+    axios
+      .post("/v1/login", {
+        login,
+        password,
+      })
+      .then((response) => {
+        console.log(response);
+        setLogin("");
+        setPwd("");
+        setSuccess(true);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
         }
-        // JSON.stringify({ login, password }),
-        // {
-        //   headers: { "Content-Type": "application/json" },
-        //   withCredentials: true,
-        // }
-      );
-      console.log(response);
-      setLogin("");
-      setPwd("");
-      setSuccess(true);
-    } catch (error) {
-      console.error(error);
-    }
+      });
   };
 
   return (
@@ -109,14 +77,6 @@ export default function SignInSide() {
       <Header />
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-        {/* Création d'un message d'erreur
-        <p
-          ref={errRef}
-          className={errMsg ? "errmsg" : "offscreen"}
-          aria-live="assertive"
-        >
-          {errMsg}
-        </p> */}
         <Grid
           item
           xs={false}

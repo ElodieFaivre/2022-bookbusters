@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import AuthContext from "../context/AuthProvider";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -53,6 +55,7 @@ function Copyright(props) {
 }
 
 export default function SignInSide() {
+  const { setAuth } = useContext(AuthContext);
   // const useRef = useRef();
   // const errRef = useRef();
 

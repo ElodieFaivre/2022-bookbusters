@@ -10,7 +10,7 @@ module.exports = {
     /**
      * User controller to get all users.
      * ExpressMiddleware signature
-     * @param {object} req Express req.object (not used)
+     * @param {object} req Express req.object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
@@ -22,13 +22,13 @@ module.exports = {
     /**
      * User controller to get a user by is id.
      * ExpressMiddleware signature
-     * @param {object} req Express req.object (not used)
+     * @param {object} req Express req.object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
     async getOneUserById(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -82,13 +82,13 @@ module.exports = {
     /**
      * User controller to delete a user.
      * ExpressMiddleware signature
-     * @param {object} req Express request object (not used)
+     * @param {object} req Express request object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
     async deleteOneUserById(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -106,13 +106,13 @@ module.exports = {
     /**
      * User controller to update a user.
      * ExpressMiddleware signature
-     * @param {object} req Express request object (not used)
+     * @param {object} req Express request object
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
     async update(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -150,6 +150,13 @@ module.exports = {
         });
     },
 
+    /**
+     * User controller to log in a user.
+     * ExpressMiddleware signature
+     * @param {object} req Express request object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
     async login(req, res) {
         const foundUser = await userDataMapper.findOneUserByEmail(req.body.login);
 
@@ -158,7 +165,7 @@ module.exports = {
         }
 
         jwt.sign(
-            { user: foundUser },
+            { userId: foundUser.id },
             process.env.SECRET_TOKEN_KEY,
             { expiresIn: '30m' },
             (err, token) => {

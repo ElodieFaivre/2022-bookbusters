@@ -28,8 +28,9 @@ router
     /**
      * GET /v1/user/{id}
      * @summary Get one user by its id
-     * @param {number} id.path.required - user identifier
      * @tags USER
+     * @security BearerAuth
+     * @param {number} id.path.required - user identifier
      * @return {User} 200 - success response - application/json
      */
     .get(controllerHandler(verifyToken), controllerHandler(userController.getOneUserById))
@@ -37,6 +38,7 @@ router
      * DELETE /v1/user/{id}
      * @summary Delete one user
      * @tags USER
+     * @security BearerAuth
      * @param {number} id.path.required - user identifier
      * @return {User} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
@@ -47,6 +49,7 @@ router
      * PATCH /v1/user/{id}
      * @summary Update one user
      * @tags USER
+     * @security BearerAuth
      * @param {login} request.body.required - user email and password
      * @return {User} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
@@ -62,8 +65,7 @@ router
  * POST /v1/login
  * @summary log a user in
  * @tags USER
- * @param {string} request.body.required - user login email
- * @param {string} request.body.required - user login password
+ * @param {Login} request.body.required - user login email and password
  * @return {User} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  */

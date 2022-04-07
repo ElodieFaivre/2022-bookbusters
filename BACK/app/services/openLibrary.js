@@ -1,10 +1,5 @@
 const fetch = require('node-fetch');
 
-/**
- * @typedef {object} BookCover
- * @property {string} cover - Book cover url
- */
-
 const openLibrary = {
     async findBookCoverByISBN(isbn) {
         const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json`;

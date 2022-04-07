@@ -11,8 +11,9 @@ router
     /**
      * GET /v1/user/{id}/library
      * @summary Get all books in a user's library by the user ID, and order by title
+     * @tags USER
+     * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @tags USER'S LISTS
      * @return {[Book]} 200 - success response - application/json
      */
     .get(
@@ -25,8 +26,9 @@ router
     /**
      * GET /v1/user/{id}/favorite
      * @summary Get all books in a user's favorites list by the user ID, and order by title
+     * @tags USER
+     * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @tags USER'S LISTS
      * @return {[Book]} 200 - success response - application/json
      */
     .get(
@@ -39,8 +41,9 @@ router
     /**
      * GET /v1/user/{id}/alert
      * @summary Get all books in a user's alerts list by the user ID, and order by title
+     * @tags USER
+     * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @tags USER'S LISTS
      * @return {[Book]} 200 - success response - application/json
      */
     .get(controllerHandler(verifyToken), controllerHandler(userBooksController.getAllBooksInAlert));

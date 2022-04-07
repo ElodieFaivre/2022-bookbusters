@@ -5,9 +5,21 @@ import React from "react";
 import Buttons from "../components/button/Button";
 import Header from "../components/Header/Header";
 
-import "./babybel.scss";
+import "../styles/AroundMe.scss";
+import axios from "axios";
 
 const AroundMe = () => {
+  const options = { location: "location: (48.5,2.3), radius : 200" };
+  axios
+    .post("http://localhost:5000/v1/book/around-me", {
+      location: "(48.5,2.3)",
+      radius: "200",
+    })
+    .then((response) => console.log(response))
+    .catch((error) => {
+      console.log(error);
+    });
+
   return (
     <div>
       <Header />

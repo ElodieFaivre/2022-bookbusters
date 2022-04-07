@@ -1,5 +1,6 @@
 const google = require('../services/google');
 const openLibrary = require('../services/openLibrary');
+const worldCat = require('../services/worldCat');
 const { ApiError } = require('../middlewares/handleError');
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
     async getBookByISBN(req, res) {
         const book = await google.findBookByISBN(req.params.isbn);
         if (!book) {
-            throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 204 });
+            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
         }
 
         // Search for a cover to add to the book found
@@ -55,5 +56,13 @@ module.exports = {
             books[i] = { ...books[i], ...openLibResult[i] };
         }
         return res.json(books);
+    },
+
+    async getBookWithWorldCat(req, res) {
+        const book = await worldCat.findBookByISBN(req.params.isbn);
+        if (!book) {
+            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
+        }
+        return res.json(book);
     },
 };

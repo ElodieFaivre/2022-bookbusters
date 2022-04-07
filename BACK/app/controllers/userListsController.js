@@ -3,9 +3,16 @@ const { getBookInformation } = require('../middlewares/getBookInformation');
 const { ApiError } = require('../middlewares/handleError');
 
 module.exports = {
+    /**
+     * User controller to get all books in the user's library.
+     * ExpressMiddleware signature
+     * @param {object} req Express req.object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
     async getAllBooksInLibrary(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -23,9 +30,16 @@ module.exports = {
         return res.json(library);
     },
 
+    /**
+     * User controller to get all books in the user's favorites list.
+     * ExpressMiddleware signature
+     * @param {object} req Express req.object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
     async getAllBooksInFavorite(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -43,9 +57,16 @@ module.exports = {
         return res.json(favorites);
     },
 
+    /**
+     * User controller to get all books in the user's alerte list.
+     * ExpressMiddleware signature
+     * @param {object} req Express req.object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
     async getAllBooksInAlert(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });

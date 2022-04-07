@@ -19,22 +19,22 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 //* Import composant Link React-Router
 import { Link } from "react-router-dom";
 //* Import d'axios
-import axios from "axios";
+import axios from "../api/axios";
 
-async function getUser() {
-  try {
-    const response = await axios.post("http://localhost:5000/v1/login", {
-      login: "elodie.book@busters.fr",
-      password: "test",
-    });
-    console.log(response);
-  } catch (error) {
-    console.log("error");
-  }
-}
+// async function getUser() {
+//   try {
+//     const response = await axios.post("/v1/login", {
+//       login: "elodie.book@busters.fr",
+//       password: "test",
+//     });
+//     console.log(response);
+//   } catch (error) {
+//     console.log("error");
+//   }
+// }
 
 // cet appel de fonction, doit être déclenchée quand user appuit sur se connecter
-getUser();
+// getUser();
 
 function Copyright(props) {
   return (
@@ -59,8 +59,8 @@ export default function SignInSide() {
   // const useRef = useRef();
   // const errRef = useRef();
 
-  const [user, setUser] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [login, setLogin] = useState("");
+  const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
@@ -77,15 +77,31 @@ export default function SignInSide() {
   }
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd]);
+  }, [login, password]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      const response = await axios.post(
+        "/v1/login",
+        {
+          login,
+          password,
+        }
+        // JSON.stringify({ login, password }),
+        // {
+        //   headers: { "Content-Type": "application/json" },
+        //   withCredentials: true,
+        // }
+      );
+      console.log(response);
+      setLogin("");
+      setPwd("");
+      setSuccess(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -194,8 +210,8 @@ export default function SignInSide() {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  onChange={(e) => setUser(e.target.value)}
-                  value={user}
+                  onChange={(e) => setLogin(e.target.value)}
+                  value={login}
                 />
                 <TextField
                   margin="normal"
@@ -207,7 +223,7 @@ export default function SignInSide() {
                   id="password"
                   autoComplete="current-password"
                   onChange={(e) => setPwd(e.target.value)}
-                  value={pwd}
+                  value={password}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = require('./routers');
 
+const cors = require('cors');
+
 const app = express();
 
 require('./helpers/docHelper')(app);
@@ -12,6 +14,11 @@ app.use(express.json());
 
 // j'indique à mon serveur que j'accepte de recevoir des requêtes POST avec du texte
 app.use(express.urlencoded({ extended: true }));
+
+const corsOptions = {
+    origin: process.env.CORS_DOMAINS ?? true,
+};
+app.use(cors(corsOptions));
 
 app.use(router);
 

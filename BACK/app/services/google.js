@@ -43,9 +43,9 @@ const google = {
         return result;
     },
 
-    async findBookByKeyword(word) {
+    async findBookByKeyword(word, limit, startIndex) {
         //TODO : modify maxResults and startIndex
-        const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=10&startIndex=0`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}`;
 
         const response = await fetch(url);
         const json = await response.json();
@@ -75,12 +75,12 @@ const google = {
             if (isbn13 || isbn10) {
                 book = {
                     isbn13: isbn13,
-                    isbn10: isbn10,
+                    // isbn10: isbn10,
                     title: item.volumeInfo.title,
-                    author: item.volumeInfo.authors,
-                    resume: item.volumeInfo.description,
-                    publishedDate: item.volumeInfo.publishedDate,
-                    language: item.volumeInfo.language,
+                    // author: item.volumeInfo.authors,
+                    // resume: item.volumeInfo.description,
+                    // publishedDate: item.volumeInfo.publishedDate,
+                    // language: item.volumeInfo.language,
                 };
                 result.push(book);
             }

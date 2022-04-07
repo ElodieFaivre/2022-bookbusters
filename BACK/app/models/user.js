@@ -45,7 +45,7 @@ const userDataMapper = {
             `
             INSERT INTO "user"
             ("username", "email", "password", "bio", "location", "mail_donation", "mail_alert", "avatar_id") VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING username, email, bio, location, mail_donation, mail_alert, avatar_id
+            ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, bio, location, mail_donation, mail_alert, avatar_id
         `,
             [
                 user.username,

@@ -12,7 +12,7 @@ module.exports = {
      */
     async getAllBooksInLibrary(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -39,7 +39,7 @@ module.exports = {
      */
     async getAllBooksInFavorite(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
@@ -66,7 +66,7 @@ module.exports = {
      */
     async getAllBooksInAlert(req, res) {
         const RouteUserId = Number(req.params.id);
-        const ConnectedUserId = Number(req.body.userId);
+        const ConnectedUserId = Number(req.body.user.userId);
 
         if (ConnectedUserId !== RouteUserId) {
             throw new ApiError('Unauthorized access', { statusCode: 401 });

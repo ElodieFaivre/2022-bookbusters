@@ -33,10 +33,13 @@ router
     /**
      * GET /v1/book/{id}
      * @summary Get one book in donation by id
-     * @param {number} id.path.required - book identifier
      * @tags BOOK
+     * @param {number} id.path.required - book identifier
      * @return {Book} 200 - success response - application/json
      */
-    .get(controllerHandler(verifyTokenWithoutError),controllerHandler(bookController.getOneBookById));
+    .get(
+        controllerHandler(verifyTokenWithoutError),
+        controllerHandler(bookController.getOneBookById),
+    );
 
 module.exports = router;

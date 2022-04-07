@@ -27,7 +27,7 @@ module.exports = {
         if (req.body.userId) {
             const user_has_book = await bookDataMapper.findRelationBookUser(bookId, req.body.userId);
             debug(user_has_book);
-            book = { ...book, ...user_has_book }
+            book = { ...book, ...user_has_book };
         }
         return res.json(book);
     },

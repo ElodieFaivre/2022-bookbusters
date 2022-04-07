@@ -78,29 +78,16 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  Le code postal est impératif pour que nous puissions vous
-                  afficher les livres autour de vous
+                  Le code postal est impératif pour que nous puissions afficher
+                  les livres autour de vous
                 </Typography>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="codePostal"
                   label="Code Postal"
                   name="codePostal"
                   autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography>
-                  L'ajout de votre adresse précise est facultatif
-                </Typography>
-                <TextField
-                  fullWidth
-                  id="email"
-                  label="Localisation"
-                  name="localisation"
-                  autoComplete="email"
-                  placeholder="Ajoutez votre adresse"
                 />
               </Grid>
               <Grid item xs={12}>

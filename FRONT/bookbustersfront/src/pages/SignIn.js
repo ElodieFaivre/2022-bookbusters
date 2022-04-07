@@ -20,7 +20,7 @@ import { Link, useNavigate } from "react-router-dom";
 //* Import d'axios
 import axios from "../api/axios";
 
-localStorage.setItem;
+// localStorage.setItem;
 
 function Copyright(props) {
   return (

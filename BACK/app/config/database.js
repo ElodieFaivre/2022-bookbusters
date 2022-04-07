@@ -2,14 +2,12 @@ const { Pool } = require('pg');
 
 const config = {
     connectionString: process.env.PG_URL,
-};
 
-// SSL config to connect to database on Heroku
-/*
-config.ssl = {
-    rejectUnauthorized: false,
+    // SSL config to connect to database on Heroku
+    ssl: {
+        rejectUnauthorized: false,
+    },
 };
-*/
 
 const pool = new Pool(config);
 

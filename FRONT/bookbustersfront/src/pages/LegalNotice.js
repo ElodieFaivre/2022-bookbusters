@@ -4,7 +4,7 @@ const LegalNotice = () => {
     return (
         <div>
         <Header />
-           <p>Legal Notice</p> 
+           Legal Notice
         </div>
     );
 };

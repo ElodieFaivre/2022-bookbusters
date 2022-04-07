@@ -13,17 +13,25 @@ const client = require('../config/database');
  * @property {number} avatar_id
  */
 
-const userDataMapper = {
+/**
+ * @typedef {object} Login
+ * @property {string} login - Email
+ * @property {string} password
+ */
 
+const userDataMapper = {
     async findAll() {
         const result = await client.query('SELECT * FROM "user"');
         return result.rows;
     },
 
     async findOneUserById(userId) {
-        const result = await client.query('SELECT * FROM "user" WHERE id = $1', [
-            userId,
-        ]);
+        const result = await client.query('SELECT * FROM "user" WHERE id = $1', [userId]);
+        return result.rows[0];
+    },
+
+    async findOneUserByEmail(userEmail) {
+        const result = await client.query('SELECT * FROM "user" WHERE email = $1', [userEmail]);
         return result.rows[0];
     },
 
@@ -37,10 +45,17 @@ const userDataMapper = {
             `
             INSERT INTO "user"
             ("username", "email", "password", "bio", "location", "mail_donation", "mail_alert", "avatar_id") VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING username, email, bio, location, mail_donation, mail_alert, avatar_id
+            ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id, username, email, bio, location, mail_donation, mail_alert, avatar_id
         `,
-            [user.username, user.email, user.password, user.bio, user.location,
-                user.mail_donation, user.mail_alert, user.avatar_id,
+            [
+                user.username,
+                user.email,
+                user.password,
+                user.bio,
+                user.location,
+                user.mail_donation,
+                user.mail_alert,
+                user.avatar_id,
             ],
         );
         return savedUser.rows[0];

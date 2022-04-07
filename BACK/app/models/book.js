@@ -1,5 +1,5 @@
 const client = require('../config/database');
-const ApiError = require('../errors/apiError');
+const { ApiError } = require('../middlewares/handleError');
 const debug = require('debug')('BookController');
 /**
  * @typedef {object} User
@@ -25,12 +25,27 @@ const debug = require('debug')('BookController');
  * @typedef {object} InputBook
  * @property {string} isbn13
  * @property {string} isbn10
- * @property {number} user_id
+ * @property {number} userId (via Token)
  * @property {boolean} is_in_library
  * @property {boolean} is_in_donation
  * @property {boolean} is_in_favorite
  * @property {boolean} is_in_alert
  */
+
+/**
+ * @typedef {object} InputAroundMe
+ * @property {string} location (Format (x,y))
+ * @property {integer} radius Radius to look around in km
+ */
+
+/**
+ * @typedef {object} BookIdsAroundMe
+ * @property {[integer]} number_of_books_found
+ * @property {[integer]} book_ids
+ * @property {string} location
+ */
+
+
 
 const bookDataMapper = {
 
@@ -39,12 +54,29 @@ const bookDataMapper = {
         return result.rows;
     },
 
-    async findOneBookById(bookId) {
+    async findOneBookInDonationById(bookId) {
         const result = await client.query('SELECT * FROM book_in_donation WHERE id = $1', [
             bookId,
         ]);
         return result.rows[0];
     },
+
+    async findOneBookById(bookId) {
+        const result = await client.query(`SELECT book.*, MAX(user_has_book.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
+        JOIN "user_has_book" ON book.id=user_has_book.book_id
+        JOIN "user" ON "user".id = user_has_book.user_id   WHERE book.id = $1 GROUP BY book.id ORDER BY donation_date` , [
+            bookId,
+        ]);
+        return result.rows[0];
+    },
+
+    async findRelationBookUser(bookId, userId){
+        const result = await client.query(`SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=$1 AND user_id=$2` , [
+            bookId, userId
+        ]);
+        return result.rows[0];
+    },
+
 
     async insert(book) {
         const result = await client.query(
@@ -79,7 +111,6 @@ const bookDataMapper = {
             [book.isbn13, book.isbn10],
         );
 
-        //TODO : user id par le token ? Pour le moment dans le body post.
         let bookId = null;
         let userBookRelation = null;
         let userBook = null;
@@ -89,7 +120,7 @@ const bookDataMapper = {
             debug('le livre existe avec id', bookId)
             userBookRelation = await client.query(
                 `SELECT * FROM user_has_book WHERE book_id=$1 AND user_id=$2`,
-                [bookId, book.user_id],
+                [bookId, book.userId],
             );
         }
 
@@ -109,7 +140,9 @@ const bookDataMapper = {
             //  - If is_in_alert = TRUE, check if is_in_library = TRUE and error if it is (see later)
             if(book.is_in_alert){
                 if(userBookRelation.rows[0].is_in_library){
-                    throw new ApiError('Book already in library cannot be in alert', 400)
+                    throw new ApiError('Book already in library cannot be in alert', {
+                        statusCode: 400,
+                    });
                 }
             }
             //if book_in_donation, update donation_date
@@ -143,7 +176,7 @@ const bookDataMapper = {
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert, donation_date) VALUES
                     ($1, $2, $3, $4, $5, $6, NOW()) RETURNING *
                 `,
-                    [bookId, book.user_id, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
+                    [bookId, book.userId, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
                 );
             }
             else {
@@ -152,7 +185,7 @@ const bookDataMapper = {
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert) VALUES
                     ($1, $2, $3, $4, $5, $6) RETURNING *
                 `,
-                    [bookId, book.user_id, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
+                    [bookId, book.userId, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
                 );
             }
 
@@ -163,6 +196,13 @@ const bookDataMapper = {
         //6. Then return book with status
         return userBook.rows[0];
     },
+
+    async findBooksIdAround(point, radius){
+        const result = await client.query(`SELECT * FROM around_me($1::point, $2)`, [point, radius]);
+        debug(result.rows);
+        return result.rows;
+    },
+
 };
 
 module.exports = bookDataMapper;

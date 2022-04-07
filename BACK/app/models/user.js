@@ -15,7 +15,7 @@ const client = require('../config/database');
 
 /**
  * @typedef {object} Login
- * @property {string} login
+ * @property {string} login - Email
  * @property {string} password
  */
 

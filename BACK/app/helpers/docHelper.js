@@ -10,10 +10,6 @@ const options = {
         },
     },
     security: {
-        // BasicAuth: {
-        //     type: 'http',
-        //     scheme: 'basic',
-        // },
         BearerAuth: {
             type: 'http',
             scheme: 'bearer',

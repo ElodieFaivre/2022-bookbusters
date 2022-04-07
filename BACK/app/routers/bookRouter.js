@@ -39,7 +39,10 @@ router
      * @tags BOOK
      * @return {Book} 200 - success response - application/json
      */
-    .get(controllerHandler(verifyTokenWithoutError),controllerHandler(bookController.getOneBookById));
+    .get(
+        controllerHandler(verifyTokenWithoutError),
+        controllerHandler(bookController.getOneBookById),
+    );
 
 
 router

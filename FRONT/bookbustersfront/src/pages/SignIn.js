@@ -67,7 +67,15 @@ export default function SignInSide() {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response);
+          console.log(error.response.data.message);
+          {
+            /*Ici je dois récupérer l'erreur que me renvoie la BDD */
+          }
+          setErrMsg(
+            (error.response.data.message = "Login ou mot de passe incorrect")
+          );
+        } else {
+          setErrMsg("Une erreur s'est produite");
         }
       });
   };
@@ -93,133 +101,118 @@ export default function SignInSide() {
             backgroundPosition: "center",
           }}
         />
-        {success ? (
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <Box
-              sx={{
-                my: 8,
-                mx: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <ThumbUpIcon />
-              </Avatar>
-              <Box component="section" sx={{ mt: 1 }}>
-                <Grid container>
-                  <Grid item xs>
-                    <Link
-                      to="/"
-                      style={{ color: "#000", textDecoration: "underline" }}
-                    >
-                      Revenir à la page d'accueil
-                    </Link>
-                  </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 5 }} />
-              </Box>
-            </Box>
-          </Grid>
-        ) : (
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
-            <Box
-              sx={{
-                my: 8,
-                mx: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Connexion
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 1 }}
-              >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Adresse email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(e) => setLogin(e.target.value)}
-                  value={login}
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Mot de passe"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={(e) => setPwd(e.target.value)}
-                  value={password}
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+            {/* Si différent de success, on renvoie le form de connexion */}
+            {!success ? (
+              <>
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Connexion
+                </Typography>
+                {errMsg && (
+                  <Typography
+                    variant="body2s"
+                    color="error"
+                    sx={{ mt: 2, textAlign: "center" }}
+                  >
+                    {errMsg}
+                  </Typography>
+                )}
+                <Box
+                  component="form"
+                  noValidate
+                  onSubmit={handleSubmit}
+                  sx={{ mt: 1 }}
                 >
-                  Se connecter
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link
-                      to="/ForgotPassword"
-                      style={{ color: "#000", textDecoration: "underline" }}
-                    >
-                      Mot de passe oublié?
-                    </Link>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Adresse email"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    onChange={(e) => setLogin(e.target.value)}
+                    value={login}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Mot de passe"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={(e) => setPwd(e.target.value)}
+                    value={password}
+                  />
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Se connecter
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link
+                        to="/ForgotPassword"
+                        style={{ color: "#000", textDecoration: "underline" }}
+                      >
+                        Mot de passe oublié?
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link
+                        to="/SignUp"
+                        style={{ color: "#000", textDecoration: "underline" }}
+                      >
+                        {"Pas encore inscrit ? Inscrivez-vous"}
+                      </Link>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Link
-                      to="/SignUp"
-                      style={{ color: "#000", textDecoration: "underline" }}
-                    >
-                      {"Pas encore inscrit ? Inscrivez-vous"}
-                    </Link>
+                </Box>
+              </>
+            ) : (
+              <>
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <ThumbUpIcon />
+                </Avatar>
+                <Box component="section" sx={{ mt: 1 }}>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link
+                        to="/"
+                        style={{ color: "#000", textDecoration: "underline" }}
+                      >
+                        Revenir à la page d'accueil
+                      </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Copyright sx={{ mt: 5 }} />
-              </Box>
-            </Box>
-          </Grid>
-        )}
+                </Box>
+              </>
+            )}
+          </Box>
+          <Copyright sx={{ mt: 5 }} />
+        </Grid>
       </Grid>
     </>
   );

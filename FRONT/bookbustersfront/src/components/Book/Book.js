@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function Book({ livre }) {
+export default function Book({ livre, user }) {
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
     if (livre.coverM === undefined) {
@@ -47,14 +47,6 @@ export default function Book({ livre }) {
       );
     } else {
       return livre.resume;
-    }
-  }
-
-  function user() {
-    for (let i = 0; i < livre.user.length; i++) {
-      return livre.user[i].username;
-
-      //<p>je suis un babybel</p>;
     }
   }
 
@@ -105,7 +97,7 @@ export default function Book({ livre }) {
               </p>
             </Box>
           </Box>
-          <Box>*Livre disponible chez : {livre.user[0].username}</Box>
+          <Box>Livre disponible chez : {user.username}</Box>
         </Box>
       </Modal>
     </>

@@ -83,4 +83,11 @@ module.exports = {
 
         return res.json(alerts);
     },
+    async updateDonationDate(req,res) {
+        const user = Number(req.params.user_id);
+        const book = Number(req.params.book_id);
+
+        const updatedBook= await 
+
+    } 
 };

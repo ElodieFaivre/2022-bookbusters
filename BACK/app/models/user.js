@@ -39,7 +39,15 @@ const userDataMapper = {
         const result = await client.query(`SELECT * from 
             ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
             INNER JOIN book ON user_has_book.book_id = book.id
-            WHERE is_in_alert = true AND isbn13 = $1 OR isbn10 = $1`,[ISBN]);
+            WHERE is_in_alert = true AND isbn13 = $1 OR isbn10 = $1`, [ISBN]);
+        return result.rows;
+    },
+
+    async findUsersWithExpiredBook() {
+        const result = await client.query(`SELECT * from 
+        ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+        INNER JOIN book ON user_has_book.book_id = book.id
+        WHERE is_in_donation = true AND DATE_PART('day', NOW() - donation_date) = 180 OR DATE_PART('day', NOW() - donation_date) = 187`);
         return result.rows;
     },
 

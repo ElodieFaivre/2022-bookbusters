@@ -44,6 +44,15 @@ const userListsDataMapper = {
 
         return result.rows[0];
     },
+
+    async updateDonationDate(userId, bookId) {
+        const result = await client.query(`UPDATE user_has_book SET donation_date = NOW()
+        WHERE book_id=$1 AND user_id=$2`, [
+            userId, bookId,
+        ]);
+
+        return result.rows[0];
+    },
 };
 
 module.exports = userListsDataMapper;

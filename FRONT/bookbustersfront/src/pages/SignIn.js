@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -66,11 +66,11 @@ export default function SignInSide() {
         setSuccess(navigate("/"));
       })
       .catch((error) => {
+        {
+          /*Ici je dois récupérer l'erreur que me renvoie la BDD */
+        }
         if (error.response) {
           console.log(error.response.data.message);
-          {
-            /*Ici je dois récupérer l'erreur que me renvoie la BDD */
-          }
           setErrMsg(
             (error.response.data.message = "Login ou mot de passe incorrect")
           );

@@ -1,4 +1,8 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable eqeqeq */
+/* eslint-disable spaced-comment */
 const fetch = require('node-fetch');
+const worldCat = require('../services/worldCat');
 
 const google = {
     async findBookByISBN(isbn) {
@@ -39,7 +43,9 @@ const google = {
                 language: json.items[0].volumeInfo.language,
             };
         }
-
+        else {
+            result = await worldCat.findBookByISBN(isbn);
+        }
         return result;
     },
 

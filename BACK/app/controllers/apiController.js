@@ -1,5 +1,6 @@
 const google = require('../services/google');
 const openLibrary = require('../services/openLibrary');
+const worldCat = require('../services/worldCat');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
 const bookReformatter = require('../services/bookReformatter');
@@ -68,5 +69,13 @@ module.exports = {
         books = await bookReformatter.reformat(books);
 
         return res.json(books);
+    },
+
+    async getBookWithWorldCat(req, res) {
+        const book = await worldCat.findBookByISBN(req.params.isbn);
+        if (!book) {
+            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
+        }
+        return res.json(book);
     },
 };

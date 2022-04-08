@@ -2,7 +2,7 @@ const google = require('../services/google');
 const openLibrary = require('../services/openLibrary');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
-const { getBookInformation } = require('../middlewares/getBookInformation');
+const { formatFromGoogleResult, formatFromBDDResult } = require('../services/bookFormatter');
 const debug = require('debug')('apiController');
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
         if (book) {
             debug('livre déjà dans notre bdd');
             //this book exit in our BDD
-            book = await getBookInformation([book], req.body.user);
+            book = await formatFromBDDResult([book], req.body.user);
         } else {
             //If not in our BDD, search
             debug('livre pas encore dans notre bdd');
@@ -65,52 +65,7 @@ module.exports = {
             throw new ApiError('Sorry, book with this keyword not found', { statusCode: 204 });
         }
 
-        const openLibraryQueries = [];
-        const bookInBDDQueries = [];
-        // const userBookRelationQueries = [];
-
-        books.forEach((book) => {
-            if (book.isbn13) {
-                // if (!book.coverGoogle) {
-                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
-                // }
-                bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn13(book.isbn13));
-            } else if (book.isbn10) {
-                // if (!book.coverGoogle) {
-                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
-                // }
-                bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn10(book.isbn10));
-            }
-        });
-
-        // Promise Array of OpenLib Cover
-        const openLibResult = await Promise.all(openLibraryQueries);
-
-        // Promise Array of book in BookBusters BDD
-        const bookInBDDResult = await Promise.all(bookInBDDQueries);
-
-        // Group all books' info between APIs and Database
-        books = books.map((book) => {
-            bookInBDDResult.find((bookInBDD) => {
-                if (
-                    bookInBDD &&
-                    (bookInBDD.isbn13 === book.isbn13 || bookInBDD.isbn10 === book.isbn10)
-                ) {
-                    book = {
-                        ...book,
-                        ...bookInBDD,
-                    };
-                }
-            });
-
-            openLibResult.find((cover) => {
-                if (cover && (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)) {
-                    book.coverOL = cover.coverOL;
-                }
-            });
-
-            return book;
-        });
+        books = await formatFromGoogleResult(books);
 
         return res.json(books);
     },

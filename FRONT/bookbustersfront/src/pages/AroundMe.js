@@ -6,11 +6,12 @@ import Buttons from "../components/Button/Button";
 import Header from "../components/Header/Header";
 
 import "../styles/AroundMe.scss";
-import axios from "axios";
+//import axios from "axios";
+import { mapAroundMe } from "../api/fetchApi";
 
 const AroundMe = () => {
   //const options = { location: "location: (48.5,2.3), radius : 200" };
-  axios
+  /*  axios
     .post("http://localhost:5000/v1/book/around-me", {
       location: "(50.67987000000005,3.0685400000000413)",
       radius: "200",
@@ -19,16 +20,13 @@ const AroundMe = () => {
     .catch((error) => {
       console.log(error);
     });
-
+*/ mapAroundMe();
   return (
     <div>
       <Header />
       <Buttons />
       <div id="map">
-        <MapContainer
-          center={[50.67987000000005, 3.0685400000000413]}
-          zoom={13}
-        >
+        <MapContainer center={[50.67987000000005, 3.0685400000000413]} zoom={13}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

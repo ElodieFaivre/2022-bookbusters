@@ -9,10 +9,10 @@ import "../styles/AroundMe.scss";
 import axios from "axios";
 
 const AroundMe = () => {
-  const options = { location: "location: (48.5,2.3), radius : 200" };
+  //const options = { location: "location: (48.5,2.3), radius : 200" };
   axios
     .post("http://localhost:5000/v1/book/around-me", {
-      location: "(48.5,2.3)",
+      location: "(50.67987000000005,3.0685400000000413)",
       radius: "200",
     })
     .then((response) => console.log(response))

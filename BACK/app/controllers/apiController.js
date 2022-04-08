@@ -116,7 +116,7 @@ module.exports = {
 */
         books.forEach((book) => {
             if (book.id) {
-                userBookRelationQueries.push(); //! Pas terminé : à compléter
+                userBookRelationQueries.push();
             }
         });
 

@@ -2,6 +2,9 @@ const google = require('../services/google');
 const openLibrary = require('../services/openLibrary');
 const worldCat = require('../services/worldCat');
 const { ApiError } = require('../middlewares/handleError');
+const bookDataMapper = require('../models/book');
+const bookReformatter = require('../services/bookReformatter');
+const debug = require('debug')('apiController');
 
 module.exports = {
     /**
@@ -17,18 +20,29 @@ module.exports = {
      * @property {string} coverL - Book large sized cover URL
      */
     async getBookByISBN(req, res) {
-        const book = await google.findBookByISBN(req.params.isbn);
+        //Test if this ISBN is in our BDD
+        let book = await bookDataMapper.findOneBookByIsbn13(req.params.isbn);
         if (!book) {
-            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
+            book = await bookDataMapper.findOneBookByIsbn10(req.params.isbn);
         }
-
-        // Search for a cover to add to the book found
-        const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
-        if (cover) {
-            book.coverM = cover.coverM;
-            book.coverL = cover.coverL;
+        if (book) {
+            debug('livre déjà dans notre bdd');
+            //this book exit in our BDD
+            book = await bookReformatter.reformat([book], req.body.user);
+        } else {
+            //If not in our BDD, search
+            debug('livre pas encore dans notre bdd');
+            const book = await google.findBookByISBN(req.params.isbn);
+            if (!book) {
+                throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 204 });
+            }
+            // Search for a cover to add to the book found
+            const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
+            if (cover) {
+                book.coverM = cover.coverM;
+                book.coverL = cover.coverL;
+            }
         }
-
         return res.json(book);
     },
 
@@ -41,20 +55,19 @@ module.exports = {
     },
 
     async getBookByKeyword(req, res) {
-        const books = await google.findBookByKeyword(req.query.q);
+        const keyWords = req.query.q;
+        const limit = req.query.limit || 10; // limitation du nombre de résultat auprès de GoogleBooks API
+        const start = req.query.start || 0; // indication de l'index de démarrage souhaité auprès de GoogleBooks API
+
+        let books = await google.findBookByKeyword(keyWords, limit, start);
+        debug('Résultats de recherche GoogleBooks :\n', books);
+
         if (!books) {
             throw new ApiError('Sorry, book with this keyword not found', { statusCode: 204 });
         }
-        const openLibraryQueries = [];
 
-        books.forEach((book) => {
-            openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
-        });
+        books = await bookReformatter.reformat(books);
 
-        const openLibResult = await Promise.all(openLibraryQueries);
-        for (let i = 0; i < books.length; i += 1) {
-            books[i] = { ...books[i], ...openLibResult[i] };
-        }
         return res.json(books);
     },
 

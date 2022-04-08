@@ -13,11 +13,12 @@ router
     .route('/book')
     /**
      * GET /v1/book
+     * @security BearerAuth
      * @summary Get all books in donation with users, order by last one
      * @tags BOOK
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(bookController.getAllInDonation))
+    .get(controllerHandler(verifyTokenWithoutError), controllerHandler(bookController.getAllInDonation))
     /**
      * POST /v1/book
      * @summary Add book and relation user_has_book to database or update if already exist
@@ -55,7 +56,7 @@ router
      * @tags BOOK
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(bookController.getDetailsBookAroundMe))
+    .get(controllerHandler(bookController.getBooksWithIds))
     /**
      * POST /v1/book/around-me
      * @summary Add book and relation user_has_book to database or update if already exist

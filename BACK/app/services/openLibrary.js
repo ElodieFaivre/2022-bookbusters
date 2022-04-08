@@ -1,9 +1,22 @@
 const fetch = require('node-fetch');
+// const { AbortController } = require('node-abort-controller');
+
+/**
+ * @typedef {object} BookCover
+ * @property {string} isbn
+ * @property {string} coverOL - url d'une cover
+ */
+
 
 const openLibrary = {
     async findBookCoverByISBN(isbn) {
+        // const controller = new AbortController();
+        // signal = controller.signal;
+
         const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json`;
-        const response = await fetch(url);
+        const response = await fetch(url /*, { signal }*/ );
+        // setTimeout(() => controller.abort(), 500);
+
         const json = await response.json();
 
         let result = {};
@@ -22,11 +35,13 @@ const openLibrary = {
                 result = undefined;
             } else {
                 result = {
-                    coverM: json[ISBNKey].thumbnail_url.split('-S').join('-M'),
-                    coverL: json[ISBNKey].thumbnail_url.split('-S').join('-L'),
+                    isbnOL: json[ISBNKey].bib_key.split('ISBN:')[1],
+                    coverOL: json[ISBNKey].thumbnail_url.split('-S').join('-M'),
+                    // coverL: json[ISBNKey].thumbnail_url.split('-S').join('-L'),
                 };
             }
         }
+
         return result;
     },
 };

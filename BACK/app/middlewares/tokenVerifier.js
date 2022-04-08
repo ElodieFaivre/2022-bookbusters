@@ -45,9 +45,10 @@ module.exports = {
                 if (!err) {
                     req.body.user = decoded;
                 }
+
             });
         }
-        
+
         next();
     },
 };

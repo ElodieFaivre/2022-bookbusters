@@ -173,12 +173,13 @@ export default function SignInSide() {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link
+                      {/* fonctionnalité de chgnmmnt de mdp à venir */}
+                      {/* <Link
                         to="/ForgotPassword"
                         style={{ color: "#000", textDecoration: "underline" }}
                       >
                         Mot de passe oublié?
-                      </Link>
+                      </Link> */}
                     </Grid>
                     <Grid item>
                       <Link

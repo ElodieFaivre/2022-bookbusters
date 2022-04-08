@@ -1,6 +1,6 @@
 const bookDataMapper = require('../models/book');
 const { ApiError } = require('../middlewares/handleError');
-const { formatFromBDDResult } = require('../services/bookFormatter');
+const bookReformatter = require('../services/bookReformatter');
 const debug = require('debug')('bookController');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
     async getAllInDonation(req, res) {
         debug('GetAllInDonation')
         let books = await bookDataMapper.findAllInDonation();
-        books = await formatFromBDDResult(books, req.body.user);
+        books = await bookReformatter.reformat(books, req.body.user);
 
         return res.json(books);
     },
@@ -25,7 +25,7 @@ module.exports = {
         if (!book) {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
-        book = await formatFromBDDResult([book], req.body.user);
+        book = await bookReformatter.reformat([book], req.body.user);
 
         return res.json(book);
     },
@@ -41,7 +41,7 @@ module.exports = {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
         let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
-        book = await formatFromBDDResult([book], req.body.user);
+        book = await bookReformatter.reformat([book], req.body.user);
 
         return res.json(book);
     },
@@ -89,7 +89,7 @@ module.exports = {
         debug('Je complete les infos avec API');
 
         debug('user connecté')
-        books = await formatFromBDDResult(books, req.body.user);
+        books = await bookReformatter.reformat(books, req.body.user);
 
         debug('Livres complets', books);
 

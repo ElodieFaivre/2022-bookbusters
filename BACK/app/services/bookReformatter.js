@@ -4,15 +4,29 @@ const google = require('./google');
 const openLibrary = require('./openLibrary');
 const bookDataMapper = require('../models/book');
 
-module.exports = {
+const bookReformatter = {
     /**
-     * Book formatter to get all books information.
+     * Regroup all books' information from a search in GoogleBooks API.
      * @param {[Book]} books Array of book in BDD
      */
-    async formatFromGoogleResult(books) {
+    async reformat(books) {
+        // Test to know where books come from
+        if (books[0].title) {
+            // books has titles, so they come from a Google result's research
+            return await bookReformatter.completeWithDatabaseData(books);
+        } else {
+            // books hasn't titles, so they comme from our database
+            return await bookReformatter.completeWithAPIsData(books);
+        }
+    },
+
+    /**
+     * Complete books' informations with BookBusters' data
+     * @param {[Book]} books Array of book in BDD
+     */
+    async completeWithDatabaseData(books) {
         const openLibraryQueries = [];
         const bookInBDDQueries = [];
-        // const userBookRelationQueries = [];
 
         books.forEach((book) => {
             if (book.isbn13) {
@@ -28,15 +42,15 @@ module.exports = {
             }
         });
 
-        // Promise Array of OpenLib Cover
+        // Promise Array of OpenLibrary Cover
         const openLibResult = await Promise.all(openLibraryQueries);
 
         // Promise Array of book in BookBusters BDD
-        const bookInBDDResult = await Promise.all(bookInBDDQueries);
+        const booksInBDDResult = await Promise.all(bookInBDDQueries);
 
         // Group all books' info between APIs and Database
         books = books.map((book) => {
-            bookInBDDResult.find((bookInBDD) => {
+            booksInBDDResult.find((bookInBDD) => {
                 if (
                     bookInBDD &&
                     (bookInBDD.isbn13 === book.isbn13 || bookInBDD.isbn10 === book.isbn10)
@@ -61,55 +75,54 @@ module.exports = {
     },
 
     /**
-     * Book middleware to get all books information.
+     * Complete books' informations with APIs' data
      * @param {[Book]} books Array of book in BDD
      */
-    async formatFromBDDResult(books, user) {
+    async completeWithAPIsData(books) {
         const googleQueries = [];
         const openLibraryQueries = [];
-        const userBookRelationQueries = [];
-        let userId = null;
-
-        if (user) {
-            userId = user.userId;
-        }
 
         books.forEach((book) => {
             if (book.isbn13) {
                 googleQueries.push(google.findBookByISBN(book.isbn13));
                 openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
-                if (userId) {
-                    debug('ajout relation');
-                    userBookRelationQueries.push(
-                        bookDataMapper.findRelationBookUserWithISBN13(book.isbn13, userId),
-                    );
-                }
             } else if (book.isbn10) {
                 googleQueries.push(google.findBookByISBN(book.isbn10));
                 openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
-                if (userId) {
-                    debug('ajout relation');
-                    userBookRelationQueries.push(
-                        bookDataMapper.findRelationBookUserWithISBN10(book.isbn10, userId),
-                    );
-                }
             }
         });
 
-        const googleResult = await Promise.all(googleQueries);
+        // Promise Array of book in GoogleBooks
+        const booksInGoogleResult = await Promise.all(googleQueries);
+
+        // Promise Array of OpenLibrary Cover
         const openLibResult = await Promise.all(openLibraryQueries);
-        const userBookRelationResult = await Promise.all(userBookRelationQueries);
 
-        const newBooks = [];
-        for (let i = 0; i < books.length; i += 1) {
-            newBooks.push({
-                ...books[i],
-                ...googleResult[i],
-                ...openLibResult[i],
-                ...userBookRelationResult[i],
+        // Group all books' info between APIs and Database
+        books = books.map((book) => {
+            booksInGoogleResult.find((bookInGoogle) => {
+                if (
+                    bookInGoogle &&
+                    (bookInGoogle.isbn13 === book.isbn13 || bookInGoogle.isbn10 === book.isbn10)
+                ) {
+                    book = {
+                        ...bookInGoogle,
+                        ...book,
+                    };
+                }
             });
-        }
 
-        return newBooks;
+            openLibResult.find((cover) => {
+                if (cover && (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)) {
+                    book.coverOL = cover.coverOL;
+                }
+            });
+
+            return book;
+        });
+
+        return books;
     },
 };
+
+module.exports = bookReformatter;

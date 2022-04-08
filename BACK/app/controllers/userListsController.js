@@ -1,5 +1,5 @@
 const userListsDataMapper = require('../models/userLists');
-const { formatFromBDDResult } = require('../services/bookFormatter');
+const bookReformatter = require('../services/bookReformatter');
 const { ApiError } = require('../middlewares/handleError');
 
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
             return res.json('{ no book in library }');
         }
 
-        const books = await formatFromBDDResult(library.books);
+        const books = await bookReformatter.reformat(library.books);
         library.books = books;
 
         return res.json(library);
@@ -51,7 +51,7 @@ module.exports = {
             return res.json('{ no book in favorite }');
         }
 
-        const books = await formatFromBDDResult(favorites.books);
+        const books = await bookReformatter.reformat(favorites.books);
         favorites.books = books;
 
         return res.json(favorites);
@@ -78,7 +78,7 @@ module.exports = {
             return res.json('{ no book in alert }');
         }
 
-        const books = await formatFromBDDResult(alerts.books);
+        const books = await bookReformatter.reformat(alerts.books);
         alerts.books = books;
 
         return res.json(alerts);

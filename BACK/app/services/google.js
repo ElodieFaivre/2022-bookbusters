@@ -79,10 +79,10 @@ const google = {
                 isbn13: isbn13,
                 isbn10: isbn10,
                 title: item.volumeInfo.title,
-                // author: item.volumeInfo.authors,
-                // resume: item.volumeInfo.description,
-                // publishedDate: item.volumeInfo.publishedDate,
-                // language: item.volumeInfo.language,
+                author: item.volumeInfo.authors,
+                resume: item.volumeInfo.description,
+                publishedDate: item.volumeInfo.publishedDate,
+                language: item.volumeInfo.language,
             };
 
             // Test if a cover link is found in GoogleBooks result

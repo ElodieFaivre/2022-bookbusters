@@ -2,7 +2,7 @@ const google = require('../services/google');
 const openLibrary = require('../services/openLibrary');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
-const { formatFromGoogleResult, formatFromBDDResult } = require('../services/bookFormatter');
+const bookReformatter = require('../services/bookReformatter');
 const debug = require('debug')('apiController');
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
         if (book) {
             debug('livre déjà dans notre bdd');
             //this book exit in our BDD
-            book = await formatFromBDDResult([book], req.body.user);
+            book = await bookReformatter.reformat([book], req.body.user);
         } else {
             //If not in our BDD, search
             debug('livre pas encore dans notre bdd');
@@ -65,7 +65,7 @@ module.exports = {
             throw new ApiError('Sorry, book with this keyword not found', { statusCode: 204 });
         }
 
-        books = await formatFromGoogleResult(books);
+        books = await bookReformatter.reformat(books);
 
         return res.json(books);
     },

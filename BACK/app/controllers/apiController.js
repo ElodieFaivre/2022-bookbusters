@@ -58,10 +58,6 @@ module.exports = {
         const limit = req.query.limit || 10; // limitation du nombre de résultat auprès de GoogleBooks API
         const start = req.query.start || 0; // indication de l'index de démarrage souhaité auprès de GoogleBooks API
 
-        debug('keyWords : ', keyWords);
-        debug('limit : ', limit);
-        debug('start : ', start);
-
         let books = await google.findBookByKeyword(keyWords, limit, start);
         debug('Résultats de recherche GoogleBooks :\n', books);
 
@@ -93,6 +89,7 @@ module.exports = {
         // Promise Array of book in BookBusters BDD
         const bookInBDDResult = await Promise.all(bookInBDDQueries);
 
+        // Group all books' info between APIs and Database
         books = books.map((book) => {
             bookInBDDResult.find((bookInBDD) => {
                 if (
@@ -115,20 +112,6 @@ module.exports = {
             return book;
         });
 
-        // debug('TOUS LES BOOKS', books);
-
-        // const userBookRelationResult = await Promise.all(userBookRelationQueries);
-        /*
-        for (let i = 0; i < books.length; i += 1) {
-            // debug('BOOK IN BDD RESULT i', bookInBDDResult[i]);
-            books[i] = {
-                ...books[i],
-                ...openLibResult[i],
-                // ...bookInBDDResult[i],
-                // ...userBookRelationResult[i],
-            };
-        }
-*/
         return res.json(books);
     },
 };

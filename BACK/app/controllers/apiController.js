@@ -54,12 +54,15 @@ module.exports = {
     },
 
     async getBookByKeyword(req, res) {
-        //! A supprimer une fois les tests concluants
-        req.query.limit = 10;
-        req.query.start = 0;
-        //! #########################################
+        const keyWords = req.query.q;
+        const limit = req.query.limit || 10; // limitation du nombre de résultat auprès de GoogleBooks API
+        const start = req.query.start || 0; // indication de l'index de démarrage souhaité auprès de GoogleBooks API
 
-        let books = await google.findBookByKeyword(req.query.q, req.query.limit, req.query.start);
+        debug('keyWords : ', keyWords);
+        debug('limit : ', limit);
+        debug('start : ', start);
+
+        let books = await google.findBookByKeyword(keyWords, limit, start);
         debug('Résultats de recherche GoogleBooks :\n', books);
 
         if (!books) {
@@ -68,70 +71,64 @@ module.exports = {
 
         const openLibraryQueries = [];
         const bookInBDDQueries = [];
-        const userBookRelationQueries = [];
+        // const userBookRelationQueries = [];
 
         books.forEach((book) => {
             if (book.isbn13) {
+                // if (!book.coverGoogle) {
                 openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
+                // }
                 bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn13(book.isbn13));
             } else if (book.isbn10) {
+                // if (!book.coverGoogle) {
                 openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
+                // }
                 bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn10(book.isbn10));
             }
         });
 
+        // Promise Array of OpenLib Cover
         const openLibResult = await Promise.all(openLibraryQueries);
+
+        // Promise Array of book in BookBusters BDD
         const bookInBDDResult = await Promise.all(bookInBDDQueries);
 
-        /*
-        //debug('BOOK IN BDD RESULT', bookInBDDResult)
-        for (let i = 0; i < books.length; i += 1) {
-            if (bookInBDDResult[i]) {
-                if (bookInBDDResult[i].isbn13) {
-                    debug('livre trouvé', bookInBDDResult[i]);
-                    debug('livre trouvé chez Google : ', book[i].isbn13);
-                    debug('livre trouvé chez BookBu : ', bookInBDDResult[i].isbn13);
-                    if (req.body.user) {
-                        // debug('ajout relation');
-                        userBookRelationQueries.push(
-                            bookDataMapper.findRelationBookUserWithISBN13(
-                                bookInBDDResult[i].isbn13,
-                                req.body.user.userId,
-                            ),
-                        );
-                    }
-                } else if (bookInBDDResult[i].isbn10) {
-                    if (req.body.user) {
-                        // debug('ajout relation');
-                        userBookRelationQueries.push(
-                            bookDataMapper.findRelationBookUserWithISBN10(
-                                bookInBDDResult[i].isbn10,
-                                req.body.user.userId,
-                            ),
-                        );
-                    }
+        books = books.map((book) => {
+            bookInBDDResult.find((bookInBDD) => {
+                if (
+                    bookInBDD &&
+                    (bookInBDD.isbn13 === book.isbn13 || bookInBDD.isbn10 === book.isbn10)
+                ) {
+                    book = {
+                        ...book,
+                        ...bookInBDD,
+                    };
                 }
-            }
-        }
-*/
-        books.forEach((book) => {
-            if (book.id) {
-                userBookRelationQueries.push();
-            }
+            });
+
+            openLibResult.find((cover) => {
+                if (cover && (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)) {
+                    book.coverOL = cover.coverOL;
+                }
+            });
+
+            return book;
         });
 
-        const userBookRelationResult = await Promise.all(userBookRelationQueries);
+        // debug('TOUS LES BOOKS', books);
 
+        // const userBookRelationResult = await Promise.all(userBookRelationQueries);
+        /*
         for (let i = 0; i < books.length; i += 1) {
             // debug('BOOK IN BDD RESULT i', bookInBDDResult[i]);
             books[i] = {
                 ...books[i],
                 ...openLibResult[i],
-                ...bookInBDDResult[i],
-                ...userBookRelationResult[i],
+                // ...bookInBDDResult[i],
+                // ...userBookRelationResult[i],
             };
         }
-
+*/
         return res.json(books);
     },
 };

@@ -13,7 +13,6 @@ router
      * GET /v1/book/isbn/{isbn}
      * @summary Find one book with ISBN in google API
      * @tags SEARCH BOOK API
-     * @security BearerAuth
      * @param {number} isbn.path.required - book ISBN
      * @return {BookInfo} 200 - success response - application/json
      * @return  {ApiError} 404 - Book not found
@@ -26,7 +25,6 @@ router
      * GET /v1/book/cover/isbn/{isbn}
      * @summary Find one book cover with ISBN in Open Library API
      * @tags SEARCH BOOK API
-     * @security BearerAuth
      * @param {number} isbn.path.required - book ISBN
      * @return {BookCover} 200 - success response - application/json
      * @return  {ApiError} 404 - Book not found
@@ -39,10 +37,14 @@ router
      * GET /v1/book/search
      * @summary Find books by Keyword
      * @tags SEARCH BOOK API
-     * @security BearerAuth
      * @param {string} q.query
+     * @param {number} limit.query
+     * @param {number} start.query
      * @return {[BookInfo]} 200 - success response - application/json
      */
-    .get(controllerHandler(verifyTokenWithoutError),controllerHandler(apiController.getBookByKeyword));
+    .get(
+        controllerHandler(verifyTokenWithoutError),
+        controllerHandler(apiController.getBookByKeyword),
+    );
 
 module.exports = router;

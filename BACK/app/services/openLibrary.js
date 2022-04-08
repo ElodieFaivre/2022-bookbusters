@@ -22,8 +22,9 @@ const openLibrary = {
                 result = undefined;
             } else {
                 result = {
-                    coverM: json[ISBNKey].thumbnail_url.split('-S').join('-M'),
-                    coverL: json[ISBNKey].thumbnail_url.split('-S').join('-L'),
+                    isbnOL: json[ISBNKey].bib_key.split('ISBN:')[1], // ISBN:9782330113551
+                    coverOL: json[ISBNKey].thumbnail_url.split('-S').join('-M'),
+                    // coverL: json[ISBNKey].thumbnail_url.split('-S').join('-L'),
                 };
             }
         }

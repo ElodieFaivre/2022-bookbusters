@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const disconnect = () => {
   localStorage.removeItem("jwt");
@@ -231,12 +231,15 @@ const ResponsiveAppBar = () => {
 
           {jwt && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Compte utilisateur">
                 <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, marginLeft: "15px" }}
                 >
-                  <AccountBoxIcon style={{ color: "white" }} />
+                  <AccountCircleIcon
+                    fontSize="large"
+                    style={{ color: "white" }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -13,7 +13,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Header from "../components/Header/Header";
 import LibrarySign from "../assets/img/library.jpg";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Copyright from "../components/Copyright/Copyright";
 
 //* Import composant Link React-Router
@@ -41,7 +40,6 @@ export default function SignInSide() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     connectUser(login, password, setErrMsg, handleLoginSuccess);
   };
 

@@ -9,25 +9,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Header from "../components/Header/Header";
+import Copyright from "../components/Copyright/Copyright";
 import { Link } from "react-router-dom";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link to="/" style={{ color: "#000", textDecoration: "underline" }}>
-        BookBusters
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 export default function SignUp() {
   const handleSubmit = (event) => {
@@ -79,7 +62,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <Typography>
                   Le code postal est impératif pour que nous puissions afficher
-                  les livres autour de vous
+                  les livres autour de vous (Format français)
                 </Typography>
                 <TextField
                   required

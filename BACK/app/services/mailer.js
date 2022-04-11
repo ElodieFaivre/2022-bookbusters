@@ -46,8 +46,8 @@ const mailer = {
     }
 
 };
-
-cron.schedule('* * * * *', async () => {
+// service mail pour les livres périmés tous les jours à 2 heures du mat
+cron.schedule('0 0 2 * *', async () => {
     // collect of the users with expired book, ie book in donation for more than 180 days
     const users = await userDataMapper.findUsersWithExpiredBook();
     if (users) {

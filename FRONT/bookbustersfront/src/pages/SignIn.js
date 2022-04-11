@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Header from "../components/Header/Header";
 import LibrarySign from "../assets/img/library.jpg";
 import Copyright from "../components/Copyright/Copyright";
+import authContext from "../contexts/AuthContext";
 
 //* Import composant Link React-Router
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +25,9 @@ export default function SignInSide() {
   const [login, setLogin] = useState("");
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  let navigate = useNavigate();
+
+  const { logIn } = useContext(authContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setErrMsg("");
@@ -33,8 +36,8 @@ export default function SignInSide() {
   const handleLoginSuccess = (token) => {
     setLogin("");
     setPwd("");
+    logIn(token);
     setErrMsg("");
-    localStorage.setItem("jwt", token);
     navigate("/");
   };
 

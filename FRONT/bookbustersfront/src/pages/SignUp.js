@@ -81,6 +81,8 @@ export default function SignUp() {
                   label="Adresse email"
                   name="email"
                   autoComplete="email"
+                  // error
+                  // helperText="Mail au mauvais format"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +91,17 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Mot de passe"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Confirmation de mot de passe"
                   type="password"
                   id="password"
                   autoComplete="new-password"

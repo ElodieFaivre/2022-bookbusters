@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 
-//const debug = require('debug')('googleService');
+// const debug = require('debug')('googleService');
 
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
@@ -33,7 +33,7 @@ const google = {
             const foundBook = json.items.find((item) => {
                 const industryIdentifiers = item.volumeInfo.industryIdentifiers;
 
-                const foundItem = industryIdentifiers.find((identifier) => {
+                industryIdentifiers.forEach((identifier) => {
                     if (
                         (identifier.type === 'ISBN_13' &&
                             validISBN13.test(identifier.identifier)) ||
@@ -46,18 +46,17 @@ const google = {
                         ) {
                             isbn13 = identifier.identifier;
                         }
+
                         if (
                             identifier.type === 'ISBN_10' &&
                             validISBN10.test(identifier.identifier)
                         ) {
                             isbn10 = identifier.identifier;
                         }
-
-                        return item;
                     }
                 });
 
-                return foundItem;
+                return item;
             });
 
 

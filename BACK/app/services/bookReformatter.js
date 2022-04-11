@@ -1,3 +1,5 @@
+const debug = require('debug')('bookReformatter');
+
 const google = require('./google');
 const openLibrary = require('./openLibrary');
 const bookDataMapper = require('../models/book');
@@ -130,6 +132,8 @@ const bookReformatter = {
 
             return book;
         });
+
+        debug('final : ', books)
 
         return books;
     },

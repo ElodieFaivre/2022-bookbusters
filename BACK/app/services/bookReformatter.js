@@ -1,5 +1,3 @@
-const debug = require('debug')('bookFormatter');
-
 const google = require('./google');
 const openLibrary = require('./openLibrary');
 const bookDataMapper = require('../models/book');
@@ -28,24 +26,21 @@ const bookReformatter = {
         const openLibraryQueries = [];
         const bookInBDDQueries = [];
 
+        // Promise Array of book in BookBusters BDD and OpenLibrary Cover
         books.forEach((book) => {
             if (book.isbn13) {
-                // if (!book.coverGoogle) {
-                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
-                // }
+                if (!book.cover) {
+                    openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
+                }
                 bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn13(book.isbn13));
             } else if (book.isbn10) {
-                // if (!book.coverGoogle) {
-                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
-                // }
+                if (!book.cover) {
+                    openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
+                }
                 bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn10(book.isbn10));
             }
         });
-
-        // Promise Array of OpenLibrary Cover
         const openLibResult = await Promise.all(openLibraryQueries);
-
-        // Promise Array of book in BookBusters BDD
         const booksInBDDResult = await Promise.all(bookInBDDQueries);
 
         // Group all books' info between APIs and Database
@@ -62,9 +57,13 @@ const bookReformatter = {
                 }
             });
 
+            // Add cover from OpenLibrary if not found on Google Books
             openLibResult.find((cover) => {
-                if (cover && (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)) {
-                    book.coverOL = cover.coverOL;
+                if (
+                    cover.coverOLM &&
+                    (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)
+                ) {
+                    book.cover = cover.coverOLM;
                 }
             });
 
@@ -82,20 +81,26 @@ const bookReformatter = {
         const googleQueries = [];
         const openLibraryQueries = [];
 
+        // Promise Array of book in GoogleBooks
         books.forEach((book) => {
             if (book.isbn13) {
                 googleQueries.push(google.findBookByISBN(book.isbn13));
-                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
             } else if (book.isbn10) {
                 googleQueries.push(google.findBookByISBN(book.isbn10));
-                openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
             }
         });
-
-        // Promise Array of book in GoogleBooks
         const booksInGoogleResult = await Promise.all(googleQueries);
 
         // Promise Array of OpenLibrary Cover
+        booksInGoogleResult.forEach((bookInGoogle) => {
+            if (bookInGoogle && !bookInGoogle.cover) {
+                if (bookInGoogle.isbn13) {
+                    openLibraryQueries.push(openLibrary.findBookCoverByISBN(bookInGoogle.isbn13));
+                } else if (bookInGoogle.isbn10) {
+                    openLibraryQueries.push(openLibrary.findBookCoverByISBN(bookInGoogle.isbn10));
+                }
+            }
+        });
         const openLibResult = await Promise.all(openLibraryQueries);
 
         // Group all books' info between APIs and Database
@@ -103,7 +108,7 @@ const bookReformatter = {
             booksInGoogleResult.find((bookInGoogle) => {
                 if (
                     bookInGoogle &&
-                    (bookInGoogle.isbn13 === book.isbn13 || bookInGoogle.isbn10 === book.isbn10)
+                    (book.isbn13 === bookInGoogle.isbn13 || book.isbn10 === bookInGoogle.isbn10)
                 ) {
                     book = {
                         ...bookInGoogle,
@@ -112,9 +117,14 @@ const bookReformatter = {
                 }
             });
 
+            // Add cover from OpenLibrary if not found on Google Books
             openLibResult.find((cover) => {
-                if (cover && (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)) {
-                    book.coverOL = cover.coverOL;
+                if (
+                    cover &&
+                    cover.coverOLM &&
+                    (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)
+                ) {
+                    book.cover = cover.coverOLM;
                 }
             });
 

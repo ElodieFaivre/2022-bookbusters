@@ -7,6 +7,7 @@ const worldCat = require('../services/worldCat');
 const google = {
     async findBookByISBN(isbn) {
         const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+
         const response = await fetch(url);
         const json = await response.json();
 
@@ -14,7 +15,7 @@ const google = {
 
         //If no answer
         if (json.totalItems == 0) {
-            result = undefined;
+            return (result = undefined);
         }
 
         //If at least one answer, only the first one is return
@@ -33,7 +34,8 @@ const google = {
                     });
                 }
             }
-            result = {
+
+            book = {
                 isbn13: isbn13,
                 isbn10: isbn10,
                 title: json.items[0].volumeInfo.title,
@@ -42,6 +44,15 @@ const google = {
                 publishedDate: json.items[0].volumeInfo.publishedDate,
                 language: json.items[0].volumeInfo.language,
             };
+
+            // Test if a cover link is found in GoogleBooks result
+            if (json.items[0].volumeInfo.imageLinks) {
+                book.coverGoogle = json.items[0].volumeInfo.imageLinks.thumbnail;
+            }
+
+            if ((book.isbn13 || book.isbn10) && book.title) {
+                result.push(book);
+            }
         }
         else {
             result = await worldCat.findBookByISBN(isbn);

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import axios from "./axios";
 
 export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
@@ -22,21 +23,22 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     });
 };
 
-export const fetchApi = {
-  connectUser,
-};
-
-export const mapAroundMe = () => {
+export const usersAroundMe = (setpositionUser) => {
   // permet de recuperer les user a coter de nous sur la map
   axios
     .post("/v1/book/around-me", {
       location: "(50.67987000000005,3.0685400000000413)",
       radius: "200",
     })
-    .then((response) => console.log(response))
+    .then((response) => setpositionUser(response.data))
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const fetchApi = {
+  connectUser,
+  usersAroundMe,
 };
 
 export default fetchApi;

@@ -33,6 +33,7 @@ module.exports = {
             //If not in our BDD, search
             debug('livre pas encore dans notre bdd');
             book = await google.findBookByISBN(req.params.isbn);
+
             if (!book) {
                 throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 204 });
             }

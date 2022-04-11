@@ -189,7 +189,7 @@ const bookDataMapper = {
             else{
                 userBook = await client.query(
                     ` UPDATE user_has_book SET
-                    "is_in_library"=$1, "is_in_donation"=$2, "is_in_favorite"=$3, "is_in_alert"=$4 WHERE id=$5 RETURNING *
+                    "is_in_library"=$1, "is_in_donation"=$2, "is_in_favorite"=$3, "is_in_alert"=$4, "donation_date"=null WHERE id=$5 RETURNING *
                 `,
                     [book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert, userBookRelation.rows[0].id],
                 );

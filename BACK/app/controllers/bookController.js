@@ -1,6 +1,6 @@
 const bookDataMapper = require('../models/book');
 const { ApiError } = require('../middlewares/handleError');
-const bookMW = require('../middlewares/getBookInformation');
+const bookReformatter = require('../services/bookReformatter');
 const debug = require('debug')('bookController');
 
 module.exports = {
@@ -12,8 +12,10 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
+        debug('GetAllInDonation')
         let books = await bookDataMapper.findAllInDonation();
-        books = await bookMW.getBookInformation(books);
+        books = await bookReformatter.reformat(books, req.body.user);
+
         return res.json(books);
     },
 
@@ -23,12 +25,8 @@ module.exports = {
         if (!book) {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
-        book = await bookMW.getBookInformation([book]);
-        if (req.body.userId) {
-            const user_has_book = await bookDataMapper.findRelationBookUser(bookId, req.body.userId);
-            debug(user_has_book);
-            book = { ...book, ...user_has_book };
-        }
+        book = await bookReformatter.reformat([book], req.body.user);
+
         return res.json(book);
     },
 
@@ -43,17 +41,7 @@ module.exports = {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
         let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
-        book = await bookMW.getBookInformation([book]);
-
-        //const user_has_book = await bookDataMapper.findRelationBookUser(book.id,req.body.userId);
-        debug('SAVED', savedUserHasBook);
-        book = {
-            ...book,
-            is_in_library: savedUserHasBook.is_in_library,
-            is_in_donation: savedUserHasBook.is_in_donation,
-            is_in_alert: savedUserHasBook.is_in_alert,
-            is_in_favorite: savedUserHasBook.is_in_favorite
-        }
+        book = await bookReformatter.reformat([book], req.body.user);
 
         return res.json(book);
     },
@@ -70,7 +58,7 @@ module.exports = {
         return res.json(books);
     },
 
-    async getDetailsBookAroundMe(req, res) {
+    async getBooksWithIds(req, res) {
         debug('Req.query.books = ', req.query.books);
         let bookIds = req.query.books
         bookIds = bookIds.substr(1).substr(0, bookIds.length - 2).split(',');
@@ -86,25 +74,25 @@ module.exports = {
         debug('Je lance les promesses pour trouver les livres')
         let books = await Promise.all(promiseToSolve);
         debug('Les livres trouvés sont', books);
+        //Without books undefined
+        let newBooks=[];
+        books.forEach(book=>{
+            if(book) {
+                newBooks.push(book);
+        }
+        });
+        books=newBooks;
+
+
+        debug('Les livres trouvés sans les undefined', books);
+
         debug('Je complete les infos avec API');
-        books = await bookMW.getBookInformation(books);
+
+        debug('user connecté')
+        books = await bookReformatter.reformat(books, req.body.user);
+
         debug('Livres complets', books);
 
-        const getRelationPromise = [];
-
-        if (req.body.userId) {
-            debug('user connecté')
-            books.forEach(element => {
-                getRelationPromise.push(bookDataMapper.findRelationBookUser(element.id, req.body.userId));
-            })
-            debug('Je vais chercher les relations avec le user connecté')
-            const moreInfoBook = await Promise.all(getRelationPromise);
-
-            for (let i = 0; i < books.length; i += 1) {
-                books[i] = { ...books[i], ...moreInfoBook[i]};
-            }
-
-        }
        return res.json(books);
 
     }

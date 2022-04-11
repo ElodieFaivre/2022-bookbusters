@@ -1,11 +1,16 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
+
+const debug = require('debug')('googleService');
+
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
 
 const google = {
     async findBookByISBN(isbn) {
+debug('je suis là !');
+
         const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
         const response = await fetch(url);
@@ -22,36 +27,43 @@ const google = {
         if (json.totalItems >= 1) {
             let isbn13 = null;
             let isbn10 = null;
-            if (json.items[0].volumeInfo.industryIdentifiers) {
-                if (json.items[0].volumeInfo.industryIdentifiers.length > 0) {
-                    json.items[0].volumeInfo.industryIdentifiers.forEach((identifier) => {
+
+            const foundBook = json.items.find((item) => {
+                const industryIdentifiers = item.volumeInfo.industryIdentifiers;
+
+                const foundItem = industryIdentifiers.find((identifier) => {
+                    if (identifier.type === 'ISBN_13' || identifier.type === 'ISBN_10') {
                         if (identifier.type === 'ISBN_13') {
                             isbn13 = identifier.identifier;
                         }
                         if (identifier.type === 'ISBN_10') {
                             isbn10 = identifier.identifier;
                         }
-                    });
-                }
-            }
+
+                        return item;
+                    }
+                });
+
+                return foundItem;
+            });
 
             book = {
                 isbn13: isbn13,
                 isbn10: isbn10,
-                title: json.items[0].volumeInfo.title,
-                author: json.items[0].volumeInfo.authors,
-                resume: json.items[0].volumeInfo.description,
-                publishedDate: json.items[0].volumeInfo.publishedDate,
-                language: json.items[0].volumeInfo.language,
+                title: foundBook.volumeInfo.title,
+                author: foundBook.volumeInfo.authors,
+                resume: foundBook.volumeInfo.description,
+                publishedDate: foundBook.volumeInfo.publishedDate,
+                language: foundBook.volumeInfo.language,
             };
 
             // Test if a cover link is found in GoogleBooks result
-            if (json.items[0].volumeInfo.imageLinks) {
-                book.coverGoogle = json.items[0].volumeInfo.imageLinks.thumbnail;
+            if (foundBook.volumeInfo.imageLinks) {
+                book.coverGoogle = foundBook.volumeInfo.imageLinks.thumbnail;
             }
 
             if ((book.isbn13 || book.isbn10) && book.title) {
-                result.push(book);
+                result = book;
             }
         }
         else {

@@ -9,11 +9,11 @@ const bookReformatter = {
      * Regroup all books' information from a search in GoogleBooks API.
      * @param {[Book]} books Array of book in BDD
      */
-    async reformat(books, user) {
+    async reformat(books, userId) {
         // Test to know where books come from
         if (books[0].title) {
             // books has titles, so they come from a Google result's research
-            return await bookReformatter.completeWithDatabaseData(books, user);
+            return await bookReformatter.completeWithDatabaseData(books, userId);
         } else {
             // books hasn't titles, so they comme from our database
             return await bookReformatter.completeWithAPIsData(books, user);
@@ -24,26 +24,33 @@ const bookReformatter = {
      * Complete books' informations with BookBusters' data
      * @param {[Book]} books Array of book in BDD
      */
-    async completeWithDatabaseData(books, user) {
+    async completeWithDatabaseData(books, userId) {
         const openLibraryQueries = [];
-        const bookInBDDQueries = [];
+        const bookISBNs = [];
 
         // Promise Array of book in BookBusters BDD and OpenLibrary Cover
         books.forEach((book) => {
             if (book.isbn13) {
+                bookISBNs.push(book.isbn13);
                 if (!book.cover) {
                     openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn13));
                 }
-                bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn13(book.isbn13));
             } else if (book.isbn10) {
+                bookISBNs.push(book.isbn10);
                 if (!book.cover) {
                     openLibraryQueries.push(openLibrary.findBookCoverByISBN(book.isbn10));
                 }
-                bookInBDDQueries.push(bookDataMapper.findOneBookByIsbn10(book.isbn10));
             }
         });
         const openLibResult = await Promise.all(openLibraryQueries);
-        const booksInBDDResult = await Promise.all(bookInBDDQueries);
+        const booksInBDDResult = await bookDataMapper.findBooks(
+            userId,
+            '{}',
+            `{${bookISBNs}}`,
+            `{${bookISBNs}}`,
+            0,
+            0,
+        );
 
         // Group all books' info between APIs and Database
         books = books.map((book) => {

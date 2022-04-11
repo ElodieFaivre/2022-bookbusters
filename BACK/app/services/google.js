@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 
-// const debug = require('debug')('googleService');
+const debug = require('debug')('googleService');
 
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
@@ -59,7 +59,7 @@ const google = {
                 return item;
             });
 
-
+debug(foundBook.volumeInfo.title);
             book = {
                 isbn13: isbn13,
                 isbn10: isbn10,
@@ -74,6 +74,9 @@ const google = {
             if (foundBook.volumeInfo.imageLinks) {
                 book.cover = foundBook.volumeInfo.imageLinks.thumbnail;
             }
+
+
+
             if ((book.isbn13 || book.isbn10) && book.title) {
                  result = book;
             }

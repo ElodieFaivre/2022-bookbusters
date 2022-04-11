@@ -102,8 +102,15 @@ RETURNS TABLE (
 
 	GROUP BY "book"."id", "connected_user".*
 
-	LIMIT max_rows_per_page -- limit the number of rows return
-	OFFSET page_number * max_rows_per_page; -- set an offset for pagination
+	LIMIT -- limit the number of rows return
+	    CASE "max_rows_per_page"
+	    WHEN 0 THEN NULL -- if limit parameter is 0 => no limit
+		ELSE
+		    max_rows_per_page
+	    END
+
+    OFFSET page_number * max_rows_per_page -- set an offset for pagination
+    ;
 
 $$ LANGUAGE SQL STRICT;
 

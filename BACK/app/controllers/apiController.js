@@ -28,22 +28,21 @@ module.exports = {
         }
 
         //Test if this ISBN is in our BDD
-        let book = await bookDataMapper.findBooks(
+        const foundBookInBDD = await bookDataMapper.findBooks(
             connectedUserId,
             '{}',
             `{${req.params.isbn}}`,
             `{${req.params.isbn}}`,
             1,
-            0
+            0,
         );
 
-        if (book) {
-            debug('livre déjà dans notre bdd');
+        let book;
+        if (foundBookInBDD.length > 0) {
             //this book exit in our BDD
-            book = await bookReformatter.reformat(book, req.body.user);
+            book = await bookReformatter.reformat(foundBookInBDD);
         } else {
             //If not in our BDD, search
-            debug('livre pas encore dans notre bdd');
             book = await google.findBookByISBN(req.params.isbn);
 
             if (!book) {
@@ -58,7 +57,7 @@ module.exports = {
         }
         return res.json(book);
     },
-
+/*
     async getBookCoverByISBN(req, res) {
         const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
         if (!cover) {
@@ -66,8 +65,15 @@ module.exports = {
         }
         return res.json(cover);
     },
-
+*/
     async getBookByKeyword(req, res) {
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
         const keyWords = req.query.q;
         const limit = req.query.limit || 10; // limitation du nombre de résultat auprès de GoogleBooks API
         const start = req.query.start || 0; // indication de l'index de démarrage souhaité auprès de GoogleBooks API
@@ -79,7 +85,7 @@ module.exports = {
             throw new ApiError('Sorry, book with this keyword not found', { statusCode: 204 });
         }
 
-        books = await bookReformatter.reformat(books);
+        books = await bookReformatter.reformat(books, connectedUserId);
 
         return res.json(books);
     },

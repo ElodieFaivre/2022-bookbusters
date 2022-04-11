@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 
-// const debug = require('debug')('googleService');
+//const debug = require('debug')('googleService');
 
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
@@ -18,6 +18,8 @@ const google = {
         const json = await response.json();
 
         let result = {};
+        let isbn13 = null;
+        let isbn10 = null;
 
         //If no answer
         if (json.totalItems == 0) {
@@ -26,8 +28,7 @@ const google = {
 
         //If at least one answer, only the first one is return
         if (json.totalItems >= 1) {
-            let isbn13 = null;
-            let isbn10 = null;
+
 
             const foundBook = json.items.find((item) => {
                 const industryIdentifiers = item.volumeInfo.industryIdentifiers;
@@ -38,6 +39,7 @@ const google = {
                             validISBN13.test(identifier.identifier)) ||
                         (identifier.type === 'ISBN_10' && validISBN10.test(identifier.identifier))
                     ) {
+
                         if (
                             identifier.type === 'ISBN_13' &&
                             validISBN13.test(identifier.identifier)
@@ -58,6 +60,7 @@ const google = {
                 return foundItem;
             });
 
+
             book = {
                 isbn13: isbn13,
                 isbn10: isbn10,
@@ -72,14 +75,9 @@ const google = {
             if (foundBook.volumeInfo.imageLinks) {
                 book.cover = foundBook.volumeInfo.imageLinks.thumbnail;
             }
-
             if ((book.isbn13 || book.isbn10) && book.title) {
-                result = book;
+                 result = book;
             }
-
-
-
-
 
         } else {
             result = await worldCat.findBookByISBN(isbn);

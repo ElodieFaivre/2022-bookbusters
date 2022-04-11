@@ -9,14 +9,14 @@ const bookReformatter = {
      * Regroup all books' information from a search in GoogleBooks API.
      * @param {[Book]} books Array of book in BDD
      */
-    async reformat(books) {
+    async reformat(books, user) {
         // Test to know where books come from
         if (books[0].title) {
             // books has titles, so they come from a Google result's research
-            return await bookReformatter.completeWithDatabaseData(books);
+            return await bookReformatter.completeWithDatabaseData(books, user);
         } else {
             // books hasn't titles, so they comme from our database
-            return await bookReformatter.completeWithAPIsData(books);
+            return await bookReformatter.completeWithAPIsData(books, user);
         }
     },
 
@@ -24,7 +24,7 @@ const bookReformatter = {
      * Complete books' informations with BookBusters' data
      * @param {[Book]} books Array of book in BDD
      */
-    async completeWithDatabaseData(books) {
+    async completeWithDatabaseData(books, user) {
         const openLibraryQueries = [];
         const bookInBDDQueries = [];
 
@@ -78,7 +78,7 @@ const bookReformatter = {
      * Complete books' informations with APIs' data
      * @param {[Book]} books Array of book in BDD
      */
-    async completeWithAPIsData(books) {
+    async completeWithAPIsData(books, user) {
         const googleQueries = [];
         const openLibraryQueries = [];
 

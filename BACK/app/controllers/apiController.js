@@ -20,15 +20,27 @@ module.exports = {
      * @property {string} coverL - Book large sized cover URL
      */
     async getBookByISBN(req, res) {
-        //Test if this ISBN is in our BDD
-        let book = await bookDataMapper.findOneBookByIsbn13(req.params.isbn);
-        if (!book) {
-            book = await bookDataMapper.findOneBookByIsbn10(req.params.isbn);
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
         }
+
+        //Test if this ISBN is in our BDD
+        let book = await bookDataMapper.findBooks(
+            connectedUserId,
+            '{}',
+            `{${req.params.isbn}}`,
+            `{${req.params.isbn}}`,
+            1,
+            0
+        );
+
         if (book) {
             debug('livre déjà dans notre bdd');
             //this book exit in our BDD
-            book = await bookReformatter.reformat([book], req.body.user);
+            book = await bookReformatter.reformat(book, req.body.user);
         } else {
             //If not in our BDD, search
             debug('livre pas encore dans notre bdd');

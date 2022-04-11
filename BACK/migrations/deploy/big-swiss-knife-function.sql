@@ -1,6 +1,6 @@
-DROP FUNCTION get_book(integer,integer[],text[],text[], integer);
+-- Deploy bookbusters:big-swiss-knife-function to pg
 
-
+BEGIN;
 
 CREATE FUNCTION get_book
 (
@@ -8,7 +8,8 @@ CREATE FUNCTION get_book
 	books_ids INT[] DEFAULT '{}'::INT[], -- an array of books id from the BookBusters' database
 	books_isbn13s TEXT[] DEFAULT '{}'::TEXT[], -- an array of books ISBN 13
 	books_isbn10s TEXT[] DEFAULT '{}'::TEXT[], -- an array of books ISBN 10
-	page INT DEFAULT 0 -- the page number use as an offset to get 10 rows
+    max_rows_per_page INT DEFAULT 10, -- the number of rows return
+	page_number INT DEFAULT 0 -- the page number
 )
 -- The function returns a table with the following columns
 RETURNS TABLE (
@@ -101,23 +102,9 @@ RETURNS TABLE (
 
 	GROUP BY "book"."id", "connected_user".*
 
-	LIMIT 10 -- limit to 10 rows
-	OFFSET page * 10; -- set an offset for pagination
+	LIMIT max_rows_per_page -- limit the number of rows return
+	OFFSET page_number * max_rows_per_page; -- set an offset for pagination
 
 $$ LANGUAGE SQL STRICT;
 
-
-
-
-
--- Function tests :
-SELECT * FROM get_book(3, '{1,3}', '{9782412034392}', '{2081386690,2330113552}', 0);
-SELECT * FROM get_book(0, '{1,3}', '{9782412034392}', '{2081386690,2330113552}', 0);
-SELECT * FROM get_book(3, '{}', '{9782412034392}', '{2081386690,2330113552}', 0);
-SELECT * FROM get_book(3, '{1,3}', '{}', '{2081386690,2330113552}', 0);
-SELECT * FROM get_book(3, '{1,3}', '{9782412034392}', '{}', 0);
-SELECT * FROM get_book(3, '{1,3}', '{}', '{}', 0);
-SELECT * FROM get_book(3, '{}', '{9782412034392}', '{}', 0);
-SELECT * FROM get_book(3, '{}', '{}', '{2081386690,2330113552}', 0);
-SELECT * FROM get_book(3, '{}', '{}', '{}', 0);
-SELECT * FROM get_book(3, '{}', '{}', '{}', 1);
+COMMIT;

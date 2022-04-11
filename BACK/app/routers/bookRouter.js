@@ -27,7 +27,7 @@ router
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(controllerHandler(verifyToken), validate(createSchema, 'body'), controllerHandler(bookController.addBook));
+    .post(validate(createSchema, 'body'), controllerHandler(verifyToken), controllerHandler(bookController.addBook));
 
 router
     .route('/book/:id(\\d+)')

@@ -3,8 +3,7 @@ const userDataMapper = require('../models/user');
 const { ApiError } = require('../middlewares/handleError');
 const bookMW = require('../middlewares/getBookInformation');
 const debug = require('debug')('bookController');
-// const mailer = require('../services/mailer');
-
+const mailer = require('../services/mailer');
 module.exports = {
     /**
      * Product controller to get all books in donation.
@@ -54,11 +53,19 @@ module.exports = {
             is_in_library: savedUserHasBook.is_in_library,
             is_in_donation: savedUserHasBook.is_in_donation,
             is_in_alert: savedUserHasBook.is_in_alert,
-            is_in_favorite: savedUserHasBook.is_in_favorite
-        }
-        if (book.is_in_donation=true) {
-            const users = await userDataMapper.findUsersInAlert(book.isbn13);
-            //await mailer.sendAlertingMails(users);
+            is_in_favorite: savedUserHasBook.is_in_favorite,
+        };
+        if (book.is_in_donation) {
+            debug(`Un nouveau livre en donation, j'envoie un mail d'alerte`);
+            let isbn = null;
+            if (book[0].isbn13) {
+                isbn = book[0].isbn13;
+            }
+            else { isbn = book[0].isbn10; }
+            debug(`ISBN :`, isbn);
+            const users = await userDataMapper.findUsersInAlert(isbn);
+            debug(`Les users en alerte :`, users);
+            await mailer.sendAlertingMails(users);
         }
         return res.json(book);
     },
@@ -101,16 +108,14 @@ module.exports = {
             debug('user connecté')
             books.forEach(element => {
                 getRelationPromise.push(bookDataMapper.findRelationBookUser(element.id, req.body.userId));
-            })
+            });
             debug('Je vais chercher les relations avec le user connecté')
             const moreInfoBook = await Promise.all(getRelationPromise);
 
             for (let i = 0; i < books.length; i += 1) {
-                books[i] = { ...books[i], ...moreInfoBook[i]};
+                books[i] = { ...books[i], ...moreInfoBook[i] };
             }
-
         }
-       return res.json(books);
-
+        return res.json(books);
     }
 };

@@ -1,6 +1,7 @@
 const userListsDataMapper = require('../models/userLists');
 const { getBookInformation } = require('../middlewares/getBookInformation');
 const { ApiError } = require('../middlewares/handleError');
+const bookDataMapper = require('../models/book');
 
 module.exports = {
     /**
@@ -83,11 +84,12 @@ module.exports = {
 
         return res.json(alerts);
     },
-    async updateDonationDate(req,res) {
-        const user = Number(req.params.user_id);
-        const book = Number(req.params.book_id);
+    async updateDonationDate(req, res) {
+        const userId = Number(req.params.user_id);
+        const bookId = Number(req.params.book_id);
 
-        const updatedBook= await 
-
-    } 
+        const updatedBook = await userListsDataMapper.updateDonationDate(userId, bookId);
+        const book = await bookDataMapper.findOneBookById(bookId);
+        return res.json({ book, association: updatedBook });
+    },
 };

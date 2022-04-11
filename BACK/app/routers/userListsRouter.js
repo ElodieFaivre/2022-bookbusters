@@ -49,16 +49,16 @@ router
     .get(controllerHandler(verifyToken), controllerHandler(userBooksController.getAllBooksInAlert));
 
 router
-    .route('/user/:user_id(\\d+)/book/:book_id(\\d+)')
+    .route('/book/:book_id(\\d+)/user/:user_id(\\d+)')
     /**
-     * PATCH /v1/book/{book_id}/user/{user_id}
+     * GET /v1/book/{book_id}/user/{user_id}
      * @summary Update the donation date to now
-     * @param {number} id.path.required - book identifier
-     * @param {number} id.path.required - user identifier
+     * @param {number} book_id.path.required - book identifier
+     * @param {number} user_id.path.required - user identifier
      * @tags BOOK
      * @return {Book} 200 - success response - application/json
      */
-    .patch(
+    .get(
         controllerHandler(userBooksController.updateDonationDate),
     );
 module.exports = router;

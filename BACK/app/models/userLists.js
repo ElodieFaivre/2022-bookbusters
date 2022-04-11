@@ -1,5 +1,5 @@
 const client = require('../config/database');
-
+const debug = require('debug')('userLists model');
 /**
  * @typedef {object} Books
  * @property {number} association_id - Indentifiant unique, Pk de la table user_has_book
@@ -47,7 +47,7 @@ const userListsDataMapper = {
 
     async updateDonationDate(userId, bookId) {
         const result = await client.query(`UPDATE user_has_book SET donation_date = NOW()
-        WHERE book_id=$1 AND user_id=$2`, [
+        WHERE book_id=$1 AND user_id=$2 RETURNING *`, [
             userId, bookId,
         ]);
 

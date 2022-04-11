@@ -11,7 +11,6 @@ const google = {
         const json = await response.json();
 
         let result = {};
-
         //If no answer
         if (json.totalItems == 0) {
             result = undefined;

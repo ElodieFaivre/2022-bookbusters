@@ -1,11 +1,10 @@
 import { Box } from "@mui/system";
-import { Button, ButtonGroup, Container } from '@mui/material';
+import { Button, ButtonGroup, Container } from "@mui/material";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Book from "../Book/Book";
-
 
 // C'est ici que nous allons faire notre map pour afficher plusieurs livres.
 
@@ -29,9 +28,9 @@ function Books() {
         {/*data.map((livre, index) => (
           <Book key={index} livre={livre} />
         ))*/}
-        {data.map((livre) =>
-          livre.user.map((user, index) => <Book key={`je-suis-unique-${index}`} livre={livre} user={user} />)
-        )}
+        {data.map((livre, index) => (
+          <Book key={`je-suis-unique-${index}`} livre={livre} users={livre.user} />
+        ))}
       </Box>
     </>
   );

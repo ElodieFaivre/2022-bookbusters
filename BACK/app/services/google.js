@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 
-const debug = require('debug')('googleService');
+// const debug = require('debug')('googleService');
 
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
@@ -12,8 +12,6 @@ const validISBN10 = new RegExp(/^\d{9}(\d||x||X)$/);
 
 const google = {
     async findBookByISBN(isbn) {
-        debug('je suis là !');
-
         const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
         const response = await fetch(url);
@@ -40,9 +38,6 @@ const google = {
                             validISBN13.test(identifier.identifier)) ||
                         (identifier.type === 'ISBN_10' && validISBN10.test(identifier.identifier))
                     ) {
-
-                        debug('valid isbn 13 : ', validISBN13.test(identifier.identifier));
-                        debug('valid isbn 10 : ', validISBN10.test(identifier.identifier));
                         if (
                             identifier.type === 'ISBN_13' &&
                             validISBN13.test(identifier.identifier)
@@ -53,7 +48,6 @@ const google = {
                             identifier.type === 'ISBN_10' &&
                             validISBN10.test(identifier.identifier)
                         ) {
-                            debug('coucou', identifier.identifier);
                             isbn10 = identifier.identifier;
                         }
 
@@ -73,8 +67,6 @@ const google = {
                 publishedDate: foundBook.volumeInfo.publishedDate,
                 language: foundBook.volumeInfo.language,
             };
-
-            debug(book.isbn10);
 
             // Test if a cover link is found in GoogleBooks result
             if (foundBook.volumeInfo.imageLinks) {

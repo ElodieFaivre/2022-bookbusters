@@ -24,6 +24,8 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     });
 };
 
+// export const registerUser = ()
+
 export const fetchApi = {
   connectUser,
 };

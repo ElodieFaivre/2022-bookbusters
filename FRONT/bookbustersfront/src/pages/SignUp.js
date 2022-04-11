@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -11,15 +12,47 @@ import Container from "@mui/material/Container";
 import Header from "../components/Header/Header";
 import Copyright from "../components/Copyright/Copyright";
 import { Link } from "react-router-dom";
+import codesPostaux from "codes-postaux";
 
 export default function SignUp() {
+  const [postalCode, setPostalCode] = useState("");
+  const [communeCode, setCommuneCode] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+
+  const [possibleVilles, setPossibleVilles] = useState([]);
+
+  useEffect(() => {
+    if (possibleVilles.length === 1) {
+      setCommuneCode(possibleVilles[0].codeCommune);
+    } else if (possibleVilles.length === 0) {
+      setCommuneCode("");
+    }
+  }, [possibleVilles]);
+
+  const handlePostalCodeChange = ({ currentTarget }) => {
+    if (currentTarget.value.length === 5) {
+      setPossibleVilles(codesPostaux.find(currentTarget.value));
+    } else {
+      setPossibleVilles([]);
+    }
+    setPostalCode(currentTarget.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    // Vérification du code postal
+    if (postalCode.length !== 5) {
+      return alert("Code postal incorrecte");
+    }
+
+    // Vérification de la commune
+    if (communeCode.length < 1) {
+      return alert("Ville introuvable");
+    }
   };
 
   return (
@@ -50,28 +83,54 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
                   name="pseudo"
                   required
                   fullWidth
                   id="pseudo"
                   label="Pseudo"
                   autoFocus
+                  onChange={({ target }) => setPseudo(target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography>
-                  Le code postal est impératif pour que nous puissions afficher
-                  les livres autour de vous (Format français)
-                </Typography>
+                <Typography>Code postaux français</Typography>
                 <TextField
                   required
                   fullWidth
+                  type="tel"
                   id="codePostal"
                   label="Code Postal"
                   name="codePostal"
+                  placeholder="75001"
                   autoComplete="email"
+                  value={postalCode}
+                  onChange={handlePostalCodeChange}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl required fullWidth>
+                  <InputLabel id="cities-label">Ville/Commune</InputLabel>
+                  <Select
+                    id="cities"
+                    labelId="cities-label"
+                    value={communeCode}
+                    label="Ville/Commune"
+                    onChange={({ target }) => setCommuneCode(target.value)}
+                    required
+                  >
+                    {possibleVilles.length < 1 && (
+                      <MenuItem disabled>Aucune ville trouvée</MenuItem>
+                    )}
+                    {possibleVilles.map((ville) => (
+                      <MenuItem
+                        key={ville.codeCommune}
+                        value={ville.codeCommune}
+                      >
+                        {ville.nomCommune}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -93,7 +152,6 @@ export default function SignUp() {
                   label="Mot de passe"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -103,8 +161,7 @@ export default function SignUp() {
                   name="password"
                   label="Confirmation de mot de passe"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  id="passwordVerification"
                 />
               </Grid>
             </Grid>

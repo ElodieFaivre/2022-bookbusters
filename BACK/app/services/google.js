@@ -73,7 +73,7 @@ const google = {
 
             // Test if a cover link is found in GoogleBooks result
             if (foundBook.volumeInfo.imageLinks) {
-                book.coverGoogle = foundBook.volumeInfo.imageLinks.thumbnail;
+                book.cover = foundBook.volumeInfo.imageLinks.thumbnail;
             }
             if ((book.isbn13 || book.isbn10) && book.title) {
                  result = book;
@@ -135,7 +135,7 @@ const google = {
 
             // Test if a cover link is found in GoogleBooks result
             if (item.volumeInfo.imageLinks) {
-                book.coverGoogle = item.volumeInfo.imageLinks.thumbnail;
+                book.cover = item.volumeInfo.imageLinks.thumbnail;
             }
 
             if ((book.isbn13 || book.isbn10) && book.title) {

@@ -23,7 +23,7 @@ const openLibrary = {
 
         // If no answer
         if (Object.entries(json).length === 0) {
-            result = undefined;
+            return (result = undefined);
         }
 
         // If at least one answer
@@ -32,12 +32,12 @@ const openLibrary = {
 
             // If no cover found in result
             if (!json[ISBNKey].thumbnail_url) {
-                result = undefined;
+                return (result = undefined);
             } else {
                 result = {
                     isbnOL: json[ISBNKey].bib_key.split('ISBN:')[1],
-                    coverOL: json[ISBNKey].thumbnail_url.split('-S').join('-M'),
-                    // coverL: json[ISBNKey].thumbnail_url.split('-S').join('-L'),
+                    coverOLM: json[ISBNKey].thumbnail_url.split('-S').join('-M'),
+                    coverOLL: json[ISBNKey].thumbnail_url.split('-S').join('-L'),
                 };
             }
         }

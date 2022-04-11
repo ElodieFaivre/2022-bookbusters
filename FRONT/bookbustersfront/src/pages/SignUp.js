@@ -1,28 +1,50 @@
-import React, { useState, useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import { FormControl, Select, InputLabel, MenuItem } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+// Imports REACT
+import React, { useState, useEffect, useContext } from "react";
+
+// Imports MUI
+import {
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+  Avatar,
+  Button,
+  Grid,
+  Box,
+  CssBaseline,
+  TextField,
+  Typography,
+  Container,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+
+// Import Composants
 import Header from "../components/Header/Header";
 import Copyright from "../components/Copyright/Copyright";
-import { Link } from "react-router-dom";
+
+// Import React-Router-Dom
+import { Link, useNavigate } from "react-router-dom";
+
+//Import package codes postaux
 import codesPostaux from "codes-postaux";
+
+// Import de la méthode registerUser depuis fetchAPI.js
+import { registerUser } from "../api/fetchApi";
+
+import alertContext from "../contexts/AlertContext";
 
 export default function SignUp() {
   const [postalCode, setPostalCode] = useState("");
   const [communeCode, setCommuneCode] = useState("");
-  const [pseudo, setPseudo] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
   const [possibleVilles, setPossibleVilles] = useState([]);
+  const navigate = useNavigate();
+
+  const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
 
   useEffect(() => {
     if (possibleVilles.length === 1) {
@@ -41,18 +63,64 @@ export default function SignUp() {
     setPostalCode(currentTarget.value);
   };
 
+  const handleRegisterSuccess = () => {
+    setUsername("");
+    setPostalCode("");
+    setCommuneCode("");
+    setEmail("");
+    setPassword("");
+    setPasswordConf("");
+    navigate("/signIn");
+    setSuccessAlert("Compte crée !");
+  };
+
+  //* Regex pour le pseudo et pour le mot de passe
+  const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+  const PWD_REGEX =
+    /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+
+  // Test1234@
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    let errors = [];
+
+    const v1 = USER_REGEX.test(username);
+    const v2 = PWD_REGEX.test(password);
+    if (!v1 || !v2) {
+      errors.push(
+        "Problème detecté sur votre mot de passe ou nom d'utilisateur"
+      );
+    }
 
     // Vérification du code postal
     if (postalCode.length !== 5) {
-      return alert("Code postal incorrecte");
+      errors.push("Code postal incorrect");
     }
 
     // Vérification de la commune
     if (communeCode.length < 1) {
-      return alert("Ville introuvable");
+      errors.push("Ville introuvable");
     }
+
+    // Vérification des mots de passe
+    if (password !== passwordConf) {
+      errors.push("Vos mots de passe ne correspondent pas");
+    }
+
+    if (errors.length > 0) {
+      return setErrorAlert(errors.join(", "));
+    }
+
+    registerUser(
+      postalCode,
+      communeCode,
+      username,
+      email,
+      password,
+      handleRegisterSuccess,
+      setErrorAlert
+    );
   };
 
   return (
@@ -88,12 +156,13 @@ export default function SignUp() {
                   fullWidth
                   id="pseudo"
                   label="Pseudo"
+                  helperText="4 à 24 caractères / doit commencer par une lettre / lettres, nombres et tirets autorisés"
                   autoFocus
-                  onChange={({ target }) => setPseudo(target.value)}
+                  onChange={({ target }) => setUsername(target.value)}
+                  value={username}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography>Code postaux français</Typography>
                 <TextField
                   required
                   fullWidth
@@ -103,6 +172,7 @@ export default function SignUp() {
                   name="codePostal"
                   placeholder="75001"
                   autoComplete="email"
+                  helperText="Code postaux français"
                   value={postalCode}
                   onChange={handlePostalCodeChange}
                 />
@@ -140,8 +210,8 @@ export default function SignUp() {
                   label="Adresse email"
                   name="email"
                   autoComplete="email"
-                  // error
-                  // helperText="Mail au mauvais format"
+                  onChange={({ target }) => setEmail(target.value)}
+                  value={email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -152,6 +222,9 @@ export default function SignUp() {
                   label="Mot de passe"
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                  helperText="8 à 24 caractères / 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -162,6 +235,8 @@ export default function SignUp() {
                   label="Confirmation de mot de passe"
                   type="password"
                   id="passwordVerification"
+                  value={passwordConf}
+                  onChange={({ target }) => setPasswordConf(target.value)}
                 />
               </Grid>
             </Grid>

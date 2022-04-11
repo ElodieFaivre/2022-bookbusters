@@ -24,8 +24,10 @@ import SignUp from "../../pages/SignUp";
 // import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import AroundMe from "../../pages/AroundMe";
 import AuthenticatedRoute from "../AuthenticatedRoute";
+import Alert from "../Alert/Alert";
 
 import { AuthProvider } from "../../contexts/AuthContext";
+import { AlertProvider } from "../../contexts/AlertContext";
 
 let themeOptions = createTheme({
   palette: {
@@ -54,37 +56,41 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            {/* Routes toujours accessibles */}
-            <Route path="/" element={<Home />} />
-            <Route path="*" element={<Error />} />
-            <Route path="/Credits" element={<Credits />} />
-            <Route path="/Contact" element={<Contact />} />
-            <Route path="/AroundMe" element={<AroundMe />} />
+          <AlertProvider>
+            <Routes>
+              {/* Routes toujours accessibles */}
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<Error />} />
+              <Route path="/Credits" element={<Credits />} />
+              <Route path="/Contact" element={<Contact />} />
+              <Route path="/AroundMe" element={<AroundMe />} />
 
-            {/* Routes avec JWT*/}
-            <Route
-              element={
-                <AuthenticatedRoute redirect="/SignIn" connectedOnly={true} />
-              }
-            >
-              <Route path="/Account" element={<Account />} />
-              <Route path="/myAlerts" element={<MyAlerts />} />
-              <Route path="/Favorites" element={<Favorites />} />
-              <Route path="/Library" element={<Library />} />
-            </Route>
+              {/* Routes avec JWT*/}
+              <Route
+                element={
+                  <AuthenticatedRoute redirect="/SignIn" connectedOnly={true} />
+                }
+              >
+                <Route path="/Account" element={<Account />} />
+                <Route path="/myAlerts" element={<MyAlerts />} />
+                <Route path="/Favorites" element={<Favorites />} />
+                <Route path="/Library" element={<Library />} />
+              </Route>
 
-            {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
-            <Route
-              element={
-                <AuthenticatedRoute redirect="/" connectedOnly={false} />
-              }
-            >
-              {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
-              <Route path="/SignIn" element={<SignInSide />} />
-              <Route path="/SignUp" element={<SignUp />} />
-            </Route>
-          </Routes>
+              {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
+              <Route
+                element={
+                  <AuthenticatedRoute redirect="/" connectedOnly={false} />
+                }
+              >
+                {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
+                <Route path="/SignIn" element={<SignInSide />} />
+                <Route path="/SignUp" element={<SignUp />} />
+              </Route>
+            </Routes>
+
+            <Alert />
+          </AlertProvider>
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>

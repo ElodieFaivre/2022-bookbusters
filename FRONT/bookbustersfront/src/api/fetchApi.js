@@ -24,10 +24,48 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     });
 };
 
-// export const registerUser = ()
+export const registerUser = (
+  postalCode,
+  communeCode,
+  username,
+  email,
+  password,
+  handleRegisterSuccess,
+  setErrorAlert
+) => {
+  axios
+    .post("/v1/user", {
+      username,
+      email,
+      password,
+      bio: "gnagnagna",
+      location: "(48.8833024, 2.3789568)",
+      // postalCode,
+      // communeCode,
+      mail_donation: true,
+      mail_alert: true,
+      avatar_id: "1",
+    })
+    .then(() => {
+      handleRegisterSuccess();
+    })
+    .catch((error) => {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorAlert(error.response.data.message);
+      } else {
+        setErrorAlert("Une erreur est survenue lors de l'inscription.");
+        console.error(error);
+      }
+    });
+};
 
 export const fetchApi = {
   connectUser,
+  registerUser,
 };
 
 export default fetchApi;

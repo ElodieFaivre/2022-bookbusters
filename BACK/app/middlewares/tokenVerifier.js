@@ -18,7 +18,6 @@ module.exports = {
             } else {
 
                 req.body.user = decoded;
-
                 next();
             }
         });

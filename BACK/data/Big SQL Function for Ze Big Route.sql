@@ -1,17 +1,18 @@
-DROP FUNCTION get_book(integer,integer[],text[],text[]);
-
+DROP FUNCTION get_book(integer,integer[],text[],text[], integer);
 
 
 
 CREATE FUNCTION get_book
 (
-	connected_user INT DEFAULT 0,
-	books_ids INT[] DEFAULT '{}'::INT[],
-	books_isbn13s TEXT[] DEFAULT '{}'::TEXT[],
-	books_isbn10s TEXT[] DEFAULT '{}'::TEXT[]
+	connected_user INT DEFAULT 0, -- The id of the connected user (req.body.user.userId)
+	books_ids INT[] DEFAULT '{}'::INT[], -- an array of books id from the BookBusters' database
+	books_isbn13s TEXT[] DEFAULT '{}'::TEXT[], -- an array of books ISBN 13
+	books_isbn10s TEXT[] DEFAULT '{}'::TEXT[], -- an array of books ISBN 10
+	page INT DEFAULT 0 -- the page number use as an offset to get 10 rows
 )
+-- The function returns a table with the following columns
 RETURNS TABLE (
-    "id" INT,
+    "id" INT, -- the
     "isbn13" TEXT,
     "isbn10" TEXT,
     "connected_user" JSON,
@@ -94,7 +95,10 @@ RETURNS TABLE (
 
 		END
 
-	GROUP BY "book"."id", "connected_user".*;
+	GROUP BY "book"."id", "connected_user".*
+
+	LIMIT 10
+	OFFSET page * 10;
 
 $$ LANGUAGE SQL STRICT;
 
@@ -102,13 +106,14 @@ $$ LANGUAGE SQL STRICT;
 
 
 
-
-SELECT * FROM get_book(3, '{1,3}', '{9782412034392}', '{2081386690,2330113552}');
-SELECT * FROM get_book(0, '{1,3}', '{9782412034392}', '{2081386690,2330113552}');
-SELECT * FROM get_book(3, '{}', '{9782412034392}', '{2081386690,2330113552}');
-SELECT * FROM get_book(3, '{1,3}', '{}', '{2081386690,2330113552}');
-SELECT * FROM get_book(3, '{1,3}', '{9782412034392}', '{}');
-SELECT * FROM get_book(3, '{1,3}', '{}', '{}');
-SELECT * FROM get_book(3, '{}', '{9782412034392}', '{}');
-SELECT * FROM get_book(3, '{}', '{}', '{2081386690,2330113552}');
-SELECT * FROM get_book(3, '{}', '{}', '{}');
+-- Function tests :
+SELECT * FROM get_book(3, '{1,3}', '{9782412034392}', '{2081386690,2330113552}', 0);
+SELECT * FROM get_book(0, '{1,3}', '{9782412034392}', '{2081386690,2330113552}', 0);
+SELECT * FROM get_book(3, '{}', '{9782412034392}', '{2081386690,2330113552}', 0);
+SELECT * FROM get_book(3, '{1,3}', '{}', '{2081386690,2330113552}', 0);
+SELECT * FROM get_book(3, '{1,3}', '{9782412034392}', '{}', 0);
+SELECT * FROM get_book(3, '{1,3}', '{}', '{}', 0);
+SELECT * FROM get_book(3, '{}', '{9782412034392}', '{}', 0);
+SELECT * FROM get_book(3, '{}', '{}', '{2081386690,2330113552}', 0);
+SELECT * FROM get_book(3, '{}', '{}', '{}', 0);
+SELECT * FROM get_book(3, '{}', '{}', '{}', 1);

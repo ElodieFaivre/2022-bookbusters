@@ -14,6 +14,18 @@ const client = require('../config/database');
  */
 
 /**
+ * @typedef {object} InputUser
+ * @property {string} username
+ * @property {string} email
+ * @property {string} password
+ * @property {string} bio
+ * @property {string} location - exemple : "(0,0)"
+ * @property {boolean} mail_donation - default TRUE
+ * @property {boolean} mail_alert - default TRUE
+ * @property {number} avatar_id - default 1
+ */
+
+/**
  * @typedef {object} Login
  * @property {string} login - Email
  * @property {string} password

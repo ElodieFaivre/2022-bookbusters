@@ -1,31 +1,40 @@
-import React, { useEffect, useState } from "react";
+// Imports REACT
+import React, { useContext, useEffect, useState } from "react";
 
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+// Imports MUI
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+
+// Imports composants
 import Header from "../components/Header/Header";
 import LibrarySign from "../assets/img/library.jpg";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Copyright from "../components/Copyright/Copyright";
+import authContext from "../contexts/AuthContext";
 
-//* Import composant Link React-Router
+// Import composant Link React-Router
 import { Link, useNavigate } from "react-router-dom";
-//* Import de la méthode connectUser depuis fetchAPI.js
+
+// Import de la méthode connectUser depuis fetchAPI.js
 import { connectUser } from "../api/fetchApi";
 
 export default function SignInSide() {
   const [login, setLogin] = useState("");
   const [password, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  let navigate = useNavigate();
+
+  const { logIn } = useContext(authContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setErrMsg("");
@@ -34,14 +43,13 @@ export default function SignInSide() {
   const handleLoginSuccess = (token) => {
     setLogin("");
     setPwd("");
+    logIn(token);
     setErrMsg("");
-    localStorage.setItem("jwt", token);
     navigate("/");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     connectUser(login, password, setErrMsg, handleLoginSuccess);
   };
 

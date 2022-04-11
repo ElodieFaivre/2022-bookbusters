@@ -1,12 +1,19 @@
 /* eslint-disable no-useless-catch */
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
+
+// const debug = require('debug')('googleService');
+
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
+
+const validISBN13 = new RegExp(/^97[8-9]\d{10}$/);
+const validISBN10 = new RegExp(/^\d{9}(\d||x||X)$/);
 
 const google = {
     async findBookByISBN(isbn) {
         const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+
         const response = await fetch(url);
         const json = await response.json();
 
@@ -14,36 +21,67 @@ const google = {
 
         //If no answer
         if (json.totalItems == 0) {
-            result = undefined;
+            return (result = undefined);
         }
 
         //If at least one answer, only the first one is return
         if (json.totalItems >= 1) {
             let isbn13 = null;
             let isbn10 = null;
-            if (json.items[0].volumeInfo.industryIdentifiers) {
-                if (json.items[0].volumeInfo.industryIdentifiers.length > 0) {
-                    json.items[0].volumeInfo.industryIdentifiers.forEach((identifier) => {
-                        if (identifier.type === 'ISBN_13') {
+
+            const foundBook = json.items.find((item) => {
+                const industryIdentifiers = item.volumeInfo.industryIdentifiers;
+
+                const foundItem = industryIdentifiers.find((identifier) => {
+                    if (
+                        (identifier.type === 'ISBN_13' &&
+                            validISBN13.test(identifier.identifier)) ||
+                        (identifier.type === 'ISBN_10' && validISBN10.test(identifier.identifier))
+                    ) {
+                        if (
+                            identifier.type === 'ISBN_13' &&
+                            validISBN13.test(identifier.identifier)
+                        ) {
                             isbn13 = identifier.identifier;
                         }
-                        if (identifier.type === 'ISBN_10') {
+                        if (
+                            identifier.type === 'ISBN_10' &&
+                            validISBN10.test(identifier.identifier)
+                        ) {
                             isbn10 = identifier.identifier;
                         }
-                    });
-                }
-            }
-            result = {
+
+                        return item;
+                    }
+                });
+
+                return foundItem;
+            });
+
+            book = {
                 isbn13: isbn13,
                 isbn10: isbn10,
-                title: json.items[0].volumeInfo.title,
-                author: json.items[0].volumeInfo.authors,
-                resume: json.items[0].volumeInfo.description,
-                publishedDate: json.items[0].volumeInfo.publishedDate,
-                language: json.items[0].volumeInfo.language,
+                title: foundBook.volumeInfo.title,
+                author: foundBook.volumeInfo.authors,
+                resume: foundBook.volumeInfo.description,
+                publishedDate: foundBook.volumeInfo.publishedDate,
+                language: foundBook.volumeInfo.language,
             };
-        }
-        else {
+
+            // Test if a cover link is found in GoogleBooks result
+            if (foundBook.volumeInfo.imageLinks) {
+                book.coverGoogle = foundBook.volumeInfo.imageLinks.thumbnail;
+            }
+
+            if ((book.isbn13 || book.isbn10) && book.title) {
+                result = book;
+            }
+
+
+
+
+
+        } else {
             result = await worldCat.findBookByISBN(isbn);
         }
         return result;
@@ -69,12 +107,18 @@ const google = {
                 if (item.volumeInfo.industryIdentifiers.length > 0) {
                     item.volumeInfo.industryIdentifiers.forEach((identifier) => {
                         // Test if an isbn13 is found in GoogleBooks result
-                        if (identifier.type === 'ISBN_13') {
+                        if (
+                            identifier.type === 'ISBN_13' &&
+                            validISBN13.test(identifier.identifier)
+                        ) {
                             isbn13 = identifier.identifier;
                         }
 
                         // Test if an isbn10 is found in GoogleBooks result
-                        if (identifier.type === 'ISBN_10') {
+                        if (
+                            identifier.type === 'ISBN_10' &&
+                            validISBN10.test(identifier.identifier)
+                        ) {
                             isbn10 = identifier.identifier;
                         }
                     });

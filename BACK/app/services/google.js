@@ -7,9 +7,12 @@ const debug = require('debug')('googleService');
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
 
+const validISBN13 = new RegExp(/^97[8-9]\d{10}$/);
+const validISBN10 = new RegExp(/^\d{9}(\d||x||X)$/);
+
 const google = {
     async findBookByISBN(isbn) {
-debug('je suis là !');
+        debug('je suis là !');
 
         const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
 
@@ -32,11 +35,25 @@ debug('je suis là !');
                 const industryIdentifiers = item.volumeInfo.industryIdentifiers;
 
                 const foundItem = industryIdentifiers.find((identifier) => {
-                    if (identifier.type === 'ISBN_13' || identifier.type === 'ISBN_10') {
-                        if (identifier.type === 'ISBN_13') {
+                    if (
+                        (identifier.type === 'ISBN_13' &&
+                            validISBN13.test(identifier.identifier)) ||
+                        (identifier.type === 'ISBN_10' && validISBN10.test(identifier.identifier))
+                    ) {
+
+                        debug('valid isbn 13 : ', validISBN13.test(identifier.identifier));
+                        debug('valid isbn 10 : ', validISBN10.test(identifier.identifier));
+                        if (
+                            identifier.type === 'ISBN_13' &&
+                            validISBN13.test(identifier.identifier)
+                        ) {
                             isbn13 = identifier.identifier;
                         }
-                        if (identifier.type === 'ISBN_10') {
+                        if (
+                            identifier.type === 'ISBN_10' &&
+                            validISBN10.test(identifier.identifier)
+                        ) {
+                            debug('coucou', identifier.identifier);
                             isbn10 = identifier.identifier;
                         }
 
@@ -57,6 +74,8 @@ debug('je suis là !');
                 language: foundBook.volumeInfo.language,
             };
 
+            debug(book.isbn10);
+
             // Test if a cover link is found in GoogleBooks result
             if (foundBook.volumeInfo.imageLinks) {
                 book.coverGoogle = foundBook.volumeInfo.imageLinks.thumbnail;
@@ -65,8 +84,12 @@ debug('je suis là !');
             if ((book.isbn13 || book.isbn10) && book.title) {
                 result = book;
             }
-        }
-        else {
+
+
+
+
+
+        } else {
             result = await worldCat.findBookByISBN(isbn);
         }
         return result;
@@ -92,12 +115,18 @@ debug('je suis là !');
                 if (item.volumeInfo.industryIdentifiers.length > 0) {
                     item.volumeInfo.industryIdentifiers.forEach((identifier) => {
                         // Test if an isbn13 is found in GoogleBooks result
-                        if (identifier.type === 'ISBN_13') {
+                        if (
+                            identifier.type === 'ISBN_13' &&
+                            validISBN13.test(identifier.identifier)
+                        ) {
                             isbn13 = identifier.identifier;
                         }
 
                         // Test if an isbn10 is found in GoogleBooks result
-                        if (identifier.type === 'ISBN_10') {
+                        if (
+                            identifier.type === 'ISBN_10' &&
+                            validISBN10.test(identifier.identifier)
+                        ) {
                             isbn10 = identifier.identifier;
                         }
                     });

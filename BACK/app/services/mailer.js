@@ -1,4 +1,5 @@
 const cron = require('node-cron');
+const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const { getMaxListeners } = require("process");
 const userDataMapper = require('../models/user');
@@ -28,6 +29,26 @@ const mailer = {
         });
 
         await Promise.all(promiseToSolve);
+    },
+
+    async confirmationMail(user) {
+        // confirmation email
+        jwt.sign(
+            {
+                userId: user.id,
+            },
+            process.env.SECRET_TOKEN_KEY,
+            { expiresIn: '1d' },
+            (err, emailToken) => {
+                const url = `http://localhost:5000/v1/confirmation/${emailToken}`;
+                transporter.sendMail({
+                    from: '"bookbustersfrance@gmail.com"', // sender address
+                    to: `${user.email}`,
+                    subject: "Confirmation de l'adresse email",
+                    html: `Merci de cliquer sur le lien suivant pour confirmer votre email:<a href=${url}>${url}</a>`
+                });
+            },
+        );
     },
 
 };

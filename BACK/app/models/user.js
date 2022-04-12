@@ -156,6 +156,24 @@ const userDataMapper = {
 
         return savedUser.rows[0];
     },
+
+    async swithTheAccountActive(id) {
+        console.log("id:", id);
+        const activeAccount = await client.query(
+            `
+                UPDATE "user" SET
+                    active_account = true
+                WHERE id = $1
+                RETURNING *
+            `,
+            [id],
+        );
+        console.log('activeAccount:', activeAccount);
+        if (!activeAccount) {
+            return null;
+        }
+        return activeAccount;
+    },
 };
 
 module.exports = userDataMapper;

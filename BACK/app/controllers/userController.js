@@ -1,8 +1,8 @@
-// const debug = require('debug')('controller:user');
+const debug = require('debug')('controller:user');
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const mailer = require('../services/mailer');
 const userDataMapper = require('../models/user');
 const { ApiError } = require('../middlewares/handleError');
 
@@ -75,6 +75,9 @@ module.exports = {
             req.body.password = encryptedPassword;
 
             const savedUser = await userDataMapper.insert(req.body);
+
+            await mailer.confirmationMail(savedUser);
+
             return res.json(savedUser);
         }
     },
@@ -172,5 +175,24 @@ module.exports = {
                 res.json({ token });
             },
         );
+    },
+
+    /**
+     * User controller to swith active an account.
+     * ExpressMiddleware signature
+     * @param {object} req Express request object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
+    async swithTheAccountActive(req, res) {
+        console.log("je suis là");
+        const id = jwt.verify(req.params.token, process.env.SECRET_TOKEN_KEY);
+        debug('id:', id);
+        const user = await userDataMapper.swithTheAccountActive(id.userId);
+        debug("user:", user);
+        if (!user) {
+            throw new ApiError('User id not found', { statusCode: 400 });
+        }
+        else { res.json(user); }
     },
 };

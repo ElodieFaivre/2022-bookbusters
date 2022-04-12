@@ -7,3 +7,4 @@ lowercase-isbn 2022-03-31T08:47:36Z System Administrator <root@Copain-MaxiBook.l
 book_in_donation 2022-03-31T11:19:52Z elodie.faivre <elodie.faivre3@gmail.com> # create view book in donation
 userlists-views 2022-04-01T13:08:47Z System Administrator <root@Copain-MaxiBook.local> # Views for lists of users (library, favorite, alert)
 around-me 2022-04-06T11:59:55Z elodie.faivre <elodie.faivre3@gmail.com> # function sql to search books around me
+account_activation 2022-04-12T13:10:41Z ju <dupont.julien@gmail.com> # Adding of a field in the user table regarding the activation of the account via an email after the signup process

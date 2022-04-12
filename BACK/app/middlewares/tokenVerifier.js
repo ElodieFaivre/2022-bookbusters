@@ -1,3 +1,5 @@
+const debug = require('debug')('Token');
+
 const jwt = require('jsonwebtoken');
 const { ApiError } = require('../middlewares/handleError');
 

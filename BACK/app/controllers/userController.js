@@ -166,13 +166,16 @@ module.exports = {
         if (!foundUser || !(await bcrypt.compare(req.body.password, foundUser.password))) {
             throw new ApiError('Login or password not correct', { statusCode: 400 });
         }
+        if (!foundUser.active_account) {
+            throw new ApiError('Please confirm your email to login');
+        }
 
         jwt.sign(
             { userId: foundUser.id },
             process.env.SECRET_TOKEN_KEY,
             { expiresIn: '30m' },
             (err, token) => {
-                res.json({ token });
+                res.json({ token, foundUser });
             },
         );
     },

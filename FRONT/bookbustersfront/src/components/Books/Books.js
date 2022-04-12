@@ -29,7 +29,7 @@ function Books() {
           <Book key={index} livre={livre} />
         ))*/}
         {data.map((livre, index) => (
-          <Book key={`je-suis-unique-${index}`} livre={livre} users={livre.user} />
+          <Book key={`je-suis-unique-${index}`} livre={livre} users={livre.donors} />
         ))}
       </Box>
     </>

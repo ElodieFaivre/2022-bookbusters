@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 
-//const debug = require('debug')('googleService');
+const debug = require('debug')('googleService');
 
 const fetch = require('node-fetch');
 const worldCat = require('../services/worldCat');
@@ -33,7 +33,7 @@ const google = {
             const foundBook = json.items.find((item) => {
                 const industryIdentifiers = item.volumeInfo.industryIdentifiers;
 
-                const foundItem = industryIdentifiers.find((identifier) => {
+                industryIdentifiers.forEach((identifier) => {
                     if (
                         (identifier.type === 'ISBN_13' &&
                             validISBN13.test(identifier.identifier)) ||
@@ -46,20 +46,18 @@ const google = {
                         ) {
                             isbn13 = identifier.identifier;
                         }
+
                         if (
                             identifier.type === 'ISBN_10' &&
                             validISBN10.test(identifier.identifier)
                         ) {
                             isbn10 = identifier.identifier;
                         }
-
-                        return item;
                     }
                 });
 
-                return foundItem;
+                return item;
             });
-
 
             book = {
                 isbn13: isbn13,
@@ -75,6 +73,9 @@ const google = {
             if (foundBook.volumeInfo.imageLinks) {
                 book.cover = foundBook.volumeInfo.imageLinks.thumbnail;
             }
+
+
+
             if ((book.isbn13 || book.isbn10) && book.title) {
                  result = book;
             }
@@ -86,7 +87,7 @@ const google = {
     },
 
     async findBookByKeyword(word, limit, startIndex) {
-        const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${word}&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}`;
 
         const response = await fetch(url);
         const json = await response.json();

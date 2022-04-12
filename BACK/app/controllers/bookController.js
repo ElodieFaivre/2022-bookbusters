@@ -12,22 +12,35 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
-        debug('GetAllInDonation')
-        let books = await bookDataMapper.findAllInDonation();
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
+        let books = await bookDataMapper.findBooksInDonation(connectedUserId);
         books = await bookReformatter.reformat(books, req.body.user);
 
         return res.json(books);
     },
 
     async getOneBookById(req, res) {
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
         const bookId = req.params.id;
-        let book = await bookDataMapper.findOneBookById(bookId);
-        if (!book) {
+        let book = await bookDataMapper.findBooks(connectedUserId, `{${bookId}}`, '{}', '{}', 1, 0);
+        if (book.length === 0) {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
-        book = await bookReformatter.reformat([book], req.body.user);
+        book = await bookReformatter.reformat(book);
 
-        return res.json(book);
+        return res.json(book[0]);
     },
 
     /**
@@ -40,10 +53,25 @@ module.exports = {
     async addBook(req, res) {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
-        let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
-        book = await bookReformatter.reformat([book], req.body.user);
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
 
-        return res.json(book);
+        let book = await bookDataMapper.findBooks(
+            connectedUserId,
+            `{${savedUserHasBook.book_id}}`,
+            '{}',
+            '{}',
+            1,
+            0,
+        );
+
+        book = await bookReformatter.reformat(book);
+
+        return res.json(book[0]);
     },
 
     /**
@@ -53,47 +81,45 @@ module.exports = {
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
-    async getBooksIdsAroundMe(req, res) {
-        const books = await bookDataMapper.findBooksIdAround(req.body.location, req.body.radius);
-        return res.json(books);
-    },
+    async getBooksAroundMe(req, res) {
+        const booksAroundMe = await bookDataMapper.findBooksIdAround(
+            req.body.location,
+            req.body.radius,
+        );
 
-    async getBooksWithIds(req, res) {
-        debug('Req.query.books = ', req.query.books);
-        let bookIds = req.query.books
-        bookIds = bookIds.substr(1).substr(0, bookIds.length - 2).split(',');
-        debug('après traitement', bookIds);
-
-        const promiseToSolve = [];
-        bookIds.forEach(element => {
-            promiseToSolve.push(bookDataMapper.findOneBookById(Number(element)));
-        });
-
-
-        //TODO : question : what happened si une promesse échoue ??
-        debug('Je lance les promesses pour trouver les livres')
-        let books = await Promise.all(promiseToSolve);
-        debug('Les livres trouvés sont', books);
-        //Without books undefined
-        let newBooks=[];
-        books.forEach(book=>{
-            if(book) {
-                newBooks.push(book);
+        if (booksAroundMe.length === 0) {
+            throw new ApiError('No book around you', { statusCode: 404 });
         }
+
+        let bookIds = [];
+        booksAroundMe.forEach(row => {
+            bookIds.push(...row.book_ids);
+        })
+
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
+        let books = await bookDataMapper.findBooks(connectedUserId, bookIds, '{}', '{}', 10, 0);
+        books = await bookReformatter.reformat(books);
+
+        // Redispatch books by locations
+        const result = [];
+        booksAroundMe.forEach((row) => {
+            const locatedBooks = [];
+            row.book_ids.forEach((book_id) => {
+                locatedBooks.push(books.find((book) => book_id === book.id));
+            });
+
+            result.push({
+                location: row.loc,
+                books: locatedBooks,
+            });
         });
-        books=newBooks;
 
-
-        debug('Les livres trouvés sans les undefined', books);
-
-        debug('Je complete les infos avec API');
-
-        debug('user connecté')
-        books = await bookReformatter.reformat(books, req.body.user);
-
-        debug('Livres complets', books);
-
-       return res.json(books);
-
-    }
+        return res.json(result);
+    },
 };

@@ -28,6 +28,7 @@ import Alert from "../Alert/Alert";
 
 import { AuthProvider } from "../../contexts/AuthContext";
 import { AlertProvider } from "../../contexts/AlertContext";
+import SearchResults from "../SearchResults/SearchResults";
 
 let themeOptions = createTheme({
   palette: {
@@ -64,7 +65,7 @@ function App() {
               <Route path="/Credits" element={<Credits />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/AroundMe" element={<AroundMe />} />
-
+              <Route path="/SearchResults" element={<SearchResults />} />
               {/* Routes avec JWT*/}
               <Route
                 element={

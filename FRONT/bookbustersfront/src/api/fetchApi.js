@@ -63,21 +63,24 @@ export const registerUser = (
     });
 };
 
-// N2cessité de renvoyer le token du user connecté si connecté
+// Nécessité de renvoyer le token du user connecté si connecté
 export const searchBooks = () => {
   axios
-    .get("/v1/book/search?q=bel%20ami&limit=40&start=0")
+    .get(`/v1/book/search`)
     .then((res) => console.log(res))
     .catch((error) => {
       console.log(error);
     });
 };
 
-searchBooks();
+// searchBooks();
+/* ?q=bel%20ami&limit=40&start=0*/
+/* ?q=${query} */
 
 export const fetchApi = {
   connectUser,
   registerUser,
+  searchBooks,
 };
 
 export default fetchApi;

@@ -61,15 +61,6 @@ module.exports = {
 
     async getBookWithWorldCat(req, res) {
         const book = await worldCat.findBookByISBN(req.params.isbn);
-        const users = [{
-            email: 'dupont.julien@gmail.com',
-            isbn13: '9782412034392',
-        }];
-
-        await mailer.sendAlertingMails(users);
-        if (!book) {
-            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
-        }
         return res.json(book);
     },
 };

@@ -28,10 +28,10 @@ const style = {
 export default function Book({ livre, users }) {
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
-    if (livre.coverM === undefined) {
+    if (livre.cover === undefined) {
       return PLS;
     } else {
-      return livre.coverM;
+      return livre.cover;
     }
   }
 
@@ -71,7 +71,7 @@ export default function Book({ livre, users }) {
               {livre.title}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Auteur: {livre.author}
+              <b>Auteur: </b> {livre.author}
             </Typography>
           </CardContent>
         </Card>

@@ -1,5 +1,5 @@
 //import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import React, { useEffect, useState } from "react";
 
 import Buttons from "../components/Button/Button";
@@ -9,29 +9,40 @@ import "../styles/AroundMe.scss";
 //import axios from "axios";
 import { usersAroundMe } from "../api/fetchApi";
 
+const ChangeMapVue = ({ userCoords }) => {
+  const map = useMap();
+  map.setView([userCoords.latitude, userCoords.longitude], map.getZoom());
+  return null;
+};
+
 const AroundMe = () => {
-  const [positionUser, setpositionUser] = useState([]);
+  const [positionUsers, setpositionUsers] = useState([]);
+  const [userCoords, setuserCoords] = useState({ longitude: 0, latitude: 0 });
 
   useEffect(() => {
-    usersAroundMe(setpositionUser);
+    usersAroundMe(setpositionUsers);
   }, []);
 
-  const position = [50.67987000000005, 3.0685400000000413];
+  useEffect(() => {
+    navigator.geolocation.watchPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setuserCoords({ latitude, longitude });
+    });
+  }, []);
 
   return (
     <div>
       <Header />
       <Buttons />
       <div id="map">
-        <MapContainer center={[50.67987000000005, 3.0685400000000413]} zoom={13}>
+        <MapContainer center={[userCoords.latitude, userCoords.longitude]} zoom={13}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {/*<Marker position={[50.67987000000005, 3.0685400000000413]}>
-            <Popup>je suis une patate</Popup>
-          </Marker>*/}
-          {positionUser.map((user, index) => (
+
+          {positionUsers.map((user, index) => (
+            //console.log(user),
             <Marker
               key={index}
               position={{
@@ -39,9 +50,10 @@ const AroundMe = () => {
                 lng: user.loc.replace(")", " ").split(",")[1],
               }}
             >
-              <Popup>je suis une patate</Popup>
+              <Popup>nombres de livre disponible a cette géolocalisation : {user.total}</Popup>
             </Marker>
           ))}
+          <ChangeMapVue userCoords={userCoords} />
         </MapContainer>
       </div>
     </div>

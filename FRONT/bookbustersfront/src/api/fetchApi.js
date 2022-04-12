@@ -38,13 +38,13 @@ export const registerUser = (
       username,
       email,
       password,
-      bio: "gnagnagna",
+      // bio: "gnagnagna",
       location: "(48.8833024, 2.3789568)",
-      // postalCode,
-      // communeCode,
+      postalCode,
+      communeCode,
       mail_donation: true,
       mail_alert: true,
-      avatar_id: "1",
+      // avatar_id: "1",
     })
     .then(() => {
       handleRegisterSuccess();
@@ -62,6 +62,18 @@ export const registerUser = (
       }
     });
 };
+
+// N2cessité de renvoyer le token du user connecté si connecté
+export const searchBooks = () => {
+  axios
+    .get("/v1/book/search?q=bel%20ami&limit=40&start=0")
+    .then((res) => console.log(res))
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+searchBooks();
 
 export const fetchApi = {
   connectUser,

@@ -56,7 +56,7 @@ router
      * @tags SEARCH BOOK API
      * @param {string} q.query
      * @param {number} limit.query
-     * @param {number} start.query
+     * @param {number} page.query
      * @security BearerAuth
      * @return {[BookInfo]} 200 - success response - application/json
      */

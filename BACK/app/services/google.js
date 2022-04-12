@@ -87,7 +87,7 @@ const google = {
     },
 
     async findBookByKeyword(word, limit, startIndex) {
-        const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${word}&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}`;
 
         const response = await fetch(url);
         const json = await response.json();

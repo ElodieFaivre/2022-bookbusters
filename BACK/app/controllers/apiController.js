@@ -20,8 +20,6 @@ module.exports = {
      * @property {string} coverL - Book large sized cover URL
      */
     async getBookByISBN(req, res) {
-        debug(req.body.user);
-
         let connectedUserId;
         if (!req.body.user) {
             connectedUserId = 0;
@@ -29,39 +27,17 @@ module.exports = {
             connectedUserId = Number(req.body.user.userId);
         }
 
-        debug(connectedUserId)
+        const googleResult = await google.findBookByISBN(req.params.isbn);
 
-        //Test if this ISBN is in our BDD
-        const foundBookInBDD = await bookDataMapper.findBooks(
-            connectedUserId,
-            '{}',
-            `{${req.params.isbn}}`,
-            `{${req.params.isbn}}`,
-            1,
-            0,
-        );
-
-        let book;
-        if (foundBookInBDD.length > 0) {
-            //this book exit in our BDD
-            book = await bookReformatter.reformat(foundBookInBDD);
-        } else {
-            //If not in our BDD, search
-            book = await google.findBookByISBN(req.params.isbn);
-
-            if (!book) {
-                throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 404 });
-            }
-            // Search for a cover to add to the book found
-            const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
-            if (cover) {
-                book.coverM = cover.coverM;
-                book.coverL = cover.coverL;
-            }
+        if (!googleResult) {
+            throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 404 });
         }
-        return res.json(book);
+
+        book = await bookReformatter.reformat([googleResult], connectedUserId);
+
+        return res.json(book[0]);
     },
-/*
+    /*
     async getBookCoverByISBN(req, res) {
         const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
         if (!cover) {
@@ -80,10 +56,9 @@ module.exports = {
 
         const keyWords = req.query.q;
         const limit = req.query.limit || 10; // limitation du nombre de résultat auprès de GoogleBooks API
-        const start = req.query.start || 0; // indication de l'index de démarrage souhaité auprès de GoogleBooks API
+        const page = req.query.start * limit || 0; // indication de l'index de démarrage souhaité auprès de GoogleBooks API
 
-        let books = await google.findBookByKeyword(keyWords, limit, start);
-        debug('Résultats de recherche GoogleBooks :\n', books);
+        let books = await google.findBookByKeyword(keyWords, limit, page);
 
         if (!books) {
             throw new ApiError('Sorry, book with this keyword not found', { statusCode: 404 });

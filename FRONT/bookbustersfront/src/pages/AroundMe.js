@@ -41,22 +41,20 @@ const AroundMe = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {positionUsers.map(
-            (user, index) => (
-              console.log(positionUsers),
-              (
-                <Marker
-                  key={index}
-                  position={{
-                    lat: user.location.replace("(", " ").split(",")[0],
-                    lng: user.location.replace(")", " ").split(",")[1],
-                  }}
-                >
-                  <Popup>nombres de livre disponible a cette géolocalisation : {user.total}</Popup>
-                </Marker>
-              )
-            )
-          )}
+          {positionUsers.map((user, index) => (
+            //console.log(user),
+            <Marker
+              key={index}
+              position={{
+                lat: user.location.replace("(", " ").split(",")[0],
+                lng: user.location.replace(")", " ").split(",")[1],
+              }}
+            >
+              <Popup>
+                {user.books.map((banane, index) => (console.log(banane), (<p key={index}>{banane.title}</p>)))}
+              </Popup>
+            </Marker>
+          ))}
           <ChangeMapVue userCoords={userCoords} />
         </MapContainer>
       </div>

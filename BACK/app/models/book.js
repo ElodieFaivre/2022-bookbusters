@@ -77,70 +77,6 @@ const bookDataMapper = {
         return result.rows;
     },
 
-    async findAllInDonation() {
-        const result = await client.query('SELECT * FROM book_in_donation');
-        return result.rows;
-    },
-
-    async findOneBookInDonationById(bookId) {
-        const result = await client.query('SELECT * FROM book_in_donation WHERE id = $1', [bookId]);
-        return result.rows[0];
-    },
-
-    async findOneBookById(bookId) {
-        const result = await client.query(
-            `SELECT book.*, MAX(donator.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
-        LEFT JOIN (SELECT * FROM "user_has_book" WHERE user_has_book.is_in_donation=TRUE) AS donator ON book.id=donator.book_id
-        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.id=$1 GROUP BY book.id;`,
-            [bookId],
-        );
-        return result.rows[0];
-    },
-
-    async findOneBookByIsbn13(bookIsbn) {
-        const result = await client.query(
-            `SELECT book.*, MAX(donator.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
-        LEFT JOIN (SELECT * FROM "user_has_book" WHERE user_has_book.is_in_donation=TRUE) AS donator ON book.id=donator.book_id
-        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.isbn13=$1 GROUP BY book.id;`,
-            [bookIsbn],
-        );
-        return result.rows[0];
-    },
-
-    async findOneBookByIsbn10(bookIsbn) {
-        const result = await client.query(
-            `SELECT book.*, MAX(donator.donation_date) AS donation_date, json_agg(to_jsonb("user".*)-'bio'-'password'-'mail_alert'-'mail_donation') as "user" FROM book
-        LEFT JOIN (SELECT * FROM "user_has_book" WHERE user_has_book.is_in_donation=TRUE) AS donator ON book.id=donator.book_id
-        LEFT JOIN "user" ON "user".id = donator.user_id WHERE book.isbn10=$1GROUP BY book.id;`,
-            [bookIsbn],
-        );
-        return result.rows[0];
-    },
-
-    async findRelationBookUserWithBookId(bookId, userId) {
-        const result = await client.query(
-            `SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=$1 AND user_id=$2`,
-            [bookId, userId],
-        );
-        return result.rows[0];
-    },
-
-    async findRelationBookUserWithISBN13(bookISBN, userId) {
-        const result = await client.query(
-            `SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=(SELECT id FROM book WHERE isbn13=$1) AND user_id=$2`,
-            [bookISBN, userId],
-        );
-        return result.rows[0];
-    },
-
-    async findRelationBookUserWithISBN10(bookISBN, userId) {
-        const result = await client.query(
-            `SELECT is_in_donation, is_in_library, is_in_favorite, is_in_alert FROM user_has_book WHERE book_id=(SELECT id FROM book WHERE isbn10=$1) AND user_id=$2`,
-            [bookISBN, userId],
-        );
-        return result.rows[0];
-    },
-
     async insert(book) {
         const result = await client.query(
             ` INSERT INTO book
@@ -151,7 +87,6 @@ const bookDataMapper = {
         );
         return result.rows[0];
     },
-
     /**
      * Ajoute ou modifier dans la base de données
      * @param {InputBook} book - Les données à insérer

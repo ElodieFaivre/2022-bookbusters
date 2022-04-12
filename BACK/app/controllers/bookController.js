@@ -81,47 +81,45 @@ module.exports = {
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
-    async getBooksIdsAroundMe(req, res) {
-        const books = await bookDataMapper.findBooksIdAround(req.body.location, req.body.radius);
-        return res.json(books);
-    },
+    async getBooksAroundMe(req, res) {
+        const booksAroundMe = await bookDataMapper.findBooksIdAround(
+            req.body.location,
+            req.body.radius,
+        );
 
-    async getBooksWithIds(req, res) {
-        debug('Req.query.books = ', req.query.books);
-        let bookIds = req.query.books;
-        bookIds = bookIds
-            .substr(1)
-            .substr(0, bookIds.length - 2)
-            .split(',');
-        debug('après traitement', bookIds);
+        if (booksAroundMe.length === 0) {
+            throw new ApiError('No book around you', { statusCode: 404 });
+        }
 
-        const promiseToSolve = [];
-        bookIds.forEach((element) => {
-            promiseToSolve.push(bookDataMapper.findOneBookById(Number(element)));
+        let bookIds = [];
+        booksAroundMe.forEach(row => {
+            bookIds.push(...row.book_ids);
+        })
+
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
+        let books = await bookDataMapper.findBooks(connectedUserId, bookIds, '{}', '{}', 10, 0);
+        books = await bookReformatter.reformat(books);
+
+        // Redispatch books by locations
+        const result = [];
+        booksAroundMe.forEach((row) => {
+            const locatedBooks = [];
+            row.book_ids.forEach((book_id) => {
+                locatedBooks.push(books.find((book) => book_id === book.id));
+            });
+
+            result.push({
+                location: row.loc,
+                books: locatedBooks,
+            });
         });
 
-        //TODO : question : what happened si une promesse échoue ??
-        debug('Je lance les promesses pour trouver les livres');
-        let books = await Promise.all(promiseToSolve);
-        debug('Les livres trouvés sont', books);
-        //Without books undefined
-        let newBooks = [];
-        books.forEach((book) => {
-            if (book) {
-                newBooks.push(book);
-            }
-        });
-        books = newBooks;
-
-        debug('Les livres trouvés sans les undefined', books);
-
-        debug('Je complete les infos avec API');
-
-        debug('user connecté');
-        books = await bookReformatter.reformat(books, req.body.user);
-
-        debug('Livres complets', books);
-
-        return res.json(books);
+        return res.json(result);
     },
 };

@@ -13,7 +13,7 @@ router
      * GET /v1/book/isbn/{isbn}
      * @summary Find one book with ISBN in google API
      * @tags SEARCH BOOK API
-     * @param {number} isbn.path.required - book ISBN
+     * @param {string} isbn.path.required - book ISBN
      * @security BearerAuth
      * @return {BookInfo} 200 - success response - application/json
      * @return  {ApiError} 404 - Book not found

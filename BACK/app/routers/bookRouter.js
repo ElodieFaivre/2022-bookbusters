@@ -48,15 +48,15 @@ router
 
 router
     .route('/book/around-me')
-     /**
-     * GET /v1/book/around-me
-     * @summary Get details books with ids
-     * @security BearerAuth
-     * @param {string} books.query ex : [1,2]
-     * @tags BOOK
-     * @return {[Book]} 200 - success response - application/json
-     */
-    .get(controllerHandler(bookController.getBooksWithIds))
+    //  /**
+    //  * GET /v1/book/around-me
+    //  * @summary Get details books with ids
+    //  * @security BearerAuth
+    //  * @param {string} books.query ex : [1,2]
+    //  * @tags BOOK
+    //  * @return {[Book]} 200 - success response - application/json
+    //  */
+    // .get(controllerHandler(bookController.getBooksWithIds))
     /**
      * POST /v1/book/around-me
      * @summary Add book and relation user_has_book to database or update if already exist
@@ -66,7 +66,10 @@ router
      * @return {BookIdsAroundMe} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(controllerHandler(verifyTokenWithoutError),controllerHandler(bookController.getBooksIdsAroundMe));
+    .post(
+        controllerHandler(verifyTokenWithoutError),
+        controllerHandler(bookController.getBooksAroundMe),
+    );
 
 
 

@@ -16,7 +16,7 @@ const bookReformatter = {
             return await bookReformatter.completeWithDatabaseData(books, userId);
         } else {
             // books hasn't titles, so they comme from our database
-            return await bookReformatter.completeWithAPIsData(books, user);
+            return await bookReformatter.completeWithAPIsData(books);
         }
     },
 
@@ -25,6 +25,8 @@ const bookReformatter = {
      * @param {[Book]} books Array of book in BDD
      */
     async completeWithDatabaseData(books, userId) {
+        debug('completeWithDatabaseData');
+
         const openLibraryQueries = [];
         const bookISBNs = [];
 
@@ -69,12 +71,18 @@ const bookReformatter = {
             // Add cover from OpenLibrary if not found on Google Books
             openLibResult.find((cover) => {
                 if (
+                    cover &&
                     cover.coverOLM &&
                     (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)
                 ) {
                     book.cover = cover.coverOLM;
                 }
             });
+
+            // Delete connected_user if null (no logged in user or no relation with this book)
+            if (!book.connected_user) {
+                delete book.connected_user;
+            }
 
             return book;
         });
@@ -86,7 +94,9 @@ const bookReformatter = {
      * Complete books' informations with APIs' data
      * @param {[Book]} books Array of book in BDD
      */
-    async completeWithAPIsData(books, user) {
+    async completeWithAPIsData(books) {
+        debug('completeWithAPIsData');
+
         const googleQueries = [];
         const openLibraryQueries = [];
 
@@ -137,10 +147,13 @@ const bookReformatter = {
                 }
             });
 
+            // Delete connected_user if null (no logged in user or no relation with this book)
+            if (!book.connected_user) {
+                delete book.connected_user;
+            }
+
             return book;
         });
-
-        debug('final : ', books)
 
         return books;
     },

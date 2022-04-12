@@ -59,7 +59,6 @@ const google = {
                 return item;
             });
 
-debug(foundBook.volumeInfo.title);
             book = {
                 isbn13: isbn13,
                 isbn10: isbn10,

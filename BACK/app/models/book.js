@@ -25,7 +25,6 @@ const debug = require('debug')('BookController');
  * @typedef {object} InputBook
  * @property {string} isbn13
  * @property {string} isbn10
- * //@property {number} userId (via Token)
  * @property {boolean} is_in_library
  * @property {boolean} is_in_donation
  * @property {boolean} is_in_favorite

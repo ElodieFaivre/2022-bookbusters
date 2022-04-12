@@ -35,12 +35,12 @@ module.exports = {
 
         const bookId = req.params.id;
         let book = await bookDataMapper.findBooks(connectedUserId, `{${bookId}}`, '{}', '{}', 1, 0);
-        if (!book) {
+        if (book.length === 0) {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
-        book = await bookReformatter.reformat(book, req.body.user);
+        book = await bookReformatter.reformat(book);
 
-        return res.json(book);
+        return res.json(book[0]);
     },
 
     /**
@@ -53,10 +53,25 @@ module.exports = {
     async addBook(req, res) {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
-        let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
-        book = await bookReformatter.reformat([book], req.body.user);
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
 
-        return res.json(book);
+        let book = await bookDataMapper.findBooks(
+            connectedUserId,
+            `{${savedUserHasBook.book_id}}`,
+            '{}',
+            '{}',
+            1,
+            0,
+        );
+
+        book = await bookReformatter.reformat(book);
+
+        return res.json(book[0]);
     },
 
     /**

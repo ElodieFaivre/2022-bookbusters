@@ -65,7 +65,9 @@ module.exports = {
             debug(`ISBN :`, isbn);
             const users = await userDataMapper.findUsersInAlert(isbn);
             debug(`Les users en alerte :`, users);
-            await mailer.sendAlertingMails(users);
+            if (users) {
+                await mailer.sendAlertingMails(users);
+            }
         }
         return res.json(book);
     },
@@ -117,5 +119,5 @@ module.exports = {
             }
         }
         return res.json(books);
-    }
+    },
 };

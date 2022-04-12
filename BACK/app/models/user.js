@@ -51,6 +51,14 @@ const userDataMapper = {
         return result.rows;
     },
 
+    async findUsersWithZombiBooks() {
+        const result = await client.query(`SELECT * from 
+        ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+        INNER JOIN book ON user_has_book.book_id = book.id
+        WHERE is_in_donation = true AND DATE_PART('day', NOW() - donation_date) >= 210`);
+        return result.rows;
+    },
+
     /**
      * Ajoute dans la base de données
      * @param {InputUser} user - Les données à insérer

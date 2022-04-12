@@ -1,7 +1,9 @@
+const cron = require('node-cron');
 const userListsDataMapper = require('../models/userLists');
 const { getBookInformation } = require('../middlewares/getBookInformation');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
+const userDataMapper = require('../models/user');
 
 module.exports = {
     /**
@@ -89,7 +91,23 @@ module.exports = {
         const bookId = Number(req.params.book_id);
 
         const updatedBook = await userListsDataMapper.updateDonationDate(userId, bookId);
+        if (!updatedBook) {
+            return res.json('{ no donation date updated }');
+        };
         const book = await bookDataMapper.findOneBookById(bookId);
         return res.json({ book, association: updatedBook });
     },
+
 };
+// Service scheduled at 3 AM to find all the zombi books (ie relation book/user 
+// with donation date more than 210 days) and deletion of the link between the user and the book
+cron.schedule('0 0 3 * *', async () => {
+    const zombiBooks = await userDataMapper.findUsersWithZombiBooks();
+    if (zombiBooks) {
+        const promiseToSolve = [];
+        zombiBooks.forEach(zombiBook => {
+            promiseToSolve.push(userListsDataMapper.delete(zombiBook.book_id, zombiBook.user_id));
+            return res.status(204).json();
+        });
+    }
+});

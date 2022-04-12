@@ -53,6 +53,10 @@ const userListsDataMapper = {
 
         return result.rows[0];
     },
+    async delete(bookId, userId) {
+        const result = await client.query('DELETE FROM user_has_book WHERE book_id = $1 AND user_id = $2', [bookId, userId]);
+        return !!result.rowCount;
+    },
 };
 
 module.exports = userListsDataMapper;

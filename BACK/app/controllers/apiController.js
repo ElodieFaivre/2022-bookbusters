@@ -20,12 +20,16 @@ module.exports = {
      * @property {string} coverL - Book large sized cover URL
      */
     async getBookByISBN(req, res) {
+        debug(req.body.user);
+
         let connectedUserId;
         if (!req.body.user) {
             connectedUserId = 0;
         } else {
             connectedUserId = Number(req.body.user.userId);
         }
+
+        debug(connectedUserId)
 
         //Test if this ISBN is in our BDD
         const foundBookInBDD = await bookDataMapper.findBooks(
@@ -46,7 +50,7 @@ module.exports = {
             book = await google.findBookByISBN(req.params.isbn);
 
             if (!book) {
-                throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 204 });
+                throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 404 });
             }
             // Search for a cover to add to the book found
             const cover = await openLibrary.findBookCoverByISBN(req.params.isbn);
@@ -82,7 +86,7 @@ module.exports = {
         debug('Résultats de recherche GoogleBooks :\n', books);
 
         if (!books) {
-            throw new ApiError('Sorry, book with this keyword not found', { statusCode: 204 });
+            throw new ApiError('Sorry, book with this keyword not found', { statusCode: 404 });
         }
 
         books = await bookReformatter.reformat(books, connectedUserId);
@@ -93,7 +97,7 @@ module.exports = {
     async getBookWithWorldCat(req, res) {
         const book = await worldCat.findBookByISBN(req.params.isbn);
         if (!book) {
-            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 204);
+            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 404);
         }
         return res.json(book);
     },

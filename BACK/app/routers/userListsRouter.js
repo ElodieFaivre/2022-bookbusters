@@ -51,7 +51,7 @@ router
 router
     .route('/book/:token')
     /**
-     * GET /v1/book/{book_id & user_id in a token}
+     * GET /v1/book/{book_id_&_user_id_in_a_token}
      * @summary Update the donation date to now
      * @param {number} book_id.path.required - book identifier
      * @param {number} user_id.path.required - user identifier

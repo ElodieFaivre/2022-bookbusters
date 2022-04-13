@@ -47,3 +47,5 @@ export const fetchApi = {
 };
 
 export default fetchApi;
+
+//localStorage.getItem('jwt')

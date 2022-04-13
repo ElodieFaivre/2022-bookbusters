@@ -1,8 +1,6 @@
 import { Box } from "@mui/system";
-import { Button, ButtonGroup, Container } from "@mui/material";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import Book from "../Book/Book";
 import { latestAddition } from "../../api/fetchApi";
@@ -12,7 +10,9 @@ import { latestAddition } from "../../api/fetchApi";
 function Books() {
   const [data, setData] = useState([]);
 
-  latestAddition(setData);
+  useEffect(() => {
+    latestAddition(setData);
+  }, [setData]);
 
   /* useEffect(() => {
     axios.get("http://localhost:5000/v1/book").then((res) => setData(res.data));

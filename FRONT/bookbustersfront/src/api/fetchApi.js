@@ -25,7 +25,7 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
 
 export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   // permet de recuperer les user a coter de nous sur la map
-  console.log(latitude, longitude);
+  //console.log(latitude, longitude);
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,

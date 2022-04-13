@@ -66,9 +66,7 @@ const AroundMe = () => {
               }}
             >
               <Popup>
-                {user.books.map((banane, index) => (
-                  /*console.log(banane),*/ <p key={index}>{banane.title}</p>
-                ))}
+                {user.books.map((banane, index) => (console.log(banane), (<p key={index}>{banane.title}</p>)))}
               </Popup>
             </Marker>
           ))}

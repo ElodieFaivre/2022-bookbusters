@@ -87,16 +87,16 @@ export default function Book({ livre, users }) {
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
             {livre.title}
           </Typography>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: { xs: "block", md: "flex" } }}>
             <CardMedia component="img" image={livrePLS()} alt="seigneur" sx={{ mr: 2 }} />
 
             <Box id="modal-modal-description" sx={{ mt: 2 }}>
               <p>
                 <b>Auteur:</b> {livre.author}{" "}
               </p>
-              <p>
-                <b>synopsis :</b> {textPLS()}
-              </p>
+              <Box component="p" sx={{ display: { xs: "none", md: "inline" } }}>
+                <b>Résumé: </b> {textPLS()}
+              </Box>
             </Box>
           </Box>
           <Box>

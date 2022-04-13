@@ -47,6 +47,30 @@ const userDataMapper = {
         return result.rows[0];
     },
 
+    async findUsersInAlert(ISBN) {
+        const result = await client.query(`SELECT * from 
+            ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+            INNER JOIN book ON user_has_book.book_id = book.id
+            WHERE is_in_alert = true AND isbn13 = $1 OR isbn10 = $1`, [ISBN]);
+        return result.rows;
+    },
+
+    async findUsersWithExpiredBook() {
+        const result = await client.query(`SELECT * from 
+        ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+        INNER JOIN book ON user_has_book.book_id = book.id
+        WHERE is_in_donation = true AND DATE_PART('day', NOW() - donation_date) = 180 OR DATE_PART('day', NOW() - donation_date) = 187`);
+        return result.rows;
+    },
+
+    async findUsersWithZombiBooks() {
+        const result = await client.query(`SELECT * from 
+        ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+        INNER JOIN book ON user_has_book.book_id = book.id
+        WHERE is_in_donation = true AND DATE_PART('day', NOW() - donation_date) >= 210`);
+        return result.rows;
+    },
+
     /**
      * Ajoute dans la base de données
      * @param {InputUser} user - Les données à insérer
@@ -143,6 +167,22 @@ const userDataMapper = {
         );
 
         return savedUser.rows[0];
+    },
+
+    async swithTheAccountActive(id) {
+        const activeAccount = await client.query(
+            `
+                UPDATE "user" SET
+                    active_account = true
+                WHERE id = $1
+                RETURNING *
+            `,
+            [id],
+        );
+        if (!activeAccount) {
+            return null;
+        }
+        return activeAccount;
     },
 };
 

@@ -57,13 +57,13 @@ export const registerUser = (
       username,
       email,
       password,
-      bio: "gnagnagna",
+      // bio: "gnagnagna",
       location: "(48.8833024, 2.3789568)",
-      // postalCode,
-      // communeCode,
+      postalCode,
+      communeCode,
       mail_donation: true,
       mail_alert: true,
-      avatar_id: "1",
+      // avatar_id: "1",
     })
     .then(() => {
       handleRegisterSuccess();
@@ -82,10 +82,28 @@ export const registerUser = (
     });
 };
 
+export async function searchBooks(
+  search,
+  limit = 15,
+  start = 0,
+  setErrMsg,
+  setData
+) {
+  try {
+    const responseSearchResult = await axios.get(
+      `/v1/book/search?q=${search}&limit=${limit}&start=${start}`
+    );
+    return responseSearchResult;
+  } catch (error) {
+    console.log("error");
+  }
+}
+// q=${search}&limit=${limit}&start=${start}
 export const fetchApi = {
   connectUser,
   registerUser,
-   usersAroundMe,
+  searchBooks,
+  usersAroundMe,
 };
 
 export default fetchApi;

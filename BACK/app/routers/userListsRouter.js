@@ -48,4 +48,17 @@ router
      */
     .get(controllerHandler(verifyToken), controllerHandler(userBooksController.getAllBooksInAlert));
 
+router
+    .route('/book/:token')
+    /**
+     * GET /v1/book/{book_id & user_id in a token}
+     * @summary Update the donation date to now
+     * @param {number} book_id.path.required - book identifier
+     * @param {number} user_id.path.required - user identifier
+     * @tags BOOK
+     * @return {Book} 200 - success response - application/json
+     */
+    .get(
+        controllerHandler(userBooksController.updateDonationDate),
+    );
 module.exports = router;

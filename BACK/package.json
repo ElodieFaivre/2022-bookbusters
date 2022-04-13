@@ -29,7 +29,9 @@
     "express-jsdoc-swagger": "^1.6.7",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.3",
     "pg": "^8.7.3",
     "xml2js": "^0.4.23"
   },

@@ -26,14 +26,14 @@ module.exports = {
         } else {
             connectedUserId = Number(req.body.user.userId);
         }
-
+        
         const googleResult = await google.findBookByISBN(req.params.isbn);
 
         if (!googleResult) {
             throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 404 });
         }
 
-        book = await bookReformatter.reformat([googleResult], connectedUserId);
+        const book = await bookReformatter.reformat([googleResult], connectedUserId);
 
         return res.json(book[0]);
     },

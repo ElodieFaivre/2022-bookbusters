@@ -2,55 +2,41 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable spaced-comment */
 
-// const debug = require('debug')('googleService');
+const debug = require('debug')('services:GoogleBooksAPI');
 
 const fetch = require('node-fetch');
-const worldCat = require('../services/worldCat');
 
 const validISBN13 = new RegExp(/^97[8-9]\d{10}$/);
 const validISBN10 = new RegExp(/^\d{9}(\d||x||X)$/);
 
 const google = {
     async findBookByISBN(isbn) {
-        const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&printType=books`;
 
         const response = await fetch(url);
         const json = await response.json();
 
-        let result = {};
+        let result;
         let isbn13 = null;
         let isbn10 = null;
 
         //If no answer
         if (json.totalItems == 0) {
-            return (result = undefined);
+            return undefined;
         }
 
         //If at least one answer, only the first one is return
         if (json.totalItems >= 1) {
-
-
             const foundBook = json.items.find((item) => {
                 const industryIdentifiers = item.volumeInfo.industryIdentifiers;
 
                 industryIdentifiers.forEach((identifier) => {
-                    if (
-                        (identifier.type === 'ISBN_13' &&
-                            validISBN13.test(identifier.identifier)) ||
-                        (identifier.type === 'ISBN_10' && validISBN10.test(identifier.identifier))
-                    ) {
-
-                        if (
-                            identifier.type === 'ISBN_13' &&
-                            validISBN13.test(identifier.identifier)
-                        ) {
+                    if (identifier.type === 'ISBN_13' || identifier.type === 'ISBN_10') {
+                        if (identifier.type === 'ISBN_13') {
                             isbn13 = identifier.identifier;
                         }
 
-                        if (
-                            identifier.type === 'ISBN_10' &&
-                            validISBN10.test(identifier.identifier)
-                        ) {
+                        if (identifier.type === 'ISBN_10') {
                             isbn10 = identifier.identifier;
                         }
                     }
@@ -58,7 +44,6 @@ const google = {
 
                 return item;
             });
-
 
             book = {
                 isbn13: isbn13,
@@ -74,18 +59,17 @@ const google = {
             if (foundBook.volumeInfo.imageLinks) {
                 book.cover = foundBook.volumeInfo.imageLinks.thumbnail;
             }
-            if ((book.isbn13 || book.isbn10) && book.title) {
-                 result = book;
-            }
 
-        } else {
-            result = await worldCat.findBookByISBN(isbn);
+            if ((book.isbn13 || book.isbn10) && book.title) {
+                result = book;
+            }
         }
+
         return result;
     },
 
     async findBookByKeyword(word, limit, startIndex) {
-        const url = `https://www.googleapis.com/books/v1/volumes?q="${word}"&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${word}&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}&printType=books`;
 
         const response = await fetch(url);
         const json = await response.json();

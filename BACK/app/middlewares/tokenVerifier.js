@@ -1,3 +1,5 @@
+const debug = require('debug')('Token');
+
 const jwt = require('jsonwebtoken');
 const { ApiError } = require('../middlewares/handleError');
 
@@ -16,7 +18,6 @@ module.exports = {
             if (err) {
                 throw new ApiError('Access denied. Invalid token', { statusCode: 401 });
             } else {
-
                 req.body.user = decoded;
                 next();
             }

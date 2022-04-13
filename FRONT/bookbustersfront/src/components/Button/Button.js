@@ -12,9 +12,11 @@ const Buttons = () => {
         }}
       >
         <ButtonGroup>
-          <Button variant="contained" color="primary">
-            Les derniers
-          </Button>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Button variant="contained" color="primary">
+              Les derniers
+            </Button>
+          </Link>
           <Link to="/AroundMe" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="secondary">
               Autour de moi

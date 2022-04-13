@@ -5,7 +5,6 @@ const client = require('../config/database');
  * @property {number} id - Identifiant unique, Pk de la table
  * @property {string} username
  * @property {string} email
- * @property {string} password
  * @property {string} bio
  * @property {string} location
  * @property {boolean} mail_donation
@@ -23,6 +22,13 @@ const client = require('../config/database');
  * @property {boolean} mail_donation - default TRUE
  * @property {boolean} mail_alert - default TRUE
  * @property {number} avatar_id - default 1
+ */
+
+/**
+ * @typedef {object} BookRelation
+ * @property {integer} user_id
+ * @property {interger} book_count
+ * @property {[BookUser]} password
  */
 
 /**

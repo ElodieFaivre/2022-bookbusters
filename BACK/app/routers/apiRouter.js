@@ -15,7 +15,7 @@ router
      * @tags SEARCH BOOK API
      * @param {string} isbn.path.required - book ISBN
      * @security BearerAuth
-     * @return {BookInfo} 200 - success response - application/json
+     * @return {Book} 200 - success response - application/json
      * @return  {ApiError} 404 - Book not found
      */
     .get(
@@ -58,7 +58,7 @@ router
      * @param {number} limit.query
      * @param {number} page.query
      * @security BearerAuth
-     * @return {[BookInfo]} 200 - success response - application/json
+     * @return {[Book]} 200 - success response - application/json
      */
     .get(
         controllerHandler(verifyTokenWithoutError),

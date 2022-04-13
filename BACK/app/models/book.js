@@ -10,13 +10,67 @@ const debug = require('debug')('BookController');
  */
 
 /**
+ * @typedef {object} Donor
+ * @property {number} donor_id - Indentifiant unique, Pk de la table
+ * @property {email} email
+ * @property {string} avatar
+ * @property {number} book_id
+ * @property {string} location
+ * @property {string} username
+ * @property {string} donation_date
+ */
+
+/**
+ * @typedef {object} Connected_user
+ * @property {number} user_id - Indentifiant unique, Pk de la table
+ * @property {string} username
+ * @property {string} avatar
+ * @property {email} email
+ * @property {string} location
+ * @property {number} book_id
+ * @property {number} associations_id
+ * @property {boolean} is_in_library
+ * @property {boolean} is_in_donation
+ * @property {boolean} is_in_favorite
+ * @property {boolean} is_in_alert
+ * @property {string} donation_date
+ */
+
+
+/**
  * @typedef {object} Book
  * @property {number} id - Indentifiant unique, Pk de la table
  * @property {string} ISBN13
- * @property {string} ISBN13_formatted
  * @property {string} ISBN10
- * @property {string} ISBN10_formatted
- * @property {[User]} user - user who offer this book
+ * @property {string} title
+ * @property {[string]} author
+ * @property {[string]} resume
+ * @property {string} publishedDate
+ * @property {string} language
+ * @property {string} cover
+ * @property {string} last_donation_date
+ * @property {number} numbers_of_donors
+ * @property {[Donor]} donors
+ * @property {Connected_user} connected_user
+ */
+
+/**
+ * @typedef {object} BookUser
+ *  @property {integer} book_id - Indentifiant unique, Pk de la table
+ * @property {string} ISBN13
+ * @property {string} ISBN10
+ * @property {string} title
+ * @property {[string]} author
+ * @property {[string]} resume
+ * @property {string} publishedDate
+ * @property {string} language
+ * @property {string} cover
+ * @property {integer} association_id
+ * @property {string} donation_date
+ * @property {boolean} is_in_library
+ * @property {boolean} is_in_donation
+ * @property {boolean} is_in_favorite
+ * @property {boolean} is_in_alert
  */
 
 
@@ -37,12 +91,13 @@ const debug = require('debug')('BookController');
  * @property {integer} radius Radius to look around in km
  */
 
+
 /**
- * @typedef {object} BookIdsAroundMe
- * @property {[integer]} number_of_books_found
- * @property {[integer]} book_ids
- * @property {string} location
+ * @typedef {object} OutputAroundMe
+ * @property {string} location (Format (x,y))
+ * @property {[Book]} books Books in donation around_me
  */
+
 
 
 

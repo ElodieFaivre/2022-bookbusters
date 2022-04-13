@@ -56,7 +56,7 @@ const debug = require('debug')('BookController');
 
 /**
  * @typedef {object} BookUser
- *  @property {integer} book_id - Indentifiant unique, Pk de la table
+ *  @property {number} book_id - Indentifiant unique, Pk de la table
  * @property {string} ISBN13
  * @property {string} ISBN10
  * @property {string} title
@@ -65,7 +65,7 @@ const debug = require('debug')('BookController');
  * @property {string} publishedDate
  * @property {string} language
  * @property {string} cover
- * @property {integer} association_id
+ * @property {number} association_id
  * @property {string} donation_date
  * @property {boolean} is_in_library
  * @property {boolean} is_in_donation
@@ -88,7 +88,7 @@ const debug = require('debug')('BookController');
 /**
  * @typedef {object} InputAroundMe
  * @property {string} location (Format (x,y))
- * @property {integer} radius Radius to look around in km
+ * @property {number} radius Radius to look around in km
  */
 
 

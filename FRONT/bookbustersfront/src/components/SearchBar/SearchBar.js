@@ -4,15 +4,19 @@ import { Search, SearchIconWrapper, StyledInputBase } from "./SearchBar.style";
 // import { searchBooks } from "../../api/fetchApi";
 import { useNavigate } from "react-router-dom";
 import { searchBooks } from "../../api/fetchApi";
-
-//* Fin des styles pour la searchBar
+import { Typography } from "@mui/material";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmitSearch = (event) => {
+  const handleSubmitSearch = async (event) => {
     event.preventDefault();
-    searchBooks();
+    const response = await searchBooks(search);
+    // console.log(response.data);
+    navigate("/SearchResults", { state: response.data });
+    setErrMsg("");
   };
 
   return (
@@ -20,6 +24,15 @@ const SearchBar = () => {
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
+      {errMsg && (
+        <Typography
+          variant="body2s"
+          color="error"
+          sx={{ mt: 2, textAlign: "center" }}
+        >
+          {errMsg}
+        </Typography>
+      )}
       <StyledInputBase
         placeholder="Recherchez des livres"
         inputProps={{ "aria-label": "search" }}

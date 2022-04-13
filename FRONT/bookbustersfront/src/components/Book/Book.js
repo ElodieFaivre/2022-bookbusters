@@ -38,11 +38,14 @@ export default function Book({ livre, user }) {
     if (livre.resume === undefined) {
       return (
         <>
-          Ah non, s'il vous plaît, laissez tomber les combines à deux ronds. Vous avez dit que ça devait être vexant!
-          Ben voilà! Vous êtes vexé! Déjà à la corne, ils regardent même pas vers ici! Vous pouvez bien agiter tout les
-          drapeaux que vous voudrez! Oui mais nous on est trois, enfin, deux et demi. Là c’est une table ronde. Pour que
-          les chevaliers de Bretagne se réunissent autour. Toute façon autant vous y faire parce qu’à partir de
-          maintenant on va s’appeler «Les Chevaliers de la Table Ronde».
+          Ah non, s'il vous plaît, laissez tomber les combines à deux ronds.
+          Vous avez dit que ça devait être vexant! Ben voilà! Vous êtes vexé!
+          Déjà à la corne, ils regardent même pas vers ici! Vous pouvez bien
+          agiter tout les drapeaux que vous voudrez! Oui mais nous on est trois,
+          enfin, deux et demi. Là c’est une table ronde. Pour que les chevaliers
+          de Bretagne se réunissent autour. Toute façon autant vous y faire
+          parce qu’à partir de maintenant on va s’appeler «Les Chevaliers de la
+          Table Ronde».
         </>
       );
     } else {
@@ -65,7 +68,11 @@ export default function Book({ livre, user }) {
         >
           <CardMedia component="img" image={livrePLS()} alt="seigneur" />
           <CardContent>
-            <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.2em" }} component="div">
+            <Typography
+              gutterBottom
+              /*variant="h5" */ sx={{ fontSize: "1.2em" }}
+              component="div"
+            >
               {livre.title}
             </Typography>
             <Typography variant="body1" color="text.secondary">
@@ -82,18 +89,28 @@ export default function Book({ livre, user }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ textAlign: "center", mb: 2 }}
+          >
             {livre.title}
           </Typography>
           <Box sx={{ display: "flex" }}>
-            <CardMedia component="img" image={livrePLS()} alt="seigneur" sx={{ mr: 2 }} />
+            <CardMedia
+              component="img"
+              image={livrePLS()}
+              alt="seigneur"
+              sx={{ mr: 2 }}
+            />
 
             <Box id="modal-modal-description" sx={{ mt: 2 }}>
               <p>
                 <b>Auteur:</b> {livre.author}{" "}
               </p>
               <p>
-                <b>synopsis :</b> {textPLS()}
+                <b>Résumé :</b> {textPLS()}
               </p>
             </Box>
           </Box>

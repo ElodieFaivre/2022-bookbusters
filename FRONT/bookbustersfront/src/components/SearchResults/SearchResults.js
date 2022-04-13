@@ -1,8 +1,16 @@
-import { Container, Paper, Stack, Typography } from "@mui/material";
+import {
+  Container,
+  CssBaseline,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
+import simpsonCoverDefault from "../../assets/img/simpson.jpg";
+import "./style.scss";
 
 function SearchResults() {
   // const [data, setData] = useState([]);
@@ -13,6 +21,7 @@ function SearchResults() {
   return (
     <>
       <Header />
+      <CssBaseline />
       <Box
         sx={{ display: "flex", justifyContent: "center", paddingTop: "3vh" }}
       >
@@ -22,7 +31,7 @@ function SearchResults() {
             display: "flex",
             flexFlow: "column wrap",
             textAlign: "left",
-
+            gap: "20px",
             // border: "2px solid black",
           }}
         >
@@ -32,48 +41,53 @@ function SearchResults() {
               elevation={15}
               sx={{
                 // border: "1px solid black",
-                marginBottom: "2vh",
                 display: "flex",
-                flexFlow: "row nowrap",
-                justifyContent: "flex-start",
+                height: "215px",
+                padding: "15px",
               }}
             >
-              <Container
-                item
+              <Box
                 sx={{
                   // border: "1px solid black",
-                  width: "min-content",
-                  margin: "1vh 0vw 1vh 0vw",
+                  overflow: "hidden",
+                  display: "flex",
+                  alignItems: "left",
+                  width: "210px",
                 }}
               >
-                <img src={book.cover}></img>
-              </Container>
-              <Container
+                {book.cover ? (
+                  <img className="imageCovers" src={book.cover}></img>
+                ) : (
+                  <img className="imageCovers" src={simpsonCoverDefault}></img>
+                )}
+              </Box>
+              <Box
                 sx={{
+                  // border: "1px solid black",
                   padding: "0px",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                   justifyContent: "center",
                 }}
               >
-                <Typography item component="div" variant="overline">
-                  Titre:
-                </Typography>
-                <Typography item component="div">
+                <Typography variant="overline">Titre:</Typography>
+                <Typography>
                   {book.title}
                   <br />
                 </Typography>
                 <br />
 
-                <Typography item variant="overline">
+                <Typography variant="overline">
                   Auteur:
                   <br />
                 </Typography>
-                <Typography item component="div">
-                  {book.author}
-                </Typography>
-              </Container>
+                {book.author.map((author, index) => (
+                  <Typography key={`single-author${index}`}>
+                    {author}
+                  </Typography>
+                ))}
+              </Box>
             </Paper>
           ))}
         </Box>
@@ -83,6 +97,3 @@ function SearchResults() {
 }
 
 export default SearchResults;
-
-//*Résultats du console.log
-// title, author, cover

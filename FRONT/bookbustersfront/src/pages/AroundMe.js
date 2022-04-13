@@ -1,9 +1,10 @@
 //import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, { useEffect, useState } from "react";
-
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
+import React, { useEffect, useState, useCallback } from "react";
+import CardMedia from "@mui/material/CardMedia";
 import Buttons from "../components/Button/Button";
 import Header from "../components/Header/Header";
+import PLS from "../../src/assets/img/simpson.jpg";
 
 import "../styles/AroundMe.scss";
 //import axios from "axios";
@@ -20,15 +21,29 @@ const AroundMe = () => {
   const [userCoords, setuserCoords] = useState({ longitude: 0, latitude: 0 });
 
   useEffect(() => {
-    usersAroundMe(setpositionUsers);
-  }, []);
+    usersAroundMe(setpositionUsers, userCoords.latitude, userCoords.longitude);
+  }, [userCoords]);
+
+  //console.log(userCoords.latitude, userCoords.longitude);
 
   useEffect(() => {
-    navigator.geolocation.watchPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      setuserCoords({ latitude, longitude });
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setuserCoords({ latitude, longitude });
+      },
+      (error) => console.error(error)
+    );
   }, []);
+
+  function livrePLS(banane) {
+    // permet de charger une cover de livre si la base de donnée n'en renvoi pas
+    if (banane.cover === undefined) {
+      return PLS;
+    } else {
+      return banane.cover;
+    }
+  }
 
   return (
     <div>
@@ -51,13 +66,27 @@ const AroundMe = () => {
               }}
             >
               <Popup>
-                {user.books.map((banane, index) => (console.log(banane), (<p key={index}>{banane.title}</p>)))}
+                {user.books.map((banane, index) => (
+                  /*console.log(banane),*/ <p key={index}>{banane.title}</p>
+                ))}
               </Popup>
             </Marker>
           ))}
           <ChangeMapVue userCoords={userCoords} />
         </MapContainer>
       </div>
+      {positionUsers.map((user) =>
+        user.books.map((banane, index) => (
+          <div key={`unique-${index}`} className="bookMap">
+            <CardMedia component="img" image={livrePLS(banane)} alt="cover de livre" sx={{ width: 150 }} />{" "}
+            <div>
+              <h3>{banane.title}</h3>
+              <b>Auteur :{banane.author}</b>
+              <p>{banane.resume}</p>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };

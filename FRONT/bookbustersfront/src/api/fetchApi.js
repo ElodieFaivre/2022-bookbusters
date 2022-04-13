@@ -23,17 +23,22 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     });
 };
 
-export const usersAroundMe = (setpositionUser) => {
+export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   // permet de recuperer les user a coter de nous sur la map
+  console.log(latitude, longitude);
   axios
     .post("/v1/book/around-me", {
-      location: "(50.67987000000005,3.0685400000000413)",
-      radius: "200",
+      location: `(${latitude},${longitude})`,
+      radius: "20000",
     })
     .then((response) => setpositionUser(response.data))
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const latestAddition = (setData) => {
+  axios.get("/v1/book").then((res) => setData(res.data));
 };
 
 export const fetchApi = {

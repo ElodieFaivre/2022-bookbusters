@@ -5,15 +5,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Book from "../Book/Book";
+import { latestAddition } from "../../api/fetchApi";
 
 // C'est ici que nous allons faire notre map pour afficher plusieurs livres.
 
 function Books() {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  latestAddition(setData);
+
+  /* useEffect(() => {
     axios.get("http://localhost:5000/v1/book").then((res) => setData(res.data));
-  }, []);
+  }, []); */
 
   return (
     <>

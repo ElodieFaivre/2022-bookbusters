@@ -158,7 +158,6 @@ const userDataMapper = {
     },
 
     async swithTheAccountActive(id) {
-        console.log("id:", id);
         const activeAccount = await client.query(
             `
                 UPDATE "user" SET
@@ -168,7 +167,6 @@ const userDataMapper = {
             `,
             [id],
         );
-        console.log('activeAccount:', activeAccount);
         if (!activeAccount) {
             return null;
         }

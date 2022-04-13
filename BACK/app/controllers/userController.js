@@ -167,7 +167,7 @@ module.exports = {
             throw new ApiError('Login or password not correct', { statusCode: 400 });
         }
         if (!foundUser.active_account) {
-            throw new ApiError('Please confirm your email to login');
+            throw new ApiError('Please confirm your email to login', { statusCode: 403 });
         }
 
         jwt.sign(
@@ -188,7 +188,6 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async swithTheAccountActive(req, res) {
-        console.log("je suis là");
         const id = jwt.verify(req.params.token, process.env.SECRET_TOKEN_KEY);
         debug('id:', id);
         const user = await userDataMapper.swithTheAccountActive(id.userId);

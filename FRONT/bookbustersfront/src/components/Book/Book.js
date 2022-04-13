@@ -61,6 +61,8 @@ export default function Book({ livre, users }) {
       <Button onClick={handleOpen}>
         <Card
           sx={{
+            width: { md: "10vw" },
+            height: { md: "50vh" },
             maxWidth: 150,
             m: 2,
           }}

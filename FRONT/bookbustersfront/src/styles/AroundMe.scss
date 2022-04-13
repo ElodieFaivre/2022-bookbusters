@@ -7,9 +7,17 @@
 }
 
 .bookMap {
-  display: flex;
-  margin: 1%;
+  //display: flex;
+  //margin: 1%;
   & div {
     margin-left: 1%;
+
+    & h4 {
+      margin: 0 auto;
+    }
   }
+}
+
+.img {
+  vertical-align: middle;
 }

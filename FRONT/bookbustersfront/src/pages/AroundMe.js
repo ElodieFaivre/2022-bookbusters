@@ -9,6 +9,8 @@ import PLS from "../../src/assets/img/simpson.jpg";
 import "../styles/AroundMe.scss";
 //import axios from "axios";
 import { usersAroundMe } from "../api/fetchApi";
+import { Box } from "@mui/material";
+import { textAlign } from "@mui/system";
 
 const ChangeMapVue = ({ userCoords }) => {
   const map = useMap();
@@ -75,14 +77,36 @@ const AroundMe = () => {
       </div>
       {positionUsers.map((user) =>
         user.books.map((banane, index) => (
-          <div key={`unique-${index}`} className="bookMap">
-            <CardMedia component="img" image={livrePLS(banane)} alt="cover de livre" sx={{ width: 150 }} />{" "}
+          <Box
+            component="div"
+            key={`unique-${index}`}
+            className="bookMap"
+            sx={{
+              display: { xs: "block", md: "flex" },
+              textAlign: { xs: "center", md: "start" },
+              margin: { xs: "10px 0 25px 0", md: "1%" },
+            }}
+          >
+            <CardMedia
+              component="img"
+              image={livrePLS(banane)}
+              alt="cover de livre"
+              className="img"
+              sx={{
+                width: { xs: "20vw", md: "10vw" },
+                height: { xs: "30vw", md: "100%" },
+                ml: { xs: "auto", md: "0" },
+                mr: { xs: "auto", md: "0" },
+              }}
+            />
+
             <div>
-              <h3>{banane.title}</h3>
-              <b>Auteur :{banane.author}</b>
+              <h4>{banane.title}</h4>
+              <b>Auteur :</b>
+              {banane.author}
               <p>{banane.resume}</p>
             </div>
-          </div>
+          </Box>
         ))
       )}
     </div>

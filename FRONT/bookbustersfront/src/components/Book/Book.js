@@ -11,6 +11,8 @@ import Modal from "@mui/material/Modal";
 
 import PLS from "../../assets/img/simpson.jpg";
 
+import "./Book.scss";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -23,13 +25,13 @@ const style = {
   p: 4,
 };
 
-export default function Book({ livre, user }) {
+export default function Book({ livre, users }) {
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
-    if (livre.coverM === undefined) {
+    if (livre.cover === undefined) {
       return PLS;
     } else {
-      return livre.coverM;
+      return livre.cover;
     }
   }
 
@@ -69,7 +71,7 @@ export default function Book({ livre, user }) {
               {livre.title}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Auteur: {livre.author}
+              <b>Auteur: </b> {livre.author}
             </Typography>
           </CardContent>
         </Card>
@@ -85,19 +87,26 @@ export default function Book({ livre, user }) {
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
             {livre.title}
           </Typography>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: { xs: "block", md: "flex" } }}>
             <CardMedia component="img" image={livrePLS()} alt="seigneur" sx={{ mr: 2 }} />
 
             <Box id="modal-modal-description" sx={{ mt: 2 }}>
               <p>
                 <b>Auteur:</b> {livre.author}{" "}
               </p>
-              <p>
-                <b>synopsis :</b> {textPLS()}
-              </p>
+              <Box component="p" sx={{ display: { xs: "none", md: "inline" } }}>
+                <b>Résumé: </b> {textPLS()}
+              </Box>
             </Box>
           </Box>
-          <Box>Livre disponible chez : {user.username}</Box>
+          <Box>
+            Livre disponible chez :{" "}
+            {users.map((user, index) => (
+              <span className="bookUserOwner" key={index}>
+                {user.username}
+              </span>
+            ))}
+          </Box>
         </Box>
       </Modal>
     </>

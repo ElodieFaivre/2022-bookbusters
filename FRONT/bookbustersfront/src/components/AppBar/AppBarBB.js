@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,11 +11,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-
-const disconnect = () => {
-  localStorage.removeItem("jwt");
-};
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import authContext from "../../contexts/AuthContext";
 
 const pages = [
   {
@@ -61,50 +58,50 @@ const pages = [
   },
 ];
 
-const settings = [
-  {
-    href: "/Account",
-    style: { color: "#fff", textDecoration: "none" },
-    sx: { color: "black" },
-    label: "Account",
-    action: null,
-  },
-  {
-    href: "/MyAlerts",
-    style: { color: "#fff", textDecoration: "none" },
-    sx: { color: "black" },
-    label: "Mes alertes",
-    action: null,
-  },
-  {
-    href: "/Library",
-    style: { color: "#fff", textDecoration: "none" },
-    sx: { color: "black" },
-    label: "Ma bibliothèque",
-    action: null,
-  },
-  {
-    href: "/Favorites",
-    style: { color: "#fff", textDecoration: "none" },
-    sx: { color: "black" },
-    label: "Mes favoris",
-    action: null,
-  },
-  {
-    href: null,
-    style: { color: "#fff", textDecoration: "none" },
-    sx: { color: "black" },
-    label: "Déconnexion",
-    action: disconnect,
-  },
-];
-
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const { logOut } = useContext(authContext);
   // Utilisation du token pour conditionnalités
   const jwt = localStorage.getItem("jwt");
+
+  const settings = [
+    {
+      href: "/Account",
+      style: { color: "#fff", textDecoration: "none" },
+      sx: { color: "black" },
+      label: "Account",
+      action: null,
+    },
+    {
+      href: "/myAlerts",
+      style: { color: "#fff", textDecoration: "none" },
+      sx: { color: "black" },
+      label: "Mes alertes",
+      action: null,
+    },
+    {
+      href: "/Library",
+      style: { color: "#fff", textDecoration: "none" },
+      sx: { color: "black" },
+      label: "Ma bibliothèque",
+      action: null,
+    },
+    {
+      href: "/Favorites",
+      style: { color: "#fff", textDecoration: "none" },
+      sx: { color: "black" },
+      label: "Mes favoris",
+      action: null,
+    },
+    {
+      href: null,
+      style: { color: "#fff", textDecoration: "none" },
+      sx: { color: "black" },
+      label: "Déconnexion",
+      action: logOut,
+    },
+  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -231,12 +228,15 @@ const ResponsiveAppBar = () => {
 
           {jwt && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Compte utilisateur">
                 <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, marginLeft: "15px" }}
                 >
-                  <AccountBoxIcon style={{ color: "white" }} />
+                  <AccountCircleIcon
+                    fontSize="large"
+                    style={{ color: "white" }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

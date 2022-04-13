@@ -49,9 +49,9 @@ router
     .get(controllerHandler(verifyToken), controllerHandler(userBooksController.getAllBooksInAlert));
 
 router
-    .route('/book/:book_id(\\d+)/user/:user_id(\\d+)')
+    .route('/book/:token')
     /**
-     * GET /v1/book/{book_id}/user/{user_id}
+     * GET /v1/book/{book_id & user_id in a token}
      * @summary Update the donation date to now
      * @param {number} book_id.path.required - book identifier
      * @param {number} user_id.path.required - user identifier

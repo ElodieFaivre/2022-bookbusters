@@ -1,4 +1,5 @@
 const cron = require('node-cron');
+const jwt = require('jsonwebtoken');
 const userListsDataMapper = require('../models/userLists');
 const { getBookInformation } = require('../middlewares/getBookInformation');
 const { ApiError } = require('../middlewares/handleError');
@@ -87,14 +88,15 @@ module.exports = {
         return res.json(alerts);
     },
     async updateDonationDate(req, res) {
-        const userId = Number(req.params.user_id);
-        const bookId = Number(req.params.book_id);
-
-        const updatedBook = await userListsDataMapper.updateDonationDate(userId, bookId);
+        const id = jwt.verify(req.params.token, process.env.SECRET_TOKEN_KEY);
+        const userId1 = id.userId;
+        const bookId1 = id.bookId;
+        console.log(userId1, bookId1);
+        const updatedBook = await userListsDataMapper.updateDonationDate(userId1, bookId1);
         if (!updatedBook) {
             return res.json('{ no donation date updated }');
         };
-        const book = await bookDataMapper.findOneBookById(bookId);
+        const book = await bookDataMapper.findOneBookById(bookId1);
         return res.json({ book, association: updatedBook });
     },
 

@@ -24,7 +24,7 @@ router
      * @summary Add book and relation user_has_book to database or update if already exist
      * @tags BOOK
      * @security BearerAuth
-     * @param {InputBook} request.body.required - book info
+     * @param {InputBook} request.body.required - Book to add information
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
@@ -39,6 +39,7 @@ router
      * @param {number} id.path.required - book identifier
      * @tags BOOK
      * @return {Book} 200 - success response - application/json
+     * @return {ApiError} 404 - Id not found
      */
     .get(
         controllerHandler(verifyTokenWithoutError),
@@ -63,7 +64,7 @@ router
      * @tags BOOK
      * @security BearerAuth
      * @param {InputAroundMe} request.body.required - ex {"location" : "(48.5,2.3)", "radius" : 200}
-     * @return {BookIdsAroundMe} 200 - success response - application/json
+     * @return {OutputAroundMe} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
     .post(

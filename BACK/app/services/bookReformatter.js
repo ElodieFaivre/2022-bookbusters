@@ -80,10 +80,7 @@ const bookReformatter = {
                 }
             });
 
-            // Delete connected_user if null (no logged in user or no relation with this book)
-            if (!book.connected_user) {
-                delete book.connected_user;
-            }
+
 
             return book;
         });
@@ -148,10 +145,7 @@ const bookReformatter = {
                 }
             });
 
-            // Delete connected_user if null (no logged in user or no relation with this book)
-            if (!book.connected_user) {
-                delete book.connected_user;
-            }
+
 
             return book;
         });

@@ -40,7 +40,7 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {User} 200 - success response - application/json
+     * @return 204 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      * @return {ApiError} 404 - User not found - application/json
      */

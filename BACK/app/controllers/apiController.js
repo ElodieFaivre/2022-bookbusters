@@ -6,18 +6,7 @@ const bookReformatter = require('../services/bookReformatter');
 const debug = require('debug')('apiController');
 
 module.exports = {
-    /**
-     * @typedef {object} BookInfo
-     * @property {string} isbn13 - Book isbn13
-     * @property {string} isbn10 - Book isbn10
-     * @property {string} title - Book title
-     * @property {[string]} author - Book authors
-     * @property {string} resume - Book sum up
-     * @property {string} publishedDate
-     * @property {string} language
-     * @property {string} coverM - Book medium sized cover URL
-     * @property {string} coverL - Book large sized cover URL
-     */
+
     async getBookByISBN(req, res) {
         let connectedUserId;
         if (!req.body.user) {

@@ -14,7 +14,7 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {[Book]} 200 - success response - application/json
+     * @return {BookRelation} 200 - success response - application/json
      */
     .get(
         controllerHandler(verifyToken),
@@ -29,7 +29,7 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {[Book]} 200 - success response - application/json
+     * @return {BookRelation} 200 - success response - application/json
      */
     .get(
         controllerHandler(verifyToken),
@@ -44,7 +44,8 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {[Book]} 200 - success response - application/json
+     * @return {BookRelation} 200 - success response - application/json
+     * @return {string} 204 - no content success response,
      */
     .get(controllerHandler(verifyToken), controllerHandler(userBooksController.getAllBooksInAlert));
 

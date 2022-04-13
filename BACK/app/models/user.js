@@ -26,8 +26,8 @@ const client = require('../config/database');
 
 /**
  * @typedef {object} BookRelation
- * @property {integer} user_id
- * @property {interger} book_count
+ * @property {number} user_id
+ * @property {number} book_count
  * @property {[BookUser]} password
  */
 

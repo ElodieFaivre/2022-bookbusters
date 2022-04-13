@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const controllerHandler = require('../middlewares/controllerWrapperAsync');
-const { verifyToken } = require('../middlewares/tokenVerifier');
+const { verifyToken, verifyEmailToken } = require('../middlewares/tokenVerifier');
 const userController = require('../controllers/userController');
 
 const validate = require('../validator/validator');
@@ -60,6 +60,17 @@ router
         validate(updateSchema, 'body'),
         controllerHandler(userController.update),
     );
+
+router
+    .route('/confirmation/:token')
+    /**
+     * GET /v1/confirmation/{id in a token}
+     * @summary Switch the active_account attribute to true
+     * @tags USER
+     * @param {number} id.path.required - user identifier
+     * @return {User} 200 - success response - application/json
+     */
+    .get(controllerHandler(userController.swithTheAccountActive));
 
 /**
  * POST /v1/login

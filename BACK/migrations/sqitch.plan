@@ -9,3 +9,4 @@ userlists-views 2022-04-01T13:08:47Z System Administrator <root@Copain-MaxiBook.
 around-me 2022-04-06T11:59:55Z elodie.faivre <elodie.faivre3@gmail.com> # function sql to search books around me
 big-swiss-knife-function 2022-04-11T17:15:09Z System Administrator <root@Copain-MiniMac.local> # Add a SQL function to get and filter books with all users data
 remove-formatted-isbn 2022-04-12T17:54:11Z System Administrator <root@Copain-MiniMac.local> # remove unused column isbn13_formatted and isbn10_formatted in the table book
+account_activation 2022-04-12T13:10:41Z ju <dupont.julien@gmail.com> # Adding of a field in the user table regarding the activation of the account via an email after the signup process

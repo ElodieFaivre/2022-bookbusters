@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-catch */
-const debug = require('debug')('worlCatAPI');
+const debug = require('debug')('services:worlCatAPI');
 
 const fetch = require('node-fetch');
 const xml2js = require('xml2js');
@@ -12,7 +12,6 @@ const parser = new xml2js.Parser({ explicitArray: false, ignoreAttrs: false, mer
 
 const worldCat = {
     async findBookByISBN(isbn) {
-        debug("worldCatAPI use");
         const url = `http://classify.oclc.org/classify2/Classify?isbn=${isbn}&summary=true`;
         const response = await fetch(url);
         const content = await response.text();

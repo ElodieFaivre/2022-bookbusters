@@ -3,6 +3,7 @@ const debug = require('debug')('bookReformatter');
 const google = require('./google');
 const openLibrary = require('./openLibrary');
 const bookDataMapper = require('../models/book');
+const requestApis = require('./requestAPIs');
 
 const bookReformatter = {
     /**
@@ -94,21 +95,21 @@ const bookReformatter = {
     async completeWithAPIsData(books) {
         debug('completeWithAPIsData');
 
-        const googleQueries = [];
+        const APIQueries = [];
         const openLibraryQueries = [];
 
         // Promise Array of book in GoogleBooks
         books.forEach((book) => {
             if (book.isbn13) {
-                googleQueries.push(google.findBookByISBN(book.isbn13));
+                APIQueries.push(requestApis.findBookByISBN(book.isbn13));
             } else if (book.isbn10) {
-                googleQueries.push(google.findBookByISBN(book.isbn10));
+                APIQueries.push(requestApis.findBookByISBN(book.isbn10));
             }
         });
-        const booksInGoogleResult = await Promise.all(googleQueries);
+        const booksResult = await Promise.all(APIQueries);
 
         // Promise Array of OpenLibrary Cover
-        booksInGoogleResult.forEach((bookInGoogle) => {
+        booksResult.forEach((bookInGoogle) => {
             if (bookInGoogle && !bookInGoogle.cover) {
                 if (bookInGoogle.isbn13) {
                     openLibraryQueries.push(openLibrary.findBookCoverByISBN(bookInGoogle.isbn13));
@@ -121,13 +122,13 @@ const bookReformatter = {
 
         // Group all books' info between APIs and Database
         books = books.map((book) => {
-            booksInGoogleResult.find((bookInGoogle) => {
+            booksResult.find((bookInAPI) => {
                 if (
-                    bookInGoogle &&
-                    (book.isbn13 === bookInGoogle.isbn13 || book.isbn10 === bookInGoogle.isbn10)
+                    bookInAPI &&
+                    (book.isbn13 === bookInAPI.isbn13 || book.isbn10 === bookInAPI.isbn10)
                 ) {
                     book = {
-                        ...bookInGoogle,
+                        ...bookInAPI,
                         ...book,
                     };
                 }

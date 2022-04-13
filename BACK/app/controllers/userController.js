@@ -175,7 +175,20 @@ module.exports = {
             process.env.SECRET_TOKEN_KEY,
             { expiresIn: '30m' },
             (err, token) => {
-                res.json({ token, foundUser });
+                res.json({
+                    token,
+                    user: {
+                        id: foundUser.id,
+                        username: foundUser.username,
+                        email: foundUser.email,
+                        bio: foundUser.bio,
+                        location: foundUser.location,
+                        mail_donation: foundUser.mail_donation,
+                        mail_alert: foundUser.mail_alert,
+                        avatar_id: foundUser.avatar_id,
+                        active_account: foundUser.active_account,
+                    },
+                });
             },
         );
     },
@@ -191,10 +204,11 @@ module.exports = {
         const id = jwt.verify(req.params.token, process.env.SECRET_TOKEN_KEY);
         debug('id:', id);
         const user = await userDataMapper.swithTheAccountActive(id.userId);
-        debug("user:", user);
+        debug('user:', user);
         if (!user) {
             throw new ApiError('User id not found', { statusCode: 400 });
+        } else {
+            res.json(user);
         }
-        else { res.json(user); }
     },
 };

@@ -12,7 +12,7 @@ const debug = require('debug')('BookController');
 /**
  * @typedef {object} Donor
  * @property {number} donor_id - Indentifiant unique, Pk de la table
- * @property {email} email
+ * @property {string} email
  * @property {string} avatar
  * @property {number} book_id
  * @property {string} location
@@ -25,7 +25,7 @@ const debug = require('debug')('BookController');
  * @property {number} user_id - Indentifiant unique, Pk de la table
  * @property {string} username
  * @property {string} avatar
- * @property {email} email
+ * @property {string} email
  * @property {string} location
  * @property {number} book_id
  * @property {number} associations_id

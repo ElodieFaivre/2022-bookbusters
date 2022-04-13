@@ -1,10 +1,12 @@
+import Header from "../components/Header/Header";
 
 const Error = () => {
-    return (
-        <div>
-            page 404
-        </div>
-    );
+  return (
+    <>
+      <Header />
+      <p>Vous vous êtes égaré !</p>
+    </>
+  );
 };
 
 export default Error;

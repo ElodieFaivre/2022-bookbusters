@@ -1,7 +1,7 @@
 const bookDataMapper = require('../models/book');
 const userDataMapper = require('../models/user');
 const { ApiError } = require('../middlewares/handleError');
-const bookMW = require('../middlewares/getBookInformation');
+const bookReformatter = require('../services/bookReformatter');
 const debug = require('debug')('bookController');
 const mailer = require('../services/mailer');
 module.exports = {
@@ -13,24 +13,35 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async getAllInDonation(req, res) {
-        let books = await bookDataMapper.findAllInDonation();
-        books = await bookMW.getBookInformation(books);
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
+        let books = await bookDataMapper.findBooksInDonation(connectedUserId);
+        books = await bookReformatter.reformat(books, req.body.user);
+
         return res.json(books);
     },
 
     async getOneBookById(req, res) {
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
         const bookId = req.params.id;
-        let book = await bookDataMapper.findOneBookById(bookId);
-        if (!book) {
+        let book = await bookDataMapper.findBooks(connectedUserId, `{${bookId}}`, '{}', '{}', 1, 0);
+        if (book.length === 0) {
             throw new ApiError('Book not found', { statusCode: 404 });
         }
-        book = await bookMW.getBookInformation([book]);
-        if (req.body.userId) {
-            const user_has_book = await bookDataMapper.findRelationBookUser(bookId, req.body.userId);
-            debug(user_has_book);
-            book = { ...book, ...user_has_book };
-        }
-        return res.json(book);
+        book = await bookReformatter.reformat(book);
+
+        return res.json(book[0]);
     },
 
     /**
@@ -43,19 +54,25 @@ module.exports = {
     async addBook(req, res) {
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
-        let book = await bookDataMapper.findOneBookById(savedUserHasBook.book_id);
-        book = await bookMW.getBookInformation([book]);
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
 
-        //const user_has_book = await bookDataMapper.findRelationBookUser(book.id,req.body.userId);
-        debug('SAVED', savedUserHasBook);
-        book = {
-            ...book,
-            is_in_library: savedUserHasBook.is_in_library,
-            is_in_donation: savedUserHasBook.is_in_donation,
-            is_in_alert: savedUserHasBook.is_in_alert,
-            is_in_favorite: savedUserHasBook.is_in_favorite,
-        };
-        if (book.is_in_donation) {
+        let book = await bookDataMapper.findBooks(
+            connectedUserId,
+            `{${savedUserHasBook.book_id}}`,
+            '{}',
+            '{}',
+            1,
+            0,
+        );
+
+        book = await bookReformatter.reformat(book);
+        
+        if (book[0].connected_user.is_in_donation) {
             debug(`Un nouveau livre en donation, j'envoie un mail d'alerte`);
             let isbn = null;
             if (book[0].isbn13) {
@@ -69,7 +86,7 @@ module.exports = {
                 await mailer.sendAlertingMails(users);
             }
         }
-        return res.json(book);
+        return res.json(book[0]);
     },
 
     /**
@@ -79,45 +96,45 @@ module.exports = {
      * @param {object} res Express response object
      * @returns {string} Route API JSON response
      */
-    async getBooksIdsAroundMe(req, res) {
-        const books = await bookDataMapper.findBooksIdAround(req.body.location, req.body.radius);
-        return res.json(books);
-    },
+    async getBooksAroundMe(req, res) {
+        const booksAroundMe = await bookDataMapper.findBooksIdAround(
+            req.body.location,
+            req.body.radius,
+        );
 
-    async getDetailsBookAroundMe(req, res) {
-        debug('Req.query.books = ', req.query.books);
-        let bookIds = req.query.books
-        bookIds = bookIds.substr(1).substr(0, bookIds.length - 2).split(',');
-        debug('après traitement', bookIds);
+        if (booksAroundMe.length === 0) {
+            throw new ApiError('No book around you', { statusCode: 404 });
+        }
 
-        const promiseToSolve = [];
-        bookIds.forEach(element => {
-            promiseToSolve.push(bookDataMapper.findOneBookById(Number(element)));
+        let bookIds = [];
+        booksAroundMe.forEach(row => {
+            bookIds.push(...row.book_ids);
+        })
+
+        let connectedUserId;
+        if (!req.body.user) {
+            connectedUserId = 0;
+        } else {
+            connectedUserId = Number(req.body.user.userId);
+        }
+
+        let books = await bookDataMapper.findBooks(connectedUserId, bookIds, '{}', '{}', 10, 0);
+        books = await bookReformatter.reformat(books);
+
+        // Redispatch books by locations
+        const result = [];
+        booksAroundMe.forEach((row) => {
+            const locatedBooks = [];
+            row.book_ids.forEach((book_id) => {
+                locatedBooks.push(books.find((book) => book_id === book.id));
+            });
+
+            result.push({
+                location: row.loc,
+                books: locatedBooks,
+            });
         });
 
-
-        //TODO : question : what happened si une promesse échoue ??
-        debug('Je lance les promesses pour trouver les livres')
-        let books = await Promise.all(promiseToSolve);
-        debug('Les livres trouvés sont', books);
-        debug('Je complete les infos avec API');
-        books = await bookMW.getBookInformation(books);
-        debug('Livres complets', books);
-
-        const getRelationPromise = [];
-
-        if (req.body.userId) {
-            debug('user connecté')
-            books.forEach(element => {
-                getRelationPromise.push(bookDataMapper.findRelationBookUser(element.id, req.body.userId));
-            });
-            debug('Je vais chercher les relations avec le user connecté')
-            const moreInfoBook = await Promise.all(getRelationPromise);
-
-            for (let i = 0; i < books.length; i += 1) {
-                books[i] = { ...books[i], ...moreInfoBook[i] };
-            }
-        }
-        return res.json(books);
+        return res.json(result);
     },
 };

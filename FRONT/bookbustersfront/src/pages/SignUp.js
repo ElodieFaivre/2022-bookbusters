@@ -1,92 +1,217 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Header from '../components/Header/Header';
-import { Link } from 'react-router-dom';
+// Imports REACT
+import React, { useState, useEffect, useContext } from "react";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link to="/" style={{color:"#000", textDecoration: 'underline'}}>
-        BookBusters
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// Imports MUI
+import {
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+  Avatar,
+  Button,
+  Grid,
+  Box,
+  CssBaseline,
+  TextField,
+  Typography,
+  Container,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
+// Import Composants
+import Header from "../components/Header/Header";
+import Copyright from "../components/Copyright/Copyright";
+
+// Import React-Router-Dom
+import { Link, useNavigate } from "react-router-dom";
+
+//Import package codes postaux
+import codesPostaux from "codes-postaux";
+
+// Import de la méthode registerUser depuis fetchAPI.js
+import { registerUser } from "../api/fetchApi";
+
+import alertContext from "../contexts/AlertContext";
 
 export default function SignUp() {
+  const [postalCode, setPostalCode] = useState("");
+  const [communeCode, setCommuneCode] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+
+  const [possibleVilles, setPossibleVilles] = useState([]);
+  const navigate = useNavigate();
+
+  const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
+
+  useEffect(() => {
+    if (possibleVilles.length === 1) {
+      setCommuneCode(possibleVilles[0].codeCommune);
+    } else if (possibleVilles.length === 0) {
+      setCommuneCode("");
+    }
+  }, [possibleVilles]);
+
+  const handlePostalCodeChange = ({ currentTarget }) => {
+    if (currentTarget.value.length === 5) {
+      setPossibleVilles(codesPostaux.find(currentTarget.value));
+    } else {
+      setPossibleVilles([]);
+    }
+    setPostalCode(currentTarget.value);
+  };
+
+  const handleRegisterSuccess = () => {
+    setUsername("");
+    setPostalCode("");
+    setCommuneCode("");
+    setEmail("");
+    setPassword("");
+    setPasswordConf("");
+    navigate("/signIn");
+    setSuccessAlert("Compte crée !");
+  };
+
+  //* Regex pour le pseudo et pour le mot de passe
+  const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+  const PWD_REGEX =
+    /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+
+  // Test1234@
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    let errors = [];
+
+    const v1 = USER_REGEX.test(username);
+    const v2 = PWD_REGEX.test(password);
+    if (!v1 || !v2) {
+      errors.push(
+        "Problème detecté sur votre mot de passe ou nom d'utilisateur"
+      );
+    }
+
+    // Vérification du code postal
+    if (postalCode.length !== 5) {
+      errors.push("Code postal incorrect");
+    }
+
+    // Vérification de la commune
+    if (communeCode.length < 1) {
+      errors.push("Ville introuvable");
+    }
+
+    // Vérification des mots de passe
+    if (password !== passwordConf) {
+      errors.push("Vos mots de passe ne correspondent pas");
+    }
+
+    if (errors.length > 0) {
+      return setErrorAlert(errors.join(", "));
+    }
+
+    registerUser(
+      postalCode,
+      communeCode,
+      username,
+      email,
+      password,
+      handleRegisterSuccess,
+      setErrorAlert
+    );
   };
 
   return (
     <>
-    <Header />
+      <Header />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Inscription
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  name="pseudo"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="pseudo"
+                  label="Pseudo"
+                  helperText="4 à 24 caractères / doit commencer par une lettre / lettres, nombres et tirets autorisés"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  onChange={({ target }) => setUsername(target.value)}
+                  value={username}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
+                  type="tel"
+                  id="codePostal"
+                  label="Code Postal"
+                  name="codePostal"
+                  placeholder="75001"
+                  autoComplete="email"
+                  helperText="Code postaux français"
+                  value={postalCode}
+                  onChange={handlePostalCodeChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl required fullWidth>
+                  <InputLabel id="cities-label">Ville/Commune</InputLabel>
+                  <Select
+                    id="cities"
+                    labelId="cities-label"
+                    value={communeCode}
+                    label="Ville/Commune"
+                    onChange={({ target }) => setCommuneCode(target.value)}
+                    required
+                  >
+                    {possibleVilles.length < 1 && (
+                      <MenuItem disabled>Aucune ville trouvée</MenuItem>
+                    )}
+                    {possibleVilles.map((ville) => (
+                      <MenuItem
+                        key={ville.codeCommune}
+                        value={ville.codeCommune}
+                      >
+                        {ville.nomCommune}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Adresse email"
                   name="email"
                   autoComplete="email"
+                  onChange={({ target }) => setEmail(target.value)}
+                  value={email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -94,16 +219,24 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Mot de passe"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                  helperText="8 à 24 caractères / 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Confirmation de mot de passe"
+                  type="password"
+                  id="passwordVerification"
+                  value={passwordConf}
+                  onChange={({ target }) => setPasswordConf(target.value)}
                 />
               </Grid>
             </Grid>
@@ -113,12 +246,15 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              S'inscrire
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/SignIn" style={{color:"#000", textDecoration: 'underline'}}>
-                  Already have an account? Sign in
+                <Link
+                  to="/SignIn"
+                  style={{ color: "#000", textDecoration: "underline" }}
+                >
+                  Déjà inscrit? Connectez-vous
                 </Link>
               </Grid>
             </Grid>
@@ -126,6 +262,6 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-      </>
+    </>
   );
 }

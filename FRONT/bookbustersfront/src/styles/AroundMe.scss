@@ -1,0 +1,15 @@
+#map {
+  height: 500px;
+  background-color: aqua;
+}
+.leaflet-container {
+  height: 500px;
+}
+
+.bookMap {
+  display: flex;
+  margin: 1%;
+  & div {
+    margin-left: 1%;
+  }
+}

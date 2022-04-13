@@ -1,7 +1,7 @@
 const cron = require('node-cron');
 const jwt = require('jsonwebtoken');
 const userListsDataMapper = require('../models/userLists');
-const { getBookInformation } = require('../middlewares/getBookInformation');
+const bookReformatter = require('../services/bookReformatter');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
 const userDataMapper = require('../models/user');
@@ -28,7 +28,7 @@ module.exports = {
             return res.json('{ no book in library }');
         }
 
-        const books = await getBookInformation(library.books);
+        const books = await bookReformatter.reformat(library.books);
         library.books = books;
 
         return res.json(library);
@@ -55,7 +55,7 @@ module.exports = {
             return res.json('{ no book in favorite }');
         }
 
-        const books = await getBookInformation(favorites.books);
+        const books = await bookReformatter.reformat(favorites.books);
         favorites.books = books;
 
         return res.json(favorites);
@@ -82,7 +82,7 @@ module.exports = {
             return res.json('{ no book in alert }');
         }
 
-        const books = await getBookInformation(alerts.books);
+        const books = await bookReformatter.reformat(alerts.books);
         alerts.books = books;
 
         return res.json(alerts);

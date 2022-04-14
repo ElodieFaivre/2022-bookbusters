@@ -36,7 +36,6 @@ const debug = require('debug')('BookController');
  * @property {string} donation_date
  */
 
-
 /**
  * @typedef {object} Book
  * @property {number} id - Indentifiant unique, Pk de la table
@@ -73,8 +72,6 @@ const debug = require('debug')('BookController');
  * @property {boolean} is_in_alert
  */
 
-
-
 /**
  * @typedef {object} InputBook
  * @property {string} isbn13
@@ -91,15 +88,11 @@ const debug = require('debug')('BookController');
  * @property {number} radius Radius to look around in km
  */
 
-
 /**
  * @typedef {object} OutputAroundMe
  * @property {string} location (Format (x,y))
  * @property {[Book]} books Books in donation around_me
  */
-
-
-
 
 const bookDataMapper = {
     async findBooks(
@@ -108,33 +101,35 @@ const bookDataMapper = {
         booksISBN13s = '{}',
         booksISBN10s = '{}',
         limit = 10,
-        page = 0
+        page = 0,
     ) {
-        const result = await client.query(
-            'SELECT * FROM get_book($1, $2, $3, $4, $5, $6);',
-            [userId, booksIds, booksISBN13s, booksISBN10s, limit, page],
-        );
+        const result = await client.query('SELECT * FROM get_book($1, $2, $3, $4, $5, $6);', [
+            userId,
+            booksIds,
+            booksISBN13s,
+            booksISBN10s,
+            limit,
+            page,
+        ]);
         return result.rows;
     },
 
     async findBooksInDonation(
         userId = 0,
-        booksIds = '{}',
-        booksISBN13s = '{}',
-        booksISBN10s = '{}',
+        page,
         limit = 10,
-        page = 0
     ) {
+        const offset = page * limit;
         const result = await client.query(
-            'SELECT * FROM get_book($1, $2, $3, $4, $5, $6) WHERE number_of_donors > 0 ORDER BY last_donation_date DESC;',
-            [userId, booksIds, booksISBN13s, booksISBN10s, limit, page]
+            `SELECT * FROM get_book($1, '{}', '{}', '{}', 0, 0) WHERE number_of_donors > 0 ORDER BY last_donation_date DESC LIMIT $2 OFFSET $3;`,
+            [userId, limit, offset],
         );
         return result.rows;
     },
 
     async insert(book) {
         const result = await client.query(
-            ` INSERT INTO book
+            `INSERT INTO book
             (isbn13, isbn10) VALUES
             ($1, $2) RETURNING *
         `,
@@ -245,7 +240,14 @@ const bookDataMapper = {
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert, donation_date) VALUES
                     ($1, $2, $3, $4, $5, $6, NOW()) RETURNING *
                 `,
-                    [bookId, book.user.userId, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
+                    [
+                        bookId,
+                        book.user.userId,
+                        book.is_in_library,
+                        book.is_in_donation,
+                        book.is_in_favorite,
+                        book.is_in_alert,
+                    ],
                 );
             } else {
                 userBook = await client.query(
@@ -253,7 +255,14 @@ const bookDataMapper = {
                     (book_id, user_id, is_in_library, is_in_donation, is_in_favorite, is_in_alert) VALUES
                     ($1, $2, $3, $4, $5, $6) RETURNING *
                 `,
-                    [bookId, book.user.userId, book.is_in_library, book.is_in_donation, book.is_in_favorite, book.is_in_alert],
+                    [
+                        bookId,
+                        book.user.userId,
+                        book.is_in_library,
+                        book.is_in_donation,
+                        book.is_in_favorite,
+                        book.is_in_alert,
+                    ],
                 );
             }
 

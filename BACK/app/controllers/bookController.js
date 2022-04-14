@@ -20,7 +20,15 @@ module.exports = {
             connectedUserId = Number(req.body.user.userId);
         }
 
-        let books = await bookDataMapper.findBooksInDonation(connectedUserId);
+        let page;
+        req.query.page ? page = Number(req.query.page) : page = 0
+
+        let books = await bookDataMapper.findBooksInDonation(connectedUserId, page);
+
+        if (books.length === 0) {
+            throw new ApiError('no new book in donation', { statusCode: 404 });
+        }
+
         books = await bookReformatter.reformat(books, req.body.user);
 
         return res.json(books);
@@ -71,7 +79,7 @@ module.exports = {
         );
 
         book = await bookReformatter.reformat(book);
-        
+
         if (book[0].connected_user.is_in_donation) {
             debug(`Un nouveau livre en donation, j'envoie un mail d'alerte`);
             let isbn = null;

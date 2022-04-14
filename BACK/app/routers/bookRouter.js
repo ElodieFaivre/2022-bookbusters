@@ -16,9 +16,13 @@ router
      * @security BearerAuth
      * @summary Get all books in donation with users, order by last one
      * @tags BOOK
+     * @param {number} page.query - access to next 10 books
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(verifyTokenWithoutError), controllerHandler(bookController.getAllInDonation))
+    .get(
+        controllerHandler(verifyTokenWithoutError),
+        controllerHandler(bookController.getAllInDonation),
+    )
     /**
      * POST /v1/book
      * @summary Add book and relation user_has_book to database or update if already exist
@@ -28,7 +32,11 @@ router
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(validate(createSchema, 'body'), controllerHandler(verifyToken),  controllerHandler(bookController.addBook));
+    .post(
+        validate(createSchema, 'body'),
+        controllerHandler(verifyToken),
+        controllerHandler(bookController.addBook),
+    );
 
 router
     .route('/book/:id(\\d+)')

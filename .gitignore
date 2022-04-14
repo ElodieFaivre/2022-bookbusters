@@ -14,12 +14,13 @@
 
 # npm
 **/node_modules
-**/package-lock.json
 **/.pnp
 *.gz
 **/.pnp.js
 
 # log
+logs/**
+**/logs/**
 **/*.log
 **/*.log.*
 

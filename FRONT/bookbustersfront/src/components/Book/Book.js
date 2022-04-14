@@ -4,9 +4,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 //import { CardActionArea } from "@mui/material";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
 import PLS from "../../assets/img/simpson.jpg";
 import "./Book.scss";
+import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import bookContext from "../../contexts/BookContext";
 const style = {
   position: "absolute",
@@ -44,7 +47,9 @@ export default function Book({ livre, users }) {
       return livre.resume;
     }
   }
+  //console.log(livre);
   const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { setOpenedBook } = useContext(bookContext);
   return (
@@ -52,9 +57,9 @@ export default function Book({ livre, users }) {
       <Button onClick={() => setOpenedBook(livre)}>
         <Card
           sx={{
-            maxWidth: "150px",
+            maxWidth: "200px",
             m: 2,
-            height: "430px",
+            height: "500px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",

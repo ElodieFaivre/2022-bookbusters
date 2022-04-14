@@ -1,10 +1,6 @@
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
-import {
-  createTheme,
-  ThemeProvider,
-  responsiveFontSizes,
-} from "@mui/material/styles";
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import "@fontsource/rubik-wet-paint";
 import "@fontsource/roboto";
 
@@ -69,14 +65,7 @@ function App() {
                 <Route path="/AroundMe" element={<AroundMe />} />
                 <Route path="/SearchResults" element={<SearchResults />} />
                 {/* Routes avec JWT*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute
-                      redirect="/SignIn"
-                      connectedOnly={true}
-                    />
-                  }
-                >
+                <Route element={<AuthenticatedRoute redirect="/SignIn" connectedOnly={true} />}>
                   <Route path="/Account" element={<Account />} />
                   <Route path="/myAlerts" element={<MyAlerts />} />
                   <Route path="/Favorites" element={<Favorites />} />
@@ -84,11 +73,7 @@ function App() {
                 </Route>
 
                 {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute redirect="/" connectedOnly={false} />
-                  }
-                >
+                <Route element={<AuthenticatedRoute redirect="/" connectedOnly={false} />}>
                   {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
                   <Route path="/SignIn" element={<SignInSide />} />
                   <Route path="/SignUp" element={<SignUp />} />

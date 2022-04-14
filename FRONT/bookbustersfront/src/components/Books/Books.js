@@ -22,6 +22,9 @@ function Books() {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-evenly",
+          alignItems: "center",
+          width: { md: "70%" },
+          margin: "auto",
         }}
       >
         {data.map((livre, index) => (

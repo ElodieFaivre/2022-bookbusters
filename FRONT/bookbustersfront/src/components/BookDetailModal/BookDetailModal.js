@@ -71,17 +71,15 @@ function BookDetailModal() {
           </Box>
 
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
-            <p>
-              <b>Auteur:</b> {book.author}{" "}
-            </p>
-
+            <Typography variant="overline">Auteur:</Typography>
+            <Typography>{book.author}</Typography>
             <Box
               component="p"
               sx={{
                 display: { md: "inline" },
               }}
             >
-              <b>Résumé: </b>{" "}
+              <Typography variant="overline"> Résumé:</Typography>
               {book.resume ? (
                 <Typography>{book.resume}</Typography>
               ) : (

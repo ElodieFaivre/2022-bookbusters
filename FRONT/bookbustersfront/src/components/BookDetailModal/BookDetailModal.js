@@ -12,20 +12,22 @@ import Modal from "@mui/material/Modal";
 import PLS from "../../assets/img/simpson.jpg";
 import bookContext from "../../contexts/BookContext";
 
-const style = {
+const styleBox = {
   position: "absolute",
-  top: "50%",
+  top: { xs: "50%", md: "50%" },
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "70%",
+  width: "95%",
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+  boxShadow: 20,
+  p: 2,
+  maxHeight: "90vh",
+  overflowY: "auto",
+  borderRadius: "5px",
 };
 
 function BookDetailModal() {
-  const handleClose = () => setOpen(false);
+  //   const handleClose = () => setOpen(false);
   const [open, setOpen] = useState(false);
   const { openedBook, setOpenedBook } = useContext(bookContext);
 
@@ -53,61 +55,72 @@ function BookDetailModal() {
   const users = livre.donors;
 
   return (
-    <div>
-      <Modal
-        open={Boolean(openedBook)}
-        onClose={() => setOpenedBook(null)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ textAlign: "center", mb: 2 }}
-          >
-            {livre.title}
-          </Typography>
+    <Modal
+      open={Boolean(openedBook)}
+      onClose={() => setOpenedBook(null)}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      sx={{
+        position: "fixed",
+      }}
+    >
+      <Box sx={styleBox}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ textAlign: "center", mb: 2 }}
+        >
+          {livre.title}
+        </Typography>
 
-          <Box sx={{ display: { xs: "block", md: "flex" } }}>
-            <CardMedia
-              component="img"
-              image={livrePLS()}
-              alt="seigneur"
-              sx={{ mr: 2 }}
-            />
+        <Box sx={{ display: { xs: "block", md: "flex" } }}>
+          <CardMedia
+            component="img"
+            image={livrePLS()}
+            alt="seigneur"
+            sx={{
+              maxWidth: { xs: "250px", md: "500px" },
+              height: "auto",
+              padding: { xs: "auto", md: "0px 20px 15px 0px" },
+            }}
+          />
 
-            <Box id="modal-modal-description" sx={{ mt: 2 }}>
-              <p>
-                <b>Auteur:</b> {livre.author}{" "}
-              </p>
+          <Box id="modal-modal-description" sx={{ mt: 2 }}>
+            <p>
+              <b>Auteur:</b> {livre.author}{" "}
+            </p>
 
-              <Box component="p" sx={{ display: { xs: "none", md: "inline" } }}>
-                <b>Résumé: </b> {textPLS()}
-              </Box>
+            <Box
+              component="p"
+              sx={{
+                display: { md: "inline" },
+              }}
+            >
+              {/* xs: "none" */}
+              <b>Résumé: </b> {textPLS()}
             </Box>
           </Box>
-          <Box>
-            {users && users.length > 0 && (
-              <>
-                Livre disponible chez :{" "}
-                {users.map((user, index) => (
-                  <span className="bookUserOwner" key={index}>
-                    {user.username}
-                  </span>
-                ))}
-              </>
-            )}
-            {(!users || users.length === 0) && (
-              <>
-                <Typography>Personne ne possède le livre !</Typography>
-              </>
-            )}
-          </Box>
         </Box>
-      </Modal>
-    </div>
+        <Box>
+          {users && users.length > 0 && (
+            <>
+              Livre disponible chez :{" "}
+              {users.map((user, index) => (
+                <span className="bookUserOwner" key={index}>
+                  {user.username}
+                </span>
+              ))}
+            </>
+          )}
+          {(!users || users.length === 0) && (
+            <>
+              <Typography>Personne ne possède le livre !</Typography>
+            </>
+          )}
+        </Box>
+      </Box>
+    </Modal>
   );
 }
 

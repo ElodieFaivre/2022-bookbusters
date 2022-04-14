@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "./axios";
 
 export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
@@ -11,12 +10,11 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
       handleLoginSuccess(data.token);
     })
     .catch((error) => {
-      {
-        /*Ici je dois récupérer l'erreur que me renvoie la BDD */
-      }
       if (error.response) {
         console.log(error.response.data.message);
-        setErrMsg((error.response.data.message = "Login ou mot de passe incorrect"));
+        setErrMsg(
+          (error.response.data.message = "Login ou mot de passe incorrect")
+        );
       } else {
         setErrMsg("Une erreur s'est produite");
       }
@@ -40,8 +38,6 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
 export const latestAddition = (setData) => {
   axios.get("/v1/book").then((res) => setData(res.data));
 };
-
-
 
 export const registerUser = (
   postalCode,
@@ -82,23 +78,24 @@ export const registerUser = (
     });
 };
 
-export async function searchBooks(
-  search,
-  limit = 15,
-  start = 0,
-  setErrMsg,
-  setData
-) {
+export async function searchBooks(search, limit = 10, start = 0) {
   try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
     const responseSearchResult = await axios.get(
-      `/v1/book/search?q=${search}&limit=${limit}&start=${start}`
+      `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
+      config
     );
+    console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
     console.log("error");
   }
 }
-// q=${search}&limit=${limit}&start=${start}
+
 export const fetchApi = {
   connectUser,
   registerUser,

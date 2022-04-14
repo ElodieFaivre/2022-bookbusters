@@ -116,7 +116,7 @@ const bookDataMapper = {
 
     async findBooksInDonation(
         userId = 0,
-        page = 0,
+        page,
         limit = 10,
     ) {
         const offset = page * limit;

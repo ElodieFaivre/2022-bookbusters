@@ -20,7 +20,8 @@ module.exports = {
             connectedUserId = Number(req.body.user.userId);
         }
 
-        const page = Number(req.query.page)
+        let page;
+        req.query.page ? page = Number(req.query.page) : page = 0
 
         let books = await bookDataMapper.findBooksInDonation(connectedUserId, page);
 

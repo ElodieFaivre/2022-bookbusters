@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -32,7 +32,24 @@ const styleBox = {
 
 function BookDetailModal() {
   const { openedBook, setOpenedBook } = useContext(bookContext);
+  const [library, setlibrary] = useState(true);
+  const [favorit, setFavorit] = useState(true);
+  const [alert, setalert] = useState(true);
+  const [donation, setDonation] = useState(true);
+
   if (!openedBook) return null;
+  const handleAlertButton = () => {
+    setalert(!alert);
+  };
+  const handleLibraryButton = () => {
+    setlibrary(!library);
+  };
+  const handleFavoritButton = () => {
+    setFavorit(!favorit);
+  };
+  const handleDonationButton = () => {
+    setDonation(!donation);
+  };
 
   const book = openedBook;
   const users = book.donors;
@@ -86,8 +103,12 @@ function BookDetailModal() {
               arrow
               placement="right"
             >
-              <IconButton>
-                <FavoriteIcon />
+              <IconButton onClick={handleFavoritButton}>
+                {favorit ? (
+                  <FavoriteIcon sx={{ color: "gold" }} />
+                ) : (
+                  <FavoriteBorderIcon />
+                )}
               </IconButton>
             </Tooltip>
             <Tooltip
@@ -95,8 +116,12 @@ function BookDetailModal() {
               arrow
               placement="right"
             >
-              <IconButton>
-                <BookIcon />
+              <IconButton onClick={handleLibraryButton}>
+                {library ? (
+                  <BookOutlinedIcon />
+                ) : (
+                  <BookIcon sx={{ color: "brown" }} />
+                )}
               </IconButton>
             </Tooltip>
             <Tooltip
@@ -104,8 +129,12 @@ function BookDetailModal() {
               arrow
               placement="right"
             >
-              <IconButton>
-                <VolunteerActivismIcon />
+              <IconButton onClick={handleDonationButton}>
+                {donation ? (
+                  <VolunteerActivismIcon sx={{ color: "red" }} />
+                ) : (
+                  <VolunteerActivismOutlinedIcon />
+                )}
               </IconButton>
             </Tooltip>
             <Tooltip
@@ -113,13 +142,20 @@ function BookDetailModal() {
               arrow
               placement="right"
             >
-              <IconButton>
-                <AddAlertIcon />
+              <IconButton onClick={handleAlertButton}>
+                {alert ? (
+                  <AddAlertIcon sx={{ color: "green" }} />
+                ) : (
+                  <AddAlertOutlinedIcon />
+                )}
               </IconButton>
             </Tooltip>
           </Box>
 
-          <Box id="modal-modal-description" sx={{ margin: "0px 5px 0px 5px" }}>
+          <Box
+            id="modal-modal-description"
+            sx={{ margin: "0px 15px 0px 15px" }}
+          >
             <Typography variant="overline">Auteur:</Typography>
             <Typography>{book.author}</Typography>
             <Box

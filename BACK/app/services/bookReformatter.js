@@ -73,14 +73,12 @@ const bookReformatter = {
             openLibResult.find((cover) => {
                 if (
                     cover &&
-                    cover.coverOLM &&
+                    cover.coverOLL &&
                     (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)
                 ) {
-                    book.cover = cover.coverOLM;
+                    book.cover = cover.coverOLL;
                 }
             });
-
-
 
             return book;
         });
@@ -138,14 +136,12 @@ const bookReformatter = {
             openLibResult.find((cover) => {
                 if (
                     cover &&
-                    cover.coverOLM &&
+                    cover.coverOLL &&
                     (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)
                 ) {
-                    book.cover = cover.coverOLM;
-                }
+                    book.cover = cover.coverOLL;
+                } 
             });
-
-
 
             return book;
         });

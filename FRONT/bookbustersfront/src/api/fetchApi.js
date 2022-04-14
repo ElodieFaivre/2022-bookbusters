@@ -12,9 +12,7 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     .catch((error) => {
       if (error.response) {
         console.log(error.response.data.message);
-        setErrMsg(
-          (error.response.data.message = "Login ou mot de passe incorrect")
-        );
+        setErrMsg((error.response.data.message = "Login ou mot de passe incorrect"));
       } else {
         setErrMsg("Une erreur s'est produite");
       }
@@ -27,7 +25,7 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,
-      radius: "20000",
+      radius: "200",
     })
     .then((response) => setpositionUser(response.data))
     .catch((error) => {
@@ -65,11 +63,7 @@ export const registerUser = (
       handleRegisterSuccess();
     })
     .catch((error) => {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error.response && error.response.data && error.response.data.message) {
         setErrorAlert(error.response.data.message);
       } else {
         setErrorAlert("Une erreur est survenue lors de l'inscription.");
@@ -85,10 +79,7 @@ export async function searchBooks(search, limit = 10, start = 0) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const responseSearchResult = await axios.get(
-      `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
-      config
-    );
+    const responseSearchResult = await axios.get(`/v1/book/search?q=${search}&limit=${limit}&start=${start}`, config);
     console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {

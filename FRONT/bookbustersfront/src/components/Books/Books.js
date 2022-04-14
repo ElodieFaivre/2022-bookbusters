@@ -1,5 +1,4 @@
 import { Box } from "@mui/system";
-import { Button, ButtonGroup, Container } from "@mui/material";
 
 import React, { useEffect, useState } from "react";
 
@@ -16,12 +15,8 @@ function Books() {
     latestAddition(setData);
   }, [setData]);
 
-  /* useEffect(() => {
-    axios.get("http://localhost:5000/v1/book").then((res) => setData(res.data));
-  }, []); */
   return (
     <>
-      {/*console.log(data.user)*/}
       <Box
         sx={{
           display: "flex",
@@ -29,15 +24,8 @@ function Books() {
           justifyContent: "space-evenly",
         }}
       >
-        {/*data.map((livre, index) => (
-          <Book key={index} livre={livre} />
-        ))*/}
         {data.map((livre, index) => (
-          <Book
-            key={`je-suis-unique-${index}`}
-            livre={livre}
-            users={livre.donors}
-          />
+          <Book key={`je-suis-unique-${index}`} livre={livre} users={livre.donors} />
         ))}
         <BookDetailModal />
       </Box>

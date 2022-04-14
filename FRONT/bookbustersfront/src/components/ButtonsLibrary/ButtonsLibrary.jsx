@@ -12,14 +12,19 @@ const ButtonsLibrary = () => {
         }}
       >
         <ButtonGroup>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/Library" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="primary">
-              testaussi
+              Bibliothèque
             </Button>
           </Link>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/Favorites" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="secondary">
-              test
+              Mes Favoris
+            </Button>
+          </Link>
+          <Link to="/MyAlerts" style={{ textDecoration: "none" }}>
+            <Button variant="contained" color="primary">
+              Mes Alertes
             </Button>
           </Link>
         </ButtonGroup>

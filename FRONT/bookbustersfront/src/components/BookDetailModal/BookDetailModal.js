@@ -2,9 +2,19 @@ import React, { useContext } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-
-import bookDefaultCover from "../../assets/img/simpson.jpg";
 import bookContext from "../../contexts/BookContext";
+import bookDefaultCover from "../../assets/img/simpson.jpg";
+
+// Import des icones pour la modale
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BookIcon from "@mui/icons-material/Book";
+import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
+import { IconButton, Tooltip } from "@mui/material";
 
 const styleBox = {
   position: "absolute",
@@ -69,8 +79,47 @@ function BookDetailModal() {
               ></img>
             )}
           </Box>
+          {/* Zone des icones d'interactions */}
+          <Box>
+            <Tooltip
+              title="Ajoutez ce livre à vos favoris"
+              arrow
+              placement="right"
+            >
+              <IconButton>
+                <FavoriteIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip
+              title="Ajoutez ce livre à votre bilbiothèque"
+              arrow
+              placement="right"
+            >
+              <IconButton>
+                <BookIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip
+              title="Activez la donation pour ce livre"
+              arrow
+              placement="right"
+            >
+              <IconButton>
+                <VolunteerActivismIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip
+              title="Ajoutez une alerte pour ce livre"
+              arrow
+              placement="right"
+            >
+              <IconButton>
+                <AddAlertIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
 
-          <Box id="modal-modal-description" sx={{ mt: 2 }}>
+          <Box id="modal-modal-description" sx={{ margin: "0px 5px 0px 5px" }}>
             <Typography variant="overline">Auteur:</Typography>
             <Typography>{book.author}</Typography>
             <Box

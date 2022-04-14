@@ -134,8 +134,7 @@ const google = {
                 googleCover = googleCover.replace('http://', 'https://');
 
                 if (item.accessInfo.viewability !== 'NO_PAGES') {
-                    googleCover = googleCover.replace('zoom=1', 'zoom=0');
-                    googleCover = googleCover.replace('http://', 'https://');
+                    googleCover = googleCover.replace('zoom=1', 'zoom=3');
                     debug('big cover :');
                 } else {
                     debug('small cover :');

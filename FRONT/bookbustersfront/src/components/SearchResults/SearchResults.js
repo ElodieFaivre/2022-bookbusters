@@ -1,27 +1,25 @@
-import {
-  Container,
-  CssBaseline,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { CssBaseline, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import simpsonCoverDefault from "../../assets/img/simpson.jpg";
 import "./style.scss";
+import BookDetailModal from "../BookDetailModal/BookDetailModal";
+import bookContext from "../../contexts/BookContext";
 
 function SearchResults() {
   // const [data, setData] = useState([]);
   const location = useLocation();
   // console.log(location.state);
   const searchResultsAPI = location.state;
+  const { setOpenedBook } = useContext(bookContext);
 
   return (
     <>
       <Header />
       <CssBaseline />
+      <BookDetailModal />
       <Box
         sx={{ display: "flex", justifyContent: "center", paddingTop: "3vh" }}
       >
@@ -32,15 +30,14 @@ function SearchResults() {
             flexFlow: "column wrap",
             textAlign: "left",
             gap: "20px",
-            // border: "2px solid black",
           }}
         >
           {searchResultsAPI.map((book) => (
             <Paper
+              onClick={() => setOpenedBook(book)}
               key={book.isbn13}
               elevation={15}
               sx={{
-                // border: "1px solid black",
                 display: "flex",
                 height: "215px",
                 padding: "15px",
@@ -48,7 +45,6 @@ function SearchResults() {
             >
               <Box
                 sx={{
-                  // border: "1px solid black",
                   overflow: "hidden",
                   display: "flex",
                   alignItems: "left",
@@ -56,14 +52,21 @@ function SearchResults() {
                 }}
               >
                 {book.cover ? (
-                  <img className="imageCovers" src={book.cover}></img>
+                  <img
+                    className="imageCovers"
+                    alt="Book cover"
+                    src={book.cover}
+                  ></img>
                 ) : (
-                  <img className="imageCovers" src={simpsonCoverDefault}></img>
+                  <img
+                    className="imageCovers"
+                    alt="Generic book cover"
+                    src={simpsonCoverDefault}
+                  ></img>
                 )}
               </Box>
               <Box
                 sx={{
-                  // border: "1px solid black",
                   padding: "0px",
                   display: "flex",
                   flexDirection: "column",

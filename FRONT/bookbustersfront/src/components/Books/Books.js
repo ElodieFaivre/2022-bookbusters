@@ -32,11 +32,11 @@ function Books() {
         {/*data.map((livre, index) => (
           <Book key={index} livre={livre} />
         ))*/}
-        {data.map((livre, index) => (
+        {data.map((book, index) => (
           <Book
             key={`je-suis-unique-${index}`}
-            livre={livre}
-            users={livre.donors}
+            book={book}
+            users={book.donors}
           />
         ))}
         <BookDetailModal />

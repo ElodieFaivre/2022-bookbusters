@@ -1,15 +1,9 @@
-import React, { useState, useContext } from "react";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import React, { useContext } from "react";
 import Typography from "@mui/material/Typography";
-//import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-import PLS from "../../assets/img/simpson.jpg";
+import bookDefaultCover from "../../assets/img/simpson.jpg";
 import bookContext from "../../contexts/BookContext";
 
 const styleBox = {
@@ -27,32 +21,11 @@ const styleBox = {
 };
 
 function BookDetailModal() {
-  //   const handleClose = () => setOpen(false);
-  const [open, setOpen] = useState(false);
   const { openedBook, setOpenedBook } = useContext(bookContext);
-
-  function livrePLS() {
-    // permet de charger une cover de livre si la base de donnée n'en renvoi pas
-    if (livre.cover === undefined) {
-      return PLS;
-    } else {
-      return livre.cover;
-    }
-  }
-
-  function textPLS() {
-    // permet de charger un resumer de livre si celui-ci n'en dispose pas
-    if (livre.resume === undefined) {
-      return <>Résumé pas trouvé dans la base de donnée.</>;
-    } else {
-      return livre.resume;
-    }
-  }
-
   if (!openedBook) return null;
 
-  const livre = openedBook;
-  const users = livre.donors;
+  const book = openedBook;
+  const users = book.donors;
 
   return (
     <Modal
@@ -71,24 +44,35 @@ function BookDetailModal() {
           component="h2"
           sx={{ textAlign: "center", mb: 2 }}
         >
-          {livre.title}
+          {book.title}
         </Typography>
 
         <Box sx={{ display: { xs: "block", md: "flex" } }}>
-          <CardMedia
-            component="img"
-            image={livrePLS()}
-            alt="seigneur"
+          <Box
             sx={{
               maxWidth: { xs: "250px", md: "500px" },
               height: "auto",
               padding: { xs: "auto", md: "0px 20px 15px 0px" },
             }}
-          />
+          >
+            {book.cover ? (
+              <img
+                className="imageCovers"
+                alt="Book cover"
+                src={book.cover}
+              ></img>
+            ) : (
+              <img
+                className="imageCovers"
+                alt="Generic book cover"
+                src={bookDefaultCover}
+              ></img>
+            )}
+          </Box>
 
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
             <p>
-              <b>Auteur:</b> {livre.author}{" "}
+              <b>Auteur:</b> {book.author}{" "}
             </p>
 
             <Box
@@ -97,8 +81,12 @@ function BookDetailModal() {
                 display: { md: "inline" },
               }}
             >
-              {/* xs: "none" */}
-              <b>Résumé: </b> {textPLS()}
+              <b>Résumé: </b>{" "}
+              {book.resume ? (
+                <Typography>{book.resume}</Typography>
+              ) : (
+                <Typography>Pas de résumé trouvé pour ce livre.</Typography>
+              )}
             </Box>
           </Box>
         </Box>

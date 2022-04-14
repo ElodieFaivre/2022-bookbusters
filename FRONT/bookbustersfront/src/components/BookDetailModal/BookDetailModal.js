@@ -19,15 +19,15 @@ const styleBox = {
   transform: "translate(-50%, -50%)",
   width: "95%",
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
+  boxShadow: 20,
   p: 2,
   maxHeight: "90vh",
   overflowY: "auto",
+  borderRadius: "5px",
 };
 
 function BookDetailModal() {
-  const handleClose = () => setOpen(false);
+  //   const handleClose = () => setOpen(false);
   const [open, setOpen] = useState(false);
   const { openedBook, setOpenedBook } = useContext(bookContext);
 
@@ -80,10 +80,9 @@ function BookDetailModal() {
             image={livrePLS()}
             alt="seigneur"
             sx={{
-              mr: 2,
-              maxWidth: "200px",
+              maxWidth: { xs: "250px", md: "500px" },
               height: "auto",
-              margin: { xs: "auto", md: "0px 20px 15px 0px" },
+              padding: { xs: "auto", md: "0px 20px 15px 0px" },
             }}
           />
 

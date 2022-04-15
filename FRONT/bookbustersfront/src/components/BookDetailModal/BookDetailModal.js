@@ -14,6 +14,7 @@ import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Tooltip } from "@mui/material";
 
 const styleBox = {
@@ -38,6 +39,7 @@ function BookDetailModal() {
   const [donation, setDonation] = useState(true);
 
   if (!openedBook) return null;
+
   const handleAlertButton = () => {
     setalert(!alert);
   };
@@ -50,7 +52,9 @@ function BookDetailModal() {
   const handleDonationButton = () => {
     setDonation(!donation);
   };
-
+  const handleCloseModal = () => {
+    setOpenedBook(null);
+  };
   const book = openedBook;
   const users = book.donors;
 
@@ -65,6 +69,11 @@ function BookDetailModal() {
       }}
     >
       <Box sx={styleBox}>
+        <Box sx={{ textAlign: "right" }}>
+          <IconButton onClick={handleCloseModal}>
+            <CloseIcon sx={{ color: "black" }} fontSize="small" />
+          </IconButton>
+        </Box>
         <Typography
           id="modal-modal-title"
           variant="h6"
@@ -97,7 +106,7 @@ function BookDetailModal() {
             )}
           </Box>
           {/* Zone des icones d'interactions */}
-          <Box>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Tooltip
               title="Ajoutez ce livre à vos favoris"
               arrow

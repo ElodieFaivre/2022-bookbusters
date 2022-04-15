@@ -16,22 +16,18 @@ function Books() {
     latestAddition(setData);
   }, [setData]);
 
-  /* useEffect(() => {
-    axios.get("http://localhost:5000/v1/book").then((res) => setData(res.data));
-  }, []); */
   return (
     <>
-      {/*console.log(data.user)*/}
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-evenly",
+          alignItems: "center",
+          width: { md: "70%" },
+          margin: "auto",
         }}
       >
-        {/*data.map((livre, index) => (
-          <Book key={index} livre={livre} />
-        ))*/}
         {data.map((livre, index) => (
           <Book
             key={`je-suis-unique-${index}`}

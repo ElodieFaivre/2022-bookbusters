@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -8,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-
 import PLS from "../../assets/img/simpson.jpg";
-
 import "./Book.scss";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import bookContext from "../../contexts/BookContext";
@@ -26,7 +23,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 export default function Book({ livre, users }) {
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
@@ -36,7 +32,6 @@ export default function Book({ livre, users }) {
       return livre.cover;
     }
   }
-
   function textPLS() {
     // permet de charger un resumer de livre si celui-ci n'en dispose pas
     if (livre.resume === undefined) {
@@ -56,29 +51,32 @@ export default function Book({ livre, users }) {
       return livre.resume;
     }
   }
-
   //console.log(livre);
   const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { setOpenedBook } = useContext(bookContext);
-
   return (
     <>
       <Button onClick={() => setOpenedBook(livre)}>
         <Card
           sx={{
-            maxWidth: 150,
+            maxWidth: "200px",
             m: 2,
+            height: "500px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
           <CardMedia component="img" image={livrePLS()} alt="seigneur" />
-          <CardContent>
-            <Typography
-              gutterBottom
-              /*variant="h5" */ sx={{ fontSize: "1.2em" }}
-              component="div"
-            >
+          <CardContent
+            sx={{
+              overflowY: "auto",
+              marginBottom: " 1px",
+            }}
+          >
+            <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.2em" }} component="div">
               {livre.title}
             </Typography>
             <Typography variant="body1" color="text.secondary">

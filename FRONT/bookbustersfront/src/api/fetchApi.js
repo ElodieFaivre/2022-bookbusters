@@ -92,7 +92,33 @@ export async function searchBooks(search, limit = 10, start = 0) {
     console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
-    console.log("error");
+    console.log(error);
+  }
+}
+
+export async function updateBookStatus(bookStatus) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const bookStatusResponse = await axios.post(
+      "/v1/book",
+      {
+        isbn13: bookStatus.isnb13,
+        isbn10: bookStatus.isbn10,
+        is_in_library: bookStatus.library,
+        is_in_donation: bookStatus.donation,
+        is_in_favorite: bookStatus.favorit,
+        is_in_alert: bookStatus.alert,
+      },
+      config
+    );
+
+    return bookStatusResponse;
+  } catch (error) {
+    console.log(error);
   }
 }
 

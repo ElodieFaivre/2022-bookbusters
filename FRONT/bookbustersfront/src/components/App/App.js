@@ -83,7 +83,7 @@ function App() {
                   <Route path="/Library" element={<Library />} />
                 </Route>
 
-                {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
+                {/* Routes SANS JWT*/}
                 <Route
                   element={
                     <AuthenticatedRoute redirect="/" connectedOnly={false} />

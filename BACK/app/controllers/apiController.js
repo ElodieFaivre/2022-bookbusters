@@ -14,11 +14,12 @@ module.exports = {
         } else {
             connectedUserId = Number(req.body.user.userId);
         }
-      
+
         const APIResult = await requestAPIs.findBookByISBN(req.params.isbn);
 
         if (!APIResult) {
-            throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 404 });
+            return res.json([])
+            //throw new ApiError('Sorry, book with this ISBN not found', { statusCode: 404 });
         }
 
         const book = await bookReformatter.reformat([APIResult], connectedUserId);
@@ -49,7 +50,8 @@ module.exports = {
         let books = await google.findBookByKeyword(keyWords, limit, page);
 
         if (!books) {
-            throw new ApiError('Sorry, book with this keyword not found', { statusCode: 404 });
+            return res.json([])
+           // throw new ApiError('Sorry, book with this keyword not found', { statusCode: 404 });
         }
 
         books = await bookReformatter.reformat(books, connectedUserId);
@@ -60,7 +62,8 @@ module.exports = {
     async getBookWithWorldCat(req, res) {
         const book = await worldCat.findBookByISBN(req.params.isbn);
         if (!book) {
-            throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 404);
+            return res.json([])
+            //throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 404);
         }
         return res.json(book);
     },

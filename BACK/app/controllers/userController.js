@@ -178,7 +178,7 @@ module.exports = {
         jwt.sign(
             { userId: foundUser.id },
             process.env.SECRET_TOKEN_KEY,
-            { expiresIn: '30m' },
+            { expiresIn: '2h' },
             (err, token) => {
                 res.json({
                     token,

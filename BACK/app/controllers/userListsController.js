@@ -25,7 +25,7 @@ module.exports = {
         const library = await userListsDataMapper.findAllBooksInLibrary(RouteUserId);
 
         if (!library) {
-            return res.json('{ no book in library }');
+            return res.json([]);
         }
 
         const books = await bookReformatter.reformat(library.books);
@@ -52,7 +52,7 @@ module.exports = {
         const favorites = await userListsDataMapper.findAllBooksInFavorite(RouteUserId);
 
         if (!favorites) {
-            return res.json('{ no book in favorite }');
+            return res.json([]);
         }
 
         const books = await bookReformatter.reformat(favorites.books);
@@ -79,7 +79,7 @@ module.exports = {
         const alerts = await userListsDataMapper.findAllBooksInAlert(RouteUserId);
 
         if (!alerts) {
-            return res.json('{ no book in alert }');
+            return res.json([]);
         }
 
         const books = await bookReformatter.reformat(alerts.books);
@@ -101,7 +101,7 @@ module.exports = {
     },
 
 };
-// Service scheduled at 3 AM to find all the zombi books (ie relation book/user 
+// Service scheduled at 3 AM to find all the zombi books (ie relation book/user
 // with donation date more than 210 days) and deletion of the link between the user and the book
 cron.schedule('0 0 3 * *', async () => {
     const zombiBooks = await userDataMapper.findUsersWithZombiBooks();

@@ -1,3 +1,4 @@
+import payloadDecode from "../utils/payloadDecode";
 import axios from "./axios";
 
 export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
@@ -89,12 +90,15 @@ export async function searchBooks(search, limit = 10, start = 0) {
 
 export async function favoritesBooks(setData) {
   try {
+    const payload = payloadDecode();
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const responseFavoritesBooks = await axios.get(`/v1/user/3/favorite`, config).then((res) => setData(res.data));
+    const responseFavoritesBooks = await axios
+      .get(`/v1/user/${payload.userId}/favorite`, config)
+      .then((res) => setData(res.data));
     return responseFavoritesBooks;
   } catch (error) {
     console.log(error);
@@ -103,12 +107,15 @@ export async function favoritesBooks(setData) {
 
 export async function libraryBooks(setLibrary) {
   try {
+    const payload = payloadDecode();
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const responseLibraryBooks = await axios.get(`/v1/user/3/library`, config).then((res) => setLibrary(res.data));
+    const responseLibraryBooks = await axios
+      .get(`/v1/user/${payload.userId}/library`, config)
+      .then((res) => setLibrary(res.data));
     return responseLibraryBooks;
   } catch (error) {
     console.log(error);
@@ -117,12 +124,15 @@ export async function libraryBooks(setLibrary) {
 
 export async function myAlertsBooks(setAlert) {
   try {
+    const payload = payloadDecode();
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const responseMyAlertsBooks = await axios.get(`/v1/user/3/alert`, config).then((res) => setAlert(res.data));
+    const responseMyAlertsBooks = await axios
+      .get(`/v1/user/${payload.userId}/alert`, config)
+      .then((res) => setAlert(res.data));
     return responseMyAlertsBooks;
   } catch (error) {
     console.log(error);

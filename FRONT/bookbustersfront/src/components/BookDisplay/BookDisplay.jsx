@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { favoritesBooks, libraryBooks, myAlertsBooks } from "../../api/fetchApi";
+import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import BookDisplayModel from "../BookDisplayModel/BookDisplayModel";
 
 const BookDisplay = () => {
@@ -19,12 +20,22 @@ const BookDisplay = () => {
   //console.log(data);
 
   function locationMap() {
-    if (location.pathname === "/Favorites") {
+    /*if (location.pathname === "/Favorites") {
       return data;
     } else if (location.pathname === "/Library") {
       return library;
     } else if (location.pathname === "/MyAlerts") {
       return alert;
+    }*/
+    switch (location.pathname) {
+      case "/Favorites":
+        return data;
+      case "/Library":
+        return library;
+      case "/MyAlerts":
+        return alert;
+      default:
+        return null;
     }
   }
 
@@ -41,6 +52,7 @@ const BookDisplay = () => {
       {attenteReceptionDonnees()
         ? locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)
         : "false "}
+      <BookDetailModal />
     </div>
   );
 };

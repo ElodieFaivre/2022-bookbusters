@@ -65,15 +65,11 @@ export const registerUser = (
       handleRegisterSuccess();
     })
     .catch((error) => {
-<<<<<<< HEAD
-      if (error.response && error.response.data && error.response.data.message) {
-=======
       if (
         error.response &&
         error.response.data &&
         error.response.data.message
       ) {
->>>>>>> dev
         setErrorAlert(error.response.data.message);
       } else {
         setErrorAlert("Une erreur est survenue lors de l'inscription.");
@@ -89,14 +85,10 @@ export async function searchBooks(search, limit = 10, start = 0) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-<<<<<<< HEAD
-    const responseSearchResult = await axios.get(`/v1/book/search?q=${search}&limit=${limit}&start=${start}`, config);
-=======
     const responseSearchResult = await axios.get(
       `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
       config
     );
->>>>>>> dev
     console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {

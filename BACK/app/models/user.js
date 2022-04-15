@@ -5,7 +5,6 @@ const client = require('../config/database');
  * @property {number} id - Identifiant unique, Pk de la table
  * @property {string} username
  * @property {string} email
- * @property {string} password
  * @property {string} bio
  * @property {string} location
  * @property {boolean} mail_donation
@@ -23,6 +22,13 @@ const client = require('../config/database');
  * @property {boolean} mail_donation - default TRUE
  * @property {boolean} mail_alert - default TRUE
  * @property {number} avatar_id - default 1
+ */
+
+/**
+ * @typedef {object} BookRelation
+ * @property {number} user_id
+ * @property {number} book_count
+ * @property {[BookUser]} password
  */
 
 /**
@@ -45,6 +51,30 @@ const userDataMapper = {
     async findOneUserByEmail(userEmail) {
         const result = await client.query('SELECT * FROM "user" WHERE email = $1', [userEmail]);
         return result.rows[0];
+    },
+
+    async findUsersInAlert(ISBN) {
+        const result = await client.query(`SELECT * from 
+            ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+            INNER JOIN book ON user_has_book.book_id = book.id
+            WHERE is_in_alert = true AND isbn13 = $1 OR isbn10 = $1`, [ISBN]);
+        return result.rows;
+    },
+
+    async findUsersWithExpiredBook() {
+        const result = await client.query(`SELECT * from 
+        ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+        INNER JOIN book ON user_has_book.book_id = book.id
+        WHERE is_in_donation = true AND DATE_PART('day', NOW() - donation_date) = 180 OR DATE_PART('day', NOW() - donation_date) = 187`);
+        return result.rows;
+    },
+
+    async findUsersWithZombiBooks() {
+        const result = await client.query(`SELECT * from 
+        ("user" INNER JOIN user_has_book ON user_has_book.user_id = "user".id)
+        INNER JOIN book ON user_has_book.book_id = book.id
+        WHERE is_in_donation = true AND DATE_PART('day', NOW() - donation_date) >= 210`);
+        return result.rows;
     },
 
     /**
@@ -143,6 +173,22 @@ const userDataMapper = {
         );
 
         return savedUser.rows[0];
+    },
+
+    async swithTheAccountActive(id) {
+        const activeAccount = await client.query(
+            `
+                UPDATE "user" SET
+                    active_account = true
+                WHERE id = $1
+                RETURNING *
+            `,
+            [id],
+        );
+        if (!activeAccount) {
+            return null;
+        }
+        return activeAccount;
     },
 };
 

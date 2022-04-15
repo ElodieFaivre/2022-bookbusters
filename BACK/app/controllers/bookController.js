@@ -111,7 +111,7 @@ module.exports = {
         );
 
         if (booksAroundMe.length === 0) {
-            throw new ApiError('No book around you', { statusCode: 404 });
+           return res.json('No book around you');
         }
 
         let bookIds = [];

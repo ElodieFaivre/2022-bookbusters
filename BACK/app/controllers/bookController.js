@@ -26,7 +26,8 @@ module.exports = {
         let books = await bookDataMapper.findBooksInDonation(connectedUserId, page);
 
         if (books.length === 0) {
-            throw new ApiError('no new book in donation', { statusCode: 404 });
+            return res.json([]);
+            //throw new ApiError('no new book in donation', { statusCode: 404 });
         }
 
         books = await bookReformatter.reformat(books, req.body.user);

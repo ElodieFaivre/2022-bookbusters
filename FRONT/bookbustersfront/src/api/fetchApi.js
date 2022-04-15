@@ -36,7 +36,12 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
 };
 
 export const latestAddition = (setData) => {
-  axios.get("/v1/book").then((res) => setData(res.data));
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios.get("/v1/book", config).then((res) => setData(res.data));
 };
 
 export const registerUser = (
@@ -89,10 +94,10 @@ export async function searchBooks(search, limit = 10, start = 0) {
       `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
       config
     );
-    console.log(responseSearchResult);
+    // console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
-    console.log(error);
+    console.log("Nous n'avons pas trouvé de résultats");
   }
 }
 
@@ -103,6 +108,7 @@ export async function updateBookStatus(bookStatus) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
+    console.log(bookStatus);
     const bookStatusResponse = await axios.post(
       "/v1/book",
       {
@@ -127,6 +133,7 @@ export const fetchApi = {
   registerUser,
   searchBooks,
   usersAroundMe,
+  updateBookStatus,
 };
 
 export default fetchApi;

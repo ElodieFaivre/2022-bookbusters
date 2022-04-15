@@ -36,12 +36,23 @@ const styleBox = {
 
 function BookDetailModal() {
   const { openedBook, setOpenedBook } = useContext(bookContext);
-  const [library, setLibrary] = useState(true);
-  const [favorit, setFavorit] = useState(true);
-  const [alert, setAlert] = useState(true);
-  const [donation, setDonation] = useState(true);
+
+  const [library, setLibrary] = useState();
+  const [favorit, setFavorit] = useState();
+  const [alert, setAlert] = useState();
+  const [donation, setDonation] = useState();
+
+  useEffect(() => {
+    if (openedBook?.connected_user) {
+      !library && setLibrary(openedBook.connected_user.is_in_library);
+      !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
+      !alert && setAlert(openedBook.connected_user.is_in_alert);
+      !donation && setDonation(openedBook.connected_user.is_in_donation);
+    }
+  }, [openedBook]);
 
   if (!openedBook) return null;
+
   const book = openedBook;
   const users = book.donors;
 
@@ -80,11 +91,12 @@ function BookDetailModal() {
     const result = await updateBookStatus(bookStatus);
 
     if (result) {
+      console.log(result.data);
       const updatedStatus = {
-        library: result.conected_user.is_in_library,
-        favorit: result.conected_user.is_in_favorite,
-        alert: result.connected_user.is_in_alert,
-        donation: result.connected_user.is_in_donation,
+        library: result.data.connected_user.is_in_library,
+        favorit: result.data.connected_user.is_in_favorite,
+        alert: result.data.connected_user.is_in_alert,
+        donation: result.data.connected_user.is_in_donation,
       };
       setLibrary(updatedStatus.library);
       setFavorit(updatedStatus.favorit);
@@ -145,78 +157,80 @@ function BookDetailModal() {
             )}
           </Box>
           {/* Zone des icones d'interactions */}
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Tooltip
-              title="Ajoutez ce livre à vos favoris"
-              arrow
-              placement="right"
-            >
-              <IconButton
-                onClick={() => {
-                  handleUpdateBookStatus("favorit");
-                }}
+          {localStorage.getItem("jwt") && (
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Tooltip
+                title="Ajoutez ce livre à vos favoris"
+                arrow
+                placement="right"
               >
-                {favorit ? (
-                  <FavoriteIcon sx={{ color: "red" }} />
-                ) : (
-                  <FavoriteBorderIcon />
-                )}
-              </IconButton>
-            </Tooltip>
-            <Tooltip
-              title="Ajoutez ce livre à votre bilbiothèque"
-              arrow
-              placement="right"
-            >
-              <IconButton
-                onClick={() => {
-                  handleUpdateBookStatus("library");
-                }}
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("favorit");
+                  }}
+                >
+                  {favorit ? (
+                    <FavoriteIcon sx={{ color: "red" }} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                title="Ajoutez ce livre à votre bilbiothèque"
+                arrow
+                placement="right"
               >
-                {library ? (
-                  <BookIcon sx={{ color: "brown" }} />
-                ) : (
-                  <BookOutlinedIcon />
-                )}
-              </IconButton>
-            </Tooltip>
-            <Tooltip
-              title="Activez la donation pour ce livre"
-              arrow
-              placement="right"
-            >
-              {/*Déclaration de fonction pour ne pas déclencher le onClick au
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("library");
+                  }}
+                >
+                  {library ? (
+                    <BookIcon sx={{ color: "brown" }} />
+                  ) : (
+                    <BookOutlinedIcon />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                title="Activez la donation pour ce livre"
+                arrow
+                placement="right"
+              >
+                {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
-              <IconButton
-                onClick={() => {
-                  handleUpdateBookStatus("donation");
-                }}
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("donation");
+                  }}
+                >
+                  {donation ? (
+                    <VolunteerActivismIcon sx={{ color: "blue" }} />
+                  ) : (
+                    <VolunteerActivismOutlinedIcon />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                title="Ajoutez une alerte pour ce livre"
+                arrow
+                placement="right"
               >
-                {donation ? (
-                  <VolunteerActivismIcon sx={{ color: "blue" }} />
-                ) : (
-                  <VolunteerActivismOutlinedIcon />
-                )}
-              </IconButton>
-            </Tooltip>
-            <Tooltip
-              title="Ajoutez une alerte pour ce livre"
-              arrow
-              placement="right"
-            >
-              <IconButton
-                onClick={() => {
-                  handleUpdateBookStatus("alert");
-                }}
-              >
-                {alert ? (
-                  <AddAlertIcon sx={{ color: "green" }} />
-                ) : (
-                  <AddAlertOutlinedIcon />
-                )}
-              </IconButton>
-            </Tooltip>
-          </Box>
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("alert");
+                  }}
+                >
+                  {alert ? (
+                    <AddAlertIcon sx={{ color: "green" }} />
+                  ) : (
+                    <AddAlertOutlinedIcon />
+                  )}
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
           {/* Zone des textes */}
           <Box
             id="modal-modal-description"

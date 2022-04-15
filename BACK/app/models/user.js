@@ -6,7 +6,7 @@ const client = require('../config/database');
  * @property {string} username
  * @property {string} email
  * @property {string} bio
- * @property {string} location
+ * @property {string} Location
  * @property {boolean} mail_donation
  * @property {boolean} mail_alert
  * @property {number} avatar_id
@@ -18,7 +18,7 @@ const client = require('../config/database');
  * @property {string} email
  * @property {string} password
  * @property {string} bio
- * @property {string} location - exemple : "(0,0)"
+ * @property {string} codeCommune - exemple : "10115"
  * @property {boolean} mail_donation - default TRUE
  * @property {boolean} mail_alert - default TRUE
  * @property {number} avatar_id - default 1

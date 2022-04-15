@@ -1,4 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
+import BookDisplay from "../components/BookDisplay/BookDisplay";
 import ButtonsLibrary from "../components/ButtonsLibrary/ButtonsLibrary";
 import Header from "../components/Header/Header";
 
@@ -21,6 +22,7 @@ const Library = () => {
         </Paper>
       </Box>
       <ButtonsLibrary />
+      <BookDisplay />
     </div>
   );
 };

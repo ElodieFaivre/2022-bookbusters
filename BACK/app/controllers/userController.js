@@ -213,7 +213,7 @@ module.exports = {
         if (!user) {
             throw new ApiError('User id not found', { statusCode: 400 });
         } else {
-            res.json(user);
+            res.redirect('http://localhost:3000/signin');
         }
     },
 };

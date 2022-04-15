@@ -1,5 +1,6 @@
 import { Box, Paper, Typography } from "@mui/material";
 import React from "react";
+import BookDisplay from "../components/BookDisplay/BookDisplay";
 import ButtonsLibrary from "../components/ButtonsLibrary/ButtonsLibrary";
 
 import Header from "../components/Header/Header";
@@ -23,6 +24,7 @@ const MyAlerts = () => {
         </Paper>
       </Box>
       <ButtonsLibrary />
+      <BookDisplay />
     </>
   );
 };

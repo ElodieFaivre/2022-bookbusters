@@ -83,7 +83,49 @@ export async function searchBooks(search, limit = 10, start = 0) {
     console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
-    console.log("error");
+    console.log(error);
+  }
+}
+
+export async function favoritesBooks(setData) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseFavoritesBooks = await axios.get(`/v1/user/3/favorite`, config).then((res) => setData(res.data));
+    return responseFavoritesBooks;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function libraryBooks(setLibrary) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseLibraryBooks = await axios.get(`/v1/user/3/library`, config).then((res) => setLibrary(res.data));
+    return responseLibraryBooks;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function myAlertsBooks(setAlert) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseMyAlertsBooks = await axios.get(`/v1/user/3/alert`, config).then((res) => setAlert(res.data));
+    return responseMyAlertsBooks;
+  } catch (error) {
+    console.log(error);
   }
 }
 

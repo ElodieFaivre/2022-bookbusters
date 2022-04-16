@@ -11,7 +11,7 @@ const Error = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "15%",
+          marginTop: "5vh",
         }}
       >
         <Paper
@@ -23,14 +23,16 @@ const Error = () => {
           }}
           elevation="15"
         >
-          <Typography variant="h4">
+          <Typography variant="h6">Vous vous êtes égaré !</Typography>
+          <br />
+          <Typography variant="h5">
             {" "}
             Ceci est une erreur 404, notre PO n'est pas content et vous remercie
             de rebrousser chemin il n'a pas finis de tester son scanner
             d'ISBN...
           </Typography>
-          <p>Vous vous êtes égaré !</p>
-          <Box component="img" src={poPasContent} width="100%" />
+          <br />
+          <Box component="img" src={poPasContent} width="50vw" />
         </Paper>
       </Box>
     </>

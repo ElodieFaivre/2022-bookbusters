@@ -27,8 +27,6 @@ import { Link, useNavigate } from "react-router-dom";
 import alertContext from "../../contexts/AlertContext";
 
 function ContactFormDonation() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
@@ -68,8 +66,6 @@ function ContactFormDonation() {
                   label="Pseudo"
                   helperText="4 à 24 caractères / doit commencer par une lettre / lettres, nombres et tirets autorisés"
                   autoFocus
-                  onChange={({ target }) => setUsername(target.value)}
-                  value={username}
                 />
               </Grid>
 
@@ -81,8 +77,6 @@ function ContactFormDonation() {
                   label="Votre adresse email"
                   name="email"
                   autoComplete="email"
-                  onChange={({ target }) => setEmail(target.value)}
-                  value={email}
                 />
               </Grid>
               <Grid item xs={12}>

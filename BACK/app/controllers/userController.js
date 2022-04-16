@@ -216,4 +216,10 @@ module.exports = {
             res.redirect('http://localhost:3000/signin');
         }
     },
+
+    async contactDonor(req,res){
+        await mailer.contactBookDonor(req.body);
+        res.json('email envoyé');
+
+    }
 };

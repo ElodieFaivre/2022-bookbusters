@@ -16,7 +16,6 @@ router
      * @param {string} isbn.path.required - book ISBN
      * @security BearerAuth
      * @return {Book} 200 - success response - application/json
-     * @return  {ApiError} 404 - Book not found
      */
     .get(
         controllerHandler(verifyTokenWithoutError),

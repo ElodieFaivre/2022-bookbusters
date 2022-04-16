@@ -8,6 +8,8 @@ import "@fontsource/roboto";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "../../pages/Home";
+import Scan from '../../pages/Scan';
+import Scanner from '../../pages/Scanner';
 import Error from "../../pages/Error";
 import Account from "../../pages/Account";
 import Credits from "../../pages/Credits";
@@ -50,53 +52,76 @@ themeOptions = responsiveFontSizes(themeOptions);
 
 function App() {
   return (
-    <ThemeProvider theme={themeOptions}>
-      <CssBaseline />
-      <BrowserRouter>
-        <AuthProvider>
-          <AlertProvider>
-            <BookProvider>
-              <Routes>
-                {/* Routes toujours accessibles */}
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<Error />} />
-                <Route path="/Credits" element={<Credits />} />
-                <Route path="/Contact" element={<Contact />} />
-                <Route path="/AroundMe" element={<AroundMe />} />
-                <Route path="/SearchResults" element={<SearchResults />} />
-                {/* Routes avec JWT*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute
-                      redirect="/SignIn"
-                      connectedOnly={true}
-                    />
-                  }
-                >
-                  <Route path="/Account" element={<Account />} />
-                  <Route path="/myAlerts" element={<MyAlerts />} />
-                  <Route path="/Favorites" element={<Favorites />} />
-                  <Route path="/Library" element={<Library />} />
-                </Route>
+      <ThemeProvider theme={themeOptions}>
+          <CssBaseline />
+          <BrowserRouter>
+              <AuthProvider>
+                  <AlertProvider>
+                      <BookProvider>
+                          <Routes>
+                              {/* Routes toujours accessibles */}
+                              <Route path='/' element={<Home />} />
+                              <Route path='*' element={<Error />} />
+                              <Route path='/Credits' element={<Credits />} />
+                              <Route path='/Contact' element={<Contact />} />
+                              <Route path='/AroundMe' element={<AroundMe />} />
+                              <Route
+                                  path='/SearchResults'
+                                  element={<SearchResults />}
+                              />
+                              <Route path='/scan' element={<Scan />} />
+                              <Route path='/scan' element={<Scanner />} />
+                              {/* Routes avec JWT*/}
+                              <Route
+                                  element={
+                                      <AuthenticatedRoute
+                                          redirect='/SignIn'
+                                          connectedOnly={true}
+                                      />
+                                  }
+                              >
+                                  <Route
+                                      path='/Account'
+                                      element={<Account />}
+                                  />
+                                  <Route
+                                      path='/myAlerts'
+                                      element={<MyAlerts />}
+                                  />
+                                  <Route
+                                      path='/Favorites'
+                                      element={<Favorites />}
+                                  />
+                                  <Route
+                                      path='/Library'
+                                      element={<Library />}
+                                  />
+                              </Route>
 
-                {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute redirect="/" connectedOnly={false} />
-                  }
-                >
-                  {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
-                  <Route path="/SignIn" element={<SignInSide />} />
-                  <Route path="/SignUp" element={<SignUp />} />
-                </Route>
-              </Routes>
+                              {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
+                              <Route
+                                  element={
+                                      <AuthenticatedRoute
+                                          redirect='/'
+                                          connectedOnly={false}
+                                      />
+                                  }
+                              >
+                                  {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
+                                  <Route
+                                      path='/SignIn'
+                                      element={<SignInSide />}
+                                  />
+                                  <Route path='/SignUp' element={<SignUp />} />
+                              </Route>
+                          </Routes>
 
-              <Alert />
-            </BookProvider>
-          </AlertProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+                          <Alert />
+                      </BookProvider>
+                  </AlertProvider>
+              </AuthProvider>
+          </BrowserRouter>
+      </ThemeProvider>
   );
 }
 

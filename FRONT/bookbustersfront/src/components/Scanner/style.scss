@@ -1,0 +1,96 @@
+#scanner {
+    display: flex;
+    align-items: center;
+    flex-flow: column wrap;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#reader > div:first-of-type {
+    display: none !important;
+}
+
+#reader #qr-shaded-region {
+    border-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/*
+#reader #qr-shaded-region div {
+    background-color: crimson !important;
+}
+*/
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+@media (max-width: 599px) {
+    #reader,
+    #reader video,
+    #reader #reader__scan_region {
+        width: 100vw !important;
+    }
+}
+
+@media (min-width: 600px) {
+    #reader,
+    #reader video,
+    #reader #reader__scan_region {
+        width: 600px !important;
+    }
+}
+
+.Result-container {
+    min-width: 600px;
+    margin: auto;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.Result-header {
+    font-size: 16pt;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 800px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+th,
+td {
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+th {
+    text-align: left;
+}
+thead th {
+    background-color: #55608f;
+}
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+tbody td {
+    position: relative;
+}
+tbody td:hover:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+}
+
+a {
+    color: white;
+}

@@ -6,7 +6,8 @@ import Modal from "@mui/material/Modal";
 import bookContext from "../../contexts/BookContext";
 import bookDefaultCover from "../../assets/img/simpson.jpg";
 import { Button, IconButton, Stack, Tooltip } from "@mui/material";
-
+// Import React-Router-Dom
+import { Link } from "react-router-dom";
 // Import des icones pour la modale
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -271,13 +272,18 @@ function BookDetailModal() {
                   <Typography align="center" sx={{ width: "50%" }}>
                     {user?.username}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    endIcon={<SendIcon />}
-                    sx={{ width: "50%" }}
+                  <Link
+                    to="/ContactFormDonation"
+                    style={{ color: "#000", textDecoration: "underline" }}
                   >
-                    Contactez cette personne
-                  </Button>
+                    <Button
+                      variant="contained"
+                      endIcon={<SendIcon />}
+                      sx={{ width: "50%" }}
+                    >
+                      Contactez cette personne
+                    </Button>
+                  </Link>
                 </Box>
               ))}
             </>

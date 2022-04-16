@@ -25,6 +25,7 @@ import SignUp from "../../pages/SignUp";
 import AroundMe from "../../pages/AroundMe";
 import AuthenticatedRoute from "../AuthenticatedRoute";
 import Alert from "../Alert/Alert";
+import ContactFormDonation from "../ContactFormDonation/ContactFormDonation";
 
 import { AuthProvider } from "../../contexts/AuthContext";
 import { AlertProvider } from "../../contexts/AlertContext";
@@ -81,6 +82,10 @@ function App() {
                   <Route path="/myAlerts" element={<MyAlerts />} />
                   <Route path="/Favorites" element={<Favorites />} />
                   <Route path="/Library" element={<Library />} />
+                  <Route
+                    path="/ContactFormDonation"
+                    element={<ContactFormDonation />}
+                  />
                 </Route>
 
                 {/* Routes SANS JWT*/}

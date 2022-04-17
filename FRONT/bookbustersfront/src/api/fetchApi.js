@@ -97,6 +97,24 @@ export async function searchBooks(search, limit = 10, start = 0) {
   }
 }
 
+export async function searchBookByISBN(isbn) {
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+            },
+        };
+        const responseResult = await axios.get(
+            `/v1/book/isbn/${isbn}`,
+            config,
+        );
+        console.log(responseResult);
+        return responseResult;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function favoritesBooks(setData) {
   try {
     const payload = payloadDecode();

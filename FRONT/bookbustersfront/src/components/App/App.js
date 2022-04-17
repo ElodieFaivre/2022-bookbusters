@@ -9,7 +9,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "../../pages/Home";
 import Scan from '../../pages/Scan';
-import Scanner from '../../pages/Scanner';
 import Error from "../../pages/Error";
 import Account from "../../pages/Account";
 import Credits from "../../pages/Credits";
@@ -70,7 +69,6 @@ function App() {
                                   element={<SearchResults />}
                               />
                               <Route path='/scan' element={<Scan />} />
-                              <Route path='/scan' element={<Scanner />} />
                               {/* Routes avec JWT*/}
                               <Route
                                   element={

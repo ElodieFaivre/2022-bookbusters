@@ -8,7 +8,7 @@ import "@fontsource/roboto";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "../../pages/Home";
-import Scan from '../../pages/Scan';
+import ScanPage from '../../pages/ScanPage';
 import Error from "../../pages/Error";
 import Account from "../../pages/Account";
 import Credits from "../../pages/Credits";
@@ -68,7 +68,7 @@ function App() {
                                   path='/SearchResults'
                                   element={<SearchResults />}
                               />
-                              <Route path='/scan' element={<Scan />} />
+                              <Route path='/scan' element={<ScanPage />} />
                               {/* Routes avec JWT*/}
                               <Route
                                   element={

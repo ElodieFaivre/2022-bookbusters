@@ -52,6 +52,7 @@ const Scan = () => {
 
         async function onScanSuccess(decodedText, decodedResult) {
             html5QrcodeScanner.pause();
+            console.log(html5QrcodeScanner.getState());
 
             const scannedISBN = decodedText;
 
@@ -76,8 +77,13 @@ const Scan = () => {
     }, []);
 
     useEffect(() => {
-        if (!openedBook && scanner) {
-            scanner.resume();
+        if (scanner) {
+            if (!openedBook && scanner.getState() === 3) {
+                scanner.resume();
+                console.log(scanner.getState());
+            } else if (scanner.getState() === 2) {
+                scanner.pause();
+            }
         }
     }, [openedBook]);
 

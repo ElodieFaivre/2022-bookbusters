@@ -29,10 +29,17 @@ const ScanPage = () => {
                     />
                 </Box>
                 <br />
+                Cadre le code barre de ton livre ou saisi-le dans le champs
+                ci-dessous
+                <br />
+                <br />
                 <Box
                     sx={{
-                        border: '2px solid red',
-                        width: '600px',
+                        border: '1px solid silver',
+                        width: '100%',
+                        maxWidth: '600px',
+                        borderRadius: '5px',
+                        marginBottom: '40px',
                     }}
                 >
                     <SearchISBNBar />

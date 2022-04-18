@@ -1,46 +1,52 @@
-import React, { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { useState, useContext} from "react";
+import FlipIcon from "@mui/icons-material/Flip";
 import { Search, SearchIconWrapper, StyledInputBase } from "./SearchISBNBar.style";
-// import { searchBooks } from "../../api/fetchApi";
-import { useNavigate } from "react-router-dom";
-import { searchBooks } from "../../api/fetchApi";
+import { searchBookByISBN } from '../../api/fetchApi';
+import bookContext from '../../contexts/BookContext';
 import { Typography } from "@mui/material";
 
-const SearchBar = () => {
-  const [search, setSearch] = useState("");
+const SearchISBNBar = () => {
+  const [isbn, setIsbn] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const navigate = useNavigate();
+  const { setOpenedBook } = useContext(bookContext);
 
   const handleSubmitSearch = async (event) => {
     event.preventDefault();
-    const response = await searchBooks(search);
-    // console.log(response.data);
-    navigate("/SearchResults", { state: response.data });
+    const response = await searchBookByISBN(isbn);
+    setOpenedBook(response.data);
     setErrMsg("");
   };
 
   return (
-    <Search component="form" onSubmit={handleSubmitSearch}>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      {errMsg && (
-        <Typography
-          variant="body2s"
-          color="error"
-          sx={{ mt: 2, textAlign: "center" }}
-        >
-          {errMsg}
-        </Typography>
-      )}
-      <StyledInputBase
-        placeholder="Saisissez l'ISBN du livre"
-        inputProps={{ "aria-label": "search" }}
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-      />
-    </Search>
+      <Search
+          component='form'
+          onSubmit={handleSubmitSearch}
+          sx={{
+              width: '100% !important',
+              maxWidth: '600px',
+              marginLeft: '0 !important',
+              textAlign: 'left',
+          }}
+      >
+          <SearchIconWrapper>
+              <FlipIcon />
+          </SearchIconWrapper>
+          {errMsg && (
+              <Typography variant='body2s' color='error' sx={{ mt: 2 }}>
+                  {errMsg}
+              </Typography>
+          )}
+          <StyledInputBase
+              placeholder="Saisissez l'ISBN de votre livre"
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => setIsbn(e.target.value)}
+              value={isbn}
+              sx={{
+                  width: '100% !important',
+              }}
+          />
+      </Search>
   );
 };
 
-export default SearchBar;
+export default SearchISBNBar;

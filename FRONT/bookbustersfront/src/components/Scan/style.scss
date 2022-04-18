@@ -1,11 +1,13 @@
+#reader {
+    border-radius: 0 0 5px 5px;
+}
+
 #reader > div:first-of-type {
     display: none !important;
 }
 
 @media (max-width: 599px) {
-    #reader,
-    #reader video,
-    #reader #reader__scan_region {
+    #reader {
         width: 100% !important;
     }
 }
@@ -15,5 +17,10 @@
     #reader video,
     #reader #reader__scan_region {
         width: 600px !important;
+    }
+
+    #reader video,
+    #reader #reader__scan_region {
+        width: 598px !important;
     }
 }

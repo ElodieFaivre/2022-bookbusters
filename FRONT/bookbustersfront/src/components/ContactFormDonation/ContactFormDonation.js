@@ -18,6 +18,7 @@ import {
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import bookContext from "../../contexts/BookContext";
 import authContext from "../../contexts/AuthContext";
+import userContext from "../../contexts/UserContext";
 
 // Import Composants
 import Header from "../Header/Header";
@@ -32,13 +33,12 @@ function ContactFormDonation() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
+  const { userInfo } = useContext(userContext);
+  console.log(userInfo);
   const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
   const { openedBook, setOpenedBook } = useContext(bookContext);
   const [connected, setConnected] = useState(false);
-  console.log(connected);
 
-  console.log(openedBook);
   return (
     <div>
       <Header />
@@ -68,28 +68,29 @@ function ContactFormDonation() {
               <Grid item xs={12}>
                 <TextField
                   name="pseudo"
-                  required
                   fullWidth
                   id="pseudo"
                   label="Pseudo"
-                  value={username}
                   autoFocus
+                  defaultValue={userInfo.username}
+                  disabled
                 />
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="Votre adresse email"
                   name="email"
+                  defaultValue={userInfo.email}
                   autoComplete="email"
-                  value={email}
+                  disabled
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  autoFocus="true"
                   multiline
                   rows={5}
                   defaultValue="Bonjour, votre livre est-il toujours au don ? "

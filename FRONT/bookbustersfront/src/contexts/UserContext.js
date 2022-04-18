@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const userContext = createContext();
 
@@ -13,3 +13,5 @@ export function UserProvider({ children }) {
 }
 
 export default userContext;
+
+// j'ai besoin de rendre les informations de ce contexte persistante.

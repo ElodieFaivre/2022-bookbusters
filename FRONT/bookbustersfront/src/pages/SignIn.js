@@ -35,7 +35,7 @@ export default function SignInSide() {
   const [errMsg, setErrMsg] = useState("");
 
   const { logIn } = useContext(authContext);
-  const { setUserContext } = useContext(userContext);
+  const { setUserInfo } = useContext(userContext);
 
   const navigate = useNavigate();
 
@@ -50,8 +50,8 @@ export default function SignInSide() {
     setLogin("");
     setPwd("");
     logIn(token);
-    console.log(user);
-    setUserContext(user);
+    console.log(setUserInfo);
+    setUserInfo(user);
     setErrMsg("");
     navigate("/");
   };

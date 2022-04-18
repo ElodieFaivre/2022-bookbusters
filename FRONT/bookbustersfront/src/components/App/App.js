@@ -21,6 +21,8 @@ import SignUp from "../../pages/SignUp";
 import AroundMe from "../../pages/AroundMe";
 import AuthenticatedRoute from "../AuthenticatedRoute";
 import Alert from "../Alert/Alert";
+import DonationRenewing from "../../pages/DonationRenewing";
+
 
 import { AuthProvider } from "../../contexts/AuthContext";
 import { AlertProvider } from "../../contexts/AlertContext";
@@ -64,6 +66,7 @@ function App() {
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/AroundMe" element={<AroundMe />} />
                 <Route path="/SearchResults" element={<SearchResults />} />
+                <Route path="/DonationRenewing" element={<DonationRenewing />} />
                 {/* Routes avec JWT*/}
                 <Route
                   element={

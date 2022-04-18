@@ -21,6 +21,7 @@ import Header from "../components/Header/Header";
 import LibrarySign from "../assets/img/library.jpg";
 import Copyright from "../components/Copyright/Copyright";
 import authContext from "../contexts/AuthContext";
+import userContext from "../contexts/UserContext";
 
 // Import composant Link React-Router
 import { Link, useNavigate } from "react-router-dom";
@@ -34,16 +35,23 @@ export default function SignInSide() {
   const [errMsg, setErrMsg] = useState("");
 
   const { logIn } = useContext(authContext);
+  const { setUserContext } = useContext(userContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     setErrMsg("");
+    return () => {
+      setErrMsg("");
+    };
   }, [login, password]);
 
-  const handleLoginSuccess = (token) => {
+  const handleLoginSuccess = (token, user) => {
     setLogin("");
     setPwd("");
     logIn(token);
+    console.log(user);
+    setUserContext(user);
     setErrMsg("");
     navigate("/");
   };

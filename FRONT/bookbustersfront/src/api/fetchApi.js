@@ -7,7 +7,8 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
       password,
     })
     .then(({ data }) => {
-      handleLoginSuccess(data.token);
+      console.log(data.user);
+      handleLoginSuccess(data.token, data.user);
     })
     .catch((error) => {
       if (error.response) {

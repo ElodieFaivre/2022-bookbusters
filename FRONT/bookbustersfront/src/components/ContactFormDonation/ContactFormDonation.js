@@ -16,6 +16,8 @@ import {
   Container,
 } from "@mui/material";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import bookContext from "../../contexts/BookContext";
+import authContext from "../../contexts/AuthContext";
 
 // Import Composants
 import Header from "../Header/Header";
@@ -28,9 +30,15 @@ import alertContext from "../../contexts/AlertContext";
 
 function ContactFormDonation() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
   const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
+  const { openedBook, setOpenedBook } = useContext(bookContext);
+  const [connected, setConnected] = useState(false);
+  console.log(connected);
 
+  console.log(openedBook);
   return (
     <div>
       <Header />
@@ -64,7 +72,7 @@ function ContactFormDonation() {
                   fullWidth
                   id="pseudo"
                   label="Pseudo"
-                  helperText="4 à 24 caractères / doit commencer par une lettre / lettres, nombres et tirets autorisés"
+                  value={username}
                   autoFocus
                 />
               </Grid>
@@ -77,6 +85,7 @@ function ContactFormDonation() {
                   label="Votre adresse email"
                   name="email"
                   autoComplete="email"
+                  value={email}
                 />
               </Grid>
               <Grid item xs={12}>

@@ -27,10 +27,11 @@ import AuthenticatedRoute from "../AuthenticatedRoute";
 import Alert from "../Alert/Alert";
 import ContactFormDonation from "../ContactFormDonation/ContactFormDonation";
 
+import SearchResults from "../SearchResults/SearchResults";
 import { AuthProvider } from "../../contexts/AuthContext";
 import { AlertProvider } from "../../contexts/AlertContext";
-import SearchResults from "../SearchResults/SearchResults";
 import { BookProvider } from "../../contexts/BookContext";
+import { UserProvider } from "../../contexts/UserContext";
 
 let themeOptions = createTheme({
   palette: {
@@ -61,46 +62,48 @@ function App() {
         <AuthProvider>
           <AlertProvider>
             <BookProvider>
-              <Routes>
-                {/* Routes toujours accessibles */}
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<Error />} />
-                <Route path="/Credits" element={<Credits />} />
-                <Route path="/Contact" element={<Contact />} />
-                <Route path="/AroundMe" element={<AroundMe />} />
-                <Route path="/SearchResults" element={<SearchResults />} />
-                {/* Routes avec JWT*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute
-                      redirect="/SignIn"
-                      connectedOnly={true}
-                    />
-                  }
-                >
-                  <Route path="/Account" element={<Account />} />
-                  <Route path="/myAlerts" element={<MyAlerts />} />
-                  <Route path="/Favorites" element={<Favorites />} />
-                  <Route path="/Library" element={<Library />} />
+              <UserProvider>
+                <Routes>
+                  {/* Routes toujours accessibles */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="*" element={<Error />} />
+                  <Route path="/Credits" element={<Credits />} />
+                  <Route path="/Contact" element={<Contact />} />
+                  <Route path="/AroundMe" element={<AroundMe />} />
+                  <Route path="/SearchResults" element={<SearchResults />} />
+                  {/* Routes avec JWT*/}
                   <Route
-                    path="/ContactFormDonation"
-                    element={<ContactFormDonation />}
-                  />
-                </Route>
+                    element={
+                      <AuthenticatedRoute
+                        redirect="/SignIn"
+                        connectedOnly={true}
+                      />
+                    }
+                  >
+                    <Route path="/Account" element={<Account />} />
+                    <Route path="/myAlerts" element={<MyAlerts />} />
+                    <Route path="/Favorites" element={<Favorites />} />
+                    <Route path="/Library" element={<Library />} />
+                    <Route
+                      path="/ContactFormDonation"
+                      element={<ContactFormDonation />}
+                    />
+                  </Route>
 
-                {/* Routes SANS JWT*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute redirect="/" connectedOnly={false} />
-                  }
-                >
-                  {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
-                  <Route path="/SignIn" element={<SignInSide />} />
-                  <Route path="/SignUp" element={<SignUp />} />
-                </Route>
-              </Routes>
+                  {/* Routes SANS JWT*/}
+                  <Route
+                    element={
+                      <AuthenticatedRoute redirect="/" connectedOnly={false} />
+                    }
+                  >
+                    {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
+                    <Route path="/SignIn" element={<SignInSide />} />
+                    <Route path="/SignUp" element={<SignUp />} />
+                  </Route>
+                </Routes>
 
-              <Alert />
+                <Alert />
+              </UserProvider>
             </BookProvider>
           </AlertProvider>
         </AuthProvider>

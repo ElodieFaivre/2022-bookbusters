@@ -2,10 +2,6 @@
 import React, { useState, useContext } from "react";
 // Imports MUI
 import {
-  FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
   Avatar,
   Button,
   Grid,
@@ -16,9 +12,10 @@ import {
   Container,
 } from "@mui/material";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
-import bookContext from "../../contexts/BookContext";
-import authContext from "../../contexts/AuthContext";
+
 import userContext from "../../contexts/UserContext";
+import alertContext from "../../contexts/AlertContext";
+import bookContext from "../../contexts/BookContext";
 
 // Import Composants
 import Header from "../Header/Header";
@@ -27,18 +24,45 @@ import Copyright from "../Copyright/Copyright";
 // Import React-Router-Dom
 import { Link, useNavigate } from "react-router-dom";
 
-import alertContext from "../../contexts/AlertContext";
-
 function ContactFormDonation() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const { userInfo } = useContext(userContext);
-  console.log(userInfo);
-  const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
   const { openedBook, setOpenedBook } = useContext(bookContext);
-  const [connected, setConnected] = useState(false);
+  const { userInfo } = useContext(userContext);
 
+  const [message, setMessage] = useState(
+    `Bonjour, votre livre ${openedBook.title} est-il toujours au don ?`
+  );
+  const [username, setUsername] = useState("");
+
+  const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
+  console.log(openedBook);
+  const navigate = useNavigate();
+
+  console.log(userInfo);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let errors = [];
+
+    // vérification du message de l'utilisateur
+    if (message.length == 0) {
+      errors.push("Veuillez écrire un message au donateur");
+    }
+    if (errors.length > 0) {
+      return setErrorAlert(errors.join(", "));
+    }
+
+    (userInfo.email = user_email),
+      (userInfo.username = setUsername),
+      (openedBook.donors.email = donor_email),
+      (openedBook.title = book_title),
+      message;
+    console.log(user_email, user_fullname, donor_email, book_title);
+    // A envoyer au back : title of book, donor (email), user email, username, message
+    // contactDonor(
+    // );
+    const handleFormDonationSuccess = () => {};
+    setSuccessAlert("Votre demande auprès du donateur a été envoyée");
+  };
   return (
     <div>
       <Header />
@@ -58,10 +82,19 @@ function ContactFormDonation() {
           <Typography component="h1" variant="h5">
             Contactez le donateur
           </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              padding: 2,
+            }}
+          >
+            Vous contactez <strong>{openedBook.donors[0].username}</strong> pour
+            le livre <strong>{openedBook.title}</strong>
+          </Typography>
           <Box
             component="form"
             noValidate
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -70,7 +103,7 @@ function ContactFormDonation() {
                   name="pseudo"
                   fullWidth
                   id="pseudo"
-                  label="Pseudo"
+                  label="Votre pseudo"
                   autoFocus
                   defaultValue={userInfo.username}
                   disabled
@@ -99,9 +132,8 @@ function ContactFormDonation() {
                   id="message"
                   label="Votre message au donateur"
                   name="message"
-
-                  // onChange={}
-                  // value={email}
+                  value={message}
+                  onChange={({ target }) => setMessage(target.value)}
                 />
               </Grid>
             </Grid>

@@ -129,12 +129,35 @@ export async function updateBookStatus(bookStatus) {
   }
 }
 
+// export const contactDonor = (message, userInfo.email, userinfo.username ) => {
+//   axios
+//   .post("/v1/login", {
+//     login,
+//     password,
+//   })
+//   .then(({ data }) => {
+//     // console.log(data.user);
+//     handleLoginSuccess(data.token, data.user);
+//   })
+//   .catch((error) => {
+//     if (error.response) {
+//       console.log(error.response.data.message);
+//       setErrMsg(
+//         (error.response.data.message = "Login ou mot de passe incorrect")
+//       );
+//     } else {
+//       setErrMsg("Une erreur s'est produite");
+//     }
+//   });
+// }
+
 export const fetchApi = {
   connectUser,
   registerUser,
   searchBooks,
   usersAroundMe,
   updateBookStatus,
+  // contactDonor,
 };
 
 export default fetchApi;

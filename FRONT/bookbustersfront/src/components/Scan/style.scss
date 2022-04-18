@@ -1,0 +1,19 @@
+#reader > div:first-of-type {
+    display: none !important;
+}
+
+@media (max-width: 599px) {
+    #reader,
+    #reader video,
+    #reader #reader__scan_region {
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 600px) {
+    #reader,
+    #reader video,
+    #reader #reader__scan_region {
+        width: 600px !important;
+    }
+}

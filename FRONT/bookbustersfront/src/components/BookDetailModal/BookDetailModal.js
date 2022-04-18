@@ -58,7 +58,7 @@ function BookDetailModal({ callback = () => {} }) {
   return (
     <Modal
       open={Boolean(openedBook)}
-      onClose={() => {callback(); setOpenedBook(null)}}
+      onClose={() => setOpenedBook(null)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       sx={{

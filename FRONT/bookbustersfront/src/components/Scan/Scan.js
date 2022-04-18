@@ -36,10 +36,10 @@ const ScannerConfig = {
     // },
 };
 
-const Scan = ({ setBook, isModalOpen, onResolve }) => {
+const Scan = () => {
     const isbnRegexp = /^97[8-9]\d{10}$/;
     const [scanner, setScanner] = useState();
-    const { setOpenedBook } = useContext(bookContext);
+    const { openedBook, setOpenedBook } = useContext(bookContext);
 
     useEffect(() => {
         const html5QrcodeScanner = new Html5QrcodeScanner(
@@ -63,7 +63,6 @@ const Scan = ({ setBook, isModalOpen, onResolve }) => {
                 console.log(`Scan ok, the ISBN is : ${scannedISBN}`);
 
                 const response = await searchBookByISBN(scannedISBN);
-                onResolve();
                 setOpenedBook(response.data);
             } else {
                 console.log(
@@ -77,10 +76,10 @@ const Scan = ({ setBook, isModalOpen, onResolve }) => {
     }, []);
 
     useEffect(() => {
-        if (!isModalOpen && scanner) {
+        if (!openedBook && scanner) {
             scanner.resume();
         }
-    }, [isModalOpen]);
+    }, [openedBook]);
 
     return (
         <div id='scanner'>

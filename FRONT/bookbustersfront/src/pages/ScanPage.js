@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 
 import Scanner from '../components/Scan/Scan';
@@ -38,10 +38,7 @@ const ScanPage = () => {
                     <SearchISBNBar />
                 </Box>
             </Box>
-
-            {isModalOpen && (
-                <BookDetailModal callback={() => setIsModalOpen(false)} />
-            )}
+            <BookDetailModal />
         </>
     );
 };

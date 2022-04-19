@@ -1,5 +1,5 @@
 // Imports REACT
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 // Imports MUI
 import {
   Avatar,
@@ -13,11 +13,11 @@ import {
 } from "@mui/material";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 
-import userContext from "../../contexts/UserContext";
 import alertContext from "../../contexts/AlertContext";
 import bookContext from "../../contexts/BookContext";
-import { contactDonor } from "../../api/fetchApi";
+import { contactDonor, getUserInfo } from "../../api/fetchApi";
 import donatorContext from "../../contexts/DonatorContext";
+import payloadDecode from "../../utils/payloadDecode";
 // Import Composants
 import Header from "../Header/Header";
 import Copyright from "../Copyright/Copyright";
@@ -27,8 +27,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 function ContactFormDonation() {
   const { openedBook, setOpenedBook } = useContext(bookContext);
-  const { userInfo } = useContext(userContext);
+  // const { userInfo } = useContext(userContext);
   const { donatorInfo } = useContext(donatorContext);
+  // récupere le décodage du token jwt qui est dans localStorages
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    getUserInfo(setUserInfo);
+  }, []);
 
   console.log(openedBook);
   console.log(userInfo);
@@ -57,16 +63,14 @@ function ContactFormDonation() {
     const book_title = openedBook.title;
 
     contactDonor(user_email, user_fullname, donor_email, book_title, message);
-
-    // console.log(user_email, user_fullname, donor_email, book_title);
-    // A envoyer au back : title of book, donor (email), user email, username, message
-    //
-
-    const handleFormDonationSuccess = () => {};
     setSuccessAlert("Votre demande auprès du donateur a été envoyée");
   };
 
   if (!donatorInfo) {
+    return null;
+  }
+
+  if (!userInfo) {
     return null;
   }
 
@@ -130,10 +134,9 @@ function ContactFormDonation() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  autoFocus="true"
+                  autoFocus={true}
                   multiline
                   rows={5}
-                  defaultValue="Bonjour, votre livre est-il toujours au don ? "
                   required
                   fullWidth
                   id="message"

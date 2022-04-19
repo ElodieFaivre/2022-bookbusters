@@ -35,7 +35,10 @@ function SearchResults() {
           {searchResultsAPI[0] ? (
             searchResultsAPI.map((book) => (
               <Paper
-                onClick={() => setOpenedBook(book)}
+                onClick={() => {
+                  setOpenedBook(book);
+                  console.log(book);
+                }}
                 key={book.isbn13}
                 elevation={15}
                 sx={{

@@ -52,6 +52,12 @@ function BookDetailModal() {
       !alert && setAlert(openedBook.connected_user.is_in_alert);
       !donation && setDonation(openedBook.connected_user.is_in_donation);
     }
+    if (openedBook && !openedBook.connected_user) {
+      setLibrary(false);
+      setFavorit(false);
+      setAlert(false);
+      setDonation(false);
+    }
   }, [openedBook]);
 
   if (!openedBook) return null;
@@ -95,7 +101,7 @@ function BookDetailModal() {
       default:
         break;
     }
-
+    console.log(bookStatus);
     const result = await updateBookStatus(bookStatus);
     if (result === false) {
       switch (statusToUpdate) {
@@ -115,19 +121,6 @@ function BookDetailModal() {
           break;
       }
     }
-    // if (result) {
-    //   console.log(result.data);
-    //   const updatedStatus = {
-    //     library: result.data.connected_user.is_in_library,
-    //     favorit: result.data.connected_user.is_in_favorite,
-    //     alert: result.data.connected_user.is_in_alert,
-    //     donation: result.data.connected_user.is_in_donation,
-    //   };
-    //   setLibrary(updatedStatus.library);
-    //   setFavorit(updatedStatus.favorit);
-    //   setAlert(updatedStatus.alert);
-    //   setDonation(updatedStatus.donation);
-    // }
   };
 
   const handleCloseModal = () => {

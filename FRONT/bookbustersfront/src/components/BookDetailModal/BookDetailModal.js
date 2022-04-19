@@ -35,11 +35,22 @@ const styleBox = {
   borderRadius: "5px",
 };
 
-function BookDetailModal() {
+function BookDetailModal({ callback = () => {} }) {
+  //   const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
   const { openedBook, setOpenedBook } = useContext(bookContext);
   const { setDonatorInfo } = useContext(donatorContext);
   const navigate = useNavigate();
 
+  
+  //function livrePLS() {
+  //  // permet de charger une cover de livre si la base de donnée n'en renvoi pas
+  //  if (livre.cover === undefined) {
+  //    return PLS;
+  //  } else {
+  //    return livre.cover;
+  //  }
+  //}
   const [library, setLibrary] = useState();
   const [favorit, setFavorit] = useState();
   const [alert, setAlert] = useState();

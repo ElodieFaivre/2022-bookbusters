@@ -12,6 +12,7 @@ import "@fontsource/roboto";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "../../pages/Home";
+import ScanPage from '../../pages/ScanPage';
 import Error from "../../pages/Error";
 import Account from "../../pages/Account";
 import Credits from "../../pages/Credits";
@@ -86,7 +87,8 @@ function App() {
                     >
                     
                 
-                  <Route path="/Account" element={<Account />} /> 
+                  <Route path="/Account" element={<Account />} />
+                  <Route path='/scan' element={<ScanPage />} />
                   <Route path="/myAlerts" element={<MyAlerts />} /> 
                   <Route path="/Favorites" element={<Favorites />} />
                   <Route path="/Library" element={<Library />} />

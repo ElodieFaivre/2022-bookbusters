@@ -1,17 +1,26 @@
-import React, { useState, useContext } from "react";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-//import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-
-import PLS from "../../assets/img/simpson.jpg";
 import bookContext from "../../contexts/BookContext";
-
+import bookDefaultCover from "../../assets/img/simpson.jpg";
+import { Button, IconButton, Stack, Tooltip } from "@mui/material";
+// Import React-Router-Dom
+import { Link } from "react-router-dom";
+// Import des icones pour la modale
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BookIcon from "@mui/icons-material/Book";
+import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
+import { updateBookStatus } from "../../api/fetchApi";
+import donatorContext from "../../contexts/DonatorContext";
 const styleBox = {
   position: "absolute",
   top: { xs: "50%", md: "50%" },
@@ -27,32 +36,96 @@ const styleBox = {
 };
 
 function BookDetailModal() {
-  //   const handleClose = () => setOpen(false);
-  const [open, setOpen] = useState(false);
   const { openedBook, setOpenedBook } = useContext(bookContext);
+  const { setDonatorInfo } = useContext(donatorContext);
+  const navigate = useNavigate();
 
-  function livrePLS() {
-    // permet de charger une cover de livre si la base de donnée n'en renvoi pas
-    if (livre.cover === undefined) {
-      return PLS;
-    } else {
-      return livre.cover;
-    }
-  }
+  const [library, setLibrary] = useState();
+  const [favorit, setFavorit] = useState();
+  const [alert, setAlert] = useState();
+  const [donation, setDonation] = useState();
 
-  function textPLS() {
-    // permet de charger un resumer de livre si celui-ci n'en dispose pas
-    if (livre.resume === undefined) {
-      return <>Résumé pas trouvé dans la base de donnée.</>;
-    } else {
-      return livre.resume;
+  useEffect(() => {
+    if (openedBook?.connected_user) {
+      !library && setLibrary(openedBook.connected_user.is_in_library);
+      !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
+      !alert && setAlert(openedBook.connected_user.is_in_alert);
+      !donation && setDonation(openedBook.connected_user.is_in_donation);
     }
-  }
+    if (openedBook && !openedBook.connected_user) {
+      setLibrary(false);
+      setFavorit(false);
+      setAlert(false);
+      setDonation(false);
+    }
+  }, [openedBook]);
 
   if (!openedBook) return null;
 
-  const livre = openedBook;
-  const users = livre.donors;
+  const book = openedBook;
+  const users = book.donors;
+
+  const handleDonorButton = (donator) => {
+    console.log(donator);
+    setDonatorInfo(donator);
+    navigate("/ContactFormDonation");
+  };
+  // Inverser tout de suite la valeur de l'état pour des questions de cycles de vie
+  // nous sommes dans le meme cycle de vie
+  const handleUpdateBookStatus = async (statusToUpdate) => {
+    let bookStatus = {
+      library,
+      favorit,
+      donation,
+      alert,
+      isbn10: book.isbn10,
+      isbn13: book.isbn13,
+    };
+    switch (statusToUpdate) {
+      case "library":
+        setLibrary(!library);
+        bookStatus.library = !library;
+        break;
+      case "favorit":
+        setFavorit(!favorit);
+        bookStatus.favorit = !favorit;
+        break;
+      case "donation":
+        setDonation(!donation);
+        bookStatus.donation = !donation;
+        break;
+      case "alert":
+        setAlert(!alert);
+        bookStatus.alert = !alert;
+        break;
+      default:
+        break;
+    }
+    console.log(bookStatus);
+    const result = await updateBookStatus(bookStatus);
+    if (result === false) {
+      switch (statusToUpdate) {
+        case "library":
+          setLibrary(library);
+          break;
+        case "favorit":
+          setFavorit(favorit);
+          break;
+        case "donation":
+          setDonation(donation);
+          break;
+        case "alert":
+          setAlert(alert);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setOpenedBook(null);
+  };
 
   return (
     <Modal
@@ -65,51 +138,114 @@ function BookDetailModal() {
       }}
     >
       <Box sx={styleBox}>
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          sx={{ textAlign: "center", mb: 2 }}
-        >
-          {livre.title}
+        <Box sx={{ textAlign: "right" }}>
+          <IconButton onClick={handleCloseModal}>
+            <CloseIcon sx={{ color: "black" }} fontSize="small" />
+          </IconButton>
+        </Box>
+        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
+          {book.title}
         </Typography>
-
+        {/* Zone des cover des livres */}
         <Box sx={{ display: { xs: "block", md: "flex" } }}>
-          <CardMedia
-            component="img"
-            image={livrePLS()}
-            alt="seigneur"
+          <Box
             sx={{
               maxWidth: { xs: "250px", md: "500px" },
               height: "auto",
               padding: { xs: "auto", md: "0px 20px 15px 0px" },
             }}
-          />
-
-          <Box id="modal-modal-description" sx={{ mt: 2 }}>
-            <p>
-              <b>Auteur:</b> {livre.author}{" "}
-            </p>
-
+          >
+            {book.cover ? (
+              <img className="imageCovers" alt="Book cover" src={book.cover}></img>
+            ) : (
+              <img className="imageCovers" alt="Generic book cover" src={bookDefaultCover}></img>
+            )}
+          </Box>
+          {/* Zone des icones d'interactions */}
+          {localStorage.getItem("jwt") && (
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Tooltip title="Ajoutez ce livre à vos favoris" arrow placement="right">
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("favorit");
+                  }}
+                >
+                  {favorit ? <FavoriteIcon sx={{ color: "red" }} /> : <FavoriteBorderIcon />}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Ajoutez ce livre à votre bilbiothèque" arrow placement="right">
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("library");
+                  }}
+                >
+                  {library ? <BookIcon sx={{ color: "brown" }} /> : <BookOutlinedIcon />}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Activez la donation pour ce livre" arrow placement="right">
+                {/*Déclaration de fonction pour ne pas déclencher le onClick au
+              chargement de la page*/}
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("donation");
+                  }}
+                >
+                  {donation ? <VolunteerActivismIcon sx={{ color: "blue" }} /> : <VolunteerActivismOutlinedIcon />}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Ajoutez une alerte pour ce livre" arrow placement="right">
+                <IconButton
+                  onClick={() => {
+                    handleUpdateBookStatus("alert");
+                  }}
+                >
+                  {alert ? <AddAlertIcon sx={{ color: "green" }} /> : <AddAlertOutlinedIcon />}
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
+          {/* Zone des textes */}
+          <Box id="modal-modal-description" sx={{ margin: "0px 15px 0px 15px" }}>
+            <Typography variant="overline">Auteur:</Typography>
+            <Typography>{book.author}</Typography>
             <Box
-              component="p"
               sx={{
                 display: { md: "inline" },
               }}
             >
-              {/* xs: "none" */}
-              <b>Résumé: </b> {textPLS()}
+              <Typography variant="overline"> Résumé:</Typography>
+              {book.resume ? <Box>{book.resume}</Box> : <Typography>Pas de résumé trouvé pour ce livre.</Typography>}
             </Box>
           </Box>
         </Box>
-        <Box>
+        {/* Zone des donateurs */}
+        <Stack>
           {users && users.length > 0 && (
             <>
-              Livre disponible chez :{" "}
+              <Typography variant="h5" align="center" sx={{ mb: "10px", mt: "10px" }}>
+                Livre disponible chez
+              </Typography>
               {users.map((user, index) => (
-                <span className="bookUserOwner" key={index}>
-                  {user.username}
-                </span>
+                <Box className="bookUserOwner" key={index} sx={{ mb: "5px", display: "flex", flexDirection: "row" }}>
+                  <Typography align="center" sx={{ width: "50%" }}>
+                    {user?.username} {console.log(user)}
+                  </Typography>
+                  {/* <Link
+                    to="/ContactFormDonation"
+                    style={{ color: "#000", textDecoration: "underline" }}
+                  >
+                  </Link> */}
+                  <Button
+                    variant="contained"
+                    endIcon={<SendIcon />}
+                    sx={{ width: "50%" }}
+                    onClick={() => {
+                      handleDonorButton(user);
+                    }}
+                  >
+                    Contactez cette personne
+                  </Button>
+                </Box>
               ))}
             </>
           )}
@@ -118,7 +254,7 @@ function BookDetailModal() {
               <Typography>Personne ne possède le livre !</Typography>
             </>
           )}
-        </Box>
+        </Stack>
       </Box>
     </Modal>
   );

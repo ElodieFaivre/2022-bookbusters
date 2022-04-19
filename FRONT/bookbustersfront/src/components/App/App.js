@@ -1,6 +1,10 @@
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import "@fontsource/rubik-wet-paint";
 import "@fontsource/roboto";
 
@@ -23,11 +27,14 @@ import AuthenticatedRoute from "../AuthenticatedRoute";
 import Alert from "../Alert/Alert";
 import DonationRenewing from "../../pages/DonationRenewing";
 
+import ContactFormDonation from "../ContactFormDonation/ContactFormDonation";
 
+import SearchResults from "../SearchResults/SearchResults";
 import { AuthProvider } from "../../contexts/AuthContext";
 import { AlertProvider } from "../../contexts/AlertContext";
-import SearchResults from "../SearchResults/SearchResults";
 import { BookProvider } from "../../contexts/BookContext";
+
+import { DonatorProvider } from "../../contexts/DonatorContext";
 
 let themeOptions = createTheme({
   palette: {
@@ -58,6 +65,7 @@ function App() {
         <AuthProvider>
           <AlertProvider>
             <BookProvider>
+            <DonatorProvider>
               <Routes>
                 {/* Routes toujours accessibles */}
                 <Route path="/" element={<Home />} />
@@ -73,28 +81,25 @@ function App() {
                     <AuthenticatedRoute
                       redirect="/SignIn"
                       connectedOnly={true}
-                    />
-                  }
-                >
-                  <Route path="/Account" element={<Account />} />
-                  <Route path="/myAlerts" element={<MyAlerts />} />
-                  <Route path="/Favorites" element={<Favorites />} />
-                  <Route path="/Library" element={<Library />} />
-                </Route>
+                      />
+                    }>
+                    
+                  </Route>
 
-                {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute redirect="/" connectedOnly={false} />
-                  }
-                >
-                  {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
-                  <Route path="/SignIn" element={<SignInSide />} />
-                  <Route path="/SignUp" element={<SignUp />} />
-                </Route>
-              </Routes>
+                  {/* Routes SANS JWT*/}
+                  <Route
+                    element={
+                      <AuthenticatedRoute redirect="/" connectedOnly={false} />
+                    }
+                  >
+                    {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
+                    <Route path="/SignIn" element={<SignInSide />} />
+                    <Route path="/SignUp" element={<SignUp />} />
+                  </Route>
+                </Routes>
 
-              <Alert />
+                <Alert />
+              </DonatorProvider>
             </BookProvider>
           </AlertProvider>
         </AuthProvider>

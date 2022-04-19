@@ -8,7 +8,7 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
       password,
     })
     .then(({ data }) => {
-      handleLoginSuccess(data.token);
+      handleLoginSuccess(data.token, data.user);
     })
     .catch((error) => {
       if (error.response) {
@@ -28,7 +28,7 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,
-      radius: "200",
+      radius: "2000",
     })
     .then((response) => setpositionUser(response.data))
     .catch((error) => {
@@ -37,7 +37,12 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
 };
 
 export const latestAddition = (setData) => {
-  axios.get("/v1/book").then((res) => setData(res.data));
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios.get("/v1/book", config).then((res) => setData(res.data));
 };
 
 export const registerUser = (
@@ -54,13 +59,11 @@ export const registerUser = (
       username,
       email,
       password,
-      // bio: "gnagnagna",
-      location: "(48.8833024, 2.3789568)",
       postalCode,
       communeCode,
-      mail_donation: true,
-      mail_alert: true,
-      // avatar_id: "1",
+      // mail_donation: true,
+      // mail_alert: true,
+      avatar_id: "1",
     })
     .then(() => {
       handleRegisterSuccess();
@@ -90,9 +93,11 @@ export async function searchBooks(search, limit = 10, start = 0) {
       `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
       config
     );
-    console.log(responseSearchResult);
+    // console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
+    console.log("Nous n'avons pas trouvé de résultats");
+
     console.log(error);
   }
 }
@@ -148,11 +153,85 @@ export async function myAlertsBooks(setAlert) {
   }
 }
 
+export async function updateBookStatus(bookStatus) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    console.log(bookStatus);
+    const bookStatusResponse = await axios.post(
+      "/v1/book",
+      {
+        isbn13: bookStatus.isnb13,
+        isbn10: bookStatus.isbn10,
+        is_in_library: bookStatus.library,
+        is_in_donation: bookStatus.donation,
+        is_in_favorite: bookStatus.favorit,
+        is_in_alert: bookStatus.alert,
+      },
+      config
+    );
+
+    return bookStatusResponse;
+  } catch (error) {
+    return false;
+    // console.log(error);
+  }
+}
+
+export const contactDonor = (
+  user_email,
+  user_fullname,
+  donor_email,
+  book_title,
+  message
+) => {
+  console.log(user_email, user_fullname, donor_email, book_title, message);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios
+    .post(
+      "/v1/user/contact",
+      { user_email, user_fullname, donor_email, book_title, message },
+      config
+    )
+    .then(({ data }) => {
+      console.log(data);
+      // handleLoginSuccess(data.token, data.user);
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data.message);
+      } else {
+      }
+    });
+};
+
+export const getUserInfo = (setUserInfo) => {
+  const payload = payloadDecode();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios.get(`/v1/user/${payload.userId}`, config).then((response) => {
+    setUserInfo(response.data);
+  });
+};
+
 export const fetchApi = {
   connectUser,
   registerUser,
   searchBooks,
   usersAroundMe,
+  updateBookStatus,
+  contactDonor,
+  getUserInfo,
 };
 
 export default fetchApi;

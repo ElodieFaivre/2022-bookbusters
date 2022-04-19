@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 const { getMaxListeners } = require("process");
 const userDataMapper = require('../models/user');
 const google = require('../services/google');
+const ApiError = require('../errors/apiError');
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -41,24 +42,39 @@ const mailer = {
             { expiresIn: '1d' },
             (err, emailToken) => {
                 const url = `${process.env.BASE_URL}/confirmation/${emailToken}`;
-                transporter.sendMail({
-                    from: '"bookbustersfrance@gmail.com"', // sender address
-                    to: `${user.email}`,
-                    subject: "Confirmation de l'adresse email",
-                    html: `Merci de cliquer sur le lien suivant pour confirmer votre email:<a href=${url}>${url}</a>`
-                });
+                try {
+                    transporter.sendMail({
+                        from: '"bookbustersfrance@gmail.com"', // sender address
+                        to: `${user.email}`,
+                        subject: "Confirmation de l'adresse email",
+                        html: `Merci de cliquer sur le lien suivant pour confirmer votre email:<a href=${url}>${url}</a>`
+                    });
+                }
+                catch (err) {
+                    console.log('je suis dans lerreur mail', err);
+                    throw new ApiError('email not valid', { statusCode: 400 });
+                }
+
             },
         );
+
+
     },
 
     async contactBookDonor(message) {
-        transporter.sendMail({
-            from: '"bookbustersfrance@gmail.com"', // sender address
-            to: `${message.donor_email}`, // list of receivers
-            subject: `${message.user_fullname} est interessé par votre livre ${message.book_title}`, // Subject line
-            text: "BookBusters", // plain text body
-            html: `<b>Cher(e) BookBuster</b><br><b>${message.user_fullname} est interessé par votre livre ${message.book_title}. Voici son message :  ${message.message}. Vous pouvez le contacter par mail à l'adresse suivante : ${message.user_email} <br><b>L'équipe BookBusters</b>`, // html body
-        });
+        try {
+            await transporter.sendMail({
+                from: '"bookbustersfrance@gmail.com"', // sender address
+                to: `${message.donor_email}`, // list of receivers
+                subject: `${message.user_fullname} est interessé par votre livre ${message.book_title}`, // Subject line
+                text: "BookBusters", // plain text body
+                html: `<b>Cher(e) BookBuster</b><br><b>${message.user_fullname} est interessé par votre livre ${message.book_title}. Voici son message :  ${message.message}. Vous pouvez le contacter par mail à l'adresse suivante : ${message.user_email} <br><b>L'équipe BookBusters</b>`, // html body
+            });
+        }
+        catch (err) {
+            throw new ApiError('email not valid', { statusCode: 400 });
+        }
+
     }
 };
 

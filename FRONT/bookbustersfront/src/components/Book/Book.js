@@ -23,18 +23,21 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function Book({ livre, users }) {
+
+
+export default function Book({ book, users }) {
+
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
-    if (livre.cover === undefined) {
+    if (book.cover === undefined) {
       return PLS;
     } else {
-      return livre.cover;
+      return book.cover;
     }
   }
   function textPLS() {
     // permet de charger un resumer de livre si celui-ci n'en dispose pas
-    if (livre.resume === undefined) {
+    if (book.resume === undefined) {
       return (
         <>
           Ah non, s'il vous plaît, laissez tomber les combines à deux ronds.
@@ -48,7 +51,7 @@ export default function Book({ livre, users }) {
         </>
       );
     } else {
-      return livre.resume;
+      return book.resume;
     }
   }
   //console.log(livre);
@@ -58,7 +61,7 @@ export default function Book({ livre, users }) {
   const { setOpenedBook } = useContext(bookContext);
   return (
     <>
-      <Button onClick={() => setOpenedBook(livre)}>
+      <Button onClick={() => setOpenedBook(book)}>
         <Card
           sx={{
             maxWidth: "200px",
@@ -70,17 +73,18 @@ export default function Book({ livre, users }) {
           }}
         >
           <CardMedia component="img" image={livrePLS()} alt="seigneur" />
-          <CardContent
-            sx={{
-              overflowY: "auto",
-              marginBottom: " 1px",
-            }}
-          >
-            <Typography gutterBottom /*variant="h5" */ sx={{ fontSize: "1.2em" }} component="div">
-              {livre.title}
+
+          <CardContent>
+            <Typography
+              gutterBottom
+              /*variant="h5" */ sx={{ fontSize: "1.2em" }}
+              component="div"
+            >
+              {book.title}
+
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              <b>Auteur: </b> {livre.author}
+              <b>Auteur: </b> {book.author}
             </Typography>
           </CardContent>
         </Card>

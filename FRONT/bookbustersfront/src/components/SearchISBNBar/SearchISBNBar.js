@@ -5,7 +5,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import {
     Search,
     SearchIconWrapper,
-    TextField,
+    StyledInputBase,
 } from './SearchISBNBar.style';
 import { searchBookByISBN } from '../../api/fetchApi';
 import bookContext from '../../contexts/BookContext';
@@ -41,13 +41,14 @@ const SearchISBNBar = () => {
         } else {
             if (!isbn) {
                 errors.push('Saissisez un isbn');
-            }
-            if (isbn.length !== 10 && isbn.length !== 13) {
-                errors.push('l\'isbn doit comporter soit 10, soit 13 chiffres');
             } else {
-                if (!(isbnRegexp.test(isbn))) {
-                    console.log(isbnRegexp.test(isbn));
-                    errors.push('l\'isbn saisi est invalide');
+                if (isbn.length !== 10 && isbn.length !== 13) {
+                    errors.push('l\'isbn doit comporter soit 10, soit 13 chiffres');
+                } else {
+                    if (!(isbnRegexp.test(isbn))) {
+                        console.log(isbnRegexp.test(isbn));
+                        errors.push('l\'isbn saisi est invalide');
+                    }
                 }
             }
         }
@@ -79,7 +80,7 @@ const SearchISBNBar = () => {
             <SearchIconWrapper>
                 <FlipIcon />
             </SearchIconWrapper>
-            <TextField
+            <StyledInputBase
                 placeholder="Saisissez l'ISBN de votre livre"
                 inputProps={{ 'aria-label': 'search' }}
                 onChange={(e) => setIsbn(e.target.value)}
@@ -93,7 +94,7 @@ const SearchISBNBar = () => {
                 className='materialBtn'
                 sx={{
                     borderRadius: '0px',
-                    display: { sd: 'none' },
+                    minWidth: '50px',
                 }}
             >
                 <ClearIcon />

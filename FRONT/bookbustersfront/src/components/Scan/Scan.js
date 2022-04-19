@@ -103,9 +103,9 @@ const Scan = () => {
     }, [openedBook]);
 
     return (
-        <div id='scanner'>
+        //<div id='scanner'>
             <div id='reader'></div>
-        </div>
+        //</div>
     );
 };
 

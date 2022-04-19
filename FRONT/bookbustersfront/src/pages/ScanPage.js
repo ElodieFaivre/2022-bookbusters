@@ -20,6 +20,7 @@ const ScanPage = () => {
                     flexFlow: 'column wrap',
                     textAlign: 'center',
                     mt: 4,
+                    marginInline: '10px',
                 }}
             >
                 <Box>
@@ -35,7 +36,7 @@ const ScanPage = () => {
                 <br />
                 <Box
                     sx={{
-                        border: '1px solid silver',
+                        border: '1px solid #7e8c95',
                         width: '100%',
                         maxWidth: '600px',
                         borderRadius: '5px',

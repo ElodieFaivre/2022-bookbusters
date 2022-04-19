@@ -103,6 +103,7 @@ module.exports = {
         };
         const book = await bookDataMapper.findOneBookById(bookId1);
         return res.json({ book, association: updatedBook });
+        
     },
 
 };

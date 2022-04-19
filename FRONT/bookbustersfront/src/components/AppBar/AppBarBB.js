@@ -302,71 +302,59 @@ const ResponsiveAppBar = () => {
                     </Box>
 
                     {jwt && (
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title='Compte utilisateur'>
-                                <IconButton
-                                    onClick={handleOpenUserMenu}
-                                    sx={{ p: 0, marginLeft: '15px' }}
-                                >
-                                    <AccountCircleIcon
-                                        fontSize='large'
-                                        style={{ color: 'white' }}
-                                    />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id='menu-appbar'
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {settings.map((setting, index) => (
-                                    <MenuItem
-                                        key={`MenuItem-banana-NavBar--${index}`}
-                                        onClick={() => {
-                                            if (setting.action) {
-                                                setting.action();
-                                            }
-                                            handleCloseUserMenu();
-                                        }}
-                                        sx={setting.sx}
-                                    >
-                                        {setting.href && (
-                                            <Link
-                                                style={setting.style}
-                                                to={setting.href}
-                                            >
-                                                <Typography
-                                                    sx={setting.sx}
-                                                    textAlign='center'
-                                                >
-                                                    {setting.label}
-                                                </Typography>
-                                            </Link>
-                                        )}
-                                        {!setting.href && (
-                                            <Typography
-                                                sx={setting.sx}
-                                                textAlign='center'
-                                            >
-                                                {setting.label}
-                                            </Typography>
-                                        )}
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Compte utilisateur">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: "15px" }}>
+                  <AccountCircleIcon fontSize="large" style={{ color: "white" }} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting, index) => (
+                  <MenuItem
+                    key={`MenuItem-banana-NavBar--${index}`}
+                    onClick={() => {
+                      if (setting.action) {
+                        setting.action();
+                      }
+                      handleCloseUserMenu();
+                    }}
+                    sx={setting.sx}
+                  >
+                    {setting.href && (
+                      <Link style={setting.style} to={setting.href}>
+                        <Typography sx={setting.sx} textAlign="center">
+                          {setting.label}
+                        </Typography>
+                      </Link>
                     )}
+                    {!setting.href && (
+                      <Typography sx={setting.sx} textAlign="center">
+                        {setting.label}
+                      </Typography>
+                    )}
+                    </MenuItem>
+                ))}
+                </Menu>
+                        </Box>
+              
+                )}
+
+          
                 </Toolbar>
             </Container>
         </AppBar>

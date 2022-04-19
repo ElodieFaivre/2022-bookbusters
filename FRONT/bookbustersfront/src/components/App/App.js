@@ -1,6 +1,10 @@
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import "@fontsource/rubik-wet-paint";
 import "@fontsource/roboto";
 
@@ -22,11 +26,16 @@ import SignUp from "../../pages/SignUp";
 import AroundMe from "../../pages/AroundMe";
 import AuthenticatedRoute from "../AuthenticatedRoute";
 import Alert from "../Alert/Alert";
+import DonationRenewing from "../../pages/DonationRenewing";
 
+import ContactFormDonation from "../ContactFormDonation/ContactFormDonation";
+
+import SearchResults from "../SearchResults/SearchResults";
 import { AuthProvider } from "../../contexts/AuthContext";
 import { AlertProvider } from "../../contexts/AlertContext";
-import SearchResults from "../SearchResults/SearchResults";
 import { BookProvider } from "../../contexts/BookContext";
+
+import { DonatorProvider } from "../../contexts/DonatorContext";
 
 let themeOptions = createTheme({
   palette: {
@@ -51,75 +60,61 @@ themeOptions = responsiveFontSizes(themeOptions);
 
 function App() {
   return (
-      <ThemeProvider theme={themeOptions}>
-          <CssBaseline />
-          <BrowserRouter>
-              <AuthProvider>
-                  <AlertProvider>
-                      <BookProvider>
-                          <Routes>
-                              {/* Routes toujours accessibles */}
-                              <Route path='/' element={<Home />} />
-                              <Route path='*' element={<Error />} />
-                              <Route path='/Credits' element={<Credits />} />
-                              <Route path='/Contact' element={<Contact />} />
-                              <Route path='/AroundMe' element={<AroundMe />} />
-                              <Route
-                                  path='/SearchResults'
-                                  element={<SearchResults />}
-                              />
-                              <Route path='/scan' element={<ScanPage />} />
-                              {/* Routes avec JWT*/}
-                              <Route
-                                  element={
-                                      <AuthenticatedRoute
-                                          redirect='/SignIn'
-                                          connectedOnly={true}
-                                      />
-                                  }
-                              >
-                                  <Route
-                                      path='/Account'
-                                      element={<Account />}
-                                  />
-                                  <Route
-                                      path='/myAlerts'
-                                      element={<MyAlerts />}
-                                  />
-                                  <Route
-                                      path='/Favorites'
-                                      element={<Favorites />}
-                                  />
-                                  <Route
-                                      path='/Library'
-                                      element={<Library />}
-                                  />
-                              </Route>
+    <ThemeProvider theme={themeOptions}>
+      <CssBaseline />
+      <BrowserRouter>
+        <AuthProvider>
+          <AlertProvider>
+            <BookProvider>
+            <DonatorProvider>
+              <Routes>
+                {/* Routes toujours accessibles */}
+                <Route path="/" element={<Home />} />
+                <Route path="*" element={<Error />} />
+                <Route path="/Credits" element={<Credits />} />
+                <Route path="/Contact" element={<Contact />} />
+                <Route path="/AroundMe" element={<AroundMe />} />
+                <Route path="/SearchResults" element={<SearchResults />} />
+                <Route path="/DonationRenewing" element={<DonationRenewing />} />
+                {/* Routes avec JWT*/}
+                <Route
+                  element={
+                    <AuthenticatedRoute
+                      redirect="/SignIn"
+                      connectedOnly={true}
+                      />
+                    }
+                    >
+                    
+                
+                  <Route path="/Account" element={<Account />} />
+                  <Route path='/scan' element={<ScanPage />} />
+                  <Route path="/myAlerts" element={<MyAlerts />} /> 
+                  <Route path="/Favorites" element={<Favorites />} />
+                  <Route path="/Library" element={<Library />} />
+                  <Route path="/ContactFormDonation" element={<ContactFormDonation />}  />
+                
+                  </Route>
+                  {/* Routes SANS JWT*/}
+                  <Route
+                    element={
+                      <AuthenticatedRoute redirect="/" connectedOnly={false} />
+                    }
+                  >
 
-                              {/* Routes SANS JWT* le problème se situe dans la lecture en FALSE après connexion/}*/}
-                              <Route
-                                  element={
-                                      <AuthenticatedRoute
-                                          redirect='/'
-                                          connectedOnly={false}
-                                      />
-                                  }
-                              >
-                                  {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
-                                  <Route
-                                      path='/SignIn'
-                                      element={<SignInSide />}
-                                  />
-                                  <Route path='/SignUp' element={<SignUp />} />
-                              </Route>
-                          </Routes>
+                    {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
+                    <Route path="/SignIn" element={<SignInSide />} />
+                    <Route path="/SignUp" element={<SignUp />} />
+                  </Route>
+                </Routes>
 
-                          <Alert />
-                      </BookProvider>
-                  </AlertProvider>
-              </AuthProvider>
-          </BrowserRouter>
-      </ThemeProvider>
+                <Alert />
+              </DonatorProvider>
+            </BookProvider>
+          </AlertProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

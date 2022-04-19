@@ -10,6 +10,7 @@ import {
 
 import { searchBookByISBN } from '../../api/fetchApi';
 import bookContext from '../../contexts/BookContext';
+import alertContext from '../../contexts/AlertContext';
 
 const ScannerConfig = {
     // Prefer back (environment) or front (portrait) camera
@@ -40,6 +41,8 @@ const Scan = () => {
     const isbnRegexp = /^97[8-9]\d{10}$/;
     const [scanner, setScanner] = useState();
     const { openedBook, setOpenedBook } = useContext(bookContext);
+    const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
+
 
     useEffect(() => {
         const html5QrcodeScanner = new Html5QrcodeScanner(
@@ -51,8 +54,9 @@ const Scan = () => {
         setScanner(html5QrcodeScanner);
 
         async function onScanSuccess(decodedText, decodedResult) {
+            let errors;
+
             html5QrcodeScanner.pause();
-            console.log(html5QrcodeScanner.getState());
 
             const scannedISBN = decodedText;
 
@@ -61,15 +65,26 @@ const Scan = () => {
                 scannedISBN.length === 13 &&
                 isbnRegexp.test(scannedISBN)
             ) {
-                console.log(`Scan ok, the ISBN is : ${scannedISBN}`);
+                setSuccessAlert(
+                    `le code barre n° ${scannedISBN} a été scanné.\nRecherche en cours...`,
+                );
+
 
                 const response = await searchBookByISBN(scannedISBN);
-                setOpenedBook(response.data);
+                if (response.data.length === 0) {
+                    errors = `Aucun livre avec cet isbn : ${scannedISBN}, n'a été trouvé.`;
+                } else {
+                    setOpenedBook(response.data);
+                    setSuccessAlert('');
+                }
             } else {
-                console.log(
-                    `The scanned bar code is not an ISBN : ${scannedISBN}`,
-                );
+                errors =
+                    `Le code barre scanné : ${scannedISBN}, n'est pas valide.`;
                 html5QrcodeScanner.resume();
+            }
+
+            if (errors) {
+                return setErrorAlert(errors);
             }
         }
 

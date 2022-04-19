@@ -19,6 +19,7 @@ export const Search = styled("form")(({ theme }) => ({
 
 export const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
+  width: "20px",
   height: "100%",
   position: "absolute",
   pointerEvents: "none",
@@ -27,7 +28,7 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
 }));
 
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+export const TextField = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),

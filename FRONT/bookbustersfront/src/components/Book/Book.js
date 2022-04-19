@@ -11,6 +11,7 @@ import PLS from "../../assets/img/simpson.jpg";
 import "./Book.scss";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import bookContext from "../../contexts/BookContext";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -36,11 +37,14 @@ export default function Book({ livre, users }) {
     if (livre.resume === undefined) {
       return (
         <>
-          Ah non, s'il vous plaît, laissez tomber les combines à deux ronds. Vous avez dit que ça devait être vexant!
-          Ben voilà! Vous êtes vexé! Déjà à la corne, ils regardent même pas vers ici! Vous pouvez bien agiter tout les
-          drapeaux que vous voudrez! Oui mais nous on est trois, enfin, deux et demi. Là c’est une table ronde. Pour que
-          les chevaliers de Bretagne se réunissent autour. Toute façon autant vous y faire parce qu’à partir de
-          maintenant on va s’appeler «Les Chevaliers de la Table Ronde».
+          Ah non, s'il vous plaît, laissez tomber les combines à deux ronds.
+          Vous avez dit que ça devait être vexant! Ben voilà! Vous êtes vexé!
+          Déjà à la corne, ils regardent même pas vers ici! Vous pouvez bien
+          agiter tout les drapeaux que vous voudrez! Oui mais nous on est trois,
+          enfin, deux et demi. Là c’est une table ronde. Pour que les chevaliers
+          de Bretagne se réunissent autour. Toute façon autant vous y faire
+          parce qu’à partir de maintenant on va s’appeler «Les Chevaliers de la
+          Table Ronde».
         </>
       );
     } else {

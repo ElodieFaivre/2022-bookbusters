@@ -25,7 +25,8 @@ const AroundMe = () => {
   }, [userCoords]);
 
   //console.log(userCoords.latitude, userCoords.longitude);
-
+  console.log(positionUsers[0]);
+  console.log(positionUsers);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -56,35 +57,37 @@ const AroundMe = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {positionUsers.map((user, index) => (
-            //console.log(user),
-            <Marker
-              key={index}
-              position={{
-                lat: user.location.replace("(", " ").split(",")[0],
-                lng: user.location.replace(")", " ").split(",")[1],
-              }}
-            >
-              <Popup>
-                {user.books.map((banane, index) => (console.log(banane), (<p key={index}>{banane.title}</p>)))}
-              </Popup>
-            </Marker>
-          ))}
+          {positionUsers.length > 0 &&
+            positionUsers.map((user, index) => (
+              //console.log(user),
+              <Marker
+                key={index}
+                position={{
+                  lat: user.location.replace("(", " ").split(",")[0],
+                  lng: user.location.replace(")", " ").split(",")[1],
+                }}
+              >
+                <Popup>
+                  {user.books.map((banane, index) => (console.log(banane), (<p key={index}>{banane.title}</p>)))}
+                </Popup>
+              </Marker>
+            ))}
           <ChangeMapVue userCoords={userCoords} />
         </MapContainer>
       </div>
-      {positionUsers.map((user) =>
-        user.books.map((banane, index) => (
-          <div key={`unique-${index}`} className="bookMap">
-            <CardMedia component="img" image={livrePLS(banane)} alt="cover de livre" sx={{ width: 150 }} />{" "}
-            <div>
-              <h3>{banane.title}</h3>
-              <b>Auteur :{banane.author}</b>
-              <p>{banane.resume}</p>
+      {positionUsers.length > 0 &&
+        positionUsers.map((user) =>
+          user.books.map((banane, index) => (
+            <div key={`unique-${index}`} className="bookMap">
+              <CardMedia component="img" image={livrePLS(banane)} alt="cover de livre" sx={{ width: 150 }} />{" "}
+              <div>
+                <h3>{banane.title}</h3>
+                <b>Auteur :{banane.author}</b>
+                <p>{banane.resume}</p>
+              </div>
             </div>
-          </div>
-        ))
-      )}
+          ))
+        )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import payloadDecode from "../utils/payloadDecode";
 import axios from "./axios";
 
 export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
@@ -28,7 +29,7 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,
-      radius: "20000",
+      radius: "200",
     })
     .then((response) => setpositionUser(response.data))
     .catch((error) => {
@@ -96,7 +97,62 @@ export async function searchBooks(search, limit = 10, start = 0) {
     // console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
+
     console.log("Nous n'avons pas trouvé de résultats");
+
+    console.log(error);
+  }
+}
+
+export async function favoritesBooks(setData) {
+  try {
+    const payload = payloadDecode();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseFavoritesBooks = await axios
+      .get(`/v1/user/${payload.userId}/favorite`, config)
+      .then((res) => setData(res.data));
+    return responseFavoritesBooks;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function libraryBooks(setLibrary) {
+  try {
+    const payload = payloadDecode();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseLibraryBooks = await axios
+      .get(`/v1/user/${payload.userId}/library`, config)
+      .then((res) => setLibrary(res.data));
+    return responseLibraryBooks;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function myAlertsBooks(setAlert) {
+  try {
+    const payload = payloadDecode();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseMyAlertsBooks = await axios
+      .get(`/v1/user/${payload.userId}/alert`, config)
+      .then((res) => setAlert(res.data));
+    return responseMyAlertsBooks;
+  } catch (error) {
+    console.log(error);
+
   }
 }
 

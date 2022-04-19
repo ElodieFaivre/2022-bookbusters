@@ -148,7 +148,7 @@ const bookDataMapper = {
         //  - If is_in_donation = TRUE, is_in_library = TRUE
         //  - If is_in_library= FALSE, is_in_donation= FALSE
         //  - If is_in_alert = TRUE, check if is_in_library = TRUE and error if it is (see later)
-        if (book.is_in_library) {
+        /*if (book.is_in_library) {
             book.is_in_donation = true;
         }
         if (book.is_in_donation) {
@@ -156,7 +156,7 @@ const bookDataMapper = {
         }
         if (!book.is_in_library) {
             book.is_in_donation = false;
-        }
+        }*/
 
         //1. Verify if this book exist in our BDD
         let bookExist = await client.query(`SELECT id FROM book WHERE isbn13=$1 OR isbn10=$2`, [
@@ -191,13 +191,13 @@ const bookDataMapper = {
             debug('user id', userBookRelation.rows[0].id);
             //Check
             //  - If is_in_alert = TRUE, check if is_in_library = TRUE and error if it is (see later)
-            if (book.is_in_alert) {
+            /*if (book.is_in_alert) {
                 if (userBookRelation.rows[0].is_in_library) {
                     throw new ApiError('Book already in library cannot be in alert', {
                         statusCode: 400,
                     });
                 }
-            }
+            }*/
             //if book_in_donation, update donation_date
             if (book.is_in_donation) {
                 userBook = await client.query(

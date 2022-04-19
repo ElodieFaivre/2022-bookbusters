@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -8,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-
 import PLS from "../../assets/img/simpson.jpg";
-
 import "./Book.scss";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import bookContext from "../../contexts/BookContext";
@@ -27,7 +24,9 @@ const style = {
   p: 4,
 };
 
+
 export default function Book({ book, users }) {
+
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
     if (book.cover === undefined) {
@@ -36,7 +35,6 @@ export default function Book({ book, users }) {
       return book.cover;
     }
   }
-
   function textPLS() {
     // permet de charger un resumer de livre si celui-ci n'en dispose pas
     if (book.resume === undefined) {
@@ -56,23 +54,26 @@ export default function Book({ book, users }) {
       return book.resume;
     }
   }
-
   //console.log(livre);
   const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { setOpenedBook } = useContext(bookContext);
-
   return (
     <>
       <Button onClick={() => setOpenedBook(book)}>
         <Card
           sx={{
-            maxWidth: 150,
+            maxWidth: "200px",
             m: 2,
+            height: "500px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
           <CardMedia component="img" image={livrePLS()} alt="seigneur" />
+
           <CardContent>
             <Typography
               gutterBottom
@@ -80,6 +81,7 @@ export default function Book({ book, users }) {
               component="div"
             >
               {book.title}
+
             </Typography>
             <Typography variant="body1" color="text.secondary">
               <b>Auteur: </b> {book.author}

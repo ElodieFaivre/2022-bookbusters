@@ -1,10 +1,6 @@
 //* Import des composants thématique de MUI
 import { CssBaseline } from "@mui/material";
-import {
-  createTheme,
-  ThemeProvider,
-  responsiveFontSizes,
-} from "@mui/material/styles";
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import "@fontsource/rubik-wet-paint";
 import "@fontsource/roboto";
 

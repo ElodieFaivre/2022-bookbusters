@@ -82,4 +82,30 @@ router
  */
 router.post('/login', validate(loginSchema, 'body'), controllerHandler(userController.login));
 
+
+router
+    .route('/user/contact')
+    /**
+     * POST /v1/user/contact
+     * @summary contact donor
+     * @tags USER
+     * @security BearerAuth
+     * @param {DonorContact} request.body.required
+     * @return {} 200 - success response - application/json
+     * @return {ApiError} 400 - Bad request response - application/json
+     */
+    .post(
+        controllerHandler(verifyToken),
+        controllerHandler(userController.contactDonor),
+    );
 module.exports = router;
+
+
+/**
+ * @typedef {object} DonorContact
+ * @property {string} user_email who want book
+ * @property {string} user_fullname
+ * @property {string} donor_email
+ * @property {string} book_title
+ * @property {string} message
+ */

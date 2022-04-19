@@ -18,18 +18,19 @@ function Books() {
 
   return (
     <>
-      {/*console.log(data.user)*/}
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-evenly",
+          alignItems: "center",
+          width: { md: "70%" },
+          margin: "auto",
         }}
       >
-        {/*data.map((livre, index) => (
-          <Book key={index} livre={livre} />
-        ))*/}
+
         {data.map((book, index) => (
+
           <Book
             key={`je-suis-unique-${index}`}
             book={book}

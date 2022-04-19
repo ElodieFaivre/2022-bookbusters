@@ -57,7 +57,19 @@ const google = {
 
             // Test if a cover link is found in GoogleBooks result
             if (foundBook.volumeInfo.imageLinks) {
-                book.cover = foundBook.volumeInfo.imageLinks.thumbnail;
+                let googleCover = foundBook.volumeInfo.imageLinks.thumbnail;
+                googleCover = googleCover.replace('http://', 'https://');
+
+                if (foundBook.accessInfo.viewability !== 'NO_PAGES') {
+                    googleCover = googleCover.replace('zoom=1', 'zoom=3');
+                    debug('big cover :');
+                } else {
+                    debug('small cover :');
+                }
+
+                debug(googleCover);
+
+                book.cover = googleCover;
             }
 
             if ((book.isbn13 || book.isbn10) && book.title) {
@@ -118,7 +130,18 @@ const google = {
 
             // Test if a cover link is found in GoogleBooks result
             if (item.volumeInfo.imageLinks) {
-                book.cover = item.volumeInfo.imageLinks.thumbnail;
+                let googleCover = item.volumeInfo.imageLinks.thumbnail;
+                googleCover = googleCover.replace('http://', 'https://');
+
+                if (item.accessInfo.viewability !== 'NO_PAGES') {
+                    googleCover = googleCover.replace('zoom=1', 'zoom=3');
+                    debug('big cover :');
+                } else {
+                    debug('small cover :');
+                }
+                debug(googleCover);
+
+                book.cover = googleCover;
             }
 
             if ((book.isbn13 || book.isbn10) && book.title) {

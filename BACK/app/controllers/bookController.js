@@ -112,7 +112,7 @@ module.exports = {
         );
 
         if (booksAroundMe.length === 0) {
-           return res.json('No book around you');
+           return res.json([]);
         }
 
         let bookIds = [];

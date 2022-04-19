@@ -1,10 +1,10 @@
-// const debug = require('debug')('controller:user');
-
+const debug = require('debug')('controller:user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const mailer = require('../services/mailer');
 const userDataMapper = require('../models/user');
 const { ApiError } = require('../middlewares/handleError');
+const city = require('../services/communeCodeAPI');
 
 module.exports = {
     /**
@@ -73,8 +73,16 @@ module.exports = {
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(req.body.password, salt);
             req.body.password = encryptedPassword;
-
+            // transformation of the commune code to a GPS coordonates via an external API
+            debug('location:', req.body.communeCode);
+            let location = await city.findLocationByCommuneCode(req.body.communeCode);
+            location = `${location[0]},${location[1]}`;
+            req.body.location = location;
+            debug('req.body:', req.body);
             const savedUser = await userDataMapper.insert(req.body);
+
+            await mailer.confirmationMail(savedUser);
+
             return res.json(savedUser);
         }
     },
@@ -163,14 +171,55 @@ module.exports = {
         if (!foundUser || !(await bcrypt.compare(req.body.password, foundUser.password))) {
             throw new ApiError('Login or password not correct', { statusCode: 400 });
         }
+        if (!foundUser.active_account) {
+            throw new ApiError('Please confirm your email to login', { statusCode: 403 });
+        }
 
         jwt.sign(
             { userId: foundUser.id },
             process.env.SECRET_TOKEN_KEY,
-            { expiresIn: '30m' },
+            { expiresIn: '2h' },
             (err, token) => {
-                res.json({ token });
+                res.json({
+                    token,
+                    user: {
+                        id: foundUser.id,
+                        username: foundUser.username,
+                        email: foundUser.email,
+                        bio: foundUser.bio,
+                        location: foundUser.location,
+                        mail_donation: foundUser.mail_donation,
+                        mail_alert: foundUser.mail_alert,
+                        avatar_id: foundUser.avatar_id,
+                        active_account: foundUser.active_account,
+                    },
+                });
             },
         );
     },
+
+    /**
+     * User controller to swith active an account.
+     * ExpressMiddleware signature
+     * @param {object} req Express request object
+     * @param {object} res Express response object
+     * @returns {string} Route API JSON response
+     */
+    async swithTheAccountActive(req, res) {
+        const id = jwt.verify(req.params.token, process.env.SECRET_TOKEN_KEY);
+        debug('id:', id);
+        const user = await userDataMapper.swithTheAccountActive(id.userId);
+        debug('user:', user);
+        if (!user) {
+            throw new ApiError('User id not found', { statusCode: 400 });
+        } else {
+            res.redirect('http://localhost:3000/signin');
+        }
+    },
+
+    async contactDonor(req,res){
+        await mailer.contactBookDonor(req.body);
+        res.json('email envoyé');
+
+    }
 };

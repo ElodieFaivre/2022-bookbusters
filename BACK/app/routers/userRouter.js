@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const controllerHandler = require('../middlewares/controllerWrapperAsync');
-const { verifyToken } = require('../middlewares/tokenVerifier');
+const { verifyToken, verifyEmailToken } = require('../middlewares/tokenVerifier');
 const userController = require('../controllers/userController');
 
 const validate = require('../validator/validator');
@@ -40,7 +40,7 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {User} 200 - success response - application/json
+     * @return 204 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      * @return {ApiError} 404 - User not found - application/json
      */
@@ -61,6 +61,17 @@ router
         controllerHandler(userController.update),
     );
 
+router
+    .route('/confirmation/:token')
+    /**
+     * GET /v1/confirmation/{id in a token}
+     * @summary Switch the active_account attribute to true
+     * @tags USER
+     * @param {number} id.path.required - user identifier
+     * @return {User} 200 - success response - application/json
+     */
+    .get(controllerHandler(userController.swithTheAccountActive));
+
 /**
  * POST /v1/login
  * @summary log a user in
@@ -71,4 +82,30 @@ router
  */
 router.post('/login', validate(loginSchema, 'body'), controllerHandler(userController.login));
 
+
+router
+    .route('/user/contact')
+    /**
+     * POST /v1/user/contact
+     * @summary contact donor
+     * @tags USER
+     * @security BearerAuth
+     * @param {DonorContact} request.body.required
+     * @return {} 200 - success response - application/json
+     * @return {ApiError} 400 - Bad request response - application/json
+     */
+    .post(
+        controllerHandler(verifyToken),
+        controllerHandler(userController.contactDonor),
+    );
 module.exports = router;
+
+
+/**
+ * @typedef {object} DonorContact
+ * @property {string} user_email who want book
+ * @property {string} user_fullname
+ * @property {string} donor_email
+ * @property {string} book_title
+ * @property {string} message
+ */

@@ -1,8 +1,9 @@
 const bookDataMapper = require('../models/book');
+const userDataMapper = require('../models/user');
 const { ApiError } = require('../middlewares/handleError');
 const bookReformatter = require('../services/bookReformatter');
 const debug = require('debug')('bookController');
-
+const mailer = require('../services/mailer');
 module.exports = {
     /**
      * Product controller to get all books in donation.
@@ -19,7 +20,16 @@ module.exports = {
             connectedUserId = Number(req.body.user.userId);
         }
 
-        let books = await bookDataMapper.findBooksInDonation(connectedUserId);
+        let page;
+        req.query.page ? page = Number(req.query.page) : page = 0
+
+        let books = await bookDataMapper.findBooksInDonation(connectedUserId, page);
+
+        if (books.length === 0) {
+            return res.json([]);
+            //throw new ApiError('no new book in donation', { statusCode: 404 });
+        }
+
         books = await bookReformatter.reformat(books, req.body.user);
 
         return res.json(books);
@@ -71,6 +81,20 @@ module.exports = {
 
         book = await bookReformatter.reformat(book);
 
+        if (book[0].connected_user.is_in_donation) {
+            debug(`Un nouveau livre en donation, j'envoie un mail d'alerte`);
+            let isbn = null;
+            if (book[0].isbn13) {
+                isbn = book[0].isbn13;
+            }
+            else { isbn = book[0].isbn10; }
+            debug(`ISBN :`, isbn);
+            const users = await userDataMapper.findUsersInAlert(isbn);
+            debug(`Les users en alerte :`, users);
+            if (users) {
+                await mailer.sendAlertingMails(users);
+            }
+        }
         return res.json(book[0]);
     },
 
@@ -88,7 +112,7 @@ module.exports = {
         );
 
         if (booksAroundMe.length === 0) {
-            throw new ApiError('No book around you', { statusCode: 404 });
+           return res.json([]);
         }
 
         let bookIds = [];

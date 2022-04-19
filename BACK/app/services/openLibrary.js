@@ -1,3 +1,4 @@
+const debug = require('debug')('services:OpenLibraryAPI');
 const fetch = require('node-fetch');
 // const { AbortController } = require('node-abort-controller');
 

@@ -217,9 +217,8 @@ module.exports = {
         }
     },
 
-    async contactDonor(req,res){
-        await mailer.contactBookDonor(req.body);
+    async contactDonor(req, res) {
+        const mail = await mailer.contactBookDonor(req.body);
         res.json('email envoyé');
-
     }
 };

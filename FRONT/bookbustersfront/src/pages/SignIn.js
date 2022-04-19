@@ -21,7 +21,7 @@ import Header from "../components/Header/Header";
 import LibrarySign from "../assets/img/library.jpg";
 import Copyright from "../components/Copyright/Copyright";
 import authContext from "../contexts/AuthContext";
-import userContext from "../contexts/UserContext";
+
 import alertContext from "../contexts/AlertContext";
 
 // Import composant Link React-Router
@@ -37,7 +37,6 @@ export default function SignInSide() {
   const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
 
   const { logIn } = useContext(authContext);
-  const { setUserInfo } = useContext(userContext);
 
   const navigate = useNavigate();
 
@@ -52,7 +51,7 @@ export default function SignInSide() {
     setLogin("");
     setPwd("");
     logIn(token);
-    setUserInfo(user);
+
     setErrMsg("");
     navigate("/");
     setSuccessAlert(`Bienvenue ${user.username}! Bonne pêche aux livres.`);

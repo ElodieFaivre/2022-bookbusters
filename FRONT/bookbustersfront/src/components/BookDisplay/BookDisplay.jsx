@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { favoritesBooks, libraryBooks, myAlertsBooks } from "../../api/fetchApi";
+import {
+  favoritesBooks,
+  libraryBooks,
+  myAlertsBooks,
+} from "../../api/fetchApi";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import BookDisplayModel from "../BookDisplayModel/BookDisplayModel";
 
@@ -50,8 +54,10 @@ const BookDisplay = () => {
   return (
     <div>
       {attenteReceptionDonnees()
+
         ? locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)
-        : "false "}
+        : "pas de livre disponible dans cette catégorie "}
+
       <BookDetailModal />
     </div>
   );

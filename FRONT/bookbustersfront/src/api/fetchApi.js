@@ -8,7 +8,6 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
       password,
     })
     .then(({ data }) => {
-      console.log(data.token);
       handleLoginSuccess(data.token, data.user);
     })
     .catch((error) => {
@@ -29,7 +28,7 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,
-      radius: "200",
+      radius: "2000",
     })
     .then((response) => setpositionUser(response.data))
     .catch((error) => {
@@ -97,7 +96,6 @@ export async function searchBooks(search, limit = 10, start = 0) {
     // console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
-
     console.log("Nous n'avons pas trouvé de résultats");
 
     console.log(error);
@@ -152,7 +150,6 @@ export async function myAlertsBooks(setAlert) {
     return responseMyAlertsBooks;
   } catch (error) {
     console.log(error);
-
   }
 }
 
@@ -179,7 +176,8 @@ export async function updateBookStatus(bookStatus) {
 
     return bookStatusResponse;
   } catch (error) {
-    console.log(error);
+    return false;
+    // console.log(error);
   }
 }
 
@@ -214,6 +212,18 @@ export const contactDonor = (
     });
 };
 
+export const getUserInfo = (setUserInfo) => {
+  const payload = payloadDecode();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios.get(`/v1/user/${payload.userId}`, config).then((response) => {
+    setUserInfo(response.data);
+  });
+};
+
 export const fetchApi = {
   connectUser,
   registerUser,
@@ -221,6 +231,7 @@ export const fetchApi = {
   usersAroundMe,
   updateBookStatus,
   contactDonor,
+  getUserInfo,
 };
 
 export default fetchApi;

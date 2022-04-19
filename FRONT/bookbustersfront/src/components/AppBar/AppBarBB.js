@@ -70,11 +70,11 @@ const ResponsiveAppBar = () => {
       href: "/Account",
       style: { color: "#fff", textDecoration: "none" },
       sx: { color: "black" },
-      label: "Account",
+      label: "Mon compte",
       action: null,
     },
     {
-      href: "/myAlerts",
+      href: "/MyAlerts",
       style: { color: "#fff", textDecoration: "none" },
       sx: { color: "black" },
       label: "Mes alertes",
@@ -134,12 +134,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="sticky" sx={{ top: 0, left: 0, right: 0 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
+          <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
             <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
               BookBusters
             </Link>
@@ -177,11 +172,7 @@ const ResponsiveAppBar = () => {
             >
               {/* key={`MenuItem-Desktop-NavBar--${index}`} */}
               {navlinks.map((page, index) => (
-                <MenuItem
-                  key={`MenuItem-Desktop-NavBar--${index}`}
-                  onClick={handleCloseNavMenu}
-                  sx={page.sx}
-                >
+                <MenuItem key={`MenuItem-Desktop-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
                   <Link style={page.style} to={page.href}>
                     <Typography sx={page.sx} textAlign="center">
                       {page.label}
@@ -191,12 +182,7 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <Link
               to="/"
               underline="none"
@@ -212,11 +198,7 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navlinks.map((page, index) => (
-              <MenuItem
-                key={`MenuItem-babybel-NavBar--${index}`}
-                onClick={handleCloseNavMenu}
-                sx={page.sx}
-              >
+              <MenuItem key={`MenuItem-babybel-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
                 <Link style={page.style} to={page.href}>
                   <Typography sx={page.sx} textAlign="center">
                     {page.label}
@@ -229,14 +211,8 @@ const ResponsiveAppBar = () => {
           {jwt && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Compte utilisateur">
-                <IconButton
-                  onClick={handleOpenUserMenu}
-                  sx={{ p: 0, marginLeft: "15px" }}
-                >
-                  <AccountCircleIcon
-                    fontSize="large"
-                    style={{ color: "white" }}
-                  />
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: "15px" }}>
+                  <AccountCircleIcon fontSize="large" style={{ color: "white" }} />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -39,7 +39,7 @@ function BookDetailModal() {
   const { openedBook, setOpenedBook } = useContext(bookContext);
   const { setDonatorInfo } = useContext(donatorContext);
   const navigate = useNavigate();
-  console.log(openedBook);
+
   const [library, setLibrary] = useState();
   const [favorit, setFavorit] = useState();
   const [alert, setAlert] = useState();
@@ -51,6 +51,12 @@ function BookDetailModal() {
       !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
       !alert && setAlert(openedBook.connected_user.is_in_alert);
       !donation && setDonation(openedBook.connected_user.is_in_donation);
+    }
+    if (openedBook && !openedBook.connected_user) {
+      setLibrary(false);
+      setFavorit(false);
+      setAlert(false);
+      setDonation(false);
     }
   }, [openedBook]);
 
@@ -95,21 +101,25 @@ function BookDetailModal() {
       default:
         break;
     }
-
+    console.log(bookStatus);
     const result = await updateBookStatus(bookStatus);
-
-    if (result) {
-      console.log(result.data);
-      const updatedStatus = {
-        library: result.data.connected_user.is_in_library,
-        favorit: result.data.connected_user.is_in_favorite,
-        alert: result.data.connected_user.is_in_alert,
-        donation: result.data.connected_user.is_in_donation,
-      };
-      setLibrary(updatedStatus.library);
-      setFavorit(updatedStatus.favorit);
-      setAlert(updatedStatus.alert);
-      setDonation(updatedStatus.donation);
+    if (result === false) {
+      switch (statusToUpdate) {
+        case "library":
+          setLibrary(library);
+          break;
+        case "favorit":
+          setFavorit(favorit);
+          break;
+        case "donation":
+          setDonation(donation);
+          break;
+        case "alert":
+          setAlert(alert);
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -133,12 +143,7 @@ function BookDetailModal() {
             <CloseIcon sx={{ color: "black" }} fontSize="small" />
           </IconButton>
         </Box>
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          sx={{ textAlign: "center", mb: 2 }}
-        >
+        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
           {book.title}
         </Typography>
         {/* Zone des cover des livres */}
@@ -151,61 +156,33 @@ function BookDetailModal() {
             }}
           >
             {book.cover ? (
-              <img
-                className="imageCovers"
-                alt="Book cover"
-                src={book.cover}
-              ></img>
+              <img className="imageCovers" alt="Book cover" src={book.cover}></img>
             ) : (
-              <img
-                className="imageCovers"
-                alt="Generic book cover"
-                src={bookDefaultCover}
-              ></img>
+              <img className="imageCovers" alt="Generic book cover" src={bookDefaultCover}></img>
             )}
           </Box>
           {/* Zone des icones d'interactions */}
           {localStorage.getItem("jwt") && (
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Tooltip
-                title="Ajoutez ce livre à vos favoris"
-                arrow
-                placement="right"
-              >
+              <Tooltip title="Ajoutez ce livre à vos favoris" arrow placement="right">
                 <IconButton
                   onClick={() => {
                     handleUpdateBookStatus("favorit");
                   }}
                 >
-                  {favorit ? (
-                    <FavoriteIcon sx={{ color: "red" }} />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
+                  {favorit ? <FavoriteIcon sx={{ color: "red" }} /> : <FavoriteBorderIcon />}
                 </IconButton>
               </Tooltip>
-              <Tooltip
-                title="Ajoutez ce livre à votre bilbiothèque"
-                arrow
-                placement="right"
-              >
+              <Tooltip title="Ajoutez ce livre à votre bilbiothèque" arrow placement="right">
                 <IconButton
                   onClick={() => {
                     handleUpdateBookStatus("library");
                   }}
                 >
-                  {library ? (
-                    <BookIcon sx={{ color: "brown" }} />
-                  ) : (
-                    <BookOutlinedIcon />
-                  )}
+                  {library ? <BookIcon sx={{ color: "brown" }} /> : <BookOutlinedIcon />}
                 </IconButton>
               </Tooltip>
-              <Tooltip
-                title="Activez la donation pour ce livre"
-                arrow
-                placement="right"
-              >
+              <Tooltip title="Activez la donation pour ce livre" arrow placement="right">
                 {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
                 <IconButton
@@ -213,37 +190,22 @@ function BookDetailModal() {
                     handleUpdateBookStatus("donation");
                   }}
                 >
-                  {donation ? (
-                    <VolunteerActivismIcon sx={{ color: "blue" }} />
-                  ) : (
-                    <VolunteerActivismOutlinedIcon />
-                  )}
+                  {donation ? <VolunteerActivismIcon sx={{ color: "blue" }} /> : <VolunteerActivismOutlinedIcon />}
                 </IconButton>
               </Tooltip>
-              <Tooltip
-                title="Ajoutez une alerte pour ce livre"
-                arrow
-                placement="right"
-              >
+              <Tooltip title="Ajoutez une alerte pour ce livre" arrow placement="right">
                 <IconButton
                   onClick={() => {
                     handleUpdateBookStatus("alert");
                   }}
                 >
-                  {alert ? (
-                    <AddAlertIcon sx={{ color: "green" }} />
-                  ) : (
-                    <AddAlertOutlinedIcon />
-                  )}
+                  {alert ? <AddAlertIcon sx={{ color: "green" }} /> : <AddAlertOutlinedIcon />}
                 </IconButton>
               </Tooltip>
             </Box>
           )}
           {/* Zone des textes */}
-          <Box
-            id="modal-modal-description"
-            sx={{ margin: "0px 15px 0px 15px" }}
-          >
+          <Box id="modal-modal-description" sx={{ margin: "0px 15px 0px 15px" }}>
             <Typography variant="overline">Auteur:</Typography>
             <Typography>{book.author}</Typography>
             <Box
@@ -252,11 +214,7 @@ function BookDetailModal() {
               }}
             >
               <Typography variant="overline"> Résumé:</Typography>
-              {book.resume ? (
-                <Box>{book.resume}</Box>
-              ) : (
-                <Typography>Pas de résumé trouvé pour ce livre.</Typography>
-              )}
+              {book.resume ? <Box>{book.resume}</Box> : <Typography>Pas de résumé trouvé pour ce livre.</Typography>}
             </Box>
           </Box>
         </Box>
@@ -264,20 +222,13 @@ function BookDetailModal() {
         <Stack>
           {users && users.length > 0 && (
             <>
-              <Typography variant="h5" align="center">
+              <Typography variant="h5" align="center" sx={{ mb: "10px", mt: "10px" }}>
                 Livre disponible chez
               </Typography>
               {users.map((user, index) => (
-                <Box
-                  className="bookUserOwner"
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
+                <Box className="bookUserOwner" key={index} sx={{ mb: "5px", display: "flex", flexDirection: "row" }}>
                   <Typography align="center" sx={{ width: "50%" }}>
-                    {user?.username}
+                    {user?.username} {console.log(user)}
                   </Typography>
                   {/* <Link
                     to="/ContactFormDonation"

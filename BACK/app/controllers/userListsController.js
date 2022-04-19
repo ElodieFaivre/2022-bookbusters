@@ -5,6 +5,7 @@ const bookReformatter = require('../services/bookReformatter');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
 const userDataMapper = require('../models/user');
+const debug = require('debug')('userLists');
 
 module.exports = {
     /**
@@ -22,16 +23,16 @@ module.exports = {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
         }
 
-        const library = await userListsDataMapper.findAllBooksInLibrary(RouteUserId);
+        let page;
+        req.query.page ? page = Number(req.query.page) : page = 0
+        const lists = await userListsDataMapper.findAllBooksInList(RouteUserId, page,"is_in_library");
 
-        if (!library) {
+        if (lists.length===0) {
             return res.json([]);
         }
 
-        const books = await bookReformatter.reformat(library.books);
-        library.books = books;
-
-        return res.json(library);
+        const books = await bookReformatter.reformat(lists);
+       return res.json({"books":books});
     },
 
     /**
@@ -49,16 +50,17 @@ module.exports = {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
         }
 
-        const favorites = await userListsDataMapper.findAllBooksInFavorite(RouteUserId);
+        let page;
+        req.query.page ? page = Number(req.query.page) : page = 0
 
-        if (!favorites) {
+        const favorites = await userListsDataMapper.findAllBooksInList(RouteUserId, page,"is_in_favorite");
+
+        if (favorites.length===0) {
             return res.json([]);
         }
 
-        const books = await bookReformatter.reformat(favorites.books);
-        favorites.books = books;
-
-        return res.json(favorites);
+        const books = await bookReformatter.reformat(favorites);
+        return res.json({"books":books});
     },
 
     /**
@@ -76,16 +78,19 @@ module.exports = {
             throw new ApiError('Unauthorized access', { statusCode: 401 });
         }
 
-        const alerts = await userListsDataMapper.findAllBooksInAlert(RouteUserId);
+        let page;
+        req.query.page ? page = Number(req.query.page) : page = 0
 
-        if (!alerts) {
+        const lists = await userListsDataMapper.findAllBooksInList(RouteUserId, page,"is_in_alert");
+
+
+        if (lists.length ===0) {
             return res.json([]);
         }
 
-        const books = await bookReformatter.reformat(alerts.books);
-        alerts.books = books;
-
-        return res.json(alerts);
+        const books = await bookReformatter.reformat(lists);
+        debug('après reformat', books);
+        return res.json({"books":books});
     },
     async updateDonationDate(req, res) {
         const id = jwt.verify(req.params.token, process.env.SECRET_TOKEN_KEY);

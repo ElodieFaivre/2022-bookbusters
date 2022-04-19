@@ -21,5 +21,5 @@ module.exports = Joi.object({
 */
     mail_donation: Joi.boolean().default(true),
     mail_alert: Joi.boolean().default(true),
-    avatar_id: Joi.integer().default(1),
+    avatar_id: Joi.number().integer().default(1),
 });

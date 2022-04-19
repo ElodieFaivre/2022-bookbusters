@@ -28,7 +28,7 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,
-      radius: "200",
+      radius: "2000",
     })
     .then((response) => setpositionUser(response.data))
     .catch((error) => {

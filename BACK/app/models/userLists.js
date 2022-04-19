@@ -21,29 +21,27 @@ const debug = require('debug')('userLists model');
  */
 
 const userListsDataMapper = {
-    async findAllBooksInLibrary(userId) {
-        const result = await client.query('SELECT * FROM user_book_in_library WHERE user_id = $1', [
-            userId,
-        ]);
 
-        return result.rows[0];
+    async findAllBooksInList(
+        userId,
+        page,
+        list,
+        limit = 10,
+    ) {
+        /*const result = await client.query('SELECT * FROM user_book_in_favorite WHERE user_id = $1', [
+            userId,
+        ]);*/
+        const offset = page * limit;
+
+        const result = await client.query(`SELECT * FROM get_book($1, '{}', '{}', '{}', 0, 0)
+        WHERE "id"
+        IN (SELECT book_id FROM user_has_book WHERE user_id = $1 AND ${list} = TRUE)
+        ORDER BY "id" DESC LIMIT $2 OFFSET $3`, [userId, limit, offset]);
+
+        return result.rows;
     },
 
-    async findAllBooksInFavorite(userId) {
-        const result = await client.query('SELECT * FROM user_book_in_favorite WHERE user_id = $1', [
-            userId,
-        ]);
 
-        return result.rows[0];
-    },
-
-    async findAllBooksInAlert(userId) {
-        const result = await client.query('SELECT * FROM user_book_in_alert WHERE user_id = $1', [
-            userId,
-        ]);
-
-        return result.rows[0];
-    },
 
     async updateDonationDate(userId, bookId) {
         const result = await client.query(`UPDATE user_has_book SET donation_date = NOW()

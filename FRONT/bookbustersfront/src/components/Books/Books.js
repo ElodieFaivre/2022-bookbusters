@@ -28,7 +28,6 @@ function Books() {
           margin: "auto",
         }}
       >
-
         {data.map((book, index) => (
 
           <Book

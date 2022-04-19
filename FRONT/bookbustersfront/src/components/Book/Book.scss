@@ -1,7 +1,0 @@
-.bookUserOwner {
-  & + & {
-    &::before {
-      content: ", ";
-    }
-  }
-}

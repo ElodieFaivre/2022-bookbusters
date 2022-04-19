@@ -135,7 +135,10 @@ module.exports = {
         booksAroundMe.forEach((row) => {
             const locatedBooks = [];
             row.book_ids.forEach((book_id) => {
-                locatedBooks.push(books.find((book) => book_id === book.id));
+                const bookPush = books.find((book) => book_id === book.id);
+                if(bookPush){
+                    locatedBooks.push(bookPush);
+                }
             });
 
             result.push({

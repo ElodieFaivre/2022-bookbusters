@@ -82,16 +82,24 @@ function App() {
                       redirect="/SignIn"
                       connectedOnly={true}
                       />
-                    }>
+                    }
+                    >
                     
+                
+                  <Route path="/Account" element={<Account />} /> 
+                  <Route path="/myAlerts" element={<MyAlerts />} /> 
+                  <Route path="/Favorites" element={<Favorites />} />
+                  <Route path="/Library" element={<Library />} />
+                  <Route path="/ContactFormDonation" element={<ContactFormDonation />}  />
+                
                   </Route>
-
                   {/* Routes SANS JWT*/}
                   <Route
                     element={
                       <AuthenticatedRoute redirect="/" connectedOnly={false} />
                     }
                   >
+
                     {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
                     <Route path="/SignIn" element={<SignInSide />} />
                     <Route path="/SignUp" element={<SignUp />} />

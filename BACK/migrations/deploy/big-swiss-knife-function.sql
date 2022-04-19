@@ -27,7 +27,7 @@ RETURNS TABLE (
 	    ROW_TO_JSON("connected_user") AS "connected_user",
 	    MAX("donor"."donation_date") AS "last_donation_date",
 	    COUNT("donor".*) AS "number_of_donors",
-	    COALESCE(JSON_AGG(TO_JSONB("donor".*)) FILTER (WHERE "donor"."donor_id" IS NOT NULL), NULL) AS "donors"
+	    JSON_AGG(TO_JSONB("donor".*)) AS "donors"
 
 	FROM book
 

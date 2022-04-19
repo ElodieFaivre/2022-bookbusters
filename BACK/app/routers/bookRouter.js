@@ -16,19 +16,27 @@ router
      * @security BearerAuth
      * @summary Get all books in donation with users, order by last one
      * @tags BOOK
+     * @param {number} page.query - access to next 10 books
      * @return {[Book]} 200 - success response - application/json
      */
-    .get(controllerHandler(verifyTokenWithoutError), controllerHandler(bookController.getAllInDonation))
+    .get(
+        controllerHandler(verifyTokenWithoutError),
+        controllerHandler(bookController.getAllInDonation),
+    )
     /**
      * POST /v1/book
      * @summary Add book and relation user_has_book to database or update if already exist
      * @tags BOOK
      * @security BearerAuth
-     * @param {InputBook} request.body.required - book info
+     * @param {InputBook} request.body.required - Book to add information
      * @return {Book} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
-    .post(validate(createSchema, 'body'), controllerHandler(verifyToken),  controllerHandler(bookController.addBook));
+    .post(
+        validate(createSchema, 'body'),
+        controllerHandler(verifyToken),
+        controllerHandler(bookController.addBook),
+    );
 
 router
     .route('/book/:id(\\d+)')
@@ -39,6 +47,7 @@ router
      * @param {number} id.path.required - book identifier
      * @tags BOOK
      * @return {Book} 200 - success response - application/json
+     * @return {ApiError} 404 - Id not found
      */
     .get(
         controllerHandler(verifyTokenWithoutError),
@@ -63,13 +72,15 @@ router
      * @tags BOOK
      * @security BearerAuth
      * @param {InputAroundMe} request.body.required - ex {"location" : "(48.5,2.3)", "radius" : 200}
-     * @return {BookIdsAroundMe} 200 - success response - application/json
+     * @return {OutputAroundMe} 200 - success response - application/json
      * @return {ApiError} 400 - Bad request response - application/json
      */
     .post(
         controllerHandler(verifyTokenWithoutError),
         controllerHandler(bookController.getBooksAroundMe),
     );
+
+
 
 
 

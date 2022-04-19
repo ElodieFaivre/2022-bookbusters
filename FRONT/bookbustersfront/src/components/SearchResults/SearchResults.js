@@ -13,8 +13,8 @@ function SearchResults() {
   const location = useLocation();
   // console.log(location.state);
   const searchResultsAPI = location.state;
-  const { setOpenedBook } = useContext(bookContext);
 
+  const { setOpenedBook } = useContext(bookContext);
   return (
     <>
       <Header />
@@ -32,67 +32,90 @@ function SearchResults() {
             gap: "20px",
           }}
         >
-          {searchResultsAPI.map((book) => (
-            <Paper
-              onClick={() => setOpenedBook(book)}
-              key={book.isbn13}
-              elevation={15}
+          {searchResultsAPI[0] ? (
+            searchResultsAPI.map((book) => (
+              <Paper
+                onClick={() => setOpenedBook(book)}
+                key={book.isbn13}
+                elevation={15}
+                sx={{
+                  display: "flex",
+                  height: "215px",
+                  padding: "15px",
+                }}
+              >
+                <Box
+                  sx={{
+                    overflow: "hidden",
+                    display: "flex",
+                    alignItems: "left",
+                    width: "210px",
+                  }}
+                >
+                  {book.cover ? (
+                    <img
+                      className="imageCovers"
+                      alt="Book cover"
+                      src={book.cover}
+                    ></img>
+                  ) : (
+                    <img
+                      className="imageCovers"
+                      alt="Generic book cover"
+                      src={simpsonCoverDefault}
+                    ></img>
+                  )}
+                </Box>
+                <Box
+                  sx={{
+                    padding: "0px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography variant="overline">Titre:</Typography>
+                  <Typography>
+                    {book.title}
+                    <br />
+                  </Typography>
+                  <br />
+                  <Typography variant="overline">
+                    Auteur:
+                    <br />
+                  </Typography>
+                  {book.author &&
+                    book.author.map((author, index) => (
+                      <Typography key={`single-author${index}`}>
+                        {author}
+                      </Typography>
+                    ))}
+                </Box>
+              </Paper>
+            ))
+          ) : (
+            <Box
               sx={{
                 display: "flex",
-                height: "215px",
-                padding: "15px",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "80vh",
               }}
             >
-              <Box
+              <Paper
+                elevation={15}
                 sx={{
-                  overflow: "hidden",
-                  display: "flex",
-                  alignItems: "left",
-                  width: "210px",
+                  height: "auto",
+                  padding: "15px",
                 }}
               >
-                {book.cover ? (
-                  <img
-                    className="imageCovers"
-                    alt="Book cover"
-                    src={book.cover}
-                  ></img>
-                ) : (
-                  <img
-                    className="imageCovers"
-                    alt="Generic book cover"
-                    src={simpsonCoverDefault}
-                  ></img>
-                )}
-              </Box>
-              <Box
-                sx={{
-                  padding: "0px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography variant="overline">Titre:</Typography>
-                <Typography>
-                  {book.title}
-                  <br />
+                <Typography variant="subtitle" sx={{ textAlign: "center" }}>
+                  Votre recherche n'a donné aucun résultat
                 </Typography>
-                <br />
-
-                <Typography variant="overline">
-                  Auteur:
-                  <br />
-                </Typography>
-                {book.author.map((author, index) => (
-                  <Typography key={`single-author${index}`}>
-                    {author}
-                  </Typography>
-                ))}
-              </Box>
-            </Paper>
-          ))}
+              </Paper>
+            </Box>
+          )}
         </Box>
       </Box>
     </>

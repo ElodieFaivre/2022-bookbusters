@@ -14,7 +14,7 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {[Book]} 200 - success response - application/json
+     * @return {BookRelation} 200 - success response - application/json
      */
     .get(
         controllerHandler(verifyToken),
@@ -29,7 +29,7 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {[Book]} 200 - success response - application/json
+     * @return {BookRelation} 200 - success response - application/json
      */
     .get(
         controllerHandler(verifyToken),
@@ -44,8 +44,22 @@ router
      * @tags USER
      * @security BearerAuth
      * @param {number} id.path.required - user identifier
-     * @return {[Book]} 200 - success response - application/json
+     * @return {BookRelation} 200 - success response - application/json
+     * @return {string} 204 - no content success response,
      */
     .get(controllerHandler(verifyToken), controllerHandler(userBooksController.getAllBooksInAlert));
 
+router
+    .route('/donation/:token')
+    /**
+     * GET /v1/book/{book_id_&_user_id_in_a_token}
+     * @summary Update the donation date to now
+     * @param {number} book_id.path.required - book identifier
+     * @param {number} user_id.path.required - user identifier
+     * @tags BOOK
+     * @return {Book} 200 - success response - application/json
+     */
+    .get(
+        controllerHandler(userBooksController.updateDonationDate),
+    );
 module.exports = router;

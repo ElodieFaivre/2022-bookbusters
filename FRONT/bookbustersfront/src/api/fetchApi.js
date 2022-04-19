@@ -8,12 +8,15 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
       password,
     })
     .then(({ data }) => {
-      handleLoginSuccess(data.token);
+      console.log(data.token);
+      handleLoginSuccess(data.token, data.user);
     })
     .catch((error) => {
       if (error.response) {
         console.log(error.response.data.message);
-        setErrMsg((error.response.data.message = "Login ou mot de passe incorrect"));
+        setErrMsg(
+          (error.response.data.message = "Login ou mot de passe incorrect")
+        );
       } else {
         setErrMsg("Une erreur s'est produite");
       }
@@ -35,7 +38,12 @@ export const usersAroundMe = (setpositionUser, latitude, longitude) => {
 };
 
 export const latestAddition = (setData) => {
-  axios.get("/v1/book").then((res) => setData(res.data));
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios.get("/v1/book", config).then((res) => setData(res.data));
 };
 
 export const registerUser = (
@@ -52,19 +60,21 @@ export const registerUser = (
       username,
       email,
       password,
-      // bio: "gnagnagna",
-      location: "(48.8833024, 2.3789568)",
       postalCode,
       communeCode,
-      mail_donation: true,
-      mail_alert: true,
-      // avatar_id: "1",
+      // mail_donation: true,
+      // mail_alert: true,
+      avatar_id: "1",
     })
     .then(() => {
       handleRegisterSuccess();
     })
     .catch((error) => {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setErrorAlert(error.response.data.message);
       } else {
         setErrorAlert("Une erreur est survenue lors de l'inscription.");
@@ -80,10 +90,16 @@ export async function searchBooks(search, limit = 10, start = 0) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const responseSearchResult = await axios.get(`/v1/book/search?q=${search}&limit=${limit}&start=${start}`, config);
-    console.log(responseSearchResult);
+    const responseSearchResult = await axios.get(
+      `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
+      config
+    );
+    // console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
+
+    console.log("Nous n'avons pas trouvé de résultats");
+
     console.log(error);
   }
 }
@@ -136,14 +152,75 @@ export async function myAlertsBooks(setAlert) {
     return responseMyAlertsBooks;
   } catch (error) {
     console.log(error);
+
   }
 }
+
+export async function updateBookStatus(bookStatus) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    console.log(bookStatus);
+    const bookStatusResponse = await axios.post(
+      "/v1/book",
+      {
+        isbn13: bookStatus.isnb13,
+        isbn10: bookStatus.isbn10,
+        is_in_library: bookStatus.library,
+        is_in_donation: bookStatus.donation,
+        is_in_favorite: bookStatus.favorit,
+        is_in_alert: bookStatus.alert,
+      },
+      config
+    );
+
+    return bookStatusResponse;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const contactDonor = (
+  user_email,
+  user_fullname,
+  donor_email,
+  book_title,
+  message
+) => {
+  console.log(user_email, user_fullname, donor_email, book_title, message);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios
+    .post(
+      "/v1/user/contact",
+      { user_email, user_fullname, donor_email, book_title, message },
+      config
+    )
+    .then(({ data }) => {
+      console.log(data);
+      // handleLoginSuccess(data.token, data.user);
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data.message);
+      } else {
+      }
+    });
+};
 
 export const fetchApi = {
   connectUser,
   registerUser,
   searchBooks,
   usersAroundMe,
+  updateBookStatus,
+  contactDonor,
 };
 
 export default fetchApi;

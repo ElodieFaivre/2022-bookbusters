@@ -14,5 +14,5 @@ module.exports = Joi.object({
         .pattern(new RegExp(/^\([-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)\)$/)),
     mail_donation: Joi.boolean(),
     mail_alert: Joi.boolean(),
-    avatar_id: Joi.string(),
+    avatar_id: Joi.number().integer(),
 });

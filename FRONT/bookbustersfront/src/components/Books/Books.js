@@ -14,7 +14,7 @@ function Books() {
 
   useEffect(() => {
     latestAddition(setData);
-  }, [setData]);
+  }, []);
 
   return (
     <>
@@ -28,11 +28,13 @@ function Books() {
           margin: "auto",
         }}
       >
-        {data.map((livre, index) => (
+
+        {data.map((book, index) => (
+
           <Book
             key={`je-suis-unique-${index}`}
-            livre={livre}
-            users={livre.donors}
+            book={book}
+            users={book.donors}
           />
         ))}
         <BookDetailModal />

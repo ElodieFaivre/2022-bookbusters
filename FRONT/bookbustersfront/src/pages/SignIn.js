@@ -52,7 +52,6 @@ export default function SignInSide() {
     setLogin("");
     setPwd("");
     logIn(token);
-    console.log(setUserInfo);
     setUserInfo(user);
     setErrMsg("");
     navigate("/");

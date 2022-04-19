@@ -16,6 +16,7 @@ import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import userContext from "../../contexts/UserContext";
 import alertContext from "../../contexts/AlertContext";
 import bookContext from "../../contexts/BookContext";
+import { contactDonor } from "../../api/fetchApi";
 
 // Import Composants
 import Header from "../Header/Header";
@@ -34,10 +35,10 @@ function ContactFormDonation() {
   const [username, setUsername] = useState("");
 
   const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
-  console.log(openedBook);
   const navigate = useNavigate();
 
-  console.log(userInfo);
+  // console.log(openedBook);
+  // console.log(userInfo);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,19 +51,21 @@ function ContactFormDonation() {
     if (errors.length > 0) {
       return setErrorAlert(errors.join(", "));
     }
+    const user_email = userInfo.email;
+    const user_fullname = userInfo.username;
+    const donor_email = openedBook.donors[0].email;
+    const book_title = openedBook.title;
 
-    (userInfo.email = user_email),
-      (userInfo.username = setUsername),
-      (openedBook.donors.email = donor_email),
-      (openedBook.title = book_title),
-      message;
-    console.log(user_email, user_fullname, donor_email, book_title);
+    contactDonor(user_email, user_fullname, donor_email, book_title, message);
+
+    // console.log(user_email, user_fullname, donor_email, book_title);
     // A envoyer au back : title of book, donor (email), user email, username, message
-    // contactDonor(
-    // );
+    //
+
     const handleFormDonationSuccess = () => {};
     setSuccessAlert("Votre demande auprès du donateur a été envoyée");
   };
+
   return (
     <div>
       <Header />

@@ -129,27 +129,36 @@ export async function updateBookStatus(bookStatus) {
   }
 }
 
-// export const contactDonor = (message, userInfo.email, userinfo.username ) => {
-//   axios
-//   .post("/v1/login", {
-//     login,
-//     password,
-//   })
-//   .then(({ data }) => {
-//     // console.log(data.user);
-//     handleLoginSuccess(data.token, data.user);
-//   })
-//   .catch((error) => {
-//     if (error.response) {
-//       console.log(error.response.data.message);
-//       setErrMsg(
-//         (error.response.data.message = "Login ou mot de passe incorrect")
-//       );
-//     } else {
-//       setErrMsg("Une erreur s'est produite");
-//     }
-//   });
-// }
+export const contactDonor = (
+  user_email,
+  user_fullname,
+  donor_email,
+  book_title,
+  message
+) => {
+  console.log(user_email, user_fullname, donor_email, book_title, message);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  };
+  axios
+    .post(
+      "/v1/user/contact",
+      { user_email, user_fullname, donor_email, book_title, message },
+      config
+    )
+    .then(({ data }) => {
+      console.log(data);
+      // handleLoginSuccess(data.token, data.user);
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.log(error.response.data.message);
+      } else {
+      }
+    });
+};
 
 export const fetchApi = {
   connectUser,
@@ -157,7 +166,7 @@ export const fetchApi = {
   searchBooks,
   usersAroundMe,
   updateBookStatus,
-  // contactDonor,
+  contactDonor,
 };
 
 export default fetchApi;

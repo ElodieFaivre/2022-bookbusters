@@ -51,7 +51,7 @@ const BookDisplay = () => {
     <div>
       {attenteReceptionDonnees()
         ? locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)
-        : "false "}
+        : "pas de livre disponible dans cette catégorie "}
       <BookDetailModal />
     </div>
   );

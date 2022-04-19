@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -20,7 +20,7 @@ import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import { updateBookStatus } from "../../api/fetchApi";
-
+import donatorContext from "../../contexts/DonatorContext";
 const styleBox = {
   position: "absolute",
   top: { xs: "50%", md: "50%" },
@@ -37,7 +37,9 @@ const styleBox = {
 
 function BookDetailModal() {
   const { openedBook, setOpenedBook } = useContext(bookContext);
-
+  const { setDonatorInfo } = useContext(donatorContext);
+  const navigate = useNavigate();
+  console.log(openedBook);
   const [library, setLibrary] = useState();
   const [favorit, setFavorit] = useState();
   const [alert, setAlert] = useState();
@@ -57,6 +59,11 @@ function BookDetailModal() {
   const book = openedBook;
   const users = book.donors;
 
+  const handleDonorButton = (donator) => {
+    console.log(donator);
+    setDonatorInfo(donator);
+    navigate("/ContactFormDonation");
+  };
   // Inverser tout de suite la valeur de l'état pour des questions de cycles de vie
   // nous sommes dans le meme cycle de vie
   const handleUpdateBookStatus = async (statusToUpdate) => {
@@ -272,18 +279,21 @@ function BookDetailModal() {
                   <Typography align="center" sx={{ width: "50%" }}>
                     {user?.username}
                   </Typography>
-                  <Link
+                  {/* <Link
                     to="/ContactFormDonation"
                     style={{ color: "#000", textDecoration: "underline" }}
                   >
-                    <Button
-                      variant="contained"
-                      endIcon={<SendIcon />}
-                      sx={{ width: "50%" }}
-                    >
-                      Contactez cette personne
-                    </Button>
-                  </Link>
+                  </Link> */}
+                  <Button
+                    variant="contained"
+                    endIcon={<SendIcon />}
+                    sx={{ width: "50%" }}
+                    onClick={() => {
+                      handleDonorButton(user);
+                    }}
+                  >
+                    Contactez cette personne
+                  </Button>
                 </Box>
               ))}
             </>

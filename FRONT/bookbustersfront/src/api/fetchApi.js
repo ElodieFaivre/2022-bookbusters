@@ -7,7 +7,7 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
       password,
     })
     .then(({ data }) => {
-      // console.log(data.user);
+      console.log(data.token);
       handleLoginSuccess(data.token, data.user);
     })
     .catch((error) => {
@@ -59,13 +59,11 @@ export const registerUser = (
       username,
       email,
       password,
-      // bio: "gnagnagna",
-      location: "(48.8833024, 2.3789568)",
       postalCode,
       communeCode,
-      mail_donation: true,
-      mail_alert: true,
-      // avatar_id: "1",
+      // mail_donation: true,
+      // mail_alert: true,
+      avatar_id: "1",
     })
     .then(() => {
       handleRegisterSuccess();

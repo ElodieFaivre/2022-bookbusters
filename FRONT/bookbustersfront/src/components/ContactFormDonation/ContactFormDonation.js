@@ -17,7 +17,7 @@ import userContext from "../../contexts/UserContext";
 import alertContext from "../../contexts/AlertContext";
 import bookContext from "../../contexts/BookContext";
 import { contactDonor } from "../../api/fetchApi";
-
+import donatorContext from "../../contexts/DonatorContext";
 // Import Composants
 import Header from "../Header/Header";
 import Copyright from "../Copyright/Copyright";
@@ -28,7 +28,10 @@ import { Link, useNavigate } from "react-router-dom";
 function ContactFormDonation() {
   const { openedBook, setOpenedBook } = useContext(bookContext);
   const { userInfo } = useContext(userContext);
+  const { donatorInfo } = useContext(donatorContext);
 
+  console.log(openedBook);
+  console.log(userInfo);
   const [message, setMessage] = useState(
     `Bonjour, votre livre ${openedBook.title} est-il toujours au don ?`
   );
@@ -36,9 +39,6 @@ function ContactFormDonation() {
 
   const { setErrorAlert, setSuccessAlert } = useContext(alertContext);
   const navigate = useNavigate();
-
-  // console.log(openedBook);
-  // console.log(userInfo);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,7 +53,7 @@ function ContactFormDonation() {
     }
     const user_email = userInfo.email;
     const user_fullname = userInfo.username;
-    const donor_email = openedBook.donors[0].email;
+    const donor_email = openedBook.donors.email;
     const book_title = openedBook.title;
 
     contactDonor(user_email, user_fullname, donor_email, book_title, message);
@@ -65,6 +65,10 @@ function ContactFormDonation() {
     const handleFormDonationSuccess = () => {};
     setSuccessAlert("Votre demande auprès du donateur a été envoyée");
   };
+
+  if (!donatorInfo) {
+    return null;
+  }
 
   return (
     <div>
@@ -91,8 +95,8 @@ function ContactFormDonation() {
               padding: 2,
             }}
           >
-            Vous contactez <strong>{openedBook.donors[0].username}</strong> pour
-            le livre <strong>{openedBook.title}</strong>
+            Vous contactez <strong>{donatorInfo.username}</strong> pour le livre{" "}
+            <strong>{openedBook.title}</strong>
           </Typography>
           <Box
             component="form"

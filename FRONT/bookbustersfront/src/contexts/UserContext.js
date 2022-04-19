@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 const userContext = createContext();
 
 export function UserProvider({ children }) {
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState(localStorage.getItem("user"));
 
   return (
     <userContext.Provider value={{ userInfo, setUserInfo }}>

@@ -14,11 +14,8 @@ function Books() {
 
   useEffect(() => {
     latestAddition(setData);
-  }, [setData]);
+  }, []);
 
-  /* useEffect(() => {
-    axios.get("http://localhost:5000/v1/book").then((res) => setData(res.data));
-  }, []); */
   return (
     <>
       {/*console.log(data.user)*/}

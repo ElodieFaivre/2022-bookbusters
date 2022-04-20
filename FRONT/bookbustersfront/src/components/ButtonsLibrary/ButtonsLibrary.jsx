@@ -1,6 +1,7 @@
 import { Container, ButtonGroup, Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import LinkButton from "../LinkButton/LinkButton";
 
 const ButtonsLibrary = () => {
   return (
@@ -12,21 +13,9 @@ const ButtonsLibrary = () => {
         }}
       >
         <ButtonGroup>
-          <Link to="/Library" style={{ textDecoration: "none" }}>
-            <Button variant="contained" color="primary">
-              Bibliothèque
-            </Button>
-          </Link>
-          <Link to="/Favorites" style={{ textDecoration: "none" }}>
-            <Button variant="contained" color="secondary">
-              Mes Favoris
-            </Button>
-          </Link>
-          <Link to="/MyAlerts" style={{ textDecoration: "none" }}>
-            <Button variant="contained" color="primary">
-              Mes Alertes
-            </Button>
-          </Link>
+          <LinkButton to="/Library" text={"Bibliothèque"} />
+          <LinkButton to="/Favorites" text={"Mes Favoris"} />
+          <LinkButton to="/MyAlerts" text={"Mes Alertes"} />
         </ButtonGroup>
       </Container>
     </div>

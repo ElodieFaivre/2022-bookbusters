@@ -14,8 +14,8 @@ const ButtonsLibrary = () => {
       >
         <ButtonGroup>
           <LinkButton to="/Library" text={"Bibliothèque"} />
-          <LinkButton to="/Favorites" text={"Mes Favoris"} />
-          <LinkButton to="/MyAlerts" text={"Mes Alertes"} />
+          <LinkButton to="/Favorites" text={"Favoris"} />
+          <LinkButton to="/MyAlerts" text={"Alertes"} />
         </ButtonGroup>
       </Container>
     </div>

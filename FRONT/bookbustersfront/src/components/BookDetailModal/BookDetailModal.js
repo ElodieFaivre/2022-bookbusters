@@ -6,9 +6,7 @@ import Modal from "@mui/material/Modal";
 import bookContext from "../../contexts/BookContext";
 import bookDefaultCover from "../../assets/img/logo_bb.png";
 import { Button, IconButton, Stack, Tooltip } from "@mui/material";
-// Import React-Router-Dom
-import { Link } from "react-router-dom";
-// Import des icones pour la modale
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookIcon from "@mui/icons-material/Book";

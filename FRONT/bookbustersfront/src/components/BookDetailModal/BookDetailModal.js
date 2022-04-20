@@ -138,6 +138,7 @@ function BookDetailModal({ callback = () => {} }) {
     setOpenedBook(null);
   };
 
+  console.log('USERS', users);
   return (
     <Modal
       open={Boolean(openedBook)}
@@ -149,9 +150,10 @@ function BookDetailModal({ callback = () => {} }) {
       }}
     >
       <Box sx={styleBox}>
-        <Box sx={{ textAlign: "right" }}>
+        <Box sx={{ textAlign: "right"}}>
           <IconButton onClick={handleCloseModal}>
-            <CloseIcon sx={{ color: "black" }} fontSize="small" />
+            <CloseIcon sx={{ color: "black"}} fontSize="small" />
+            
           </IconButton>
         </Box>
         <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
@@ -164,6 +166,8 @@ function BookDetailModal({ callback = () => {} }) {
               maxWidth: { xs: "250px", md: "500px" },
               height: "auto",
               padding: { xs: "auto", md: "0px 20px 15px 0px" },
+              display:{xs:"flex", md:"block"},
+              justifyContent:"center"
             }}
           >
             {book.cover ? (
@@ -174,43 +178,47 @@ function BookDetailModal({ callback = () => {} }) {
           </Box>
           {/* Zone des icones d'interactions */}
           {localStorage.getItem("jwt") && (
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box sx={{ display: "flex", flexDirection:{xs:"row", md:"column"}, justifyContent:{xs:"space-evenly"}, marginTop:{xs:"10px", md:"0"}}}>
               <Tooltip title="Ajoutez ce livre à vos favoris" arrow placement="right">
-                <IconButton
+                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
                   onClick={() => {
                     handleUpdateBookStatus("favorit");
-                  }}
+                  }} 
                 >
                   {favorit ? <FavoriteIcon sx={{ color: "red" }} /> : <FavoriteBorderIcon />}
+                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Favoris</Typography>
                 </IconButton>
               </Tooltip>
               <Tooltip title="Ajoutez ce livre à votre bilbiothèque" arrow placement="right">
-                <IconButton
+                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
                   onClick={() => {
                     handleUpdateBookStatus("library");
                   }}
                 >
                   {library ? <BookIcon sx={{ color: "brown" }} /> : <BookOutlinedIcon />}
+                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Bilbiothèque</Typography>
                 </IconButton>
               </Tooltip>
               <Tooltip title="Activez la donation pour ce livre" arrow placement="right">
                 {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
-                <IconButton
+                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
                   onClick={() => {
                     handleUpdateBookStatus("donation");
                   }}
                 >
                   {donation ? <VolunteerActivismIcon sx={{ color: "blue" }} /> : <VolunteerActivismOutlinedIcon />}
+                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Don</Typography>
                 </IconButton>
               </Tooltip>
               <Tooltip title="Ajoutez une alerte pour ce livre" arrow placement="right">
-                <IconButton
+                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
                   onClick={() => {
                     handleUpdateBookStatus("alert");
                   }}
                 >
                   {alert ? <AddAlertIcon sx={{ color: "green" }} /> : <AddAlertOutlinedIcon />}
+                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Alerte</Typography>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -231,8 +239,10 @@ function BookDetailModal({ callback = () => {} }) {
         </Box>
         {/* Zone des donateurs */}
         <Stack>
-          {users && users.length > 0 && (
+          {users && users[0] && users.length > 0 && (
+           
             <>
+             
               <Typography variant="h5" align="center" sx={{ mb: "10px", mt: "10px" }}>
                 Livre disponible chez
               </Typography>
@@ -262,7 +272,7 @@ function BookDetailModal({ callback = () => {} }) {
           )}
           {(!users || users.length === 0) && (
             <>
-              <Typography>Personne ne possède le livre !</Typography>
+              <Typography sx={{marginTop:"10px", textAlign:"center"}}>Personne ne possède le livre !</Typography>
             </>
           )}
         </Stack>

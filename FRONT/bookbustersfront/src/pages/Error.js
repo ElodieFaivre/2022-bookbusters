@@ -30,8 +30,8 @@ const Error = () => {
           <br />
           <Typography variant="h5">
             {" "}
-            Ceci est une erreur 404, pas de bouquin dispo par ici...
-            Mais retrouvez tous nos donateurs par <Link to= "/">là</Link> !
+            Ceci est une erreur 404, pas de bouquin dispo par là...
+            Mais retrouvez tous nos donateurs par <Link to= "/">ici</Link> !
           </Typography>
           
           

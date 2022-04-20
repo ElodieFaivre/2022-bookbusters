@@ -4,11 +4,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import bookContext from "../../contexts/BookContext";
-import bookDefaultCover from "../../assets/img/simpson.jpg";
+import bookDefaultCover from "../../assets/img/logo_bb.png";
 import { Button, IconButton, Stack, Tooltip } from "@mui/material";
-// Import React-Router-Dom
-import { Link } from "react-router-dom";
-// Import des icones pour la modale
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookIcon from "@mui/icons-material/Book";
@@ -147,7 +145,12 @@ function BookDetailModal({ callback = () => {} }) {
             
           </IconButton>
         </Box>
-        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ textAlign: "center", mb: 2 }}
+        >
           {book.title}
         </Typography>
         {/* Zone des cover des livres */}
@@ -162,9 +165,17 @@ function BookDetailModal({ callback = () => {} }) {
             }}
           >
             {book.cover ? (
-              <img className="imageCovers" alt="Book cover" src={book.cover}></img>
+              <img
+                className="imageCovers"
+                alt="Book cover"
+                src={book.cover}
+              ></img>
             ) : (
-              <img className="imageCovers" alt="Generic book cover" src={bookDefaultCover}></img>
+              <img
+                className="imageCovers"
+                alt="Generic book cover"
+                src={bookDefaultCover}
+              ></img>
             )}
           </Box>
           {/* Zone des icones d'interactions */}
@@ -190,7 +201,11 @@ function BookDetailModal({ callback = () => {} }) {
                   <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Bilbiothèque</Typography>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Activez la donation pour ce livre" arrow placement="right">
+              <Tooltip
+                title="Activez la donation pour ce livre"
+                arrow
+                placement="right"
+              >
                 {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
                 <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
@@ -215,7 +230,10 @@ function BookDetailModal({ callback = () => {} }) {
             </Box>
           )}
           {/* Zone des textes */}
-          <Box id="modal-modal-description" sx={{ margin: "0px 15px 0px 15px" }}>
+          <Box
+            id="modal-modal-description"
+            sx={{ margin: "0px 15px 0px 15px" }}
+          >
             <Typography variant="overline">Auteur:</Typography>
             <Typography>{book.author}</Typography>
             <Box
@@ -224,7 +242,11 @@ function BookDetailModal({ callback = () => {} }) {
               }}
             >
               <Typography variant="overline"> Résumé:</Typography>
-              {book.resume ? <Box>{book.resume}</Box> : <Typography>Pas de résumé trouvé pour ce livre.</Typography>}
+              {book.resume ? (
+                <Box>{book.resume}</Box>
+              ) : (
+                <Typography>Pas de résumé trouvé pour ce livre.</Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -238,7 +260,11 @@ function BookDetailModal({ callback = () => {} }) {
                 Livre disponible chez
               </Typography>
               {users.map((user, index) => (
-                <Box className="bookUserOwner" key={index} sx={{ mb: "5px", display: "flex", flexDirection: "row" }}>
+                <Box
+                  className="bookUserOwner"
+                  key={index}
+                  sx={{ mb: "5px", display: "flex", flexDirection: "row" }}
+                >
                   <Typography align="center" sx={{ width: "50%" }}>
                     {user?.username} {console.log(user)}
                   </Typography>

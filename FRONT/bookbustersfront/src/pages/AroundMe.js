@@ -1,14 +1,16 @@
 //import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
-import React, { useEffect, useState, useCallback } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import React, { useEffect, useState } from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Buttons from "../components/Button/Button";
 import Header from "../components/Header/Header";
 import PLS from "../../src/assets/img/simpson.jpg";
-
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import "../styles/AroundMe.scss";
 //import axios from "axios";
 import { usersAroundMe } from "../api/fetchApi";
+import bookContext from "../contexts/BookContext";
+import BookDetailModal from "../components/BookDetailModal/BookDetailModal";
 
 const ChangeMapVue = ({ userCoords }) => {
   const map = useMap();
@@ -45,7 +47,7 @@ const AroundMe = () => {
       return banane.cover;
     }
   }
-
+  const { setOpenedBook } = React.useContext(bookContext);
   return (
     <div>
       <Header />
@@ -75,19 +77,46 @@ const AroundMe = () => {
           <ChangeMapVue userCoords={userCoords} />
         </MapContainer>
       </div>
-      {positionUsers.length > 0 &&
-        positionUsers.map((user) =>
-          user.books.map((banane, index) => (
-            <div key={`unique-${index}`} className="bookMap">
-              <CardMedia component="img" image={livrePLS(banane)} alt="cover de livre" sx={{ width: 150 }} />{" "}
-              <div>
-                <h3>{banane.title}</h3>
-                <b>Auteur :{banane.author}</b>
-                <p>{banane.resume}</p>
-              </div>
-            </div>
-          ))
-        )}
+      <Box
+        className="containerMapLivre"
+        component="div"
+        sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" } }}
+      >
+        {" "}
+        {positionUsers.length > 0 &&
+          positionUsers.map((user) =>
+            user.books.map((banane, index) => (
+              <Button onClick={() => setOpenedBook(banane)} sx={{ flexWrap: "wrap" }} key={index}>
+                <Card
+                  sx={{
+                    maxWidth: "200px",
+                    m: 2,
+                    height: "500px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <CardMedia component="img" image={livrePLS(banane)} alt="cover de livre" />{" "}
+                  <CardContent
+                    sx={{
+                      overflowY: "auto",
+                      marginBottom: " 1px",
+                    }}
+                  >
+                    <Typography gutterBottom sx={{ fontSize: "1.2em" }} component="div">
+                      {banane.title}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                      <b>Auteur: </b> {banane.author}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Button>
+            ))
+          )}
+      </Box>
+      <BookDetailModal />
     </div>
   );
 };

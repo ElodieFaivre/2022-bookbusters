@@ -13,9 +13,7 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     .catch((error) => {
       if (error.response) {
         console.log(error.response.data.message);
-        setErrMsg(
-          (error.response.data.message = "Login ou mot de passe incorrect")
-        );
+        setErrMsg((error.response.data.message = "Login ou mot de passe incorrect"));
       } else {
         setErrMsg("Une erreur s'est produite");
       }
@@ -69,11 +67,7 @@ export const registerUser = (
       handleRegisterSuccess();
     })
     .catch((error) => {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error.response && error.response.data && error.response.data.message) {
         setErrorAlert(error.response.data.message);
       } else {
         setErrorAlert("Une erreur est survenue lors de l'inscription.");
@@ -89,10 +83,7 @@ export async function searchBooks(search, limit = 10, start = 0) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    const responseSearchResult = await axios.get(
-      `/v1/book/search?q=${search}&limit=${limit}&start=${start}`,
-      config
-    );
+    const responseSearchResult = await axios.get(`/v1/book/search?q=${search}&limit=${limit}&start=${start}`, config);
     // console.log(responseSearchResult);
     return responseSearchResult;
   } catch (error) {
@@ -200,13 +191,7 @@ export async function updateBookStatus(bookStatus) {
   }
 }
 
-export const contactDonor = (
-  user_email,
-  user_fullname,
-  donor_email,
-  book_title,
-  message
-) => {
+export const contactDonor = (user_email, user_fullname, donor_email, book_title, message) => {
   console.log(user_email, user_fullname, donor_email, book_title, message);
   const config = {
     headers: {
@@ -214,11 +199,7 @@ export const contactDonor = (
     },
   };
   axios
-    .post(
-      "/v1/user/contact",
-      { user_email, user_fullname, donor_email, book_title, message },
-      config
-    )
+    .post("/v1/user/contact", { user_email, user_fullname, donor_email, book_title, message }, config)
     .then(({ data }) => {
       console.log(data);
       // handleLoginSuccess(data.token, data.user);

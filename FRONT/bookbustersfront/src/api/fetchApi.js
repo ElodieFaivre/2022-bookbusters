@@ -20,27 +20,33 @@ export const connectUser = (login, password, setErrMsg, handleLoginSuccess) => {
     });
 };
 
-export const usersAroundMe = (setpositionUser, latitude, longitude) => {
+export const usersAroundMe = (setpositionUser, latitude, longitude, setisLoading) => {
   // permet de recuperer les user a coter de nous sur la map
   //console.log(latitude, longitude);
+  setisLoading(true);
   axios
     .post("/v1/book/around-me", {
       location: `(${latitude},${longitude})`,
       radius: "2000",
     })
     .then((response) => setpositionUser(response.data))
+    .finally(() => setisLoading(false))
     .catch((error) => {
       console.log(error);
     });
 };
 
-export const latestAddition = (setData) => {
+export const latestAddition = (setData, setisLoading) => {
+  setisLoading(true);
   const config = {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   };
-  axios.get("/v1/book", config).then((res) => setData(res.data));
+  axios
+    .get("/v1/book", config)
+    .then((res) => setData(res.data))
+    .finally(() => setisLoading(false));
 };
 
 export const registerUser = (

@@ -11,6 +11,7 @@ import "../styles/AroundMe.scss";
 import { usersAroundMe } from "../api/fetchApi";
 import bookContext from "../contexts/BookContext";
 import BookDetailModal from "../components/BookDetailModal/BookDetailModal";
+import Spinner from "../components/Spinner/Spinner";
 
 const ChangeMapVue = ({ userCoords }) => {
   const map = useMap();
@@ -21,14 +22,15 @@ const ChangeMapVue = ({ userCoords }) => {
 const AroundMe = () => {
   const [positionUsers, setpositionUsers] = useState([]);
   const [userCoords, setuserCoords] = useState({ longitude: 0, latitude: 0 });
+  const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
-    usersAroundMe(setpositionUsers, userCoords.latitude, userCoords.longitude);
+    usersAroundMe(setpositionUsers, userCoords.latitude, userCoords.longitude, setisLoading);
   }, [userCoords]);
 
   //console.log(userCoords.latitude, userCoords.longitude);
-  console.log(positionUsers[0]);
-  console.log(positionUsers);
+  //console.log(positionUsers[0]);
+  //console.log(positionUsers);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -82,7 +84,7 @@ const AroundMe = () => {
         sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" }, flexWrap: "wrap" }}
       >
         {" "}
-        {positionUsers.length > 0 &&
+        {!isLoading ? (
           positionUsers.map((user) =>
             user.books.map((banane, index) => (
               <Button onClick={() => setOpenedBook(banane)} key={index}>
@@ -113,7 +115,10 @@ const AroundMe = () => {
                 </Card>
               </Button>
             ))
-          )}
+          )
+        ) : (
+          <Spinner />
+        )}
       </Box>
       <BookDetailModal />
     </div>

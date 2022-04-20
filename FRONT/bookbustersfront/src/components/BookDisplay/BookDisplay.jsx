@@ -1,12 +1,10 @@
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  favoritesBooks,
-  libraryBooks,
-  myAlertsBooks,
-} from "../../api/fetchApi";
+import { favoritesBooks, libraryBooks, myAlertsBooks } from "../../api/fetchApi";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import BookDisplayModel from "../BookDisplayModel/BookDisplayModel";
+import Spinner from "../Spinner/Spinner";
 
 const BookDisplay = () => {
   const [data, setData] = useState([]);
@@ -53,11 +51,18 @@ const BookDisplay = () => {
   console.log(locationMap());
   return (
     <div>
-      {attenteReceptionDonnees()
-
-        ? locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)
-        : "pas de livre disponible dans cette catégorie "}
-
+      {" "}
+      <Box
+        className="containerMapLivre"
+        component="div"
+        sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" } }}
+      >
+        {attenteReceptionDonnees() ? (
+          locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)
+        ) : (
+          <Spinner />
+        )}
+      </Box>
       <BookDetailModal />
     </div>
   );

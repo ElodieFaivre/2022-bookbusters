@@ -60,7 +60,7 @@ const Credits = () => {
           <Box component="img" src={github} width="25px" height="25px" sx={{marginLeft : "2vh"}}/>
           <Box component="img" src={linkedin} width="25px" height="25px" sx={{marginLeft : "2vh"}}/>
           </Box>
-          <Typography sx={{color: "white",textAlign: "initial",fontSize:"0.7rem",}}>En provenance du cinéma, je suis actuellement apprenti sorcier dans le domaine du Web.</Typography> 
+          <Typography sx={{color: "white",textAlign: "initial",fontSize:"0.7rem",}}>En provenance du cinéma, il est actuellement apprenti sorcier dans le domaine du Web.</Typography> 
           </Box>
 
           <Box sx={{marginBottom: "0.5rem"}}>
@@ -69,7 +69,7 @@ const Credits = () => {
           <Box component="img" src={github} width="25px" height="25px" sx={{marginLeft : "2vh"}}/>
           <Box component="img" src={linkedin} width="25px" height="25px" sx={{marginLeft : "2vh"}}/>
           </Box>
-          <Typography sx={{color: "white",textAlign: "initial",fontSize:"0.7rem",}}>En provenance du cinéma, je suis actuellement apprenti sorcier dans le domaine du Web.</Typography> 
+          <Typography sx={{color: "white",textAlign: "initial",fontSize:"0.7rem",}}>Un product owner haut en couleur qui a su donné les priorités tout au long de se projet ambitieux.</Typography> 
            </Box>
 
            <Box sx={{marginBottom: "0.5rem"}}>

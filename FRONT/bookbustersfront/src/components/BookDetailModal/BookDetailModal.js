@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import bookContext from '../../contexts/BookContext';
 import bookDefaultCover from '../../assets/img/logo_bb.png';
 import { Button, IconButton, Stack, Tooltip } from '@mui/material';
+import './style.scss';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -19,6 +20,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 import { updateBookStatus } from '../../api/fetchApi';
 import donatorContext from '../../contexts/DonatorContext';
+import alertContext from '../../contexts/AlertContext';
+
 const styleBox = {
     position: 'absolute',
     top: { xs: '50%', md: '50%' },
@@ -38,6 +41,7 @@ function BookDetailModal({ callback = () => {} }) {
     const [open, setOpen] = useState(false);
     const { openedBook, setOpenedBook } = useContext(bookContext);
     const { setDonatorInfo } = useContext(donatorContext);
+    const { setErrorAlert, setInfoAlert } = useContext(alertContext);
     const navigate = useNavigate();
 
     //function livrePLS() {
@@ -81,6 +85,8 @@ function BookDetailModal({ callback = () => {} }) {
     // Inverser tout de suite la valeur de l'état pour des questions de cycles de vie
     // nous sommes dans le meme cycle de vie
     const handleUpdateBookStatus = async (statusToUpdate) => {
+        const infoMessage = [];
+
         let bookStatus = {
             library,
             favorit,
@@ -92,8 +98,15 @@ function BookDetailModal({ callback = () => {} }) {
         switch (statusToUpdate) {
             case 'library':
                 if (!library === false) {
+                    if (donation) {
+                        infoMessage.push(
+                            'puisque vous ne possédez plus ce livre, nous l\'avons retiré de vos dons',
+                        );
+                    }
                     setDonation(false);
                     bookStatus.donation = false;
+
+                    setInfoAlert(infoMessage);
                 }
                 setLibrary(!library);
                 bookStatus.library = !library;
@@ -104,23 +117,45 @@ function BookDetailModal({ callback = () => {} }) {
                 break;
             case 'donation':
                 if (!donation === true) {
+                    if(!library) {
+                        infoMessage.push(
+                            'pour sa mise au don, nous avons ajouté ce livre à votre bibliothèque',
+                        );
+                    }
                     setLibrary(true);
                     bookStatus.library = true;
+                    if (alert) {
+                        infoMessage.push(
+                            'puisque vous le possédez, nous avons retiré ce livre de vos alertes',
+                        );
+                    }
                     setAlert(false);
                     bookStatus.alert = false;
+
+                    setInfoAlert(infoMessage.join(' et '));
                 }
                 setDonation(!donation);
                 bookStatus.donation = !donation;
                 break;
             case 'alert':
                 if (!alert === true) {
+                    if (donation) {
+                        infoMessage.push(
+                            'puisque vous recherchez ce livre, nous l\'avons retiré de vos dons',
+                        );
+                    }
                     setDonation(false);
                     bookStatus.donation = false;
                 }
                 setAlert(!alert);
                 bookStatus.alert = !alert;
+
+                setInfoAlert(infoMessage);
                 break;
             default:
+                setErrorAlert(
+                    'Une erreur semble avoir eu lieu, vous devriez recliquer sur le bouton.',
+                );
                 break;
         }
         console.log(bookStatus);

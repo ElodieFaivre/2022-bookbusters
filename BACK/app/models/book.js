@@ -1,6 +1,6 @@
 const client = require('../config/database');
 const { ApiError } = require('../middlewares/handleError');
-const debug = require('debug')('BookController');
+const debug = require('debug')('BookModel');
 /**
  * @typedef {object} User
  * @property {number} id - Indentifiant unique, Pk de la table
@@ -157,7 +157,7 @@ const bookDataMapper = {
         if (!book.is_in_library) {
             book.is_in_donation = false;
         }*/
-
+        debug('données reçues du req.body', book);
         //1. Verify if this book exist in our BDD
         let bookExist = await client.query(`SELECT id FROM book WHERE isbn13=$1 OR isbn10=$2`, [
             book.isbn13,

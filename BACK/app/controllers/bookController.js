@@ -61,6 +61,7 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async addBook(req, res) {
+        debug('req.body dans le controlleur', req.body)
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
         let connectedUserId;

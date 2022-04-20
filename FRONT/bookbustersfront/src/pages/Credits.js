@@ -82,7 +82,7 @@ const Credits = () => {
           </Box>
 
           <Box sx={{display : "flex",flexDirection: { xs: 'column', md:'row'}, alignItems: "center", justifyContent: "center", gap:'0rem 0rem', marginTop : "2rem"}} >
-          <Typography sx={{color: "white", textAlign: "initial",fontSize:"0.7rem"}}>un grand <Typography variant="h6"sx={{color: "white",fontSize:"2rem", fontWeight:'fontWeightMedium', display:'inline'}}>MERCI</Typography> de toute l'équipe à Anne Laure pour le logo trop trop top et les visuels BookBusters !</Typography> <Box component="img" src={instagram} width="25px" height="25px" sx={{marginLeft : "1vh", marginTop : "0,5vh"}}/>
+          <Typography sx={{color: "white", textAlign: "initial",fontSize:"0.7rem"}}>un grand <Typography variant="h6"sx={{color: "white",fontSize:"2rem", fontWeight:'fontWeightMedium', display:'inline'}}>MERCI</Typography> de toute l'équipe à Anne Laure pour le logo trop trop top et les visuels BookBusters et à Agathe pour cette magnifique idée !</Typography> <Box component="img" src={instagram} width="25px" height="25px" sx={{marginLeft : "1vh", marginTop : "0,5vh"}}/>
           </Box>
           </Box>
            

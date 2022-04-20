@@ -51,7 +51,7 @@ module.exports = {
 
         if (!books) {
             return res.json([])
-           // throw new ApiError('Sorry, book with this keyword not found', { statusCode: 404 });
+        // throw new ApiError('Sorry, book with this keyword not found', { statusCode: 404 });
         }
 
         books = await bookReformatter.reformat(books, connectedUserId);
@@ -63,7 +63,7 @@ module.exports = {
         const book = await worldCat.findBookByISBN(req.params.isbn);
         if (!book) {
             return res.json([])
-            //throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 404);
+        // throw new ApiError(`Sorry, book with the ISBN ${req.params.isbn} not found`, 404);
         }
         return res.json(book);
     },

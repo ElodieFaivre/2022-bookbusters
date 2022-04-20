@@ -15,6 +15,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import authContext from "../../contexts/AuthContext";
 import scannerIcon from "../../assets/img/scanner-icon.svg";
 import { convertLength } from "@mui/material/styles/cssUtils";
+import logoBusters from "../../assets/img/logoBusters.svg";
+import logoBustersWhiteDesktop from "../../assets/img/logo_bb_reserve.svg";
 
 const pages = [
   {
@@ -72,7 +74,7 @@ const ResponsiveAppBar = () => {
       href: "/Account",
       style: { color: "#fff", textDecoration: "none" },
       sx: { color: "black" },
-      label: "Account",
+      label: "Mon compte",
       action: null,
     },
     {
@@ -160,16 +162,17 @@ const ResponsiveAppBar = () => {
               alignItems: "center",
             }}
           >
-            <Link
-              to="/"
-              style={{
-                color: "#fff",
-                textDecoration: "none",
-                marginLeft: "16px",
-              }}
-            >
-              BookBusters
+            <Link to="/" sx={{ textDecoration: "none" }}>
+              <Box
+                component="img"
+                style={{
+                  margin: "10px 10px 0px 10px",
+                  height: "50px",
+                }}
+                src={logoBustersWhiteDesktop}
+              ></Box>
             </Link>
+
             <SearchBar />
             {jwt && (
               <Link
@@ -249,15 +252,16 @@ const ResponsiveAppBar = () => {
               alignItems: "center",
             }}
           >
-            <Link
-              to="/"
-              underline="none"
-              style={{
-                color: "#fff",
-                textDecoration: "none",
-              }}
-            >
-              B
+            <Link to="/" sx={{ textDecoration: "none" }}>
+              <Box
+                component="img"
+                style={{
+                  margin: "10px 10px 0px 10px",
+                  height: "50px",
+                  filter: "invert(100%)",
+                }}
+                src={logoBusters}
+              ></Box>
             </Link>
             <SearchBar />
             {jwt && (

@@ -15,7 +15,7 @@ const Buttons = () => {
           justifyContent: "center",
         }}
       >
-        <ButtonGroup>
+        <ButtonGroup sx={{ gap: "45px" }}>
           <LinkButton to="/" text={"Les derniers"} />
           <LinkButton to="/aroundMe" text={"Autour de moi"} />
         </ButtonGroup>

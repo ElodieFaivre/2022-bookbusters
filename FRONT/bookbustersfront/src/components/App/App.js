@@ -12,7 +12,7 @@ import "@fontsource/roboto";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "../../pages/Home";
-import ScanPage from '../../pages/ScanPage';
+import ScanPage from "../../pages/ScanPage";
 import Error from "../../pages/Error";
 import Account from "../../pages/Account";
 import Credits from "../../pages/Credits";
@@ -51,6 +51,10 @@ let themeOptions = createTheme({
     },
   },
   typography: {
+    h1: {
+      fontFamily: "Rubik Wet Paint",
+      fontSize: "3rem",
+    },
     h6: {
       fontFamily: "Rubik Wet Paint",
     },
@@ -66,34 +70,37 @@ function App() {
         <AuthProvider>
           <AlertProvider>
             <BookProvider>
-            <DonatorProvider>
-              <Routes>
-                {/* Routes toujours accessibles */}
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<Error />} />
-                <Route path="/Credits" element={<Credits />} />
-                <Route path="/Contact" element={<Contact />} />
-                <Route path="/AroundMe" element={<AroundMe />} />
-                <Route path="/SearchResults" element={<SearchResults />} />
-                <Route path="/DonationRenewing" element={<DonationRenewing />} />
-                {/* Routes avec JWT*/}
-                <Route
-                  element={
-                    <AuthenticatedRoute
-                      redirect="/SignIn"
-                      connectedOnly={true}
+              <DonatorProvider>
+                <Routes>
+                  {/* Routes toujours accessibles */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="*" element={<Error />} />
+                  <Route path="/Credits" element={<Credits />} />
+                  <Route path="/Contact" element={<Contact />} />
+                  <Route path="/AroundMe" element={<AroundMe />} />
+                  <Route path="/SearchResults" element={<SearchResults />} />
+                  <Route
+                    path="/DonationRenewing"
+                    element={<DonationRenewing />}
+                  />
+                  {/* Routes avec JWT*/}
+                  <Route
+                    element={
+                      <AuthenticatedRoute
+                        redirect="/SignIn"
+                        connectedOnly={true}
                       />
                     }
-                    >
-                    
-                
-                  <Route path="/Account" element={<Account />} />
-                  <Route path='/scan' element={<ScanPage />} />
-                  <Route path="/myAlerts" element={<MyAlerts />} /> 
-                  <Route path="/Favorites" element={<Favorites />} />
-                  <Route path="/Library" element={<Library />} />
-                  <Route path="/ContactFormDonation" element={<ContactFormDonation />}  />
-                
+                  >
+                    <Route path="/Account" element={<Account />} />
+                    <Route path="/scan" element={<ScanPage />} />
+                    <Route path="/myAlerts" element={<MyAlerts />} />
+                    <Route path="/Favorites" element={<Favorites />} />
+                    <Route path="/Library" element={<Library />} />
+                    <Route
+                      path="/ContactFormDonation"
+                      element={<ContactFormDonation />}
+                    />
                   </Route>
                   {/* Routes SANS JWT*/}
                   <Route
@@ -101,7 +108,6 @@ function App() {
                       <AuthenticatedRoute redirect="/" connectedOnly={false} />
                     }
                   >
-
                     {/* <Route path="/ForgotPassword" element={<ForgotPassword />} />*/}
                     <Route path="/SignIn" element={<SignInSide />} />
                     <Route path="/SignUp" element={<SignUp />} />

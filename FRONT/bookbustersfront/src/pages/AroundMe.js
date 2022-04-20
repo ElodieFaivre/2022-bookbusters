@@ -86,7 +86,7 @@ const AroundMe = () => {
         {positionUsers.length > 0 &&
           positionUsers.map((user) =>
             user.books.map((banane, index) => (
-              <Button onClick={() => setOpenedBook(banane)} sx={{ textAlign: "inherit" }} key={index}>
+              <Button onClick={() => setOpenedBook(banane)} sx={{ flexWrap: "wrap" }} key={index}>
                 <Card
                   sx={{
                     maxWidth: "200px",

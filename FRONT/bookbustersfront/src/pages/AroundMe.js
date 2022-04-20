@@ -1,6 +1,6 @@
 //import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
-import React, { useEffect, useState, useCallback } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import React, { useEffect, useState } from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Buttons from "../components/Button/Button";
 import Header from "../components/Header/Header";

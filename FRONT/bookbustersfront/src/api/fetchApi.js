@@ -93,7 +93,23 @@ export async function searchBooks(search, limit = 10, start = 0) {
   }
 }
 
-export async function favoritesBooks(setData) {
+export async function searchBookByISBN(isbn) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    };
+    const responseResult = await axios.get(`/v1/book/isbn/${isbn}`, config);
+    console.log(responseResult);
+    return responseResult;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function favoritesBooks(setData, setisLoading) {
+  setisLoading(true);
   try {
     const payload = payloadDecode();
     const config = {
@@ -103,15 +119,18 @@ export async function favoritesBooks(setData) {
     };
     const responseFavoritesBooks = await axios
       .get(`/v1/user/${payload.userId}/favorite`, config)
-      .then((res) => setData(res.data));
+      .then((res) => setData(res.data))
+      .finally(() => setisLoading(false));
     return responseFavoritesBooks;
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function libraryBooks(setLibrary) {
+export async function libraryBooks(setLibrary, setisLoading) {
+  setisLoading(true);
   try {
+    console.log("libraryBooks");
     const payload = payloadDecode();
     const config = {
       headers: {
@@ -120,14 +139,16 @@ export async function libraryBooks(setLibrary) {
     };
     const responseLibraryBooks = await axios
       .get(`/v1/user/${payload.userId}/library`, config)
-      .then((res) => setLibrary(res.data));
+      .then((res) => setLibrary(res.data))
+      .finally(() => setisLoading(false));
     return responseLibraryBooks;
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function myAlertsBooks(setAlert) {
+export async function myAlertsBooks(setAlert, setisLoading) {
+  setisLoading(true);
   try {
     const payload = payloadDecode();
     const config = {
@@ -137,7 +158,8 @@ export async function myAlertsBooks(setAlert) {
     };
     const responseMyAlertsBooks = await axios
       .get(`/v1/user/${payload.userId}/alert`, config)
-      .then((res) => setAlert(res.data));
+      .then((res) => setAlert(res.data))
+      .finally(() => setisLoading(false));
     return responseMyAlertsBooks;
   } catch (error) {
     console.log(error);
@@ -151,11 +173,11 @@ export async function updateBookStatus(bookStatus) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    console.log(bookStatus);
+
     const bookStatusResponse = await axios.post(
       "/v1/book",
       {
-        isbn13: bookStatus.isnb13,
+        isbn13: bookStatus.isbn13,
         isbn10: bookStatus.isbn10,
         is_in_library: bookStatus.library,
         is_in_donation: bookStatus.donation,
@@ -164,6 +186,7 @@ export async function updateBookStatus(bookStatus) {
       },
       config
     );
+    console.log("Retour de la BDD", bookStatusResponse);
 
     return bookStatusResponse;
   } catch (error) {

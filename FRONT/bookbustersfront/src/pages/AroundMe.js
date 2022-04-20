@@ -61,7 +61,6 @@ const AroundMe = () => {
 
           {positionUsers.length > 0 &&
             positionUsers.map((user, index) => (
-              //console.log(user),
               <Marker
                 key={index}
                 position={{
@@ -80,13 +79,13 @@ const AroundMe = () => {
       <Box
         className="containerMapLivre"
         component="div"
-        sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" } }}
+        sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" }, flexWrap: "wrap" }}
       >
         {" "}
         {positionUsers.length > 0 &&
           positionUsers.map((user) =>
             user.books.map((banane, index) => (
-              <Button onClick={() => setOpenedBook(banane)} sx={{ flexWrap: "wrap" }} key={index}>
+              <Button onClick={() => setOpenedBook(banane)} key={index}>
                 <Card
                   sx={{
                     maxWidth: "200px",

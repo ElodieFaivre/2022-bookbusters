@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import authContext from "../../contexts/AuthContext";
+import scannerIcon from "../../assets/img/scanner-icon.svg";
+import { convertLength } from "@mui/material/styles/cssUtils";
 
 const pages = [
   {
@@ -70,7 +72,7 @@ const ResponsiveAppBar = () => {
       href: "/Account",
       style: { color: "#fff", textDecoration: "none" },
       sx: { color: "black" },
-      label: "Mon compte",
+      label: "Account",
       action: null,
     },
     {
@@ -132,16 +134,64 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="sticky" sx={{ top: 0, left: 0, right: 0 }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
-            <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+      <Container
+        maxWidth="xl"
+        style={{
+          paddingInline: "0 10px",
+          maxWidth: "1280px",
+          display: "flex",
+          flexFlow: "row nowrap",
+          justifyContent: "center",
+          flexGrow: 1,
+        }}
+      >
+        <Toolbar disableGutters style={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              flexFlow: "row nowrap",
+              flexGrow: 1,
+              gap: "20px",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <Link
+              to="/"
+              style={{
+                color: "#fff",
+                textDecoration: "none",
+                marginLeft: "16px",
+              }}
+            >
               BookBusters
             </Link>
             <SearchBar />
+            {jwt && (
+              <Link
+                to="/scan"
+                style={{
+                  display: "block",
+                  minWidth: "40px",
+                  minHeight: "42px",
+                  backgroundImage: `url("${scannerIcon}")`,
+                  backgroundPosition: "center center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                }}
+              ></Link>
+            )}
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              display: { xs: "flex", md: "none" },
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -182,21 +232,51 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              flexFlow: "row nowrap",
+              gap: "10px",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
             <Link
               to="/"
               underline="none"
               style={{
                 color: "#fff",
                 textDecoration: "none",
-                marginRight: "15px",
               }}
             >
-              BookBusters
+              B
             </Link>
-            <SearchBar sx={{ marginLeft: "15px", marginRight: "15px" }} />
+            <SearchBar />
+            {jwt && (
+              <Link
+                to="/scan"
+                style={{
+                  display: "block",
+                  minWidth: "40px",
+                  minHeight: "42px",
+                  backgroundImage: `url("${scannerIcon}")`,
+                  backgroundPosition: "center center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                }}
+              ></Link>
+            )}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             {navlinks.map((page, index) => (
               <MenuItem key={`MenuItem-babybel-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
                 <Link style={page.style} to={page.href}>

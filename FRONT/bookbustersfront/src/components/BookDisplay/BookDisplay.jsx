@@ -11,24 +11,25 @@ const BookDisplay = () => {
   const [library, setLibrary] = useState([]);
   const [alert, setAlert] = useState([]);
 
+  const [isLoadingFavorit, setisLoadingFavorit] = useState(true);
+  const [isLoadingLibrary, setIsLoadingLibrary] = useState(true);
+  const [isLoadingAlert, setIsLoadingAlert] = useState(true);
+
   useEffect(() => {
-    libraryBooks(setLibrary);
-    favoritesBooks(setData);
-    myAlertsBooks(setAlert);
+    libraryBooks(setLibrary, setIsLoadingLibrary);
+    favoritesBooks(setData, setisLoadingFavorit);
+    myAlertsBooks(setAlert, setIsLoadingAlert);
   }, []);
 
   const location = useLocation();
   //console.log(location.pathname === "/Favorites");
   //console.log(data);
 
+  function isLoading() {
+    return isLoadingFavorit || isLoadingLibrary || isLoadingAlert;
+  }
+
   function locationMap() {
-    /*if (location.pathname === "/Favorites") {
-      return data;
-    } else if (location.pathname === "/Library") {
-      return library;
-    } else if (location.pathname === "/MyAlerts") {
-      return alert;
-    }*/
     switch (location.pathname) {
       case "/Favorites":
         return data;
@@ -48,7 +49,7 @@ const BookDisplay = () => {
       return true;
     }
   }
-  console.log(locationMap());
+  console.log(isLoading());
   return (
     <div>
       {" "}
@@ -57,8 +58,12 @@ const BookDisplay = () => {
         component="div"
         sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" } }}
       >
-        {attenteReceptionDonnees() ? (
-          locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)
+        {!isLoading() ? (
+          <>
+            {attenteReceptionDonnees() &&
+              locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)}
+            {!attenteReceptionDonnees() && "aucune donnée"}
+          </>
         ) : (
           <Spinner />
         )}

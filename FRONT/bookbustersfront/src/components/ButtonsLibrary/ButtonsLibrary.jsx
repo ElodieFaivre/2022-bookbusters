@@ -19,12 +19,12 @@ const ButtonsLibrary = () => {
           </Link>
           <Link to="/Favorites" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="secondary">
-              Mes Favoris
+              Favoris
             </Button>
           </Link>
           <Link to="/MyAlerts" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="primary">
-              Mes Alertes
+              Alertes
             </Button>
           </Link>
         </ButtonGroup>

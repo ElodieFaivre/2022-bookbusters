@@ -8,19 +8,21 @@ const Buttons = () => {
   const [aroundMe, setAroundMe] = useState(null);
 
   return (
-    <div>
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ButtonGroup sx={{ gap: "45px" }}>
-          <LinkButton to="/" text={"Les derniers"} />
-          <LinkButton to="/aroundMe" text={"Autour de moi"} />
-        </ButtonGroup>
-      </Container>
-    </div>
+      <div>
+          <Container
+              sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+              }}
+          >
+              <ButtonGroup
+                  sx={{ gap: { xs: '15px', md: '25px' }, marginBottom: '30px' }}
+              >
+                  <LinkButton to='/' text={'Les derniers'} />
+                  <LinkButton to='/aroundMe' text={'Autour de moi'} />
+              </ButtonGroup>
+          </Container>
+      </div>
   );
 };
 

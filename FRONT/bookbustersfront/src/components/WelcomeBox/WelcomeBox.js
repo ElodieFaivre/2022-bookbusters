@@ -8,7 +8,7 @@ function WelcomeBox() {
       sx={{
         width: { xs: "100%", md: "80%" },
         maxWidth: "1280px",
-        margin: "40px auto 40px auto",
+        margin: "10px auto 40px auto",
       }}
     >
       <Typography

@@ -29,13 +29,18 @@ const BookDisplay = () => {
     return isLoadingFavorit || isLoadingLibrary || isLoadingAlert;
   }
 
+  let listName;
+
   function locationMap() {
     switch (location.pathname) {
       case "/Favorites":
+        listName = 'liste de favoris';
         return data;
       case "/Library":
+        listName = 'bibliothèque';
         return library;
       case "/MyAlerts":
+        listName = 'liste de d\'alertes';
         return alert;
       default:
         return null;
@@ -51,25 +56,32 @@ const BookDisplay = () => {
   }
   console.log(isLoading());
   return (
-    <div>
+    <>
       {" "}
       <Box
         className="containerMapLivre"
         component="div"
-        sx={{ justifyContent: "center", display: { md: "flex", xs: "grid" } }}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          width: { md: "70%" },
+          margin: "auto",
+        }}
       >
         {!isLoading() ? (
           <>
             {attenteReceptionDonnees() &&
               locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)}
-            {!attenteReceptionDonnees() && "aucune donnée"}
+            {!attenteReceptionDonnees() && "Vous n'avez encore aucun livre dans votre " + listName + '.'}
           </>
         ) : (
           <Spinner />
         )}
       </Box>
       <BookDetailModal />
-    </div>
+    </>
   );
 };
 

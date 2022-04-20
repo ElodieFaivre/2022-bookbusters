@@ -33,7 +33,7 @@ router
      * @return {ApiError} 400 - Bad request response - application/json
      */
     .post(
-        validate(createSchema, 'body'),
+        // validate(createSchema, 'body'),
         controllerHandler(verifyToken),
         controllerHandler(bookController.addBook),
     );

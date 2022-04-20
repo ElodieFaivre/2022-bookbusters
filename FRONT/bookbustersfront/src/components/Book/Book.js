@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import PLS from "../../assets/img/simpson.jpg";
+import bookDefaultCover from "../../assets/img/logo_bb.png";
 import "./Book.scss";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import bookContext from "../../contexts/BookContext";
@@ -24,13 +24,11 @@ const style = {
   p: 4,
 };
 
-
 export default function Book({ book, users }) {
-
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
     if (book.cover === undefined) {
-      return PLS;
+      return bookDefaultCover;
     } else {
       return book.cover;
     }
@@ -81,7 +79,6 @@ export default function Book({ book, users }) {
               component="div"
             >
               {book.title}
-
             </Typography>
             <Typography variant="body1" color="text.secondary">
               <b>Auteur: </b> {book.author}

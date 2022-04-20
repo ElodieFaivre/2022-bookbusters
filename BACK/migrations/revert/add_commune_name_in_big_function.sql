@@ -1,6 +1,9 @@
--- Deploy bookbusters:big-swiss-knife-function to pg
+-- Revert bookbusters:add_commune_name_in_big_function from pg
 
 BEGIN;
+
+-- XXX Add DDLs here.
+DROP FUNCTION get_book;
 
 CREATE FUNCTION get_book
 (
@@ -113,5 +116,4 @@ RETURNS TABLE (
     ;
 
 $$ LANGUAGE SQL STRICT;
-
 COMMIT;

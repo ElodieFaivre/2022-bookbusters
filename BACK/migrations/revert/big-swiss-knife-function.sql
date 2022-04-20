@@ -2,6 +2,6 @@
 
 BEGIN;
 
-DROP FUNCTION get_book(integer, integer[], text[], text[], integer, integer);
+DROP FUNCTION get_book;
 
 COMMIT;

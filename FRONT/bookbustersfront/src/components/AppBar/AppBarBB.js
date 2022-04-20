@@ -74,7 +74,7 @@ const ResponsiveAppBar = () => {
       href: "/Account",
       style: { color: "#fff", textDecoration: "none" },
       sx: { color: "black" },
-      label: "Account",
+      label: "Mon compte",
       action: null,
     },
     {

@@ -178,19 +178,20 @@ export async function updateBookStatus(bookStatus) {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
     };
-    console.log(bookStatus);
+    
     const bookStatusResponse = await axios.post(
       "/v1/book",
       {
-        isbn13: bookStatus.isnb13,
-        isbn10: bookStatus.isbn10,
-        is_in_library: bookStatus.library,
-        is_in_donation: bookStatus.donation,
-        is_in_favorite: bookStatus.favorit,
-        is_in_alert: bookStatus.alert,
+        "isbn13": bookStatus.isbn13,
+        "isbn10": bookStatus.isbn10,
+        "is_in_library": bookStatus.library,
+        "is_in_donation": bookStatus.donation,
+        "is_in_favorite": bookStatus.favorit,
+        "is_in_alert": bookStatus.alert
       },
       config
     );
+    console.log('Retour de la BDD',bookStatusResponse);
 
     return bookStatusResponse;
   } catch (error) {

@@ -36,21 +36,12 @@ const styleBox = {
 };
 
 function BookDetailModal({ callback = () => {} }) {
-  //   const handleClose = () => setOpen(false);
-  const [open, setOpen] = useState(false);
+ 
   const { openedBook, setOpenedBook } = useContext(bookContext);
   const { setDonatorInfo } = useContext(donatorContext);
   const navigate = useNavigate();
 
   
-  //function livrePLS() {
-  //  // permet de charger une cover de livre si la base de donnée n'en renvoi pas
-  //  if (livre.cover === undefined) {
-  //    return PLS;
-  //  } else {
-  //    return livre.cover;
-  //  }
-  //}
   const [library, setLibrary] = useState();
   const [favorit, setFavorit] = useState();
   const [alert, setAlert] = useState();
@@ -138,7 +129,7 @@ function BookDetailModal({ callback = () => {} }) {
     setOpenedBook(null);
   };
 
-  console.log('USERS', users);
+  
   return (
     <Modal
       open={Boolean(openedBook)}
@@ -185,7 +176,7 @@ function BookDetailModal({ callback = () => {} }) {
                     handleUpdateBookStatus("favorit");
                   }} 
                 >
-                  {favorit ? <FavoriteIcon sx={{ color: "red" }} /> : <FavoriteBorderIcon />}
+                  {favorit ? (<FavoriteIcon sx={{ color: "red" }} />) : (<FavoriteBorderIcon />)}
                   <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Favoris</Typography>
                 </IconButton>
               </Tooltip>

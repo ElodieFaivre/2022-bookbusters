@@ -5,25 +5,32 @@ import Header from "../components/Header/Header";
 
 const Library = () => {
   return (
-    <div>
-      <Header />
-      <Box
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <Paper elevation={3}>
-          <Typography variant="h4" sx={{ paddingTop: "25px" }}>
-            Bienvenue dans votre bibliothèque c'est comme une Discothèque juste ici on s'ennuie
-          </Typography>
-          <Typography variant="body1" sx={{ padding: "15px" }}>
-            Ici vous allez pouvoir trier vos livres mettre au don ou supprimer un livre donner !
-          </Typography>
-        </Paper>
-      </Box>
-      <ButtonsLibrary />
-      <BookDisplay />
-    </div>
+      <div>
+          <Header />
+          <Box
+              sx={{
+                  padding: '15px',
+                  marginBottom: '25px',
+                  textAlign: 'center',
+                  gap: '40px',
+                  margin: { xs: 'auto' },
+              }}
+          >
+                  <Typography variant='h4' sx={{ paddingTop: '25px' }}>
+                      Bienvenue dans votre bibliothèque
+                  </Typography>
+                  <Typography variant='h5' sx={{ padding: '15px' }}>
+                      C'est comme dans une Discothèque
+                      <br/>
+                      juste qu'ici, il faut savoir lire.
+                  </Typography>
+                  <Typography variant='body1' sx={{ padding: '15px' }}>
+                      Triez vos livres, et indiquez ceux que vous souhaitez donner.
+                  </Typography>
+          </Box>
+          <ButtonsLibrary />
+          <BookDisplay />
+      </div>
   );
 };
 

@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import bookContext from "../../contexts/BookContext";
-import bookDefaultCover from "../../assets/img/simpson.jpg";
+import bookDefaultCover from "../../assets/img/logo_bb.png";
 import { Button, IconButton, Stack, Tooltip } from "@mui/material";
 // Import React-Router-Dom
 import { Link } from "react-router-dom";
@@ -42,7 +42,6 @@ function BookDetailModal({ callback = () => {} }) {
   const { setDonatorInfo } = useContext(donatorContext);
   const navigate = useNavigate();
 
-  
   //function livrePLS() {
   //  // permet de charger une cover de livre si la base de donnée n'en renvoi pas
   //  if (livre.cover === undefined) {
@@ -154,7 +153,12 @@ function BookDetailModal({ callback = () => {} }) {
             <CloseIcon sx={{ color: "black" }} fontSize="small" />
           </IconButton>
         </Box>
-        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          sx={{ textAlign: "center", mb: 2 }}
+        >
           {book.title}
         </Typography>
         {/* Zone des cover des livres */}
@@ -167,33 +171,61 @@ function BookDetailModal({ callback = () => {} }) {
             }}
           >
             {book.cover ? (
-              <img className="imageCovers" alt="Book cover" src={book.cover}></img>
+              <img
+                className="imageCovers"
+                alt="Book cover"
+                src={book.cover}
+              ></img>
             ) : (
-              <img className="imageCovers" alt="Generic book cover" src={bookDefaultCover}></img>
+              <img
+                className="imageCovers"
+                alt="Generic book cover"
+                src={bookDefaultCover}
+              ></img>
             )}
           </Box>
           {/* Zone des icones d'interactions */}
           {localStorage.getItem("jwt") && (
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Tooltip title="Ajoutez ce livre à vos favoris" arrow placement="right">
+              <Tooltip
+                title="Ajoutez ce livre à vos favoris"
+                arrow
+                placement="right"
+              >
                 <IconButton
                   onClick={() => {
                     handleUpdateBookStatus("favorit");
                   }}
                 >
-                  {favorit ? <FavoriteIcon sx={{ color: "red" }} /> : <FavoriteBorderIcon />}
+                  {favorit ? (
+                    <FavoriteIcon sx={{ color: "red" }} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Ajoutez ce livre à votre bilbiothèque" arrow placement="right">
+              <Tooltip
+                title="Ajoutez ce livre à votre bilbiothèque"
+                arrow
+                placement="right"
+              >
                 <IconButton
                   onClick={() => {
                     handleUpdateBookStatus("library");
                   }}
                 >
-                  {library ? <BookIcon sx={{ color: "brown" }} /> : <BookOutlinedIcon />}
+                  {library ? (
+                    <BookIcon sx={{ color: "brown" }} />
+                  ) : (
+                    <BookOutlinedIcon />
+                  )}
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Activez la donation pour ce livre" arrow placement="right">
+              <Tooltip
+                title="Activez la donation pour ce livre"
+                arrow
+                placement="right"
+              >
                 {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
                 <IconButton
@@ -201,22 +233,37 @@ function BookDetailModal({ callback = () => {} }) {
                     handleUpdateBookStatus("donation");
                   }}
                 >
-                  {donation ? <VolunteerActivismIcon sx={{ color: "blue" }} /> : <VolunteerActivismOutlinedIcon />}
+                  {donation ? (
+                    <VolunteerActivismIcon sx={{ color: "blue" }} />
+                  ) : (
+                    <VolunteerActivismOutlinedIcon />
+                  )}
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Ajoutez une alerte pour ce livre" arrow placement="right">
+              <Tooltip
+                title="Ajoutez une alerte pour ce livre"
+                arrow
+                placement="right"
+              >
                 <IconButton
                   onClick={() => {
                     handleUpdateBookStatus("alert");
                   }}
                 >
-                  {alert ? <AddAlertIcon sx={{ color: "green" }} /> : <AddAlertOutlinedIcon />}
+                  {alert ? (
+                    <AddAlertIcon sx={{ color: "green" }} />
+                  ) : (
+                    <AddAlertOutlinedIcon />
+                  )}
                 </IconButton>
               </Tooltip>
             </Box>
           )}
           {/* Zone des textes */}
-          <Box id="modal-modal-description" sx={{ margin: "0px 15px 0px 15px" }}>
+          <Box
+            id="modal-modal-description"
+            sx={{ margin: "0px 15px 0px 15px" }}
+          >
             <Typography variant="overline">Auteur:</Typography>
             <Typography>{book.author}</Typography>
             <Box
@@ -225,7 +272,11 @@ function BookDetailModal({ callback = () => {} }) {
               }}
             >
               <Typography variant="overline"> Résumé:</Typography>
-              {book.resume ? <Box>{book.resume}</Box> : <Typography>Pas de résumé trouvé pour ce livre.</Typography>}
+              {book.resume ? (
+                <Box>{book.resume}</Box>
+              ) : (
+                <Typography>Pas de résumé trouvé pour ce livre.</Typography>
+              )}
             </Box>
           </Box>
         </Box>
@@ -233,11 +284,19 @@ function BookDetailModal({ callback = () => {} }) {
         <Stack>
           {users && users.length > 0 && (
             <>
-              <Typography variant="h5" align="center" sx={{ mb: "10px", mt: "10px" }}>
+              <Typography
+                variant="h5"
+                align="center"
+                sx={{ mb: "10px", mt: "10px" }}
+              >
                 Livre disponible chez
               </Typography>
               {users.map((user, index) => (
-                <Box className="bookUserOwner" key={index} sx={{ mb: "5px", display: "flex", flexDirection: "row" }}>
+                <Box
+                  className="bookUserOwner"
+                  key={index}
+                  sx={{ mb: "5px", display: "flex", flexDirection: "row" }}
+                >
                   <Typography align="center" sx={{ width: "50%" }}>
                     {user?.username} {console.log(user)}
                   </Typography>

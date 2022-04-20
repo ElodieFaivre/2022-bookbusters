@@ -61,6 +61,7 @@ module.exports = {
      * @returns {string} Route API JSON response
      */
     async addBook(req, res) {
+        debug('req.body dans le controlleur', req.body)
         const savedUserHasBook = await bookDataMapper.updateOrInsert(req.body);
 
         let connectedUserId;
@@ -135,7 +136,10 @@ module.exports = {
         booksAroundMe.forEach((row) => {
             const locatedBooks = [];
             row.book_ids.forEach((book_id) => {
-                locatedBooks.push(books.find((book) => book_id === book.id));
+                const bookPush = books.find((book) => book_id === book.id);
+                if(bookPush){
+                    locatedBooks.push(bookPush);
+                }
             });
 
             result.push({

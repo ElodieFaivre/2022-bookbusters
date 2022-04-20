@@ -222,7 +222,11 @@ const ResponsiveAppBar = () => {
             >
               {/* key={`MenuItem-Desktop-NavBar--${index}`} */}
               {navlinks.map((page, index) => (
-                <MenuItem key={`MenuItem-Desktop-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
+                <MenuItem
+                  key={`MenuItem-Desktop-NavBar--${index}`}
+                  onClick={handleCloseNavMenu}
+                  sx={page.sx}
+                >
                   <Link style={page.style} to={page.href}>
                     <Typography sx={page.sx} textAlign="center">
                       {page.label}
@@ -278,7 +282,11 @@ const ResponsiveAppBar = () => {
             }}
           >
             {navlinks.map((page, index) => (
-              <MenuItem key={`MenuItem-babybel-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
+              <MenuItem
+                key={`MenuItem-babybel-NavBar--${index}`}
+                onClick={handleCloseNavMenu}
+                sx={page.sx}
+              >
                 <Link style={page.style} to={page.href}>
                   <Typography sx={page.sx} textAlign="center">
                     {page.label}
@@ -291,8 +299,14 @@ const ResponsiveAppBar = () => {
           {jwt && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Compte utilisateur">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: "15px" }}>
-                  <AccountCircleIcon fontSize="large" style={{ color: "white" }} />
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0, marginLeft: "15px" }}
+                >
+                  <AccountCircleIcon
+                    fontSize="large"
+                    style={{ color: "white" }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

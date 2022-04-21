@@ -1,7 +1,8 @@
 import Header from "../components/Header/Header";
-import poPasContent from "../assets/img/poPasContent.png";
+import hanged_monster from "../assets/img/hanged_monster.png";
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 const Error = () => {
   return (
     <>
@@ -23,16 +24,17 @@ const Error = () => {
           }}
           elevation="15"
         >
-          <Typography variant="h6">Vous vous êtes égaré !</Typography>
+          <Box component="img" src={hanged_monster} width="10vw" />
+          <br />
+          <Typography variant="h6">Oups! Vous vous êtes égarés !</Typography>
           <br />
           <Typography variant="h5">
             {" "}
-            Ceci est une erreur 404, notre PO n'est pas content et vous remercie
-            de rebrousser chemin il n'a pas finis de tester son scanner
-            d'ISBN...
+            Ceci est une erreur 404, pas de bouquin dispo par là...
+            Mais retrouvez tous nos donateurs par <Link to= "/">ici</Link> !
           </Typography>
-          <br />
-          <Box component="img" src={poPasContent} width="50vw" />
+          
+          
         </Paper>
       </Box>
     </>

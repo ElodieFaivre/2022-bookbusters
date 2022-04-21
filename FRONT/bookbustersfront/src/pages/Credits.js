@@ -32,8 +32,8 @@ const Credits = () => {
                   elevation={15}
               >
                   <Typography
-                      variant='h6'
-                      sx={{ color: 'white', marginBottom: '4vh' }}
+                      variant='h2'
+                      sx={{ color: 'white', marginBottom: '50px' }}
                   >
                       L'équipe BookBusters !
                   </Typography>
@@ -42,7 +42,7 @@ const Credits = () => {
                           display: 'flex',
                           flexDirection: { xs: 'column', md: 'row' },
                           justifyContent: 'center',
-                          alignItems: { xs: 'center', md: 'flext-start' },
+                          alignItems: 'flext-start',
                           gap: '0rem 1rem',
                           marginBottom: '20px',
                       }}
@@ -52,23 +52,27 @@ const Credits = () => {
                           src={BookBustersTeam}
                           sx={{
                               width: { xs: '100%', md: '50%' },
-                              height: 'fit-content',
+                              height: 'intrinsic',
                           }}
                       />
                       <br />
                       <Box
                           sx={{
-                              marginTop: '5vh',
                               width: { xs: '81vw', md: '27vw' },
                           }}
                       >
                           <Box sx={{ marginBottom: '0.5rem' }}>
                               <Box
-                                  sx={{ display: 'flex', alignItems: 'center' }}
+                                  sx={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      textAlign: 'justify',
+                                  }}
                               >
                                   <Typography
                                       variant='h6'
                                       sx={{
+                                          width: '100px',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -97,7 +101,7 @@ const Credits = () => {
                               <Typography
                                   sx={{
                                       color: 'white',
-                                      textAlign: 'initial',
+                                      textAlign: 'justify',
                                       fontSize: '1rem',
                                   }}
                               >
@@ -114,6 +118,7 @@ const Credits = () => {
                                   <Typography
                                       variant='h6'
                                       sx={{
+                                          width: '100px',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -142,12 +147,12 @@ const Credits = () => {
                               <Typography
                                   sx={{
                                       color: 'white',
-                                      textAlign: 'initial',
+                                      textAlign: 'justify',
                                       fontSize: '1rem',
                                   }}
                               >
                                   Il y avait de la lumière et une place au
-                                  chaud. Il est entré dans la grande famille des
+                                  chaud. Il est entré dans la famille des
                                   Bookbusters. C’est le Git Master.
                               </Typography>
                           </Box>
@@ -159,6 +164,7 @@ const Credits = () => {
                                   <Typography
                                       variant='h6'
                                       sx={{
+                                          width: '100px',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -187,7 +193,7 @@ const Credits = () => {
                               <Typography
                                   sx={{
                                       color: 'white',
-                                      textAlign: 'initial',
+                                      textAlign: 'justify',
                                       fontSize: '1rem',
                                   }}
                               >
@@ -203,6 +209,7 @@ const Credits = () => {
                                   <Typography
                                       variant='h6'
                                       sx={{
+                                          width: '100px',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -231,7 +238,7 @@ const Credits = () => {
                               <Typography
                                   sx={{
                                       color: 'white',
-                                      textAlign: 'initial',
+                                      textAlign: 'justify',
                                       fontSize: '1rem',
                                   }}
                               >
@@ -248,6 +255,7 @@ const Credits = () => {
                                   <Typography
                                       variant='h6'
                                       sx={{
+                                          width: '100px',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -282,7 +290,7 @@ const Credits = () => {
                               <Typography
                                   sx={{
                                       color: 'white',
-                                      textAlign: 'initial',
+                                      textAlign: 'justify',
                                       fontSize: '1rem',
                                   }}
                               >
@@ -293,17 +301,17 @@ const Credits = () => {
                           <Box
                               sx={{
                                   display: 'flex',
-                                  flexDirection: { xs: 'column', md: 'row' },
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  gap: '0rem 0rem',
+                                  flexDirection: 'column',
+                                  alignItems: 'flex-start',
+                                  gap: '10px',
                                   marginTop: '2rem',
                               }}
                           >
                               <Typography
                                   sx={{
+                                      display: 'block',
                                       color: 'white',
-                                      textAlign: 'initial',
+                                      textAlign: 'justify',
                                       fontSize: '1rem',
                                   }}
                               >
@@ -319,9 +327,9 @@ const Credits = () => {
                                   >
                                       MERCI
                                   </Typography>{' '}
-                                  de toute l'équipe à Anne Laure pour le logo
-                                  trop trop top et les visuels BookBusters et à
-                                  Agathe pour cette magnifique idée !
+                                  de toute l'équipe à : <br />
+                                  Anne Laure pour le logo trop trop top et les
+                                  visuels BookBusters.
                               </Typography>{' '}
                               <Link href='https://www.instagram.com/alp_graphiste/'>
                                   <Box
@@ -330,17 +338,27 @@ const Credits = () => {
                                       width='25px'
                                       height='25px'
                                       sx={{
-                                          marginLeft: '1vh',
+                                          display: 'block',
+                                          marginLeft: '2vh',
                                           marginTop: '0,5vh',
                                       }}
                                   />
                               </Link>
-                              <br />
+                              <Typography
+                                  sx={{
+                                      display: 'block',
+                                      color: 'white',
+                                      textAlign: 'justify',
+                                      fontSize: '1rem',
+                                  }}
+                              >
+                                  Agathe pour cette magnifique idée !
+                              </Typography>{' '}
                           </Box>
                           <Typography
                               sx={{
                                   color: 'white',
-                                  textAlign: 'initial',
+                                  textAlign: 'justify',
                                   fontSize: '1rem',
                                   marginTop: '3rem',
                               }}
@@ -348,7 +366,8 @@ const Credits = () => {
                               Projet réalisé dans le cadre du processus
                               d'apothéose de l'école O'clock. <br />
                               <br />
-                              Promotion Zagreus 02/11/2021-25/04/2022. <br /><br />
+                              Promotion Zagreus 02/11/2021-25/04/2022. <br />
+                              <br />
                               Nous remercions tous nos profs de socle et de
                               spécialité (Data/API & React) ainsi que les deux
                               supers anges gardiens de notre promotion, Etienne

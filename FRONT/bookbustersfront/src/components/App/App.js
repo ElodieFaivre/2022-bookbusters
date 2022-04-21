@@ -38,27 +38,31 @@ import { BookProvider } from "../../contexts/BookContext";
 import { DonatorProvider } from "../../contexts/DonatorContext";
 
 let themeOptions = createTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#263238",
+    palette: {
+        type: 'dark',
+        primary: {
+            main: '#263238',
+        },
+        secondary: {
+            main: '#455a64',
+        },
+        info: {
+            main: '#2e7d32',
+        },
     },
-    secondary: {
-      main: "#455a64",
+    typography: {
+        h1: {
+            fontFamily: 'Rubik Wet Paint',
+            fontSize: '3rem',
+        },
+        h2: {
+            fontFamily: 'Rubik Wet Paint',
+            fontSize: '2.5rem',
+        },
+        h6: {
+            fontFamily: 'Rubik Wet Paint',
+        },
     },
-    info: {
-      main: "#2e7d32",
-    },
-  },
-  typography: {
-    h1: {
-      fontFamily: "Rubik Wet Paint",
-      fontSize: "3rem",
-    },
-    h6: {
-      fontFamily: "Rubik Wet Paint",
-    },
-  },
 });
 themeOptions = responsiveFontSizes(themeOptions);
 

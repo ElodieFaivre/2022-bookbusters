@@ -40,56 +40,55 @@ export default function Book({ book, users }) {
   const handleClose = () => setOpen(false);
   const { setOpenedBook } = useContext(bookContext);
   return (
-    <>
-      <Button
-        onClick={() => setOpenedBook(book)}
-        sx={{
-          alignItems: "flex-start",
-        }}
-      >
-        <Card
-          sx={{
-            maxWidth: "200px",
-            minWidth: { xs: "160px", md: "200px" },
-            margin: { xs: "8px 4px", md: "16px" },
-            display: "flex",
-            flexDirection: "column",
-            alignSelf: "stretch",
-            justifyContent: "space-between",
-          }}
-        >
-          <CardMedia
-            component="img"
-            image={livrePLS()}
-            alt={`Couverture du livre ${book.title}`}
-          />
-
-          <CardContent
-            sx={{
-              flexGrow: "1",
-              gap: "20px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-            }}
+      <>
+          <Button
+              onClick={() => setOpenedBook(book)}
+              sx={{
+                  alignItems: 'flex-start',
+              }}
           >
-            <Typography
-              gutterBottom
-              /*variant="h5" */ sx={{ fontSize: "1.2em" }}
-              component="div"
-            >
-              {book.title}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{ fontSize: "0.9em" }}
-            >
-              {book.author}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Button>
-    </>
+              <Card
+                  sx={{
+                      width: { xs: '130px', sm: '160px', md: '200px' },
+                      margin: { xs: '8px 4px', md: '16px' },
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignSelf: 'stretch',
+                      justifyContent: 'space-between',
+                  }}
+              >
+                  <CardMedia
+                      component='img'
+                      image={livrePLS()}
+                      alt={`Couverture du livre ${book.title}`}
+                  />
+
+                  <CardContent
+                      sx={{
+                          flexGrow: '1',
+                          gap: '20px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'flex-start',
+                      }}
+                  >
+                      <Typography
+                          gutterBottom
+                          /*variant="h5" */ sx={{ fontSize: '1.2em' }}
+                          component='div'
+                      >
+                          {book.title}
+                      </Typography>
+                      <Typography
+                          variant='body1'
+                          color='text.secondary'
+                          sx={{ fontSize: '0.9em' }}
+                      >
+                          {book.author}
+                      </Typography>
+                  </CardContent>
+              </Card>
+          </Button>
+      </>
   );
 }

@@ -54,111 +54,118 @@ const AroundMe = () => {
   }
   const { setOpenedBook } = React.useContext(bookContext);
   return (
-    <div>
-      <Header />
-      <Buttons />
-      <div id="map">
-        <MapContainer
-          center={[userCoords.latitude, userCoords.longitude]}
-          zoom={13}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+      <div>
+          <Header />
+          <Buttons />
+          <div id='map'>
+              <MapContainer
+                  center={[userCoords.latitude, userCoords.longitude]}
+                  zoom={13}
+              >
+                  <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                  />
 
-          {positionUsers.length > 0 &&
-            positionUsers.map((user, index) => (
-              <Marker
-                key={index}
-                position={{
-                  lat: user.location.replace("(", " ").split(",")[0],
-                  lng: user.location.replace(")", " ").split(",")[1],
-                }}
-              >
-                <Popup>
-                  {user.books.map((banane, index) => (
-                    <p key={index}>{banane.title}</p>
-                  ))}
-                </Popup>
-              </Marker>
-            ))}
-          <ChangeMapVue userCoords={userCoords} />
-        </MapContainer>
+                  {positionUsers.length > 0 &&
+                      positionUsers.map((user, index) => (
+                          <Marker
+                              key={index}
+                              position={{
+                                  lat: user.location
+                                      .replace('(', ' ')
+                                      .split(',')[0],
+                                  lng: user.location
+                                      .replace(')', ' ')
+                                      .split(',')[1],
+                              }}
+                          >
+                              <Popup>
+                                  {user.books.map((banane, index) => (
+                                      <p key={index}>{banane.title}</p>
+                                  ))}
+                              </Popup>
+                          </Marker>
+                      ))}
+                  <ChangeMapVue userCoords={userCoords} />
+              </MapContainer>
+          </div>
+          <Box
+              className='containerMapLivre'
+              component='div'
+              sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-evenly',
+                  alignItems: 'stretch',
+                  width: { md: '70%' },
+                  margin: 'auto',
+              }}
+          >
+              {' '}
+              {!isLoading ? (
+                  positionUsers.map((user) =>
+                      user.books.map((banane, index) => (
+                          <Button
+                              onClick={() => setOpenedBook(banane)}
+                              key={index}
+                              sx={{
+                                  alignItems: 'flex-start',
+                              }}
+                          >
+                              <Card
+                                  sx={{
+                                      width: {
+                                          xs: '130px',
+                                          sm: '160px',
+                                          md: '200px',
+                                      },
+                                      margin: { xs: '8px 4px', md: '16px' },
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      alignSelf: 'stretch',
+                                      justifyContent: 'space-between',
+                                  }}
+                              >
+                                  <CardMedia
+                                      component='img'
+                                      image={livrePLS(banane)}
+                                      alt={`Couverture du livre ${banane.title}`}
+                                  />{' '}
+                                  <CardContent
+                                      sx={{
+                                          flexGrow: '1',
+                                          gap: '20px',
+                                          display: 'flex',
+                                          flexDirection: 'column',
+                                          justifyContent: 'flex-start',
+                                      }}
+                                  >
+                                      <Typography
+                                          gutterBottom
+                                          sx={{ fontSize: '1.2em' }}
+                                          component='div'
+                                      >
+                                          {banane.title}
+                                      </Typography>
+                                      <Typography
+                                          variant='body1'
+                                          color='text.secondary'
+                                          sx={{ fontSize: '0.9em' }}
+                                      >
+                                          {banane.author}
+                                      </Typography>
+                                  </CardContent>
+                              </Card>
+                          </Button>
+                      )),
+                  )
+              ) : (
+                  <Spinner />
+              )}
+          </Box>
+          <BookDetailModal />
       </div>
-      <Box
-        className="containerMapLivre"
-        component="div"
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-evenly",
-          alignItems: "stretch",
-          width: { md: "70%" },
-          margin: "auto",
-        }}
-      >
-        {" "}
-        {!isLoading ? (
-          positionUsers.map((user) =>
-            user.books.map((banane, index) => (
-              <Button
-                onClick={() => setOpenedBook(banane)}
-                key={index}
-                sx={{
-                  alignItems: "flex-start",
-                }}
-              >
-                <Card
-                  sx={{
-                    maxWidth: "200px",
-                    minWidth: { xs: "160px", md: "200px" },
-                    margin: { xs: "8px 4px", md: "16px" },
-                    display: "flex",
-                    flexDirection: "column",
-                    alignSelf: "stretch",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    image={livrePLS(banane)}
-                    alt={`Couverture du livre ${banane.title}`}
-                  />{" "}
-                  <CardContent
-                    sx={{
-                      flexGrow: "1",
-                      gap: "20px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-start",
-                    }}
-                  >
-                    <Typography
-                      gutterBottom
-                      sx={{ fontSize: "1.2em" }}
-                      component="div"
-                    >
-                      {banane.title}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="text.secondary"
-                      sx={{ fontSize: "0.9em" }}
-                    >
-                      {banane.author}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Button>
-            ))
-          )
-        ) : (
-          <Spinner />
-        )}
-      </Box>
-      <BookDetailModal />
-    </div>
   );
 };
 

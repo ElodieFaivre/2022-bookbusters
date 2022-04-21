@@ -5,13 +5,13 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import bookContext from "../../contexts/BookContext.js";
-import PLS from "../../assets/img/simpson.jpg";
+import bookDefaultCover from "../../assets/img/logo_bb.png";
 
 export default function BookDisplayModel({ data }) {
   function livrePLS() {
     // permet de charger une cover de livre si la base de donnée n'en renvoi pas
     if (data.cover === undefined) {
-      return PLS;
+      return bookDefaultCover;
     } else {
       return data.cover;
     }
@@ -24,8 +24,7 @@ export default function BookDisplayModel({ data }) {
     >
       <Card
         sx={{
-          maxWidth: "200px",
-          minWidth: { xs: "160px", md: "200px" },
+          width: { xs: '130px', sm: '160px', md: '200px' },
           margin: { xs: "8px 4px", md: "16px" },
           display: "flex",
           flexDirection: "column",

@@ -39,8 +39,8 @@ const fakeBooks = {
         // Livre fictif Kampus
         if (isbn === '9781225667890' || isbn === '1225667890') {
             kampus = {
-                isbn10: '1235667890',
-                isbn13: '9781235667890',
+                isbn10: '1225667890',
+                isbn13: '9781225667890',
                 title: 'Organizatron (Kampus)',
                 author: ['Inès, ', 'Ludo, ', 'Romain, ', 'Mark, '],
                 resume: "Avec l'organizatron organise ton planning comme jamais !",

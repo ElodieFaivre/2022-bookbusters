@@ -34,18 +34,10 @@ const SearchBar = () => {
               </Typography>
           )}
           <StyledInputBase
-              placeholder='Recherche'
+              placeholder='Recherche de livre'
               inputProps={{ 'aria-label': 'search' }}
               onChange={(e) => setSearch(e.target.value)}
               value={search}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-          />
-          <StyledInputBase
-              placeholder='Recherchez des livres par titre ou auteur'
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={(e) => setSearch(e.target.value)}
-              value={search}
-              sx={{ display: { xs: 'none', md: 'block' } }}
           />
       </Search>
   );

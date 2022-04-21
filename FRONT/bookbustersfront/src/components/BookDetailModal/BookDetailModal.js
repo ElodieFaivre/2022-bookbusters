@@ -219,14 +219,14 @@ function BookDetailModal({ callback = () => {} }) {
                                 className='imageCoversModal'
                                 alt='Book cover'
                                 src={book.cover}
-                                style={{ width: '100%' }}
+                                style={{ width: 'inherit' }}
                             ></img>
                         ) : (
                             <img
                                 className='imageCoversModal'
                                 alt='Generic book cover'
                                 src={bookDefaultCover}
-                                style={{ width: '100%' }}
+                                style={{ width: 'inherit' }}
                             ></img>
                         )}
                     </Box>

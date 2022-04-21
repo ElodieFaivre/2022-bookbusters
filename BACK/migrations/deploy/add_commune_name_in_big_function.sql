@@ -1,7 +1,9 @@
--- Deploy bookbusters:big-swiss-knife-function to pg
+-- Deploy bookbusters:add_commune_name_in_big_function to pg
 
 BEGIN;
 
+-- XXX Add DDLs here.
+DROP FUNCTION get_book;
 CREATE FUNCTION get_book
 (
 	connected_user INT DEFAULT 0, -- The id of the connected user (req.body.user.userId)
@@ -39,6 +41,8 @@ RETURNS TABLE (
 	    	"avatar"."picture" AS "avatar",
 	    	"user"."email",
 	    	"user"."location",
+            "user"."postal_code",
+            "user"."commune_name",
 	    	"user_has_book"."book_id",
 	    	"user_has_book"."donation_date"
 	    FROM "user_has_book"
@@ -113,5 +117,6 @@ RETURNS TABLE (
     ;
 
 $$ LANGUAGE SQL STRICT;
+
 
 COMMIT;

@@ -12,7 +12,6 @@ module.exports = Joi.object({
             new RegExp(/(58180|34280|20600|20620|20300)|^(?!00|96|99)(?!20[3-9])\d{5}(?<![12]80)$/),
         ),
     communeCode: Joi.string().required(),
-    commune_name: Joi.string().required(),
 /*
     location: Joi.string().pattern(
         new RegExp(

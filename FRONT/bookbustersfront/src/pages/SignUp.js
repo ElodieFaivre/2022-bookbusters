@@ -84,7 +84,7 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     let errors = [];
-
+    console.log(event);
     const v1 = USER_REGEX.test(username);
     const v2 = PWD_REGEX.test(password);
     if (!v1 || !v2) {
@@ -188,6 +188,7 @@ export default function SignUp() {
                     onChange={({ target }) => setCommuneCode(target.value)}
                     required
                   >
+                    {console.log(communeCode)}
                     {possibleVilles.length < 1 && (
                       <MenuItem disabled>Aucune ville trouvée</MenuItem>
                     )}
@@ -195,8 +196,9 @@ export default function SignUp() {
                       <MenuItem
                         key={ville.codeCommune}
                         value={ville.codeCommune}
-                      >
-                        {ville.nomCommune}
+                             >
+                       {ville.nomCommune}
+                       {console.log(ville.nomCommune)}
                       </MenuItem>
                     ))}
                   </Select>

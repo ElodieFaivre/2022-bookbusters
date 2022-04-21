@@ -56,8 +56,8 @@ export const registerUser = (
   email,
   password,
   handleRegisterSuccess,
-  setErrorAlert
-) => {
+  setErrorAlert,
+  ) => {
   axios
     .post("/v1/user", {
       username,

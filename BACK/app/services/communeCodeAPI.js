@@ -8,11 +8,13 @@ const city = {
 
         const response = await fetch(url);
         const json = await response.json();
-
         const location = json.features[0].geometry.coordinates;
-        debug (location);
-        return location;
+        const communeName = json.features[0].properties.city;
+        debug('location:', location);
+        const data = [location, communeName];
+        return data;
     },
+
 };
 
 module.exports = city;

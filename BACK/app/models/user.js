@@ -22,7 +22,6 @@ const client = require('../config/database');
  * @property {string} bio
  * @property {string} postalCode - exemple : "10115"
  * @property {string} communeCode - exemple : "10500"
- * @property {string} commune_name - exemple : Creney près Troyes
  * @property {boolean} mail_donation - default TRUE
  * @property {boolean} mail_alert - default TRUE
  * @property {number} avatar_id - default 1
@@ -101,7 +100,7 @@ const userDataMapper = {
                 user.location,
                 user.postalCode,
                 user.communeCode,
-                user.commune_name,
+                user.communeName,
                 user.mail_donation,
                 user.mail_alert,
                 user.avatar_id,

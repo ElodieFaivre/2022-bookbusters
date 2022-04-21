@@ -49,7 +49,7 @@ export default function Book({ book, users }) {
           >
               <Card
                   sx={{
-                      width: { xs: '130px', sm: '160px', md: '200px' },
+                      width: { xs: '160px', md: '200px' },
                       margin: { xs: '8px 4px', md: '16px' },
                       display: 'flex',
                       flexDirection: 'column',

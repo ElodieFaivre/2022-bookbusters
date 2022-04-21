@@ -2,6 +2,8 @@ const debug = require('debug')('services:requestAPIs');
 
 const { ApiError } = require('../middlewares/handleError');
 
+const fakeBooks = require('./fakeBooks'); // Fictive Request to get fake books, just for joke
+
 const googlebooks = require('./google');
 const worldCat = require('./worldCat');
 const inventaire = require('./inventaire');
@@ -34,6 +36,10 @@ const requestApis = {
 
         if (!result) {
             debug('Inventaire API failed!');
+
+            // Fictive Request to get fake books, just for joke
+            debug('fakeBooks API searching... ;-)');
+            result = fakeBooks.findBookByISBN(isbn);
         }
 
         return result;

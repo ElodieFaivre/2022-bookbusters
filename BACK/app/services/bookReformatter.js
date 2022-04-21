@@ -140,7 +140,7 @@ const bookReformatter = {
                     (cover.isbnOL === book.isbn13 || cover.isbnOL === book.isbn10)
                 ) {
                     book.cover = cover.coverOLL;
-                } 
+                }
             });
 
             return book;

@@ -5,7 +5,7 @@ const bookReformatter = require('../services/bookReformatter');
 const { ApiError } = require('../middlewares/handleError');
 const bookDataMapper = require('../models/book');
 const userDataMapper = require('../models/user');
-const debug = require('debug')('userLists');
+const debug = require('debug')('userListsController');
 
 module.exports = {
     /**
@@ -89,7 +89,6 @@ module.exports = {
         }
 
         const books = await bookReformatter.reformat(lists);
-        debug('après reformat', books);
         return res.json({"books":books});
     },
     async updateDonationDate(req, res) {
@@ -103,7 +102,7 @@ module.exports = {
         };
         const book = await bookDataMapper.findOneBookById(bookId1);
         return res.json({ book, association: updatedBook });
-        
+
     },
 
 };

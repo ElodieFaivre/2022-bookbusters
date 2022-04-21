@@ -51,7 +51,7 @@ const Credits = () => {
                           component='img'
                           src={BookBustersTeam}
                           sx={{
-                              width: { xs: '82vw', md: '27vw' },
+                              width: { xs: '100%', md: '50%' },
                               height: 'fit-content',
                           }}
                       />
@@ -98,7 +98,7 @@ const Credits = () => {
                                   sx={{
                                       color: 'white',
                                       textAlign: 'initial',
-                                      fontSize: '0.7rem',
+                                      fontSize: '1rem',
                                   }}
                               >
                                   Dans le fin fond de la campagne, aux côtés du
@@ -143,7 +143,7 @@ const Credits = () => {
                                   sx={{
                                       color: 'white',
                                       textAlign: 'initial',
-                                      fontSize: '0.7rem',
+                                      fontSize: '1rem',
                                   }}
                               >
                                   Il y avait de la lumière et une place au
@@ -188,7 +188,7 @@ const Credits = () => {
                                   sx={{
                                       color: 'white',
                                       textAlign: 'initial',
-                                      fontSize: '0.7rem',
+                                      fontSize: '1rem',
                                   }}
                               >
                                   En provenance du cinéma, il est actuellement
@@ -232,7 +232,7 @@ const Credits = () => {
                                   sx={{
                                       color: 'white',
                                       textAlign: 'initial',
-                                      fontSize: '0.7rem',
+                                      fontSize: '1rem',
                                   }}
                               >
                                   Un product owner haut en couleur qui a su
@@ -283,7 +283,7 @@ const Credits = () => {
                                   sx={{
                                       color: 'white',
                                       textAlign: 'initial',
-                                      fontSize: '0.7rem',
+                                      fontSize: '1rem',
                                   }}
                               >
                                   Emigré sudiste codant dans le grand nord.
@@ -304,7 +304,7 @@ const Credits = () => {
                                   sx={{
                                       color: 'white',
                                       textAlign: 'initial',
-                                      fontSize: '0.7rem',
+                                      fontSize: '1rem',
                                   }}
                               >
                                   un grand{' '}
@@ -341,16 +341,18 @@ const Credits = () => {
                               sx={{
                                   color: 'white',
                                   textAlign: 'initial',
-                                  fontSize: '0.7rem',
-                                  marginTop: '2rem',
+                                  fontSize: '1rem',
+                                  marginTop: '3rem',
                               }}
                           >
                               Projet réalisé dans le cadre du processus
-                              d'apothéose de l'école O'clock. Promotion Zagreus
-                              02/11/2021-25/04/2022. Nous remercions tous nos
-                              profs de socle et de spécialité (Data/API & React)
-                              ainsi que les deux supers anges gardiens de notre
-                              promotion, Etienne et son acolyte Gauthier.
+                              d'apothéose de l'école O'clock. <br />
+                              <br />
+                              Promotion Zagreus 02/11/2021-25/04/2022. <br /><br />
+                              Nous remercions tous nos profs de socle et de
+                              spécialité (Data/API & React) ainsi que les deux
+                              supers anges gardiens de notre promotion, Etienne
+                              et son acolyte Gauthier.
                           </Typography>
                       </Box>
                   </Box>

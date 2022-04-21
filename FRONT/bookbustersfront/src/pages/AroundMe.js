@@ -116,8 +116,7 @@ const AroundMe = () => {
                               <Card
                                   sx={{
                                       width: {
-                                          xs: '130px',
-                                          sm: '160px',
+                                          xs: '160px',
                                           md: '200px',
                                       },
                                       margin: { xs: '8px 4px', md: '16px' },

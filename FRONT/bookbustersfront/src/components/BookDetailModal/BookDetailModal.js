@@ -201,27 +201,32 @@ function BookDetailModal({ callback = () => {} }) {
                     {book.title}
                 </Typography>
                 {/* Zone des cover des livres */}
-                <Box sx={{ display: { xs: 'block', md: 'flex' } }}>
+                <Box
+                    sx={{
+                        display: { xs: 'block', md: 'flex' },
+                    }}
+                >
                     <Box
                         sx={{
-                            maxWidth: { xs: 'auto', md: '500px' },
-                            height: 'auto',
+                            width: { xs: '200px', md: '250px' },
                             padding: { xs: 'auto', md: '0px 20px 15px 0px' },
                             display: { xs: 'flex', md: 'block' },
-                            justifyContent: 'center',
+                            margin: { xs: '0 auto', md: '0' },
                         }}
                     >
                         {book.cover ? (
                             <img
-                                className='imageCovers'
+                                className='imageCoversModal'
                                 alt='Book cover'
                                 src={book.cover}
+                                style={{ width: '100%' }}
                             ></img>
                         ) : (
                             <img
-                                className='imageCovers'
+                                className='imageCoversModal'
                                 alt='Generic book cover'
                                 src={bookDefaultCover}
+                                style={{ width: '100%' }}
                             ></img>
                         )}
                     </Box>
@@ -403,48 +408,74 @@ function BookDetailModal({ callback = () => {} }) {
                             >
                                 Livre disponible chez
                             </Typography>
-                            {users.map((user, index) => (
-                                <Box
-                                    className='bookUserOwner'
-                                    key={index}
-                                    sx={{
-                                        mb: '5px',
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <Typography
-                                        align='center'
-                                        sx={{ width: '50%' }}
-                                    >
-                                        {user?.username}
-                                        {console.log(user)}
-                                    </Typography>
-                                    <Typography
-                                        align='center'
-                                        sx={{ width: '50%' }}
-                                    >
-                                        {user.postal_code} {user.commune_name}
-                                    </Typography>
-
-                                    {/* <Link
-                    to="/ContactFormDonation"
-                    style={{ color: "#000", textDecoration: "underline" }}
-                  >
-                  </Link> */}
-                                    <Button
-                                        variant='contained'
-                                        endIcon={<SendIcon />}
-                                        sx={{ width: '50%' }}
-                                        onClick={() => {
-                                            handleDonorButton(user);
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {users.map((user, index) => (
+                                    <Box
+                                        className='bookUserOwner'
+                                        key={index}
+                                        sx={{
+                                            width: '900px',
+                                            padding: '10px 0',
+                                            borderBottom: '1px solid #263237',
+                                            display: 'flex',
+                                            flexFlow: 'row wrap',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            width: { xs: '100%', md: '80%' },
                                         }}
                                     >
-                                        Contactez cette personne
-                                    </Button>
-                                </Box>
-                            ))}
+                                        <Box
+                                            sx={{
+                                                mb: '5px',
+                                                display: 'flex',
+                                                flexFlow: 'row nowrap',
+                                                alignItems: 'center',
+                                                textAlign: 'left',
+                                                justifyContent: {
+                                                    xs: 'space-between',
+                                                    md: 'flex-start',
+                                                },
+                                                width: {
+                                                    xs: '100%',
+                                                    md: '66%',
+                                                },
+                                                gap: '20px'
+                                            }}
+                                        >
+                                            <Typography align='center'>
+                                                {user?.username}
+                                                {console.log(user)}
+                                            </Typography>
+                                            <Typography align='center'>
+                                                {user.postal_code}{' '}
+                                                {user.commune_name}
+                                            </Typography>
+                                        </Box>
+
+                                        <Button
+                                            variant='contained'
+                                            endIcon={<SendIcon />}
+                                            sx={{
+                                                width: {
+                                                    xs: '100%',
+                                                    md: '34%',
+                                                },
+                                            }}
+                                            onClick={() => {
+                                                handleDonorButton(user);
+                                            }}
+                                        >
+                                            Contactez {user.username}
+                                        </Button>
+                                    </Box>
+                                ))}
+                            </Box>
                         </>
                     )}
                     {(!users || users.length === 0) && (

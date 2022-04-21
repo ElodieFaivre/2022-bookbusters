@@ -145,9 +145,7 @@ function BookDetailModal({ callback = () => {} }) {
         setInfoAlert(infoMessage);
         break;
       default:
-        setErrorAlert(
-          "Une erreur semble avoir eu lieu, vous devriez recliquer sur le bouton."
-        );
+        setErrorAlert("Une erreur semble avoir eu lieu, vous devriez recliquer sur le bouton.");
         break;
     }
     console.log(bookStatus);
@@ -175,6 +173,7 @@ function BookDetailModal({ callback = () => {} }) {
   const handleCloseModal = () => {
     setOpenedBook(null);
   };
+
   return (
     <Modal
       open={Boolean(openedBook)}
@@ -191,12 +190,7 @@ function BookDetailModal({ callback = () => {} }) {
             <CloseIcon sx={{ color: "black" }} fontSize="small" />
           </IconButton>
         </Box>
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          sx={{ textAlign: "center", mb: 2 }}
-        >
+        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: "center", mb: 2 }}>
           {book.title}
         </Typography>
         {/* Zone des cover des livres */}
@@ -211,17 +205,9 @@ function BookDetailModal({ callback = () => {} }) {
             }}
           >
             {book.cover ? (
-              <img
-                className="imageCovers"
-                alt="Book cover"
-                src={book.cover}
-              ></img>
+              <img className="imageCovers" alt="Book cover" src={book.cover}></img>
             ) : (
-              <img
-                className="imageCovers"
-                alt="Generic book cover"
-                src={bookDefaultCover}
-              ></img>
+              <img className="imageCovers" alt="Generic book cover" src={bookDefaultCover}></img>
             )}
           </Box>
           {/* Zone des icones d'interactions */}
@@ -292,11 +278,7 @@ function BookDetailModal({ callback = () => {} }) {
                   </Typography>
                 </IconButton>
               </Tooltip>
-              <Tooltip
-                title="Activez la donation pour ce livre"
-                arrow
-                placement="right"
-              >
+              <Tooltip title="Activez la donation pour ce livre" arrow placement="right">
                 {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
                 <IconButton
@@ -355,10 +337,7 @@ function BookDetailModal({ callback = () => {} }) {
             </Box>
           )}
           {/* Zone des textes */}
-          <Box
-            id="modal-modal-description"
-            sx={{ margin: "0px 15px 0px 15px" }}
-          >
+          <Box id="modal-modal-description" sx={{ margin: "0px 15px 0px 15px" }}>
             <Typography variant="overline">Auteur:</Typography>
             <Typography>{book.author}</Typography>
             <Box
@@ -367,11 +346,7 @@ function BookDetailModal({ callback = () => {} }) {
               }}
             >
               <Typography variant="overline"> Résumé:</Typography>
-              {book.resume ? (
-                <Box>{book.resume}</Box>
-              ) : (
-                <Typography>Pas de résumé trouvé pour ce livre.</Typography>
-              )}
+              {book.resume ? <Box>{book.resume}</Box> : <Typography>Pas de résumé trouvé pour ce livre.</Typography>}
             </Box>
           </Box>
         </Box>
@@ -390,11 +365,16 @@ function BookDetailModal({ callback = () => {} }) {
                 <Box
                   className="bookUserOwner"
                   key={index}
-                  sx={{ mb: "5px", display: "flex", flexDirection: "row" }}
+                  sx={{ mb: "5px", display: "flex", flexDirection: "row", alignItems: "center" }}
                 >
                   <Typography align="center" sx={{ width: "50%" }}>
-                    {user?.username} {console.log(user)}
+                    {user?.username}
+                    {console.log(user)}
                   </Typography>
+                  <Typography align="center" sx={{ width: "50%" }}>
+                    {user.postal_code} {user.commune_name}
+                  </Typography>
+
                   {/* <Link
                     to="/ContactFormDonation"
                     style={{ color: "#000", textDecoration: "underline" }}

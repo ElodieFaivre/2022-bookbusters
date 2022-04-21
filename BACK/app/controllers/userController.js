@@ -76,9 +76,12 @@ module.exports = {
             req.body.password = encryptedPassword;
             // transformation of the commune code to a GPS coordonates via an external API
             debug('location:', req.body.communeCode);
-            let location = await city.findLocationByCommuneCode(req.body.communeCode);
+            const data = await city.findLocationByCommuneCode(req.body.communeCode);
+            let location = data[0];
             location = `${location[0]},${location[1]}`;
+            const communeName = data[1];
             req.body.location = location;
+            req.body.communeName = communeName;
             debug('req.body:', req.body);
             const savedUser = await userDataMapper.insert(req.body);
 

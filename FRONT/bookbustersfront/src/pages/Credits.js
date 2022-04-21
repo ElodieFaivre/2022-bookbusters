@@ -42,7 +42,7 @@ const Credits = () => {
                           display: 'flex',
                           flexDirection: { xs: 'column', md: 'row' },
                           justifyContent: 'center',
-                          alignItems: 'flext-start',
+                          alignItems: 'flex-start',
                           gap: '0rem 1rem',
                           marginBottom: '20px',
                       }}
@@ -51,8 +51,8 @@ const Credits = () => {
                           component='img'
                           src={BookBustersTeam}
                           sx={{
-                              width: { xs: '100%', md: '50%' },
-                              height: 'intrinsic',
+                              maxWidth: { xs: '100%', md: '50%' },
+                              objectFit: 'contain',
                           }}
                       />
                       <br />

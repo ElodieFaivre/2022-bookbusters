@@ -10,7 +10,7 @@ const fakeBooks = {
                 isbn10: '1235567890',
                 isbn13: '9781235567890',
                 title: 'BookWorm - trichez et gagnez',
-                author: ['Agathe, ', 'Yoan, '],
+                author: ['Agathe, ', 'Phil, ', 'Yoan, ', 'Thibaud, ', 'Bilal'],
                 resume: 'Toutes les soluces pour que votre ver devienne riche et gras',
                 publishedDate: '2022',
                 cover: 'https://i.ibb.co/yk1bbgV/bookworm-cover.png',
@@ -22,7 +22,7 @@ const fakeBooks = {
 
         // Livre fictif C du Prop's
         if (isbn === '9781235667890' || isbn === '1235667890') {
-            bookworm = {
+            cduprops = {
                 isbn10: '1235667890',
                 isbn13: '9781235667890',
                 title: "C du Prop's - Gagnez sans rien faire",
@@ -33,7 +33,23 @@ const fakeBooks = {
                 language: 'fr',
             };
 
-            result = bookworm;
+            result = cduprops;
+        }
+
+        // Livre fictif Kampus
+        if (isbn === '9781225667890' || isbn === '1225667890') {
+            kampus = {
+                isbn10: '1235667890',
+                isbn13: '9781235667890',
+                title: 'Organizatron (Kampus)',
+                author: ['Inès, ', 'Ludo, ', 'Romain, ', 'Mark, '],
+                resume: "Avec l'organizatron organise ton planning comme jamais !",
+                publishedDate: '2022',
+                cover: 'https://i.ibb.co/DbG4FCf/organizatron-cover.jpg',
+                language: 'fr',
+            };
+
+            result = kampus;
         }
 
         //If no answer

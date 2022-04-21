@@ -20,26 +20,34 @@ const SearchBar = () => {
   };
 
   return (
-    <Search component="form" onSubmit={handleSubmitSearch}>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      {errMsg && (
-        <Typography
-          variant="body2s"
-          color="error"
-          sx={{ mt: 2, textAlign: "center" }}
-        >
-          {errMsg}
-        </Typography>
-      )}
-      <StyledInputBase
-        placeholder="Cherchez des livres"
-        inputProps={{ "aria-label": "search" }}
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
-      />
-    </Search>
+      <Search component='form' onSubmit={handleSubmitSearch}>
+          <SearchIconWrapper>
+              <SearchIcon />
+          </SearchIconWrapper>
+          {errMsg && (
+              <Typography
+                  variant='body2s'
+                  color='error'
+                  sx={{ mt: 2, textAlign: 'center' }}
+              >
+                  {errMsg}
+              </Typography>
+          )}
+          <StyledInputBase
+              placeholder='Recherche'
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+              sx={{ display: { xs: 'block', md: 'none' } }}
+          />
+          <StyledInputBase
+              placeholder='Recherchez des livres par titre ou auteur'
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+              sx={{ display: { xs: 'none', md: 'block' } }}
+          />
+      </Search>
   );
 };
 

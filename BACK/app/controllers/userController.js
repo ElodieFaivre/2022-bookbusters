@@ -44,6 +44,7 @@ module.exports = {
             email: user.email,
             bio: user.bio,
             location: user.location,
+            commune_name: user.commune_name,
             mail_donation: user.mail_donation,
             mail_alert: user.mail_alert,
             avatar_id: user.avatar_id,
@@ -152,6 +153,7 @@ module.exports = {
             email: savedUser.email,
             bio: savedUser.bio,
             location: savedUser.location,
+            commune_name: savedUser.commune_name,
             mail_donation: savedUser.mail_donation,
             mail_alert: savedUser.mail_alert,
             avatar_id: savedUser.avatar_id,
@@ -188,6 +190,7 @@ module.exports = {
                         email: foundUser.email,
                         bio: foundUser.bio,
                         location: foundUser.location,
+                        commune_name: foundUser.commune_name,
                         mail_donation: foundUser.mail_donation,
                         mail_alert: foundUser.mail_alert,
                         avatar_id: foundUser.avatar_id,
@@ -217,9 +220,8 @@ module.exports = {
         }
     },
 
-    async contactDonor(req,res){
-        await mailer.contactBookDonor(req.body);
+    async contactDonor(req, res) {
+        const mail = await mailer.contactBookDonor(req.body);
         res.json('email envoyé');
-
     }
 };

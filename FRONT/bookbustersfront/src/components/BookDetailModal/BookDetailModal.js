@@ -23,51 +23,51 @@ import donatorContext from "../../contexts/DonatorContext";
 import alertContext from "../../contexts/AlertContext";
 
 const styleBox = {
-  position: "absolute",
-  top: { xs: "50%", md: "50%" },
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "95%",
-  bgcolor: "background.paper",
-  boxShadow: 20,
-  p: 2,
-  maxHeight: "90vh",
-  overflowY: "auto",
-  borderRadius: "5px",
+    position: 'absolute',
+    top: { xs: '50%', md: '50%' },
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '95%',
+    bgcolor: 'background.paper',
+    boxShadow: 20,
+    p: 2,
+    maxHeight: '90vh',
+    overflowY: 'auto',
+    borderRadius: '5px',
 };
 
 function BookDetailModal({ callback = () => {} }) {
-  //   const handleClose = () => setOpen(false);
-  const [open, setOpen] = useState(false);
-  const { openedBook, setOpenedBook } = useContext(bookContext);
-  const { setDonatorInfo } = useContext(donatorContext);
-  const { setErrorAlert, setInfoAlert } = useContext(alertContext);
-  const navigate = useNavigate();
+    //   const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState(false);
+    const { openedBook, setOpenedBook } = useContext(bookContext);
+    const { setDonatorInfo } = useContext(donatorContext);
+    const { setErrorAlert, setInfoAlert } = useContext(alertContext);
+    const navigate = useNavigate();
 
-  const [library, setLibrary] = useState();
-  const [favorit, setFavorit] = useState();
-  const [alert, setAlert] = useState();
-  const [donation, setDonation] = useState();
+    const [library, setLibrary] = useState();
+    const [favorit, setFavorit] = useState();
+    const [alert, setAlert] = useState();
+    const [donation, setDonation] = useState();
 
-  useEffect(() => {
-    if (openedBook?.connected_user) {
-      !library && setLibrary(openedBook.connected_user.is_in_library);
-      !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
-      !alert && setAlert(openedBook.connected_user.is_in_alert);
-      !donation && setDonation(openedBook.connected_user.is_in_donation);
-    }
-    if (openedBook && !openedBook.connected_user) {
-      setLibrary(false);
-      setFavorit(false);
-      setAlert(false);
-      setDonation(false);
-    }
-  }, [openedBook]);
+    useEffect(() => {
+        if (openedBook?.connected_user) {
+            !library && setLibrary(openedBook.connected_user.is_in_library);
+            !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
+            !alert && setAlert(openedBook.connected_user.is_in_alert);
+            !donation && setDonation(openedBook.connected_user.is_in_donation);
+        }
+        if (openedBook && !openedBook.connected_user) {
+            setLibrary(false);
+            setFavorit(false);
+            setAlert(false);
+            setDonation(false);
+        }
+    }, [openedBook]);
 
-  if (!openedBook) return null;
+    if (!openedBook) return null;
 
-  const book = openedBook;
-  const users = book.donors;
+    const book = openedBook;
+    const users = book.donors;
 
   const handleDonorButton = (donator) => {
     console.log(donator);
@@ -165,6 +165,7 @@ function BookDetailModal({ callback = () => {} }) {
   const handleCloseModal = () => {
     setOpenedBook(null);
   };
+
   return (
     <Modal
       open={Boolean(openedBook)}

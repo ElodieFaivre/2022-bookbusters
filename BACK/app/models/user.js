@@ -20,8 +20,9 @@ const client = require('../config/database');
  * @property {string} email
  * @property {string} password
  * @property {string} bio
- * @property {string} communeCode - exemple : "10500"
  * @property {string} postalCode - exemple : "10115"
+ * @property {string} communeCode - exemple : "10500"
+ * @property {string} commune_name - exemple : Creney près Troyes
  * @property {boolean} mail_donation - default TRUE
  * @property {boolean} mail_alert - default TRUE
  * @property {number} avatar_id - default 1
@@ -89,8 +90,8 @@ const userDataMapper = {
         const savedUser = await client.query(
             `
             INSERT INTO "user"
-            ("username", "email", "password", "bio", "location", "postal_code", "commune_code", "mail_donation", "mail_alert", "avatar_id") VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8,$9,$10) RETURNING id, username, email, bio, location, postal_code, commune_code, mail_donation, mail_alert, avatar_id
+            ("username", "email", "password", "bio", "location", "postal_code", "commune_code", "commune_name", "mail_donation", "mail_alert", "avatar_id") VALUES
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id, username, email, bio, location, postal_code, commune_code, commune_name, mail_donation, mail_alert, avatar_id
         `,
             [
                 user.username,
@@ -100,6 +101,7 @@ const userDataMapper = {
                 user.location,
                 user.postalCode,
                 user.communeCode,
+                user.commune_name,
                 user.mail_donation,
                 user.mail_alert,
                 user.avatar_id,
@@ -186,7 +188,7 @@ const userDataMapper = {
                 UPDATE "user" SET
                     active_account = true
                 WHERE id = $1
-                RETURNING id, username, email, bio, location, postal_code, commune_code, mail_donation, mail_alert, avatar_id`,
+                RETURNING id, username, email, bio, location, postal_code, commune_code, commune_name, mail_donation, mail_alert, avatar_id`,
             [id],
         );
         if (!activeAccount) {

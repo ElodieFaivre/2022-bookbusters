@@ -1,180 +1,180 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import bookContext from '../../contexts/BookContext';
-import bookDefaultCover from '../../assets/img/logo_bb.png';
-import { Button, IconButton, Stack, Tooltip } from '@mui/material';
-import './style.scss';
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import bookContext from "../../contexts/BookContext";
+import bookDefaultCover from "../../assets/img/logo_bb.png";
+import { Button, IconButton, Stack, Tooltip } from "@mui/material";
+import "./style.scss";
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import BookIcon from '@mui/icons-material/Book';
-import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
-import AddAlertIcon from '@mui/icons-material/AddAlert';
-import AddAlertOutlinedIcon from '@mui/icons-material/AddAlertOutlined';
-import CloseIcon from '@mui/icons-material/Close';
-import SendIcon from '@mui/icons-material/Send';
-import { updateBookStatus } from '../../api/fetchApi';
-import donatorContext from '../../contexts/DonatorContext';
-import alertContext from '../../contexts/AlertContext';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BookIcon from "@mui/icons-material/Book";
+import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import AddAlertOutlinedIcon from "@mui/icons-material/AddAlertOutlined";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
+import { updateBookStatus } from "../../api/fetchApi";
+import donatorContext from "../../contexts/DonatorContext";
+import alertContext from "../../contexts/AlertContext";
 
 const styleBox = {
-    position: 'absolute',
-    top: { xs: '50%', md: '50%' },
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '95%',
-    bgcolor: 'background.paper',
-    boxShadow: 20,
-    p: 2,
-    maxHeight: '90vh',
-    overflowY: 'auto',
-    borderRadius: '5px',
+  position: "absolute",
+  top: { xs: "50%", md: "50%" },
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "95%",
+  bgcolor: "background.paper",
+  boxShadow: 20,
+  p: 2,
+  maxHeight: "90vh",
+  overflowY: "auto",
+  borderRadius: "5px",
 };
 
 function BookDetailModal({ callback = () => {} }) {
-    //   const handleClose = () => setOpen(false);
-    const [open, setOpen] = useState(false);
-    const { openedBook, setOpenedBook } = useContext(bookContext);
-    const { setDonatorInfo } = useContext(donatorContext);
-    const { setErrorAlert, setInfoAlert } = useContext(alertContext);
-    const navigate = useNavigate();
+  //   const handleClose = () => setOpen(false);
+  const [open, setOpen] = useState(false);
+  const { openedBook, setOpenedBook } = useContext(bookContext);
+  const { setDonatorInfo } = useContext(donatorContext);
+  const { setErrorAlert, setInfoAlert } = useContext(alertContext);
+  const navigate = useNavigate();
 
-    const [library, setLibrary] = useState();
-    const [favorit, setFavorit] = useState();
-    const [alert, setAlert] = useState();
-    const [donation, setDonation] = useState();
+  const [library, setLibrary] = useState();
+  const [favorit, setFavorit] = useState();
+  const [alert, setAlert] = useState();
+  const [donation, setDonation] = useState();
 
-    useEffect(() => {
-        if (openedBook?.connected_user) {
-            !library && setLibrary(openedBook.connected_user.is_in_library);
-            !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
-            !alert && setAlert(openedBook.connected_user.is_in_alert);
-            !donation && setDonation(openedBook.connected_user.is_in_donation);
-        }
-        if (openedBook && !openedBook.connected_user) {
-            setLibrary(false);
-            setFavorit(false);
-            setAlert(false);
-            setDonation(false);
-        }
-    }, [openedBook]);
+  useEffect(() => {
+    if (openedBook?.connected_user) {
+      !library && setLibrary(openedBook.connected_user.is_in_library);
+      !favorit && setFavorit(openedBook.connected_user.is_in_favorite);
+      !alert && setAlert(openedBook.connected_user.is_in_alert);
+      !donation && setDonation(openedBook.connected_user.is_in_donation);
+    }
+    if (openedBook && !openedBook.connected_user) {
+      setLibrary(false);
+      setFavorit(false);
+      setAlert(false);
+      setDonation(false);
+    }
+  }, [openedBook]);
 
-    if (!openedBook) return null;
+  if (!openedBook) return null;
 
-    const book = openedBook;
-    const users = book.donors;
+  const book = openedBook;
+  const users = book.donors;
 
-    const handleDonorButton = (donator) => {
-        console.log(donator);
-        setDonatorInfo(donator);
-        navigate('/ContactFormDonation');
+  const handleDonorButton = (donator) => {
+    console.log(donator);
+    setDonatorInfo(donator);
+    navigate("/ContactFormDonation");
+  };
+  // Inverser tout de suite la valeur de l'état pour des questions de cycles de vie
+  // nous sommes dans le meme cycle de vie
+  const handleUpdateBookStatus = async (statusToUpdate) => {
+    const infoMessage = [];
+
+    let bookStatus = {
+      library,
+      favorit,
+      donation,
+      alert,
+      isbn10: book.isbn10,
+      isbn13: book.isbn13,
     };
-    // Inverser tout de suite la valeur de l'état pour des questions de cycles de vie
-    // nous sommes dans le meme cycle de vie
-    const handleUpdateBookStatus = async (statusToUpdate) => {
-        const infoMessage = [];
+    switch (statusToUpdate) {
+      case "library":
+        if (!library === false) {
+          if (donation) {
+            infoMessage.push(
+              "puisque vous ne possédez plus ce livre, nous l'avons retiré de vos dons"
+            );
+          }
+          setDonation(false);
+          bookStatus.donation = false;
 
-        let bookStatus = {
-            library,
-            favorit,
-            donation,
-            alert,
-            isbn10: book.isbn10,
-            isbn13: book.isbn13,
-        };
-        switch (statusToUpdate) {
-            case 'library':
-                if (!library === false) {
-                    if (donation) {
-                        infoMessage.push(
-                            'puisque vous ne possédez plus ce livre, nous l\'avons retiré de vos dons',
-                        );
-                    }
-                    setDonation(false);
-                    bookStatus.donation = false;
-
-                    setInfoAlert(infoMessage);
-                }
-                setLibrary(!library);
-                bookStatus.library = !library;
-                break;
-            case 'favorit':
-                setFavorit(!favorit);
-                bookStatus.favorit = !favorit;
-                break;
-            case 'donation':
-                if (!donation === true) {
-                    if(!library) {
-                        infoMessage.push(
-                            'pour sa mise au don, nous avons ajouté ce livre à votre bibliothèque',
-                        );
-                    }
-                    setLibrary(true);
-                    bookStatus.library = true;
-                    if (alert) {
-                        infoMessage.push(
-                            'puisque vous le possédez, nous avons retiré ce livre de vos alertes',
-                        );
-                    }
-                    setAlert(false);
-                    bookStatus.alert = false;
-
-                    setInfoAlert(infoMessage.join(' et '));
-                }
-                setDonation(!donation);
-                bookStatus.donation = !donation;
-                break;
-            case 'alert':
-                if (!alert === true) {
-                    if (donation) {
-                        infoMessage.push(
-                            'puisque vous recherchez ce livre, nous l\'avons retiré de vos dons',
-                        );
-                    }
-                    setDonation(false);
-                    bookStatus.donation = false;
-                }
-                setAlert(!alert);
-                bookStatus.alert = !alert;
-
-                setInfoAlert(infoMessage);
-                break;
-            default:
-                setErrorAlert(
-                    'Une erreur semble avoir eu lieu, vous devriez recliquer sur le bouton.',
-                );
-                break;
+          setInfoAlert(infoMessage);
         }
-        console.log(bookStatus);
-        const result = await updateBookStatus(bookStatus);
-        if (result === false) {
-            switch (statusToUpdate) {
-                case 'library':
-                    setLibrary(library);
-                    break;
-                case 'favorit':
-                    setFavorit(favorit);
-                    break;
-                case 'donation':
-                    setDonation(donation);
-                    break;
-                case 'alert':
-                    setAlert(alert);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+        setLibrary(!library);
+        bookStatus.library = !library;
+        break;
+      case "favorit":
+        setFavorit(!favorit);
+        bookStatus.favorit = !favorit;
+        break;
+      case "donation":
+        if (!donation === true) {
+          if (!library) {
+            infoMessage.push(
+              "pour sa mise au don, nous avons ajouté ce livre à votre bibliothèque"
+            );
+          }
+          setLibrary(true);
+          bookStatus.library = true;
+          if (alert) {
+            infoMessage.push(
+              "puisque vous le possédez, nous avons retiré ce livre de vos alertes"
+            );
+          }
+          setAlert(false);
+          bookStatus.alert = false;
 
-    const handleCloseModal = () => {
-        setOpenedBook(null);
-    };
+          setInfoAlert(infoMessage.join(" et "));
+        }
+        setDonation(!donation);
+        bookStatus.donation = !donation;
+        break;
+      case "alert":
+        if (!alert === true) {
+          if (donation) {
+            infoMessage.push(
+              "puisque vous recherchez ce livre, nous l'avons retiré de vos dons"
+            );
+          }
+          setDonation(false);
+          bookStatus.donation = false;
+        }
+        setAlert(!alert);
+        bookStatus.alert = !alert;
+
+        setInfoAlert(infoMessage);
+        break;
+      default:
+        setErrorAlert(
+          "Une erreur semble avoir eu lieu, vous devriez recliquer sur le bouton."
+        );
+        break;
+    }
+    console.log(bookStatus);
+    const result = await updateBookStatus(bookStatus);
+    if (result === false) {
+      switch (statusToUpdate) {
+        case "library":
+          setLibrary(library);
+          break;
+        case "favorit":
+          setFavorit(favorit);
+          break;
+        case "donation":
+          setDonation(donation);
+          break;
+        case "alert":
+          setAlert(alert);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setOpenedBook(null);
+  };
   return (
     <Modal
       open={Boolean(openedBook)}
@@ -186,10 +186,9 @@ function BookDetailModal({ callback = () => {} }) {
       }}
     >
       <Box sx={styleBox}>
-        <Box sx={{ textAlign: "right"}}>
+        <Box sx={{ textAlign: "right" }}>
           <IconButton onClick={handleCloseModal}>
-            <CloseIcon sx={{ color: "black"}} fontSize="small" />
-            
+            <CloseIcon sx={{ color: "black" }} fontSize="small" />
           </IconButton>
         </Box>
         <Typography
@@ -204,11 +203,11 @@ function BookDetailModal({ callback = () => {} }) {
         <Box sx={{ display: { xs: "block", md: "flex" } }}>
           <Box
             sx={{
-              maxWidth: { xs: "250px", md: "500px" },
+              maxWidth: { xs: "auto", md: "500px" },
               height: "auto",
               padding: { xs: "auto", md: "0px 20px 15px 0px" },
-              display:{xs:"flex", md:"block"},
-              justifyContent:"center"
+              display: { xs: "flex", md: "block" },
+              justifyContent: "center",
             }}
           >
             {book.cover ? (
@@ -227,25 +226,70 @@ function BookDetailModal({ callback = () => {} }) {
           </Box>
           {/* Zone des icones d'interactions */}
           {localStorage.getItem("jwt") && (
-            <Box sx={{ display: "flex", flexDirection:{xs:"row", md:"column"}, justifyContent:{xs:"space-evenly"}, marginTop:{xs:"10px", md:"0"}}}>
-              <Tooltip title="Ajoutez ce livre à vos favoris" arrow placement="right">
-                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "row", md: "column" },
+                justifyContent: { xs: "space-evenly" },
+                marginTop: { xs: "10px", md: "0" },
+              }}
+            >
+              <Tooltip
+                title="Ajoutez ce livre à vos favoris"
+                arrow
+                placement="right"
+              >
+                <IconButton
+                  sx={{
+                    display: { xs: "flex", md: "block" },
+                    flexDirection: "column",
+                  }}
                   onClick={() => {
                     handleUpdateBookStatus("favorit");
-                  }} 
+                  }}
                 >
-                  {favorit ? (<FavoriteIcon sx={{ color: "red" }} />) : (<FavoriteBorderIcon />)}
-                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Favoris</Typography>
+                  {favorit ? (
+                    <FavoriteIcon sx={{ color: "red" }} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
+                  <Typography
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    Favoris
+                  </Typography>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Ajoutez ce livre à votre bilbiothèque" arrow placement="right">
-                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
+              <Tooltip
+                title="Ajoutez ce livre à votre bilbiothèque"
+                arrow
+                placement="right"
+              >
+                <IconButton
+                  sx={{
+                    display: { xs: "flex", md: "block" },
+                    flexDirection: "column",
+                  }}
                   onClick={() => {
                     handleUpdateBookStatus("library");
                   }}
                 >
-                  {library ? <BookIcon sx={{ color: "brown" }} /> : <BookOutlinedIcon />}
-                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Bilbiothèque</Typography>
+                  {library ? (
+                    <BookIcon sx={{ color: "brown" }} />
+                  ) : (
+                    <BookOutlinedIcon />
+                  )}
+                  <Typography
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    Bilbiothèque
+                  </Typography>
                 </IconButton>
               </Tooltip>
               <Tooltip
@@ -255,23 +299,57 @@ function BookDetailModal({ callback = () => {} }) {
               >
                 {/*Déclaration de fonction pour ne pas déclencher le onClick au
               chargement de la page*/}
-                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
+                <IconButton
+                  sx={{
+                    display: { xs: "flex", md: "block" },
+                    flexDirection: "column",
+                  }}
                   onClick={() => {
                     handleUpdateBookStatus("donation");
                   }}
                 >
-                  {donation ? <VolunteerActivismIcon sx={{ color: "blue" }} /> : <VolunteerActivismOutlinedIcon />}
-                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Don</Typography>
+                  {donation ? (
+                    <VolunteerActivismIcon sx={{ color: "blue" }} />
+                  ) : (
+                    <VolunteerActivismOutlinedIcon />
+                  )}
+                  <Typography
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    Don
+                  </Typography>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Ajoutez une alerte pour ce livre" arrow placement="right">
-                <IconButton sx={{display:{xs:"flex", md:"block"}, flexDirection:"column"}}
+              <Tooltip
+                title="Ajoutez une alerte pour ce livre"
+                arrow
+                placement="right"
+              >
+                <IconButton
+                  sx={{
+                    display: { xs: "flex", md: "block" },
+                    flexDirection: "column",
+                  }}
                   onClick={() => {
                     handleUpdateBookStatus("alert");
                   }}
                 >
-                  {alert ? <AddAlertIcon sx={{ color: "green" }} /> : <AddAlertOutlinedIcon />}
-                  <Typography sx={{ display:{xs:"block", md:"none"}, fontSize: "0.8rem"}}>Alerte</Typography>
+                  {alert ? (
+                    <AddAlertIcon sx={{ color: "green" }} />
+                  ) : (
+                    <AddAlertOutlinedIcon />
+                  )}
+                  <Typography
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    Alerte
+                  </Typography>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -300,10 +378,12 @@ function BookDetailModal({ callback = () => {} }) {
         {/* Zone des donateurs */}
         <Stack>
           {users && users[0] && users.length > 0 && (
-           
             <>
-             
-              <Typography variant="h5" align="center" sx={{ mb: "10px", mt: "10px" }}>
+              <Typography
+                variant="h5"
+                align="center"
+                sx={{ mb: "10px", mt: "10px" }}
+              >
                 Livre disponible chez
               </Typography>
               {users.map((user, index) => (
@@ -336,7 +416,9 @@ function BookDetailModal({ callback = () => {} }) {
           )}
           {(!users || users.length === 0) && (
             <>
-              <Typography sx={{marginTop:"10px", textAlign:"center"}}>Personne ne possède le livre !</Typography>
+              <Typography sx={{ marginTop: "10px", textAlign: "center" }}>
+                Personne ne possède le livre !
+              </Typography>
             </>
           )}
         </Stack>

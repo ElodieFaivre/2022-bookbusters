@@ -24,13 +24,19 @@ function Books() {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-evenly",
-          alignItems: "center",
+          alignItems: "stretch",
           width: { md: "70%" },
           margin: "auto",
         }}
       >
         {!isLoading ? (
-          data.map((book, index) => <Book key={`je-suis-unique-${index}`} book={book} users={book.donors} />)
+          data.map((book, index) => (
+            <Book
+              key={`je-suis-unique-${index}`}
+              book={book}
+              users={book.donors}
+            />
+          ))
         ) : (
           <Spinner />
         )}

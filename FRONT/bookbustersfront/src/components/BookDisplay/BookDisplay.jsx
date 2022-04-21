@@ -1,7 +1,11 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { favoritesBooks, libraryBooks, myAlertsBooks } from "../../api/fetchApi";
+import {
+  favoritesBooks,
+  libraryBooks,
+  myAlertsBooks,
+} from "../../api/fetchApi";
 import BookDetailModal from "../BookDetailModal/BookDetailModal";
 import BookDisplayModel from "../BookDisplayModel/BookDisplayModel";
 import Spinner from "../Spinner/Spinner";
@@ -22,8 +26,6 @@ const BookDisplay = () => {
   }, []);
 
   const location = useLocation();
-  //console.log(location.pathname === "/Favorites");
-  //console.log(data);
 
   function isLoading() {
     return isLoadingFavorit || isLoadingLibrary || isLoadingAlert;
@@ -34,13 +36,13 @@ const BookDisplay = () => {
   function locationMap() {
     switch (location.pathname) {
       case "/Favorites":
-        listName = 'liste de favoris';
+        listName = "liste de favoris";
         return data;
       case "/Library":
-        listName = 'bibliothèque';
+        listName = "bibliothèque";
         return library;
       case "/MyAlerts":
-        listName = 'liste de d\'alertes';
+        listName = "liste de d'alertes";
         return alert;
       default:
         return null;
@@ -54,7 +56,7 @@ const BookDisplay = () => {
       return true;
     }
   }
-  console.log(isLoading());
+
   return (
     <>
       {" "}
@@ -65,16 +67,20 @@ const BookDisplay = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-evenly",
-          alignItems: "center",
+          alignItems: "stretch",
           width: { md: "70%" },
           margin: "auto",
+          textAlign: "center",
         }}
       >
         {!isLoading() ? (
           <>
             {attenteReceptionDonnees() &&
-              locationMap().books.map((data, index) => <BookDisplayModel key={index} data={data} />)}
-            {!attenteReceptionDonnees() && "Vous n'avez encore aucun livre dans votre " + listName + '.'}
+              locationMap().books.map((data, index) => (
+                <BookDisplayModel key={index} data={data} />
+              ))}
+            {!attenteReceptionDonnees() &&
+              "Vous n'avez encore aucun livre dans votre " + listName + "."}
           </>
         ) : (
           <Spinner />

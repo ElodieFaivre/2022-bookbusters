@@ -18,29 +18,44 @@ export default function BookDisplayModel({ data }) {
   }
   const { setOpenedBook } = React.useContext(bookContext);
   return (
-    <Button onClick={() => setOpenedBook(data)}>
+    <Button
+      sx={{ alignItems: "flex-start" }}
+      onClick={() => setOpenedBook(data)}
+    >
       <Card
         sx={{
           maxWidth: "200px",
-          m: 2,
-          height: "500px",
+          minWidth: { xs: "160px", md: "200px" },
+          margin: { xs: "8px 4px", md: "16px" },
           display: "flex",
           flexDirection: "column",
+          alignSelf: "stretch",
           justifyContent: "space-between",
         }}
       >
-        <CardMedia component="img" image={livrePLS()} alt="seigneur" />
+        <CardMedia
+          component="img"
+          image={livrePLS()}
+          alt={`Couverture du livre ${data.title}`}
+        />
         <CardContent
           sx={{
-            overflowY: "auto",
-            marginBottom: " 1px",
+            flexGrow: "1",
+            gap: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
           }}
         >
           <Typography gutterBottom sx={{ fontSize: "1.2em" }} component="div">
             {data.title}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
-            <b>Auteur: </b> {data.author}
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ fontSize: "0.9em" }}
+          >
+            {data.author}
           </Typography>
         </CardContent>
       </Card>

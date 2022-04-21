@@ -73,6 +73,7 @@ const Credits = () => {
                                       variant='h6'
                                       sx={{
                                           width: '100px',
+                                          textAlign: 'left',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -119,6 +120,7 @@ const Credits = () => {
                                       variant='h6'
                                       sx={{
                                           width: '100px',
+                                          textAlign: 'left',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -165,6 +167,7 @@ const Credits = () => {
                                       variant='h6'
                                       sx={{
                                           width: '100px',
+                                          textAlign: 'left',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -210,6 +213,7 @@ const Credits = () => {
                                       variant='h6'
                                       sx={{
                                           width: '100px',
+                                          textAlign: 'left',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}
@@ -256,6 +260,7 @@ const Credits = () => {
                                       variant='h6'
                                       sx={{
                                           width: '100px',
+                                          textAlign: 'left',
                                           color: 'white',
                                           marginRight: '2vh',
                                       }}

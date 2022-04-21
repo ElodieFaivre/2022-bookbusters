@@ -1,10 +1,13 @@
 import { Stack, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import React from "react";
+import React, { useContext } from "react";
+import authContext from "../../contexts/AuthContext";
 
 function SignButtons() {
-  if (localStorage.getItem("jwt")) {
+  const { connected } = useContext(authContext);
+
+  if (connected) {
     return null;
   }
 

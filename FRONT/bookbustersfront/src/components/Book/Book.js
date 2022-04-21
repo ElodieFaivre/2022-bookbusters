@@ -80,8 +80,8 @@ export default function Book({ book, users }) {
             >
               {book.title}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              <b>Auteur: </b> {book.author}
+            <Typography variant="body1" color="text.secondary" sx={{fontSize: '0.9em'}}>
+              {book.author}
             </Typography>
           </CardContent>
         </Card>

@@ -15,6 +15,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import authContext from "../../contexts/AuthContext";
 import scannerIcon from "../../assets/img/scanner-icon.svg";
 import { convertLength } from "@mui/material/styles/cssUtils";
+import logoBusters from "../../assets/img/logoBusters.svg";
+import logoBustersWhiteDesktop from "../../assets/img/logo_bb_reserve.svg";
 
 const pages = [
   {
@@ -72,7 +74,7 @@ const ResponsiveAppBar = () => {
       href: "/Account",
       style: { color: "#fff", textDecoration: "none" },
       sx: { color: "black" },
-      label: "Account",
+      label: "Mon compte",
       action: null,
     },
     {
@@ -133,215 +135,243 @@ const ResponsiveAppBar = () => {
   });
 
   return (
-    <AppBar position="sticky" sx={{ top: 0, left: 0, right: 0 }}>
-      <Container
-        maxWidth="xl"
-        style={{
-          paddingInline: "0 10px",
-          maxWidth: "1280px",
-          display: "flex",
-          flexFlow: "row nowrap",
-          justifyContent: "center",
-          flexGrow: 1,
-        }}
-      >
-        <Toolbar disableGutters style={{ flexGrow: 1 }}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              flexFlow: "row nowrap",
-              flexGrow: 1,
-              gap: "20px",
-              justifyContent: "flex-start",
-              alignItems: "center",
-            }}
-          >
-            <Link
-              to="/"
+      <AppBar position='sticky' sx={{ top: 0, left: 0, right: 0 }}>
+          <Container
+              maxWidth='xl'
               style={{
-                color: "#fff",
-                textDecoration: "none",
-                marginLeft: "16px",
+                  paddingInline: '0 10px',
+                  maxWidth: '1280px',
+                  display: 'flex',
+                  flexFlow: 'row nowrap',
+                  justifyContent: 'center',
+                  flexGrow: 1,
               }}
-            >
-              BookBusters
-            </Link>
-            <SearchBar />
-            {jwt && (
-              <Link
-                to="/scan"
-                style={{
-                  display: "block",
-                  minWidth: "40px",
-                  minHeight: "42px",
-                  backgroundImage: `url("${scannerIcon}")`,
-                  backgroundPosition: "center center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                }}
-              ></Link>
-            )}
-          </Typography>
-
-          <Box
-            sx={{
-              display: { xs: "flex", md: "none" },
-            }}
           >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {/* key={`MenuItem-Desktop-NavBar--${index}`} */}
-              {navlinks.map((page, index) => (
-                <MenuItem key={`MenuItem-Desktop-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
-                  <Link style={page.style} to={page.href}>
-                    <Typography sx={page.sx} textAlign="center">
-                      {page.label}
-                    </Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-              flexFlow: "row nowrap",
-              gap: "10px",
-              justifyContent: "flex-start",
-              alignItems: "center",
-            }}
-          >
-            <Link
-              to="/"
-              underline="none"
-              style={{
-                color: "#fff",
-                textDecoration: "none",
-              }}
-            >
-              B
-            </Link>
-            <SearchBar />
-            {jwt && (
-              <Link
-                to="/scan"
-                style={{
-                  display: "block",
-                  minWidth: "40px",
-                  minHeight: "42px",
-                  backgroundImage: `url("${scannerIcon}")`,
-                  backgroundPosition: "center center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                }}
-              ></Link>
-            )}
-          </Typography>
-          <Box
-            sx={{
-              flexGrow: 0,
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            {navlinks.map((page, index) => (
-              <MenuItem key={`MenuItem-babybel-NavBar--${index}`} onClick={handleCloseNavMenu} sx={page.sx}>
-                <Link style={page.style} to={page.href}>
-                  <Typography sx={page.sx} textAlign="center">
-                    {page.label}
-                  </Typography>
-                </Link>
-              </MenuItem>
-            ))}
-          </Box>
-
-          {jwt && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Compte utilisateur">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: "15px" }}>
-                  <AccountCircleIcon fontSize="large" style={{ color: "white" }} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting, index) => (
-                  <MenuItem
-                    key={`MenuItem-banana-NavBar--${index}`}
-                    onClick={() => {
-                      if (setting.action) {
-                        setting.action();
-                      }
-                      handleCloseUserMenu();
-                    }}
-                    sx={setting.sx}
+              <Toolbar disableGutters style={{ flexGrow: 1 }}>
+                  <Typography
+                      variant='h6'
+                      noWrap
+                      component='div'
+                      sx={{
+                          mr: 2,
+                          display: { xs: 'none', md: 'flex' },
+                          flexFlow: 'row nowrap',
+                          flexGrow: 1,
+                          gap: '20px',
+                          justifyContent: 'flex-start',
+                          alignItems: 'center',
+                      }}
                   >
-                    {setting.href && (
-                      <Link style={setting.style} to={setting.href}>
-                        <Typography sx={setting.sx} textAlign="center">
-                          {setting.label}
-                        </Typography>
+                      <Link to='/' sx={{ textDecoration: 'none' }}>
+                          <Box
+                              component='img'
+                              style={{
+                                  margin: '5px 0 -5px 10px',
+                                  height: '50px',
+                              }}
+                              src={logoBustersWhiteDesktop}
+                          ></Box>
                       </Link>
-                    )}
-                    {!setting.href && (
-                      <Typography sx={setting.sx} textAlign="center">
-                        {setting.label}
-                      </Typography>
-                    )}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+
+                      <SearchBar />
+                      {jwt && (
+                          <Link
+                              to='/scan'
+                              style={{
+                                  display: 'block',
+                                  minWidth: '40px',
+                                  minHeight: '42px',
+                                  backgroundImage: `url("${scannerIcon}")`,
+                                  backgroundPosition: 'center center',
+                                  backgroundRepeat: 'no-repeat',
+                                  backgroundSize: 'cover',
+                              }}
+                          ></Link>
+                      )}
+                  </Typography>
+
+                  <Box
+                      sx={{
+                          display: { xs: 'flex', md: 'none' },
+                      }}
+                  >
+                      <IconButton
+                          size='large'
+                          aria-label='account of current user'
+                          aria-controls='menu-appbar'
+                          aria-haspopup='true'
+                          onClick={handleOpenNavMenu}
+                          color='inherit'
+                      >
+                          <MenuIcon />
+                      </IconButton>
+                      <Menu
+                          id='menu-appbar'
+                          anchorEl={anchorElNav}
+                          anchorOrigin={{
+                              vertical: 'bottom',
+                              horizontal: 'left',
+                          }}
+                          keepMounted
+                          transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'left',
+                          }}
+                          open={Boolean(anchorElNav)}
+                          onClose={handleCloseNavMenu}
+                          sx={{
+                              display: { xs: 'block', md: 'none' },
+                          }}
+                      >
+                          {/* key={`MenuItem-Desktop-NavBar--${index}`} */}
+                          {navlinks.map((page, index) => (
+                              <MenuItem
+                                  key={`MenuItem-Desktop-NavBar--${index}`}
+                                  onClick={handleCloseNavMenu}
+                                  sx={page.sx}
+                              >
+                                  <Link style={page.style} to={page.href}>
+                                      <Typography
+                                          sx={page.sx}
+                                          textAlign='center'
+                                      >
+                                          {page.label}
+                                      </Typography>
+                                  </Link>
+                              </MenuItem>
+                          ))}
+                      </Menu>
+                  </Box>
+                  <Typography
+                      variant='h6'
+                      noWrap
+                      component='div'
+                      sx={{
+                          flexGrow: 1,
+                          display: { xs: 'flex', md: 'none' },
+                          flexFlow: 'row nowrap',
+                          gap: '10px',
+                          justifyContent: 'flex-start',
+                          alignItems: 'center',
+                      }}
+                  >
+                      <Link to='/' sx={{ textDecoration: 'none' }}>
+                          <Box
+                              component='img'
+                              style={{
+                                  margin: '5px 0 -5px 0',
+                                  height: '50px',
+                                  filter: 'invert(100%)',
+                              }}
+                              src={logoBusters}
+                          ></Box>
+                      </Link>
+                      <SearchBar />
+                      {jwt && (
+                          <Link
+                              to='/scan'
+                              style={{
+                                  display: 'block',
+                                  minWidth: '40px',
+                                  minHeight: '42px',
+                                  backgroundImage: `url("${scannerIcon}")`,
+                                  backgroundPosition: 'center center',
+                                  backgroundRepeat: 'no-repeat',
+                                  backgroundSize: 'cover',
+                              }}
+                          ></Link>
+                      )}
+                  </Typography>
+                  <Box
+                      sx={{
+                          flexGrow: 0,
+                          display: { xs: 'none', md: 'flex' },
+                      }}
+                  >
+                      {navlinks.map((page, index) => (
+                          <MenuItem
+                              key={`MenuItem-babybel-NavBar--${index}`}
+                              onClick={handleCloseNavMenu}
+                              sx={page.sx}
+                          >
+                              <Link style={page.style} to={page.href}>
+                                  <Typography sx={page.sx} textAlign='center'>
+                                      {page.label}
+                                  </Typography>
+                              </Link>
+                          </MenuItem>
+                      ))}
+                  </Box>
+
+                  {jwt && (
+                      <Box sx={{ flexGrow: 0 }}>
+                          <Tooltip title='Compte utilisateur'>
+                              <IconButton
+                                  onClick={handleOpenUserMenu}
+                                  sx={{ p: 0, marginLeft: '15px' }}
+                              >
+                                  <AccountCircleIcon
+                                      fontSize='large'
+                                      style={{ color: 'white' }}
+                                  />
+                              </IconButton>
+                          </Tooltip>
+                          <Menu
+                              sx={{ mt: '45px' }}
+                              id='menu-appbar'
+                              anchorEl={anchorElUser}
+                              anchorOrigin={{
+                                  vertical: 'top',
+                                  horizontal: 'right',
+                              }}
+                              keepMounted
+                              transformOrigin={{
+                                  vertical: 'top',
+                                  horizontal: 'right',
+                              }}
+                              open={Boolean(anchorElUser)}
+                              onClose={handleCloseUserMenu}
+                          >
+                              {settings.map((setting, index) => (
+                                  <MenuItem
+                                      key={`MenuItem-banana-NavBar--${index}`}
+                                      onClick={() => {
+                                          if (setting.action) {
+                                              setting.action();
+                                          }
+                                          handleCloseUserMenu();
+                                      }}
+                                      sx={setting.sx}
+                                  >
+                                      {setting.href && (
+                                          <Link
+                                              style={setting.style}
+                                              to={setting.href}
+                                          >
+                                              <Typography
+                                                  sx={setting.sx}
+                                                  textAlign='center'
+                                              >
+                                                  {setting.label}
+                                              </Typography>
+                                          </Link>
+                                      )}
+                                      {!setting.href && (
+                                          <Typography
+                                              sx={setting.sx}
+                                              textAlign='center'
+                                          >
+                                              {setting.label}
+                                          </Typography>
+                                      )}
+                                  </MenuItem>
+                              ))}
+                          </Menu>
+                      </Box>
+                  )}
+              </Toolbar>
+          </Container>
+      </AppBar>
   );
 };
 export default ResponsiveAppBar;

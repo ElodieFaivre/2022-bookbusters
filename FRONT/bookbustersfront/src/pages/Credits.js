@@ -284,7 +284,22 @@ const Credits = () => {
                     sx={{ marginLeft: "1vh", marginTop: "0,5vh" }}
                   />
                 </Link>
+                <br />
               </Box>
+              <Typography
+                sx={{
+                  color: "white",
+                  textAlign: "initial",
+                  fontSize: "0.7rem",
+                  marginTop: "2rem",
+                }}
+              >
+                Projet réalisé dans le cadre du processus d'apothéose de l'école
+                O'clock. Promotion Zagreus 02/11/2021-25/04/2022. Nous
+                remercions tous nos profs de socle et de spécialité (Data/API &
+                React) ainsi que les deux supers anges gardiens de notre
+                promotion, Etienne et son acolyte Gauthier.
+              </Typography>
             </Box>
           </Box>
         </Paper>

@@ -11,7 +11,7 @@ const validISBN10 = new RegExp(/^\d{9}(\d||x||X)$/);
 
 const google = {
     async findBookByISBN(isbn) {
-        const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&printType=books&langRestrict=fr`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&printType=books`;
 
         const response = await fetch(url);
         const json = await response.json();
@@ -81,7 +81,7 @@ const google = {
     },
 
     async findBookByKeyword(word, limit, startIndex) {
-        const url = `https://www.googleapis.com/books/v1/volumes?q=${word}&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}&printType=books`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${word}&orderBy=relevance&printType=books&maxResults=${limit}&startIndex=${startIndex}&printType=books&langRestrict=fr`;
 
         const response = await fetch(url);
         const json = await response.json();

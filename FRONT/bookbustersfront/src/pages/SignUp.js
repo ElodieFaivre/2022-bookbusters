@@ -76,8 +76,7 @@ export default function SignUp() {
 
   //* Regex pour le pseudo et pour le mot de passe
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-  const PWD_REGEX =
-    /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+  const PWD_REGEX = /^.{6,50}$/;
 
   // Test1234@
 
@@ -226,7 +225,7 @@ export default function SignUp() {
                   id="password"
                   value={password}
                   onChange={({ target }) => setPassword(target.value)}
-                  helperText="8 à 24 caractères / 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial"
+                  helperText="entre 6 et 50 caractères"
                 />
               </Grid>
               <Grid item xs={12}>

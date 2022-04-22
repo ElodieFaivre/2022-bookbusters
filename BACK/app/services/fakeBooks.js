@@ -41,11 +41,11 @@ const fakeBooks = {
             kampus = {
                 isbn10: '1225667890',
                 isbn13: '9781225667890',
-                title: 'Organizatron (Kampus)',
+                title: 'Organizatron (Kanpus)',
                 author: ['Inès, ', 'Ludo, ', 'Romain, ', 'Mark'],
                 resume: "Avec l'organizatron organise ton planning comme jamais !",
                 publishedDate: '2022',
-                cover: 'https://i.ibb.co/DbG4FCf/organizatron-cover.jpg',
+                cover: 'https://i.ibb.co/WPnn1zH/kanpus-cover.jpg',
                 language: 'fr',
             };
 

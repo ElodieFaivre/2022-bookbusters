@@ -38,6 +38,7 @@ const SearchBar = () => {
               inputProps={{ 'aria-label': 'search' }}
               onChange={(e) => setSearch(e.target.value)}
               value={search}
+              sx={{ width: '100%' }}
           />
       </Search>
   );

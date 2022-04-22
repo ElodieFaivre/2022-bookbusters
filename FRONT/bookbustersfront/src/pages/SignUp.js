@@ -78,7 +78,8 @@ export default function SignUp() {
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
   const PWD_REGEX = /^.{6,50}$/;
 
-  // Test1234@
+  // OLD PASSWORD REGEX
+  // const PWD_REGEX =/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
 
   const handleSubmit = (event) => {
     event.preventDefault();

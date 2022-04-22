@@ -219,7 +219,7 @@ module.exports = {
         if (!user) {
             throw new ApiError('User id not found', { statusCode: 400 });
         } else {
-            res.redirect(process.env.FRONT_URL'/signin');
+            res.redirect(process.env.FRONT_URL + '/signin');
         }
     },
 
